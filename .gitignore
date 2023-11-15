@@ -1,0 +1,3 @@
+env/
+.env
+sentimail/db.sqlite3
