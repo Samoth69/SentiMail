@@ -1,3 +1,4 @@
 env/
 .env
 sentimail/db.sqlite3
+dev-test/
