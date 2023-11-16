@@ -5,6 +5,7 @@ from rest_framework.views import APIView
 from base.models import Email
 from . serializers import EmailSerializer, UploadFileSerializer
 from rest_framework import status
+from base import views as base_views
 
 
 @api_view(['GET'])
@@ -29,6 +30,9 @@ class UploadFileView(APIView):
         serializer = self.serializer_class(data=request.data)
         if serializer.is_valid():
             serializer.save()
+            file = serializer.data.get('file')
+            print("File: ", file)
+            base_views.fileuploaded(file)
             return Response(
                 serializer.data,
                 status=status.HTTP_201_CREATED
