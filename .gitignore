@@ -6,3 +6,4 @@ sentimail/media/
 *.pot
 *.pyc
 __pycache__/
+.DS_Store
