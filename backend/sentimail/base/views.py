@@ -9,6 +9,7 @@ from rest_framework import status
 from minio import Minio
 import uuid
 import os
+import pika
 from . emailform import EmailForm
 
 from . models import Email
@@ -29,15 +30,6 @@ def index(request):
     else:
         form = EmailForm()
     return render(request, 'base/index.html', {'form': form})
-    #return render(request, 'base/index.html')
-    """ if request.method == 'POST':
-        form = EmailForm(request.POST, request.FILES)
-        if form.is_valid():
-            form.save()
-            file = form.path()
-            print("File: ", file)
-            fileuploaded(file)
-            return redirect(uploadSuccess) """
 
 def uploadSuccess(request):
     return render(request, 'base/uploadSuccess.html')
@@ -62,7 +54,11 @@ def fileuploaded(file):
     # Delete the file
     os.remove(file)
 
-    print("File uploaded")
+    # Publish message on RabbitMQ
+    publishMessage(email_uuid)
+
+    print(f"File {email_uuid} uploaded successfully" )
+    return email_uuid
 
 # TODO: Secure this endpoint (SSL Error)   
 def uploadFileOnObjectStorage(name, file):
@@ -76,6 +72,21 @@ def uploadFileOnObjectStorage(name, file):
     if not found:
         minioclient.make_bucket("sentimail")
     minioclient.fput_object("sentimail", name, file)
+
+def publishMessage(uuid):
+    connection = pika.BlockingConnection(
+        pika.ConnectionParameters(
+            host=settings.RABBITMQ_HOST,
+            port=settings.RABBITMQ_PORT,
+            virtual_host='/',
+            credentials=pika.PlainCredentials(settings.RABBITMQ_USER, settings.RABBITMQ_PASSWORD)
+        )
+    )
+    channel = connection.channel()
+    channel.queue_declare(queue='sentimail')
+    channel.basic_publish(exchange='', routing_key='sentimail', body=uuid)
+    print(" [x] Sent ", uuid, " to RabbitMQ")
+    connection.close()
 
 
 
@@ -105,10 +116,13 @@ class UploadFileView(APIView):
             serializer.save()
             file = serializer.data.get('file')
             print("File: ", file)
-            fileuploaded(file)
+            uuid = fileuploaded(file)
             return Response(
-                serializer.data,
-                status=status.HTTP_201_CREATED
+                {
+                    'uuid': uuid
+                },               
+                #serializer.data,
+                status=status.HTTP_201_CREATED,
             )
         return Response(
             serializer.errors,
