@@ -1,0 +1,53 @@
+apiVersion: helm.cattle.io/v1
+kind: HelmChartConfig
+metadata:
+  name: traefik
+  namespace: kube-system
+spec:
+  valuesContent: |-
+    globalArguments:
+    - "--global.checknewversion"
+    logs:
+      general:
+        level: INFO
+    ingressRoute:
+      dashboard:
+        enabled: false
+    forwardedHeaders:
+      enabled: true
+      trustedIPs:
+        - 10.0.0.0/8
+    ports:
+      websecure:
+        domains:
+        - main: samoth.eu
+          sans:
+            - sentimail.samoth.eu
+            - sentimail-dev.samoth.eu
+    env:
+    - name: CF_DNS_API_TOKEN
+      valueFrom:
+        secretKeyRef:
+          name: cloudflare-secret
+          key: token
+    persistence:
+      enabled: true
+    certResolvers:
+      letsencrypt:
+        email: thomasviolent@gmail.com
+        storage: /data/acme.json
+        tlsChallenge: true
+        dnsChallenge:
+          provider: cloudflare
+          delayBeforeCheck: 10
+          resolvers:
+            - 1.1.1.1
+            - 1.0.0.1
+    deployment:
+      initContainers:
+        - name: volume-permissions
+          image: busybox:latest
+          command: ["sh", "-c", "touch /data/acme.json; chmod -v 600 /data/acme.json"]
+          volumeMounts:
+          - mountPath: /data
+            name: data
