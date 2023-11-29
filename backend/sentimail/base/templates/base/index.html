@@ -1,0 +1,25 @@
+{% load static %}
+
+<html>
+<head>
+    <title>SentiMail</title>
+    <link rel="stylesheet" href="{% static 'base/styles.css' %}" />
+</head>
+<body>
+    <div class="container">
+        <h1>SentiMail</h1>
+        <h2>Accueil</h2>
+
+        <h3> Upload Email</h3>
+        {% block content %}
+        <form method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <button type="submit">Upload</button>
+        </form>
+        
+        
+        {% endblock %}
+        
+    </div>
+</html>

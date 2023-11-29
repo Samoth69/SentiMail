@@ -1,5 +1,5 @@
 from django.conf import settings
-from django.shortcuts import render
+from django.shortcuts import redirect, render
 from django.http import HttpResponse
 from rest_framework.response import Response
 from rest_framework.decorators import api_view
@@ -9,14 +9,29 @@ from rest_framework import status
 from minio import Minio
 import hashlib
 import os
+from . emailform import EmailForm
 
 from . models import Email
 from . serializers import EmailSerializer, UploadFileSerializer
 
 
 
+
 def index(request):
-    return render(request, 'base/index.html')
+
+    if request.method == 'POST':
+       form = EmailForm(request.POST, request.FILES)
+       if form.is_valid():
+           form.save()
+           #fileuploaded
+           return redirect(uploadSuccess)
+    else:
+        form = EmailForm()
+    return render(request, 'base/index.html', {'form': form})
+    #return render(request, 'base/index.html')
+
+def uploadSuccess(request):
+    return render(request, 'base/uploadSuccess.html')
 
 # TODO: Test if file is already uploaded
 def fileuploaded(file):

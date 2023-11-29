@@ -1,7 +1,7 @@
 env/
 .env
 dev-test/
-sentimail/media/
+media/
 *.log
 *.pot
 *.pyc
