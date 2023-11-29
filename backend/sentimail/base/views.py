@@ -7,28 +7,37 @@ from rest_framework.parsers import FormParser, MultiPartParser
 from rest_framework.views import APIView
 from rest_framework import status
 from minio import Minio
-import hashlib
+import uuid
 import os
 from . emailform import EmailForm
 
 from . models import Email
 from . serializers import EmailSerializer, UploadFileSerializer
 
-
-
-
 def index(request):
 
     if request.method == 'POST':
-       form = EmailForm(request.POST, request.FILES)
-       if form.is_valid():
-           form.save()
-           #fileuploaded
-           return redirect(uploadSuccess)
+        serializer_class = UploadFileSerializer
+        parser_classes = (MultiPartParser, FormParser)
+        serializer = serializer_class(data=request.FILES)
+        if serializer.is_valid():
+            serializer.save()
+            file = serializer.data.get('file')
+            print("File: ", file)
+            fileuploaded(file)
+            return redirect(uploadSuccess)
     else:
         form = EmailForm()
     return render(request, 'base/index.html', {'form': form})
     #return render(request, 'base/index.html')
+    """ if request.method == 'POST':
+        form = EmailForm(request.POST, request.FILES)
+        if form.is_valid():
+            form.save()
+            file = form.path()
+            print("File: ", file)
+            fileuploaded(file)
+            return redirect(uploadSuccess) """
 
 def uploadSuccess(request):
     return render(request, 'base/uploadSuccess.html')
@@ -37,19 +46,17 @@ def uploadSuccess(request):
 def fileuploaded(file):
     
     print("File: ", file)
+
     file = file[1:]
-    
-    # Generate the hash (SHA-256) of the file
-    with open(file, 'rb') as f:
-        data = f.read()
-        hash = hashlib.sha256(data).hexdigest()
-        print("Hash: ", hash)
+
+    # Generate UUID
+    email_uuid = str(uuid.uuid4())
     
     # Upload the file on the object storage
-    uploadFileOnObjectStorage(hash, file)
+    uploadFileOnObjectStorage(email_uuid, file)
 
     # Add email to database
-    email = Email(hash=hash)
+    email = Email(uuid=email_uuid)
     email.save()
 
     # Delete the file
