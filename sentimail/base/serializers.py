@@ -1,6 +1,7 @@
 from rest_framework import serializers
 from base.models import Email
-from . models import UploadFile
+# from ..public_api.models import UploadFile
+from base.models import UploadFile
 
 class EmailSerializer(serializers.ModelSerializer):
     class Meta:
