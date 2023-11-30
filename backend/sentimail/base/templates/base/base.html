@@ -1,0 +1,20 @@
+{% load static %}
+
+<html>
+  <head>
+    <title>SentiMail</title>
+    <link rel="stylesheet" href="{% static 'base/styles.css' %}" />
+  </head>
+  <body>
+    <header>
+        <h1>SentiMail</h1>
+        <h2>Accueil</h2>
+    </header>
+    {% block content %}
+    {% endblock %}
+    <footer>
+        <p>
+            SentiMail
+        </p>
+  </body>
+</html>
