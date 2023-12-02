@@ -1,9 +1,13 @@
-from django.urls import path
-#from ..public_api import views
+from django.urls import path, include
+from rest_framework import routers
 from . import views
 
+router = routers.SimpleRouter()
+router.register('analysis', views.EmailViewset, basename='analysis')
+
 urlpatterns = [
-    path('', views.getData),
+    #path('analysis', views.getData),
+    path('', include(router.urls)),
     path('upload-test/', views.postData),
-    path('upload/', views.UploadFileView.as_view()),
+    path('submit/', views.UploadFileView.as_view()),
 ]

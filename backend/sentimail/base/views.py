@@ -5,6 +5,7 @@ from rest_framework.response import Response
 from rest_framework.decorators import api_view
 from rest_framework.parsers import FormParser, MultiPartParser
 from rest_framework.views import APIView
+from rest_framework.viewsets import ModelViewSet
 from rest_framework import status
 from minio import Minio
 import uuid
@@ -92,12 +93,19 @@ def publishMessage(uuid):
 
 # API
 
-@api_view(['GET'])
+class EmailViewset(ModelViewSet):
+    serializer_class = EmailSerializer
+    
+    def get_queryset(self):
+        return Email.objects.all()
+
+
+""" @api_view(['GET'])
 def getData(request):
     #email = {'date': '2021-10-10', 'sender': 'joe' }
     emails = Email.objects.all()
     serializer = EmailSerializer(emails, many=True)
-    return Response(serializer.data)
+    return Response(serializer.data) """
 
 @api_view(['POST'])
 def postData(request):
