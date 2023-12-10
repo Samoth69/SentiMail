@@ -1,5 +1,14 @@
 # cluster kube
 
+## dashboard traefik
+
+```bash
+kubectl -n kube-system get pods
+kubectl -n kube-system port-forward [nom pod traefik] 9000:9000
+```
+
+aller ici: http://127.0.0.1:9000/dashboard/
+
 ## ce qui à été fait
 
 ### réseau

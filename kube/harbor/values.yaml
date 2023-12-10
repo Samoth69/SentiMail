@@ -1,0 +1,2 @@
+expose.ingress.hosts.core: https://harbor.sentimail.samoth.eu
+externalURL: https://harbor.sentimail.samoth.eu

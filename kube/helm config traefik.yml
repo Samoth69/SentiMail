@@ -10,20 +10,22 @@ spec:
     logs:
       general:
         level: INFO
-    ingressRoute:
-      dashboard:
-        enabled: false
     forwardedHeaders:
       enabled: true
       trustedIPs:
         - 10.0.0.0/8
     ports:
       websecure:
-        domains:
-        - main: samoth.eu
-          sans:
-            - sentimail.samoth.eu
-            - sentimail-dev.samoth.eu
+        tls:
+          enabled: true
+          certResolver: letsencrypt
+          domains:
+            - main: "sentimail.samoth.eu"
+              sans:
+                - "*.sentimail.samoth.eu"
+    tlsOptions:
+      default:
+        minVersion: VersionTLS13
     env:
     - name: CF_DNS_API_TOKEN
       valueFrom:
@@ -36,7 +38,6 @@ spec:
       letsencrypt:
         email: thomasviolent@gmail.com
         storage: /data/acme.json
-        tlsChallenge: true
         dnsChallenge:
           provider: cloudflare
           delayBeforeCheck: 10
