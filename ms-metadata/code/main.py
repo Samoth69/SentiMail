@@ -28,7 +28,7 @@ def main():
         # récupérer uniquement la chaine de caractère entre les quotes du body
 
         file = json.loads(body)
-        mailResult, ipResult = analyse(file)  # TODO ID du fichier à analyser
+        mailResult, ipResult = analyse(file)
         os.remove(file)
         print(mailResult)
         print(ipResult)
