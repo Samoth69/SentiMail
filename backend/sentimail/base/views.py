@@ -5,30 +5,32 @@ from rest_framework.response import Response
 from rest_framework.decorators import api_view
 from rest_framework.parsers import FormParser, MultiPartParser
 from rest_framework.views import APIView
+from rest_framework.viewsets import ModelViewSet
 from rest_framework import status
 from minio import Minio
-import hashlib
+import uuid
 import os
+import pika
 from . emailform import EmailForm
 
 from . models import Email
 from . serializers import EmailSerializer, UploadFileSerializer
 
-
-
-
 def index(request):
 
     if request.method == 'POST':
-       form = EmailForm(request.POST, request.FILES)
-       if form.is_valid():
-           form.save()
-           #fileuploaded
-           return redirect(uploadSuccess)
+        serializer_class = UploadFileSerializer
+        parser_classes = (MultiPartParser, FormParser)
+        serializer = serializer_class(data=request.FILES)
+        if serializer.is_valid():
+            serializer.save()
+            file = serializer.data.get('file')
+            print("File: ", file)
+            fileuploaded(file)
+            return redirect(uploadSuccess)
     else:
         form = EmailForm()
     return render(request, 'base/index.html', {'form': form})
-    #return render(request, 'base/index.html')
 
 def uploadSuccess(request):
     return render(request, 'base/uploadSuccess.html')
@@ -37,25 +39,27 @@ def uploadSuccess(request):
 def fileuploaded(file):
     
     print("File: ", file)
+
     file = file[1:]
-    
-    # Generate the hash (SHA-256) of the file
-    with open(file, 'rb') as f:
-        data = f.read()
-        hash = hashlib.sha256(data).hexdigest()
-        print("Hash: ", hash)
+
+    # Generate UUID
+    email_uuid = str(uuid.uuid4())
     
     # Upload the file on the object storage
-    uploadFileOnObjectStorage(hash, file)
+    uploadFileOnObjectStorage(email_uuid, file)
 
     # Add email to database
-    email = Email(hash=hash)
+    email = Email(uuid=email_uuid)
     email.save()
 
     # Delete the file
     os.remove(file)
 
-    print("File uploaded")
+    # Publish message on RabbitMQ
+    publishMessage(email_uuid)
+
+    print(f"File {email_uuid} uploaded successfully" )
+    return email_uuid
 
 # TODO: Secure this endpoint (SSL Error)   
 def uploadFileOnObjectStorage(name, file):
@@ -70,16 +74,38 @@ def uploadFileOnObjectStorage(name, file):
         minioclient.make_bucket("sentimail")
     minioclient.fput_object("sentimail", name, file)
 
+def publishMessage(uuid):
+    connection = pika.BlockingConnection(
+        pika.ConnectionParameters(
+            host=settings.RABBITMQ_HOST,
+            port=settings.RABBITMQ_PORT,
+            virtual_host='/',
+            credentials=pika.PlainCredentials(settings.RABBITMQ_USER, settings.RABBITMQ_PASSWORD)
+        )
+    )
+    channel = connection.channel()
+    channel.queue_declare(queue='sentimail')
+    channel.basic_publish(exchange='', routing_key='sentimail', body=uuid)
+    print(" [x] Sent ", uuid, " to RabbitMQ")
+    connection.close()
+
 
 
 # API
 
-@api_view(['GET'])
+class EmailViewset(ModelViewSet):
+    serializer_class = EmailSerializer
+    
+    def get_queryset(self):
+        return Email.objects.all()
+
+
+""" @api_view(['GET'])
 def getData(request):
     #email = {'date': '2021-10-10', 'sender': 'joe' }
     emails = Email.objects.all()
     serializer = EmailSerializer(emails, many=True)
-    return Response(serializer.data)
+    return Response(serializer.data) """
 
 @api_view(['POST'])
 def postData(request):
@@ -98,10 +124,13 @@ class UploadFileView(APIView):
             serializer.save()
             file = serializer.data.get('file')
             print("File: ", file)
-            fileuploaded(file)
+            uuid = fileuploaded(file)
             return Response(
-                serializer.data,
-                status=status.HTTP_201_CREATED
+                {
+                    'uuid': uuid
+                },               
+                #serializer.data,
+                status=status.HTTP_201_CREATED,
             )
         return Response(
             serializer.errors,

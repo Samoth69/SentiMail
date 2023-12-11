@@ -11,4 +11,4 @@ class EmailSerializer(serializers.ModelSerializer):
 class UploadFileSerializer(serializers.ModelSerializer):
     class Meta:
         model = UploadFile
-        fields = ('file', 'upload_on')
+        fields = ('file', 'upload_on', 'uuid')

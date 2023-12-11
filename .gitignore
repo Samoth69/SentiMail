@@ -7,3 +7,4 @@ media/
 *.pyc
 __pycache__/
 .DS_Store
+postgres_storage/
