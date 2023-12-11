@@ -1,0 +1,124 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: sentimail-dev-backend
+spec:
+  selector:
+    matchLabels:
+      app: sentimail-dev-backend
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: sentimail-dev-backend
+    spec:
+      initContainers:
+        - name: init-sentimail-dev-backend
+          image: harbor.sentimail.samoth.eu/sentimail/backend:latest
+          command: ['python', 'manage.py', 'migrate', '--noinput']
+          env:
+            - name: SECRET_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: sentimail-backend-secret
+                  key: secretKey
+            - name: DB_NAME
+              value: "sentimail-dev"
+            - name: DB_HOST
+              value: "sentimail-postgres-postgresql"
+            - name: DB_PORT
+              value: "5432"
+            - name: DB_USER
+              value: "sentimail-dev"
+            - name: DB_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: sentimail-backend-secret
+                  key: databasePassword
+      containers:
+      - name: sentimail-dev-backend
+        image: harbor.sentimail.samoth.eu/sentimail/backend:latest
+        command: ['python', '-m', 'gunicorn', 'sentimail.asgi:application', '-k', 'uvicorn.workers.UvicornWorker', '-b', '0.0.0.0:8000']
+        ports:
+        - containerPort: 8000
+        env:
+        - name: SECRET_KEY
+          valueFrom:
+            secretKeyRef:
+              name: sentimail-backend-secret
+              key: secretKey
+        - name: DB_NAME
+          value: "sentimail-dev"
+        - name: DB_HOST
+          value: "sentimail-postgres-postgresql"
+        - name: DB_PORT
+          value: "5432"
+        - name: DB_USER
+          value: "sentimail-dev"
+        - name: DB_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: sentimail-backend-secret
+              key: databasePassword
+        - name: MINIO_ENDPOINT
+          value: "sentimail-minio"
+        - name: MINIO_ACCESS_KEY
+          valueFrom:
+            secretKeyRef:
+              name: sentimail-backend-secret
+              key: minioAccessKey
+        - name: MINIO_SECRET_KEY
+          valueFrom:
+            secretKeyRef:
+              name: sentimail-backend-secret
+              key: minioSecretKey
+        - name: MINIO_BUCKET
+          value: "sentimail-dev"
+        - name: RABBITMQ_HOST
+          value: "sentimail-rabbitmq"
+        - name: RABBITMQ_PORT
+          value: "5672"
+        - name: RABBITMQ_USER
+          value: "sentimail-dev"
+        - name: RABBITMQ_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: sentimail-backend-secret
+              key: rabbitmqPassword
+        - name: RABBITMQ_QUEUE
+          value: "my_queue"
+        - name: RABBITMQ_VHOST
+          value: "/sentimail-dev"
+        resources:
+          limits:
+            cpu: '1'
+            memory: 1024M
+      imagePullSecrets:
+      - name: regcred
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: sentimail-dev-backend-service
+spec:
+  selector:
+    app: sentimail-dev-backend
+  ports:
+  - port: 8000
+---
+apiVersion: traefik.containo.us/v1alpha1
+kind: IngressRoute
+metadata:
+  name: sentimail-dev-backend-ingressroute
+spec:
+  entryPoints:
+    - websecure
+  routes:
+  - match: Host(`dev.sentimail.samoth.eu`)
+    kind: Rule
+    middlewares:
+      - name: sentimail-backend-auth
+    services:
+    - name: sentimail-dev-backend-service
+      namespace: sentimail-dev
+      port: 8000
