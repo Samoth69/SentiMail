@@ -1,0 +1,4 @@
+auth:
+  existingSecret: minio-secret
+persistance:
+  size: 5Gi

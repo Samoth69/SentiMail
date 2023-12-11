@@ -1,0 +1,5 @@
+existingSecret: "pgadmin-secret"
+secretKeys:
+  pgadminPasswordKey: password
+env:
+  email: sentimail@domain.com
