@@ -15,6 +15,7 @@ spec:
       initContainers:
         - name: init-sentimail-dev-backend
           image: harbor.sentimail.samoth.eu/sentimail/backend:latest
+          imagePullPolicy: Always
           command: ['python', 'manage.py', 'migrate', '--noinput']
           env:
             - name: SECRET_KEY
@@ -38,6 +39,7 @@ spec:
       containers:
       - name: sentimail-dev-backend
         image: harbor.sentimail.samoth.eu/sentimail/backend:latest
+        imagePullPolicy: Always
         command: ['python', '-m', 'gunicorn', 'sentimail.asgi:application', '-k', 'uvicorn.workers.UvicornWorker', '-b', '0.0.0.0:8000']
         ports:
         - containerPort: 8000
@@ -47,6 +49,12 @@ spec:
             secretKeyRef:
               name: sentimail-backend-secret
               key: secretKey
+        - name: DEBUG
+          value: SNCF
+        - name: ALLOWED_HOSTS
+          value: "['dev.sentimail.samoth.eu', '127.0.0.1', '::1']"
+        - name: CSRF_TRUSTED_ORIGINS
+          value: "['https://dev.sentimail.samoth.eu', 'http://127.0.0.1']"
         - name: DB_NAME
           value: "sentimail-dev"
         - name: DB_HOST

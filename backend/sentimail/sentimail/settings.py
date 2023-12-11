@@ -154,3 +154,5 @@ RABBITMQ_VHOST = os.environ.get("RABBITMQ_VHOST", "/")
 
 # Authentification settings
 AUTH_USER_MODEL = 'authentication.User'
+
+CSRF_TRUSTED_ORIGINS = ast.literal_eval(os.getenv("CSRF_TRUSTED_ORIGINS", "['http://localhost', 'http://127.0.0.1']"))
