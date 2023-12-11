@@ -17,11 +17,16 @@ def analyse(id_file):
 
 def main():
     print("Receive")
-    connection = pika.BlockingConnection(pika.ConnectionParameters(host='localhost', port='5672', virtual_host='/',
-                                                                   credentials=pika.PlainCredentials('rabbitmq',
-                                                                                                     '89yNnzWAH!aBUgYwb2S7xbZ%')))
+    host = os.getenv('RABBITMQ_HOST')
+    port = os.getenv('RABBITMQ_PORT')
+    user = os.getenv('RABBITMQ_USER')
+    password = os.getenv('RABBITMQ_PASSWORD')
+    queueSend = os.getenv('RABBITMQ_QUEUE')
+
+    connection = pika.BlockingConnection(pika.ConnectionParameters(host=host, port=port, virtual_host='/', credentials=pika.PlainCredentials(user, password)))
+                                                                                                     
     channel = connection.channel()
-    channel.queue_declare(queue='sentimail')
+    channel.queue_declare(queue=queueSend)
 
     def callback(ch, method, properties, body):
         print(" [x] Received %r" % json.loads(body))
@@ -33,7 +38,7 @@ def main():
         print(mailResult)
         print(ipResult)
 
-    channel.basic_consume(queue='sentimail', on_message_callback=callback, auto_ack=True)
+    channel.basic_consume(queue=queueSend, on_message_callback=callback, auto_ack=True)
     print(' [*] Waiting for messages. To exit press CTRL+C')
     channel.start_consuming()
 

@@ -71,10 +71,10 @@ def uploadFileOnObjectStorage(name, file):
                         secure=False
     )
     # Make a bucket if not exists
-    found = minioclient.bucket_exists("sentimail")
+    found = minioclient.bucket_exists(settings.MINIO_BUCKET)
     if not found:
-        minioclient.make_bucket("sentimail")
-    minioclient.fput_object("sentimail", name, file)
+        minioclient.make_bucket(settings.MINIO_BUCKET)
+    minioclient.fput_object(settings.MINIO_BUCKET, name, file)
 
 def publishMessage(uuid):
     connection = pika.BlockingConnection(

@@ -11,7 +11,7 @@ load_dotenv()
 
 def bucket_call(id_file):
     client = Minio(
-        "127.0.0.1:9000",
+        os.getenv('MINIO_ENDPOINT'),
         access_key= os.getenv('MINIO_ACCESS_KEY'),
         secret_key= os.getenv('MINIO_SECRET_KEY'),
         secure=False,

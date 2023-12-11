@@ -140,12 +140,14 @@ MEDIA_ROOT = BASE_DIR / 'media'
 MINIO_ENDPOINT = os.environ.get("MINIO_ENDPOINT")
 MINIO_ACCESS_KEY = os.environ.get("MINIO_ACCESS_KEY")
 MINIO_SECRET_KEY = os.environ.get("MINIO_SECRET_KEY")
+MINIO_BUCKET = os.environ.get("MINIO_BUCKET")
 
 # RabbitMQ settings
 RABBITMQ_HOST = os.environ.get("RABBITMQ_HOST")
 RABBITMQ_PORT = os.environ.get("RABBITMQ_PORT")
 RABBITMQ_USER = os.environ.get("RABBITMQ_USER")
 RABBITMQ_PASSWORD = os.environ.get("RABBITMQ_PASSWORD")
+RABBITMQ_QUEUE = os.environ.get("RABBITMQ_QUEUE")
 
 # Authentification settings
 AUTH_USER_MODEL = 'authentication.User'
