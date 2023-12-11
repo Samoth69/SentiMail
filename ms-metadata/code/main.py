@@ -11,21 +11,25 @@ def analyse(id_file):
     (mailAnalysis, ipAnalysis) = analyse_file(id_file)
     return mailAnalysis, ipAnalysis
 
-def send_result(mailResult, ipResult):
-    # Envoi des résultats dans la queue
-    host = os.getenv('RABBITMQ_HOST')
-    port = os.getenv('RABBITMQ_PORT')
-    user = os.getenv('RABBITMQ_USER')
-    password = os.getenv('RABBITMQ_PASSWORD')
-    queueReceive = os.getenv('RABBITMQ_QUEUE')
-    virtualHost = os.getenv('RABBITMQ_VHOST')
-    connection = pika.BlockingConnection(pika.ConnectionParameters(host=host, port=port, virtual_host=virtualHost, credentials=pika.PlainCredentials(user, password)))
-    channel = connection.channel()
-    channel.queue_declare(queue=queueReceive)
-    channel.basic_publish(exchange='', routing_key=queueReceive, body=json.dumps({"mail": mailResult, "ip": ipResult}))
-   
-    connection.close()
+def send_result(mailResult, ipResult, uuid):
+    # Send result to the API:  
+    print("Send result")
+    print("Mail: ", mailResult)
+    print("IP: ", ipResult)
 
+    # PATCH http://127.0.0.1:8000/api/analysis/uuid/
+    data = {
+            "responseMetadataIp": ipResult,
+            "responseMetadataDomain": mailResult,
+        }
+    url = "http://127.0.0.1:8000/api/analysis/" + uuid + "/"
+    request = requests.patch(url, data = data)
+    print("URL: ", url)
+   
+
+
+    
+    
 
 
 def main():
@@ -50,6 +54,7 @@ def main():
         os.remove(file)
         print(mailResult)
         print(ipResult)
+        send_result(mailResult, ipResult, file)
 
     channel.basic_consume(queue=queueSend, on_message_callback=callback, auto_ack=True)
     print(' [*] Waiting for messages. To exit press CTRL+C')
