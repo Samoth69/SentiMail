@@ -11,7 +11,20 @@ def analyse(id_file):
     (mailAnalysis, ipAnalysis) = analyse_file(id_file)
     return mailAnalysis, ipAnalysis
 
-
+def send_result(mailResult, ipResult):
+    # Envoi des résultats dans la queue
+    host = os.getenv('RABBITMQ_HOST')
+    port = os.getenv('RABBITMQ_PORT')
+    user = os.getenv('RABBITMQ_USER')
+    password = os.getenv('RABBITMQ_PASSWORD')
+    queueReceive = os.getenv('RABBITMQ_QUEUE')
+    virtualHost = os.getenv('RABBITMQ_VHOST')
+    connection = pika.BlockingConnection(pika.ConnectionParameters(host=host, port=port, virtual_host=virtualHost, credentials=pika.PlainCredentials(user, password)))
+    channel = connection.channel()
+    channel.queue_declare(queue=queueReceive)
+    channel.basic_publish(exchange='', routing_key=queueReceive, body=json.dumps({"mail": mailResult, "ip": ipResult}))
+   
+    connection.close()
 
 
 
@@ -22,8 +35,8 @@ def main():
     user = os.getenv('RABBITMQ_USER')
     password = os.getenv('RABBITMQ_PASSWORD')
     queueSend = os.getenv('RABBITMQ_QUEUE')
-
-    connection = pika.BlockingConnection(pika.ConnectionParameters(host=host, port=port, virtual_host='/', credentials=pika.PlainCredentials(user, password)))
+    virtualHost = os.getenv('RABBITMQ_VHOST')
+    connection = pika.BlockingConnection(pika.ConnectionParameters(host=host, port=port, virtual_host=virtualHost, credentials=pika.PlainCredentials(user, password)))
                                                                                                      
     channel = connection.channel()
     channel.queue_declare(queue=queueSend)

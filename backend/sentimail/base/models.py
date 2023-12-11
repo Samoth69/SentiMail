@@ -7,6 +7,8 @@ class Email(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
     user = models.CharField(max_length=100, default="anonymous")
     isReady = models.BooleanField(default=False)
+    responseMetadataIp = models.CharField(max_length=100, default="")
+    responseMetadataDomain = models.CharField(max_length=100, default="")
 
 class UploadFile(models.Model):
     upload_on = models.DateTimeField(auto_now_add=True)

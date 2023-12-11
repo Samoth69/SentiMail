@@ -40,6 +40,7 @@ def mail(data):
         "apikey": os.getenv('SPAMCHECKER_API_KEY')
     }
 
+    
     response = requests.request("POST", url, headers=headers, data=payload)
     response_json = response.json()
 

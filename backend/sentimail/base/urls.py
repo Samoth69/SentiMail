@@ -10,4 +10,5 @@ urlpatterns = [
     path('', include(router.urls)),
     path('upload-test/', views.postData),
     path('submit/', views.UploadFileView.as_view()),
+    path('response/', views.updateResponse),
 ]

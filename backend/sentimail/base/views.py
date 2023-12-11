@@ -81,7 +81,7 @@ def publishMessage(uuid):
         pika.ConnectionParameters(
             host=settings.RABBITMQ_HOST,
             port=settings.RABBITMQ_PORT,
-            virtual_host='/',
+            virtual_host=settings.RABBITMQ_VHOST,
             credentials=pika.PlainCredentials(settings.RABBITMQ_USER, settings.RABBITMQ_PASSWORD)
         )
     )
@@ -101,6 +101,8 @@ class EmailViewset(ModelViewSet):
     
     def get_queryset(self):
         return Email.objects.all()
+    
+    
 
 
 """ @api_view(['GET'])
@@ -110,7 +112,15 @@ def getData(request):
     serializer = EmailSerializer(emails, many=True)
     return Response(serializer.data) """
 
-@api_view(['POST'])
+# Patch method to add data to the database
+@api_view(['PATCH'])
+def updateResponse(request):
+    serializer = EmailSerializer(data=request.data, partial=True)
+    if serializer.is_valid():
+        serializer.save()
+    return Response(serializer.data)
+
+@api_view(['PATCH'])
 def postData(request):
     serializer = EmailSerializer(data=request.data)
     if serializer.is_valid():

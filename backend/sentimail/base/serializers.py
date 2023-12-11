@@ -7,6 +7,7 @@ class EmailSerializer(serializers.ModelSerializer):
     class Meta:
         model = Email
         fields = '__all__'
+    
 
 class UploadFileSerializer(serializers.ModelSerializer):
     class Meta:

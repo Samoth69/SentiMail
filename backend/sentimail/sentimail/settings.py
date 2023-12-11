@@ -9,6 +9,7 @@ https://docs.djangoproject.com/en/4.2/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/4.2/ref/settings/
 """
+import ast
 import os
 from pathlib import Path
 from dotenv import load_dotenv
@@ -25,9 +26,10 @@ load_dotenv()
 SECRET_KEY = os.environ.get('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = "DEBUG" in os.environ
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ast.literal_eval(os.getenv("ALLOWED_HOSTS", "['localhost', '127.0.0.1']"))
+
 
 
 # Application definition
@@ -148,6 +150,7 @@ RABBITMQ_PORT = os.environ.get("RABBITMQ_PORT")
 RABBITMQ_USER = os.environ.get("RABBITMQ_USER")
 RABBITMQ_PASSWORD = os.environ.get("RABBITMQ_PASSWORD")
 RABBITMQ_QUEUE = os.environ.get("RABBITMQ_QUEUE")
+RABBITMQ_VHOST = os.environ.get("RABBITMQ_VHOST", "/")
 
 # Authentification settings
 AUTH_USER_MODEL = 'authentication.User'
