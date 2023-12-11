@@ -1,0 +1,11 @@
+global:
+  postgresql:
+    auth:
+      username: "sentimail-dev"
+      database: "sentimail-dev"
+      existingSecret: "postgres-secret"
+      secretKeys:
+        adminPasswordKey: "admin-password"
+        userPasswordKey: "user-password"
+persistance:
+  size: 5Gi
