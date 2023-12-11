@@ -1,3 +1,5 @@
+import json
+
 from django.conf import settings
 from django.shortcuts import redirect, render
 from django.http import HttpResponse
@@ -85,7 +87,8 @@ def publishMessage(uuid):
     )
     channel = connection.channel()
     channel.queue_declare(queue='sentimail')
-    channel.basic_publish(exchange='', routing_key='sentimail', body=uuid)
+    channel.basic_publish(exchange='', routing_key='sentimail', body=json.dumps(uuid))
+    print("Json test")
     print(" [x] Sent ", uuid, " to RabbitMQ")
     connection.close()
 
