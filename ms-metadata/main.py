@@ -1,4 +1,6 @@
 #
+import os
+
 from file import *
 from bucket_call import *
 
@@ -10,6 +12,7 @@ def analyse(id_file):
     return mailAnalysis, ipAnalysis
 
 
-mailResult, ipResult = analyse("66113902-8e92-11ee-b9d1-0242ac120002")  # TODO ID du fichier à analyser
+mailResult, ipResult = analyse("3.eml")  # TODO ID du fichier à analyser
+os.remove("3.eml")
 print(mailResult)
 print(ipResult)

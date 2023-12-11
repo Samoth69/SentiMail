@@ -44,9 +44,13 @@ def mail(data):
     response_json = response.json()
 
     # Check If domain name is malicious
-    if response_json['is_spam'] == "False":
-        return "Mail is malicious"
+    # Check if is_spam exists in response_json
+    if 'is_spam' in response_json:
+        if response_json['is_spam'] == "True":
+            return "Mail is malicious"
+        else:
+            return "Mail is not malicious"
     else:
-        return "Mail is not malicious"
+        return "Mail not found in database"
 
 
