@@ -22,15 +22,9 @@ def send_result(mailResult, ipResult, uuid):
             "responseMetadataIp": ipResult,
             "responseMetadataDomain": mailResult,
         }
-    url = "http://127.0.0.1:8000/api/analysis/" + uuid + "/"
+    url = "http://" + os.getenv("BACKEND_HOST", "127.0.0.1:8000") + "/api/analysis/" + uuid + "/"
     request = requests.patch(url, data = data)
     print("URL: ", url)
-   
-
-
-    
-    
-
 
 def main():
     print("Receive")
@@ -40,7 +34,14 @@ def main():
     password = os.getenv('RABBITMQ_PASSWORD')
     queueSend = os.getenv('RABBITMQ_QUEUE')
     virtualHost = os.getenv('RABBITMQ_VHOST')
-    connection = pika.BlockingConnection(pika.ConnectionParameters(host=host, port=port, virtual_host=virtualHost, credentials=pika.PlainCredentials(user, password)))
+    connection = pika.BlockingConnection(
+        pika.ConnectionParameters(
+            host=host, 
+            port=port, 
+            virtual_host=virtualHost, 
+            credentials=pika.PlainCredentials(user, password)
+            )
+        )
                                                                                                      
     channel = connection.channel()
     channel.queue_declare(queue=queueSend)

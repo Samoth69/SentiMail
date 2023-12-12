@@ -18,7 +18,7 @@ def bucket_call(id_file):
     )
 
     # Download data of an object.
-    client.fget_object("sentimail", id_file,
+    client.fget_object(os.getenv("MINIO_BUCKET", "sentimail"), id_file,
                        id_file)
 
 

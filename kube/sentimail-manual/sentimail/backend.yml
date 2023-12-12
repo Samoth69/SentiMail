@@ -91,10 +91,13 @@ spec:
               name: sentimail-backend-secret
               key: rabbitmqPassword
         - name: RABBITMQ_QUEUE
-          value: "my_queue"
+          value: "sentimail"
         - name: RABBITMQ_VHOST
           value: "/sentimail-dev"
         resources:
+          requests:
+            cpu: '100m'
+            memory: '128M'
           limits:
             cpu: '1'
             memory: 1024M
