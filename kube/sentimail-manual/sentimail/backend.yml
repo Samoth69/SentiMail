@@ -69,12 +69,9 @@ spec:
               name: sentimail-backend-secret
               key: databasePassword
         - name: MINIO_ENDPOINT
-          value: "sentimail-minio"
+          value: "sentimail-minio:9000"
         - name: MINIO_ACCESS_KEY
-          valueFrom:
-            secretKeyRef:
-              name: sentimail-backend-secret
-              key: minioAccessKey
+          value: "sentimail-dev"
         - name: MINIO_SECRET_KEY
           valueFrom:
             secretKeyRef:
