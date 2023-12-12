@@ -20,13 +20,19 @@ from django.urls import path, include
 from django.conf import settings
 from django.conf.urls.static import static
 from base import views
+import authentication.views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', views.index),
-    path('index/', views.index),
+    path('index/', views.index, name='index'),
     path('api/', include('base.urls')),
     path('uploadSuccess/', views.uploadSuccess),
+    #path('login/', authentication.views.login_page, name='login'),
+    path('login/', authentication.views.LoginView.as_view(), name='login'),
+    #path('logout/', authentication.views.logout_user, name='logout'),
+    path('logout/', authentication.views.LogoutView.as_view(), name='logout'),
+    path('signup/', authentication.views.signup_page, name='signup'),
 ]
 
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

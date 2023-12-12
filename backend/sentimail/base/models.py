@@ -1,4 +1,5 @@
 from django.db import models
+from django.core.validators import FileExtensionValidator
 
 # Create your models here.
 
@@ -12,7 +13,7 @@ class Email(models.Model):
 
 class UploadFile(models.Model):
     upload_on = models.DateTimeField(auto_now_add=True)
-    file = models.FileField()
+    file = models.FileField(validators=[FileExtensionValidator(allowed_extensions=['eml'])])
     uuid = models.CharField(max_length=100, default="")
 
     def __str__(self):

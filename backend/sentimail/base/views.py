@@ -1,6 +1,7 @@
 import json
 
 from django.conf import settings
+from django.contrib import messages
 from django.shortcuts import redirect, render
 from django.http import HttpResponse
 from rest_framework.response import Response
@@ -27,9 +28,21 @@ def index(request):
         if serializer.is_valid():
             serializer.save()
             file = serializer.data.get('file')
+            if request.user.is_authenticated:
+                username = request.user.username
+            else:
+                username = "anonymous"
+            # limit 5 requests per anonymous user from the same IP address
+
+              
+            print("Username: ", username)
             print("File: ", file)
-            fileuploaded(file)
+            uuid = fileuploaded(file, username)
             return redirect(uploadSuccess)
+        else:
+            print("Serializer is not valid")
+            messages.info(request, "Upload error: only .eml files are allowed")
+            return redirect(index)
     else:
         form = EmailForm()
     return render(request, 'base/index.html', {'form': form})
@@ -38,7 +51,7 @@ def uploadSuccess(request):
     return render(request, 'base/uploadSuccess.html')
 
 # TODO: Test if file is already uploaded
-def fileuploaded(file):
+def fileuploaded(file, username):
     
     print("File: ", file)
 
@@ -52,6 +65,7 @@ def fileuploaded(file):
 
     # Add email to database
     email = Email(uuid=email_uuid)
+    email.user = username
     email.save()
 
     # Delete the file
@@ -86,7 +100,7 @@ def publishMessage(uuid):
         )
     )
     channel = connection.channel()
-    channel.queue_declare(queue='sentimail')
+    channel.queue_declare(queue=settings.RABBITMQ_QUEUE)
     channel.basic_publish(exchange='', routing_key='sentimail', body=json.dumps(uuid))
     print("Json test")
     print(" [x] Sent ", uuid, " to RabbitMQ")

@@ -2,10 +2,14 @@
 {% load static %}
 
 
+
+
 {% block content %}
     
 
         <h3> Upload Email</h3>
+        
+
         {% block form %}
         <form method="post" enctype="multipart/form-data">
             {% csrf_token %}
@@ -13,6 +17,13 @@
             <button type="submit">Upload</button>
         </form>
         
+        {% if messages %}
+            <ul class="messages">
+                {% for message in messages %}
+                <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+                {% endfor %}
+            </ul>
+        {% endif %}
         
         {% endblock %}
 {% endblock %}
