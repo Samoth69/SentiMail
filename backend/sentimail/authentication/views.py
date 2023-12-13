@@ -35,8 +35,25 @@ class LogoutView(View):
         logout(request)
         return redirect('index')
     
+class SignupView(View):
+    template_name = 'authentication/signup.html'
+    form_class = forms.SignupForm
 
-def signup_page(request):
+    def get(self, request):
+        form = self.form_class()
+        message = "Please enter your username, email and password"
+        return render(request, self.template_name, {'form': form, 'message': message})
+
+    def post(self, request):
+        form = self.form_class(request.POST)
+        message = "Please enter your username, email and password"
+        if form.is_valid():
+            user = form.save()
+            login(request, user)
+            return redirect('index')
+        return render(request, self.template_name, {'form': form, 'message': message})
+
+""" def signup_page(request):
     form = forms.SignupForm()
     message = "Please enter your username, email and password"
     if request.method == 'POST':
@@ -71,4 +88,4 @@ def login_page(request):
 
 def logout_user(request):
     logout(request)
-    return redirect(login_page)
+    return redirect(login_page) """
