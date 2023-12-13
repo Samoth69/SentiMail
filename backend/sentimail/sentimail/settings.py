@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'rest_framework',
+    #'rest_framework.authtoken'
     'base',
     'authentication',
 #    'public_api',
@@ -142,14 +143,14 @@ MEDIA_ROOT = BASE_DIR / 'media'
 MINIO_ENDPOINT = os.environ.get("MINIO_ENDPOINT")
 MINIO_ACCESS_KEY = os.environ.get("MINIO_ACCESS_KEY")
 MINIO_SECRET_KEY = os.environ.get("MINIO_SECRET_KEY")
-MINIO_BUCKET = os.environ.get("MINIO_BUCKET")
+MINIO_BUCKET = os.environ.get("MINIO_BUCKET", "sentimail")
 
 # RabbitMQ settings
 RABBITMQ_HOST = os.environ.get("RABBITMQ_HOST")
 RABBITMQ_PORT = os.environ.get("RABBITMQ_PORT")
 RABBITMQ_USER = os.environ.get("RABBITMQ_USER")
 RABBITMQ_PASSWORD = os.environ.get("RABBITMQ_PASSWORD")
-RABBITMQ_QUEUE = os.environ.get("RABBITMQ_QUEUE")
+RABBITMQ_QUEUE = os.environ.get("RABBITMQ_QUEUE", "sentimail")
 RABBITMQ_VHOST = os.environ.get("RABBITMQ_VHOST", "/")
 
 # Authentification settings

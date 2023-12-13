@@ -25,6 +25,7 @@ class ResultListener(threading.Thread):
         
     def callback(self, ch, method, properties, body):
         print(f" [x] Received {body}")
+        
 
     def run(self):
         """
