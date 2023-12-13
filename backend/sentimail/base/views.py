@@ -4,6 +4,7 @@ from django.conf import settings
 from django.contrib import messages
 from django.shortcuts import redirect, render
 from django.http import HttpResponse
+from django.core.cache import cache
 from rest_framework.response import Response
 from rest_framework.decorators import api_view
 from rest_framework.parsers import FormParser, MultiPartParser
@@ -33,6 +34,22 @@ def index(request):
             else:
                 username = "anonymous"
             # limit 5 requests per anonymous user from the same IP address
+
+             # Limit 5 requests per anonymous user from the same IP address
+                ip_address = request.META.get('REMOTE_ADDR')
+                upload_count_key = f"upload_count_{ip_address}"
+
+                # Check the current upload count
+                current_count = cache.get(upload_count_key, 0)
+                print("Upload count key: ", upload_count_key, " Current count: ", current_count)
+                if current_count >= 5:
+                    messages.info(request, "You have reached the maximum number of allowed uploads.")
+                    return redirect(index)
+
+                # Increment the upload count
+                cache.set(upload_count_key, current_count + 1, timeout=None)
+
+
 
               
             print("Username: ", username)
