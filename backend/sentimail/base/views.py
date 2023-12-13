@@ -137,30 +137,6 @@ class EmailViewset(ModelViewSet):
     def get_queryset(self):
         return Email.objects.all()
     
-    
-
-
-""" @api_view(['GET'])
-def getData(request):
-    #email = {'date': '2021-10-10', 'sender': 'joe' }
-    emails = Email.objects.all()
-    serializer = EmailSerializer(emails, many=True)
-    return Response(serializer.data) """
-
-# Patch method to add data to the database
-@api_view(['PATCH'])
-def updateResponse(request):
-    serializer = EmailSerializer(data=request.data, partial=True)
-    if serializer.is_valid():
-        serializer.save()
-    return Response(serializer.data)
-
-@api_view(['PATCH'])
-def postData(request):
-    serializer = EmailSerializer(data=request.data)
-    if serializer.is_valid():
-        serializer.save()
-    return Response(serializer.data)
 
 class UploadFileView(APIView):
     serializer_class = UploadFileSerializer
@@ -186,3 +162,26 @@ class UploadFileView(APIView):
         )
 
     
+
+
+""" @api_view(['GET'])
+def getData(request):
+    #email = {'date': '2021-10-10', 'sender': 'joe' }
+    emails = Email.objects.all()
+    serializer = EmailSerializer(emails, many=True)
+    return Response(serializer.data) """
+
+# Patch method to add data to the database
+""" @api_view(['PATCH'])
+def updateResponse(request):
+    serializer = EmailSerializer(data=request.data, partial=True)
+    if serializer.is_valid():
+        serializer.save()
+    return Response(serializer.data)
+
+@api_view(['PATCH'])
+def postData(request):
+    serializer = EmailSerializer(data=request.data)
+    if serializer.is_valid():
+        serializer.save()
+    return Response(serializer.data) """
