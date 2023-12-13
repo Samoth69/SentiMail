@@ -1,10 +1,14 @@
-name: Actions Runner Controller Demo
+name: The CI
 on:
   push:
 
 jobs:
   Explore-GitHub-Actions:
-    # You need to use the INSTALLATION_NAME from the previous step
     runs-on: sentimail-runner
+    container:
+      image: gcr.io/kaniko-project/executor:latest
     steps:
-    - run: echo "🎉 This job uses runner scale set runners!"
+      - name: where tf ami ?
+        run: pwd
+      - name: what do I have around me ?
+        run: ls -la
