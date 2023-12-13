@@ -5,6 +5,7 @@ import os
 # -----------------------------------------------------------------------------
 #
 from check_reputation import *
+from check_spf import *
 
 
  # def analyse_file(filename):
@@ -56,7 +57,14 @@ def analyse_file(file_path):
             print(sender_ip)
             ipAnalysis = reputation(sender_ip)
             mailAnalysis = mail(sender_email)
-            return (mailAnalysis, ipAnalysis)
+            # ARC-Authentication-Results: i=1; mx.google.com; Récupérer unique la chaine après ; (mx.google.com)
+            mail_server = msg.get('ARC-Authentication-Results')
+            mail_server = mail_server.split(";")[1]
+            print(mail_server)
+            mail_server = msg.get('ARC-Authentication-Results')
+            mail_server = mail_server.split(";")[1]
+            spf_check = spf2(sender_ip, sender_email, mail_server)
+            return mailAnalysis, ipAnalysis, spf_check
 
 
 
