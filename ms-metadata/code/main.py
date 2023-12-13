@@ -36,9 +36,9 @@ def main():
     password = os.getenv('RABBITMQ_PASSWORD')
     queueSend = os.getenv('RABBITMQ_QUEUE', "sentimail")
     virtualHost = os.getenv('RABBITMQ_VHOST', "/")
-    connection = pika.BlockingConnection(pika.ConnectionParameters(host=host, port=port, virtual_host=virtualHost, credentials=pika.PlainCredentials(user, password)))
-    queueSend = os.getenv('RABBITMQ_QUEUE')
-    virtualHost = os.getenv('RABBITMQ_VHOST')
+    #connection = pika.BlockingConnection(pika.ConnectionParameters(host=host, port=port, virtual_host=virtualHost, credentials=pika.PlainCredentials(user, password)))
+    #queueSend = os.getenv('RABBITMQ_QUEUE')
+    #virtualHost = os.getenv('RABBITMQ_VHOST')
     connection = pika.BlockingConnection(
         pika.ConnectionParameters(
             host=host,
