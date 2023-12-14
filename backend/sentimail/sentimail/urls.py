@@ -32,7 +32,9 @@ urlpatterns = [
     path('login/', authentication.views.LoginView.as_view(), name='login'),
     #path('logout/', authentication.views.logout_user, name='logout'),
     path('logout/', authentication.views.LogoutView.as_view(), name='logout'),
-    path('signup/', authentication.views.signup_page, name='signup'),
+    #path('signup/', authentication.views.signup_page, name='signup'),
+    path('signup/', authentication.views.SignupView.as_view(), name='signup'),
+    path('account/', authentication.views.AccountView.as_view(), name='account'),
 ]
 
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

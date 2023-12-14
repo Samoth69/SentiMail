@@ -42,7 +42,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'rest_framework',
-    #'rest_framework.authtoken'
+    'rest_framework.authtoken',
     'base',
     'authentication',
 #    'public_api',
@@ -153,7 +153,25 @@ RABBITMQ_PASSWORD = os.environ.get("RABBITMQ_PASSWORD")
 RABBITMQ_QUEUE = os.environ.get("RABBITMQ_QUEUE", "sentimail")
 RABBITMQ_VHOST = os.environ.get("RABBITMQ_VHOST", "/")
 
+# User services settings
+MS_METADATA_USER = os.environ.get("MS_METADATA_USER")
+MS_METADATA_PASSWORD = os.environ.get("MS_METADATA_PASSWORD")
+MS_CONTENT_USER = os.environ.get("MS_CONTENT_USER")
+MS_CONTENT_PASSWORD = os.environ.get("MS_CONTENT_PASSWORD")
+MS_ATTACHMENT_USER = os.environ.get("MS_ATTACHMENT_USER")
+MS_ATTACHMENT_PASSWORD = os.environ.get("MS_ATTACHMENT_PASSWORD")
+
+
 # Authentification settings
 AUTH_USER_MODEL = 'authentication.User'
 
 CSRF_TRUSTED_ORIGINS = ast.literal_eval(os.getenv("CSRF_TRUSTED_ORIGINS", "['http://localhost', 'http://127.0.0.1']"))
+
+# Rest framework settings
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': [
+        'rest_framework.authentication.BasicAuthentication',
+        'rest_framework.authentication.SessionAuthentication',
+        'rest_framework.authentication.TokenAuthentication'
+    ]
+}

@@ -1,0 +1,31 @@
+{% extends "base/base.html" %}
+{% load static %}
+
+{% block content %}
+
+<h1>Account</h1>
+<p>
+    <h3>Name</h3>
+    {{ user.get_full_name }}
+</p>
+<p>
+    <h3>Email</h3>
+    {{ user.email }}
+</p>
+<p>
+    <h3>Password</h3>
+</p>
+
+<p>
+    <h3>API Key</h3>
+    {{ api_key }}
+    <form method="post">
+        {{ token_form }}
+        {% csrf_token %}
+        <button type="submit">Generate new API key</button>
+      
+    </form>
+    
+</p>
+
+{% endblock %}
