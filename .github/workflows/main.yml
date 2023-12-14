@@ -29,7 +29,7 @@ jobs:
         with:
           context: backend/sentimail
           push: true
-          tags: sentimail/Backend:latest
+          tags: sentimail/backend:latest
       - 
         name: Build and push ms-metadata
         uses: docker/build-push-action@v5
