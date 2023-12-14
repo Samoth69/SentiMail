@@ -11,6 +11,8 @@ from rest_framework.parsers import FormParser, MultiPartParser
 from rest_framework.views import APIView
 from rest_framework.viewsets import ModelViewSet
 from rest_framework import status
+from rest_framework.authentication import SessionAuthentication, BasicAuthentication, TokenAuthentication
+from rest_framework.permissions import IsAuthenticated
 from minio import Minio
 import uuid
 import os
@@ -132,6 +134,10 @@ def publishMessage(uuid):
 # API
 
 class EmailViewset(ModelViewSet):
+    http_method_names = ['get', 'patch']
+    authentication_classes = [SessionAuthentication, BasicAuthentication, TokenAuthentication]
+    permission_classes = [IsAuthenticated]
+
     serializer_class = EmailSerializer
     
     def get_queryset(self):
@@ -139,6 +145,10 @@ class EmailViewset(ModelViewSet):
     
 
 class UploadFileView(APIView):
+
+    authentication_classes = [SessionAuthentication, BasicAuthentication, TokenAuthentication]
+    permission_classes = [IsAuthenticated]
+
     serializer_class = UploadFileSerializer
     parser_classes = (MultiPartParser, FormParser)
 
@@ -148,7 +158,7 @@ class UploadFileView(APIView):
             serializer.save()
             file = serializer.data.get('file')
             print("File: ", file)
-            uuid = fileuploaded(file)
+            uuid = fileuploaded(file, "anonymous")
             return Response(
                 {
                     'uuid': uuid

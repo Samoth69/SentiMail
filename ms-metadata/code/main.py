@@ -1,4 +1,5 @@
 #
+import base64
 import os
 import json
 from file import *
@@ -17,6 +18,8 @@ def send_result(mailResult, ipResult, spfResult, uuid):
     print("Mail: ", mailResult)
     print("IP: ", ipResult)
     print("SPF: ", spfResult)
+    user_metadata = os.getenv("MS_METADATA_USER")
+    password_metadata = os.getenv("MS_METADATA_PASSWORD")
 
     # PATCH http://127.0.0.1:8000/api/analysis/uuid/
     data = {
@@ -24,8 +27,12 @@ def send_result(mailResult, ipResult, spfResult, uuid):
             "responseMetadataDomain": mailResult,
             "responseMetadataSPF": spfResult,
         }
+    headers = {
+        #"Authorization": "Token " + os.getenv("API_KEY"),
+        "Authorization": "Basic " + base64.b64encode(bytes(user_metadata + ":" + password_metadata, "utf-8")).decode("ascii"),
+    }
     url = "http://" + os.getenv("BACKEND_HOST", "127.0.0.1:8000") + "/api/analysis/" + uuid + "/"
-    request = requests.patch(url, data = data)
+    request = requests.patch(url, data = data, headers = headers)
     print("URL: ", url)
 
 def main():
