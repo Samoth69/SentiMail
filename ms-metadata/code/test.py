@@ -1,87 +1,90 @@
-import quickemailverification
+
+
+import email
+from email import policy
+from email.parser import BytesParser
+import re
+from check_spf import *
+def analyse_file(file_path):
+    with open(file_path, 'rb') as file:
+        # Utiliser BytesParser pour lire le fichier EML
+        msg = BytesParser(policy=policy.default).parse(file)
+
+        # Récupérer l'adresse IP du sender (si disponible)
+        received_headers = msg.get_all('Received')
+        sender_ip = None
+        if received_headers:
+            for header in received_headers:
+                if 'from' in header.lower():
+                    # Extraire l'adresse IP en utilisant une expression régulière (regex)
+                    import re
+                    match = re.search(r'\[([^\]]+)\]', header) # Trouver le texte entre les caractères '[' et ']' dans le header
+                    if match == None:
+                        received_headers = msg.get_all('Authentication-Results')
+
+                        for header in received_headers:
+                            if 'spf' in header.lower():
+                                match = re.search(r'sender IP is ([\d.]+)', header)
+                                if match:
+                                    sender_ip = match.group(1)
+                                    print("Sender IP:", sender_ip)
+                                    break
+
+                    if match:
+                        sender_ip = match.group(1)
+                        break
+                    # Si match
+
+        # Récupérer l'e-mail du sender (si disponible)
+        sender_email_raw = msg.get('From')
+        sender_email = None
+        if sender_email_raw:
+            # Utiliser une expression régulière pour extraire la partie entre les caractères '<' et '>'
+            match = re.search(r'<([^>]+)>', sender_email_raw)
+
+            # Dior, Dior, <laredoute@fr.redoute.com> recuperer la chaine entre <> en faisant attention à la virgule
+            if match == None:
+                match = re.search(r'([^\s]+@[^\s]+)', sender_email_raw)
+                if match:
+                    sender_email = match.group(1)
+                    print("Sender email:", sender_email)
+            if match:
+                sender_email = match.group(1)
+
+            print("Sender Email",sender_email)
+            print(sender_ip)
+            ipAnalysis = reputation(sender_ip)
+            mailAnalysis = mail(sender_email)
+            # ARC-Authentication-Results: i=1; mx.google.com; Récupérer unique la chaine après ; (mx.google.com)
+            mail_server = msg.get('ARC-Authentication-Results')
+            # Si ARC-Authentication-Results existe et différent de None
+            if mail_server != None:
+
+                mail_server = msg.get('ARC-Authentication-Results')
+                mail_server = mail_server.split(";")[1]
+                print("Premiere", mail_server)
+            else:
+
+                result_string = msg.get('Authentication-Results')
+                # Utilisation de l'expression régulière pour extraire la chaîne
+                match = re.search(r'smtp.mailfrom=(.*?);', result_string)
+
+                # Vérification de la correspondance
+                if match:
+                    mail_server = match.group(1)
+                    print("Mail 2", mail_server)
+                else:
+                    print("Aucune correspondance trouvée.")
+
+
+            spf_check = spf2(sender_ip, sender_email, mail_server)
+            return mailAnalysis, ipAnalysis, spf_check
 
 
 
 
 
 
-
-
-def spf2(domain):
-    import spf
-    try:
-        a = spf.check2("192.92.97.241", domain, 'mx.google.com')
-        print(a)
-    except:
-        return "SPF record does not exist"
-
-spf = spf2("franck@ropersevolution.com")
-print(spf)
-
-# Table postgre à mettre à jour avec date + nom du fichier + résultat
-
-def insert_database(filename, result):
-    import psycopg2
-    from datetime import date
-    try:
-        connection = psycopg2.connect(user="postgres",
-                                      password="postgres",
-                                      host="test",
-                                        port="5432",
-                                        database="postgres")
-        cursor = connection.cursor()
-        # Recupère la date du jour
-
-        today = date.today()
-        sql = "INSERT INTO table (date, filename, result) VALUES (%s, %s, %s)"
-        val = (date, filename, result)
-        cursor.execute(sql, val)
-        connection.commit()
-        print("Record inserted successfully into table")
-    except (Exception, psycopg2.Error) as error:
-        print("Failed to insert record into table", error)
-    finally:
-        if connection:
-            cursor.close()
-            connection.close()
-            print("PostgreSQL connection is closed")
-
-
-
-
-def create_tables():
-    """ create tables in the PostgreSQL database"""
-    commands = (
-        """
-        CREATE TABLE IF NOT EXISTS table (
-            date DATE,
-            filename VARCHAR(255) NOT NULL,
-            result VARCHAR(255) NOT NULL
-        )
-        """)
-    conn = None
-    try:
-        # read the connection parameters
-        # connect to the PostgreSQL server
-        conn = psycopg2.connect(user="postgres",
-                                      password="postgres",
-                                      host="test",
-                                        port="5432",
-                                        database="postgres")
-        cur = conn.cursor()
-        # create table one by one
-        for command in commands:
-            cur.execute(command)
-        # close communication with the PostgreSQL database server
-        cur.close()
-        # commit the changes
-        conn.commit()
-        print("Table created successfully")
-    except (Exception, psycopg2.DatabaseError) as error:
-        print("Error while creating PostgreSQL table", error)
-    finally:
-        if conn is not None:
-            conn.close()
 
 
 
