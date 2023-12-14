@@ -1,14 +1,22 @@
 name: The CI
 on:
   push:
+    branches: [ "dev" ]
 
 jobs:
   Explore-GitHub-Actions:
-    runs-on: sentimail-runner
-    container:
-      image: gcr.io/kaniko-project/executor:latest
+    runs-on: ubuntu-latest
     steps:
-      - name: where tf ami ?
-        run: pwd
-      - name: what do I have around me ?
-        run: ls -la
+      - name: Docker login
+        uses: docker/login-action@v3
+        with:
+            registry: harbor.sentimail.samoth.eu
+            username: ${{ secrets.HARBOR_USERNAME }}
+            password: ${{ secrets.HARBOR_PASSWORD }}
+      - uses: actions/checkout@v3
+      - name: Build image
+        run: docker build . -t backend:latest --no-cache
+      - name: Tag image
+        run: docker tag backend:latest harbor.sentimail.samoth.eu/sentimail/backend:latest
+      - name: Push image
+        run: docker push harbor.sentimail.samoth.eu/sentimail/backend:latest
