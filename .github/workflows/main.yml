@@ -4,7 +4,7 @@ on:
     branches: [ "dev" ]
 
 jobs:
-  Build-Backend-Image:
+  Build-Images:
     runs-on: ubuntu-latest
     steps:
       - 
@@ -29,11 +29,11 @@ jobs:
         with:
           context: backend/sentimail
           push: true
-          tags: Sentimail/Backend:latest
+          tags: sentimail/Backend:latest
       - 
         name: Build and push ms-metadata
         uses: docker/build-push-action@v5
         with:
           context: ms-metadata
           push: true
-          tags: Sentimail/ms-metadata:latest
+          tags: sentimail/ms-metadata:latest
