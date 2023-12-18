@@ -6,6 +6,11 @@ import json
 from bucket_call import *
 import pika, os, sys
 import mailparser
+from check_keywords import *
+from check_links import *
+from check_spelling import *
+from check_typosquatting import *
+import requests
 
 
 def main():
@@ -34,10 +39,10 @@ def main():
         # récupérer uniquement la chaine de caractère entre les quotes du body
 
         file = json.loads(body)
-        mailResult, ipResult, spfResult = analyse(file)
+        links, spelling, keywords, typosquatting = analyse(file)
         os.remove(file)
         
-        #send_result(mailResult, ipResult, spfResult, file)
+        send_result(links, spelling, keywords, typosquatting, file)
         #send_result("A", "B", "C", file)
 
     channel.basic_consume(queue=queueSend, on_message_callback=callback, auto_ack=True)
@@ -57,30 +62,33 @@ def analyse(id_file):
     print("date", mail.date)
     print("server", mail.get_server_ipaddress) """
     #(mailAnalysis, ipAnalysis, spfAnalysis) = analyse_file(id_file)
-    mailAnalysis = "A"
-    ipAnalysis = "B"
-    spfAnalysis = "C"
-    return mailAnalysis, ipAnalysis, spfAnalysis
+    links = check_links(mail)
+    spelling = check_spelling(mail)
+    keywords = check_keywords(mail)
+    typosquatting = check_typosquatting(mail)
+    return links, spelling, keywords, typosquatting
 
 def parseFile(id_file):
     mail = mailparser.parse_from_file(id_file)
     return mail
 
 
-def send_result(mailResult, ipResult, spfResult, uuid):
+def send_result(links, spelling, keywords, typosquatting, uuid):
     # Send result to the API:  
     print("Send result")
-    print("Mail: ", mailResult)
-    print("IP: ", ipResult)
-    print("SPF: ", spfResult)
-    user_metadata = os.getenv("MS_METADATA_USER")
-    password_metadata = os.getenv("MS_METADATA_PASSWORD")
+    print("links", links)
+    print("spelling", spelling)
+    print("keywords", keywords)
+    print("typosquatting", typosquatting)
+    user_metadata = os.getenv("MS_CONTENT_USER")
+    password_metadata = os.getenv("MS_CONTENT_PASSWORD")
 
     # PATCH http://127.0.0.1:8000/api/analysis/uuid/
     data = {
-            "responseMetadataIp": ipResult,
-            "responseMetadataDomain": mailResult,
-            "responseMetadataSPF": spfResult,
+            "responseContentLinks": links,
+            "responseContentSpelling": spelling,
+            "responseContentKeywords": keywords,
+            "responseContentTyposquatting": typosquatting,
         }
     headers = {
         #"Authorization": "Token " + os.getenv("API_KEY"),

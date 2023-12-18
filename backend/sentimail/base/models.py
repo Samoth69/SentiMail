@@ -11,6 +11,11 @@ class Email(models.Model):
     responseMetadataIp = models.CharField(max_length=100, default="")
     responseMetadataDomain = models.CharField(max_length=100, default="")
     responseMetadataSPF = models.CharField(max_length=100, default="")
+    responseContentLinks = models.CharField(max_length=100, default="")
+    responseContentSpelling = models.CharField(max_length=100, default="")
+    responseContentKeywords = models.CharField(max_length=100, default="")
+    responseContentTyposquatting = models.CharField(max_length=100, default="")
+
 class UploadFile(models.Model):
     upload_on = models.DateTimeField(auto_now_add=True)
     file = models.FileField(validators=[FileExtensionValidator(allowed_extensions=['eml'])])
