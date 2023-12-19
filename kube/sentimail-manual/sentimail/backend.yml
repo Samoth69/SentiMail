@@ -37,6 +37,27 @@ spec:
                 secretKeyRef:
                   name: sentimail-backend-secret
                   key: databasePassword
+            - name: MS_METADATA_USER
+              value: "ms_metadata"
+            - name: MS_METADATA_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: sentimail-backend-secret
+                  key: msMetadataPassword
+            - name: MS_CONTENT_USER
+              value: "ms_content"
+            - name: MS_CONTENT_PASSWORD 
+              valueFrom:
+                secretKeyRef:
+                  name: sentimail-backend-secret
+                  key: msContentPassword
+            - name: MS_ATTACHMENT_USER
+              value: "ms_attachment"
+            - name: MS_ATTACHMENT_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: sentimail-backend-secret
+                  key: msAttachmentPassword
       containers:
       - name: sentimail-dev-backend
         image: harbor.sentimail.samoth.eu/sentimail/backend:latest
@@ -95,6 +116,27 @@ spec:
           value: "sentimail"
         - name: RABBITMQ_VHOST
           value: "/sentimail-dev"
+        - name: MS_METADATA_USER
+          value: "ms_metadata"
+        - name: MS_METADATA_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: sentimail-backend-secret
+              key: msMetadataPassword
+        - name: MS_CONTENT_USER
+          value: "ms_content"
+        - name: MS_CONTENT_PASSWORD 
+          valueFrom:
+            secretKeyRef:
+              name: sentimail-backend-secret
+              key: msContentPassword
+        - name: MS_ATTACHMENT_USER
+          value: "ms_attachment"
+        - name: MS_ATTACHMENT_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: sentimail-backend-secret
+              key: msAttachmentPassword
         resources:
           requests:
             cpu: '100m'

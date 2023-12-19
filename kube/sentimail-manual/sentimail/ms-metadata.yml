@@ -48,6 +48,23 @@ spec:
               key: minioSecretKey
         - name: MINIO_BUCKET
           value: "sentimail-dev"
+        - name: MS_METADATA_USER
+          value: "ms_metadata"
+        - name: MS_METADATA_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: sentimail-backend-secret
+              key: msMetadataPassword
+        - name: SPAMCHECKER_API_KEY
+          valueFrom:
+            secretKeyRef:
+              name: sentimail-backend-secret
+              key: spamcheckerApiKey
+        - name: GREYNOISE_KEY
+          valueFrom:
+            secretKeyRef:
+              name: sentimail-backend-secret
+              key: greynoiseKey
         resources:
           requests:
             cpu: '10m'
