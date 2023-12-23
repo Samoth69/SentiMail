@@ -167,8 +167,8 @@ spec:
   routes:
   - match: Host(`dev.sentimail.samoth.eu`)
     kind: Rule
-    middlewares:
-      - name: sentimail-backend-auth
+    # middlewares:
+    #   - name: sentimail-backend-auth
     services:
     - name: sentimail-dev-backend-service
       namespace: sentimail-dev
