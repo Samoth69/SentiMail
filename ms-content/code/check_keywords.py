@@ -1,17 +1,25 @@
 import re
+import json
 
 def check_keywords(mail):
     print("[check_keywords] Start")
 
     # English:
-    spam_keywords_en = ["viagra", "offer", "free", "business", "opportunity", "loan", "money", "cash", "urgent", "important", "bank", "transfer", "transaction", "investment", "financial", "guarantee", "credit", "debt", "insurance", "beneficiary", "claim", "winner", "winnings", "prize", "award", "lottery", "inheritance", "fund", "charity", "donation", "proposal", "contract", "invoice", "payment", "settlement", "bill", "fee", "cost", "charge", "tax", "duty", "penalty", "fine"]
+    #spam_keywords_en = ["viagra", "offer", "free", "business", "opportunity", "loan", "money", "cash", "urgent", "important", "bank", "transfer", "transaction", "investment", "financial", "guarantee", "credit", "debt", "insurance", "beneficiary", "claim", "winner", "winnings", "prize", "award", "lottery", "inheritance", "fund", "charity", "donation", "proposal", "contract", "invoice", "payment", "settlement", "bill", "fee", "cost", "charge", "tax", "duty", "penalty", "fine"]
 
-    phishing_keywords_en = ["verify", "confirm", "update", "account", "suspend", "limit", "login", "password", "username", "verify", "confirm", "update", "account", "suspend", "limit", "login", "password", "username", "verify", "confirm", "update", "account", "suspend", "limit", "login", "password", "username", "verify", "confirm", "update", "account", "suspend", "limit", "login", "password", "username", "verify", "confirm", "update", "account", "suspend", "limit", "login", "password", "username", "verify", "confirm", "update", "account", "suspend", "limit", "login", "password", "username", "verify", "confirm", "update", "account", "suspend", "limit", "login", "password", "username"]
+    #phishing_keywords_en = ["verify", "confirm", "update", "account", "suspend", "limit", "login", "password", "username", "verify", "confirm", "update", "account", "suspend", "limit", "login", "password", "username", "verify", "confirm", "update", "account", "suspend", "limit", "login", "password", "username", "verify", "confirm", "update", "account", "suspend", "limit", "login", "password", "username", "verify", "confirm", "update", "account", "suspend", "limit", "login", "password", "username", "verify", "confirm", "update", "account", "suspend", "limit", "login", "password", "username", "verify", "confirm", "update", "account", "suspend", "limit", "login", "password", "username"]
     
     # French:
-    spam_keywords_fr = ["viagra", "offre", "gratuit", "business", "opportunité", "prêt", "argent", "urgent", "important", "banque", "transfert", "transaction", "investissement", "financier", "garantie", "crédit", "dette", "assurance", "bénéficiaire", "réclamation", "gagnant", "gains", "prix", "loterie", "héritage", "fonds", "charité", "don", "proposition", "contrat", "facture", "paiement", "règlement", "facture", "frais", "coût", "charge", "taxe", "droit", "pénalité", "amende"]
+    #spam_keywords_fr = ["viagra", "offre", "gratuit", "business", "opportunité", "prêt", "argent", "urgent", "important", "banque", "transfert", "transaction", "investissement", "financier", "garantie", "crédit", "dette", "assurance", "bénéficiaire", "réclamation", "gagnant", "gains", "prix", "loterie", "héritage", "fonds", "charité", "don", "proposition", "contrat", "facture", "paiement", "règlement", "facture", "frais", "coût", "charge", "taxe", "droit", "pénalité", "amende"]
 
-    phishing_keywords_fr = ["vérifier", "confirmer", "mettre à jour", "compte", "suspendre", "limite", "connexion", "mot de passe", "nom d'utilisateur", "vérifier", "confirmer", "mettre à jour", "compte", "suspendre", "limite", "connexion", "mot de passe", "nom d'utilisateur", "vérifier", "confirmer", "mettre à jour", "compte", "suspendre", "limite", "connexion", "mot de passe", "nom d'utilisateur", "vérifier", "confirmer", "mettre à jour", "compte", "suspendre", "limite", "connexion", "mot de passe", "nom d'utilisateur", "vérifier", "confirmer", "mettre à jour", "compte", "suspendre", "limite", "connexion", "mot de passe", "nom d'utilisateur", "vérifier", "confirmer", "mettre à jour", "compte", "suspendre", "limite", "connexion", "mot de passe", "nom d'utilisateur", "vérifier", "confirmer", "mettre à jour", "compte", "suspendre", "limite", "connexion", "mot de passe", "nom d'utilisateur"]
+    #phishing_keywords_fr = ["vérifier", "confirmer", "mettre à jour", "compte", "suspendre", "limite", "connexion", "mot de passe", "nom d'utilisateur", "vérifier", "confirmer", "mettre à jour", "compte", "suspendre", "limite", "connexion", "mot de passe", "nom d'utilisateur", "vérifier", "confirmer", "mettre à jour", "compte", "suspendre", "limite", "connexion", "mot de passe", "nom d'utilisateur", "vérifier", "confirmer", "mettre à jour", "compte", "suspendre", "limite", "connexion", "mot de passe", "nom d'utilisateur", "vérifier", "confirmer", "mettre à jour", "compte", "suspendre", "limite", "connexion", "mot de passe", "nom d'utilisateur", "vérifier", "confirmer", "mettre à jour", "compte", "suspendre", "limite", "connexion", "mot de passe", "nom d'utilisateur", "vérifier", "confirmer", "mettre à jour", "compte", "suspendre", "limite", "connexion", "mot de passe", "nom d'utilisateur"]
+
+    with open('keywords.json', 'r') as json_file:
+        data = json.load(json_file)
+        spam_keywords_en = data['spam_keywords_en']
+        phishing_keywords_en = data['phishing_keywords_en']
+        spam_keywords_fr = data['spam_keywords_fr']
+        phishing_keywords_fr = data['phishing_keywords_fr']
 
     # Full:
     spam_keywords = spam_keywords_en + spam_keywords_fr
