@@ -115,6 +115,9 @@ def uploadFileOnObjectStorage(name, file):
     minioclient.fput_object(settings.MINIO_BUCKET, name, file)
 
 def publishMessage(uuid):
+    ms_content = settings.RABBITMQ_MS_CONTENT
+    ms_metadata = settings.RABBITMQ_MS_METADATA
+    ms_attachment = settings.RABBITMQ_MS_ATTACHMENT
     connection = pika.BlockingConnection(
         pika.ConnectionParameters(
             host=settings.RABBITMQ_HOST,
@@ -123,9 +126,14 @@ def publishMessage(uuid):
             credentials=pika.PlainCredentials(settings.RABBITMQ_USER, settings.RABBITMQ_PASSWORD)
         )
     )
+    
     channel = connection.channel()
     channel.queue_declare(queue=settings.RABBITMQ_QUEUE)
-    channel.basic_publish(exchange='', routing_key='sentimail', body=json.dumps(uuid))
+    #channel.basic_publish(exchange='', routing_key='sentimail', body=json.dumps(uuid))
+    channel.basic_publish(exchange='', routing_key=ms_metadata, body=json.dumps(uuid))
+    channel.basic_publish(exchange='', routing_key=ms_content, body=json.dumps(uuid))
+
+    
     print(" [x] Sent ", uuid, " to RabbitMQ")
     connection.close()
 

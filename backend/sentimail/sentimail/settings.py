@@ -152,6 +152,9 @@ RABBITMQ_USER = os.environ.get("RABBITMQ_USER")
 RABBITMQ_PASSWORD = os.environ.get("RABBITMQ_PASSWORD")
 RABBITMQ_QUEUE = os.environ.get("RABBITMQ_QUEUE", "sentimail")
 RABBITMQ_VHOST = os.environ.get("RABBITMQ_VHOST", "/")
+RABBITMQ_MS_CONTENT = os.environ.get("RABBITMQ_MS_CONTENT", "ms_content")
+RABBITMQ_MS_METADATA = os.environ.get("RABBITMQ_MS_METADATA", "ms_metadata")
+RABBITMQ_MS_ATTACHMENT = os.environ.get("RABBITMQ_MS_ATTACHMENT", "ms_attachment")
 
 # User services settings
 MS_METADATA_USER = os.environ.get("MS_METADATA_USER")
