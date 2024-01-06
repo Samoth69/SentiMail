@@ -1,33 +1,54 @@
 {% load static %}
 
 <html>
-  <head>
-    <title>SentiMail</title>
-    <link rel="stylesheet" href="{% static 'base/styles.css' %}" />
-  </head>
-  <body>
-    <header>
-        <h1>SentiMail</h1>
-        <a href="{% url 'index' %}">SentiMail</a>
-        {% if user.is_authenticated %}
-        <p>Welcome ! {{ request.user }}.</p>
-        <a href="{% url 'logout' %}">Log out</a>
-        <a href="{% url 'account' %}">My account</a>
-        {% else %}
-        <a href="{% url 'login' %}">Log in</a>
-        <a href="{% url 'signup' %}">Sign up</a>
+<head>
+  <title>SentiMail</title>
+  <link rel="stylesheet" href="{% static 'base/styles.css' %}" />
+</head>
+<body>
 
-        {% endif %}
-        
-    </header>
-    {% block content %}
-    {% endblock %}
-   <!--  {%  if user.is_authenticated %}
-      <p>Vous êtes connecté en tant que {{ request.user }}. <a href="{% url 'logout' %}">Se déconnecter</a></p>
-    {% endif %} -->
-    <footer>
-        <p>
-            SentiMail
-        </p>
-  </body>
+<header>
+  {% if user.is_authenticated %}
+
+    <div class="navbar">
+      <div class="left-menu">
+        <button>About</button>
+        <a href="#"><button>API</button></a>
+      </div>
+      <div class="right-menu">
+        <a href="{% url 'logout' %}"><button>Logout</button></a>
+        <a href="{% url 'account' %}"><button>Account</button></a>
+          <a href="#"><button>Historic</button></a>
+      </div>
+    </div>
+      <div class="right-menu">
+        <!-- Boutons spécifiques à un utilisateur connecté -->
+
+
+
+      </div>
+    </div>
+    <p>Welcome! {{ request.user }}.</p>
+  {% else %}
+    <div class="navbar">
+      <div class="left-menu">
+        <button>About</button>
+        <button>API</button>
+      </div>
+      <div class="right-menu">
+        <a href="{% url 'login' %}"><button>Login</button></a>
+        <a href="{% url 'signup' %}"><button>Signup</button></a>
+      </div>
+    </div>
+
+
+  {% endif %}
+</header>
+
+<!-- Reste du contenu Django (si nécessaire) -->
+{% block content %}
+{% endblock %}
+
+
+</body>
 </html>
