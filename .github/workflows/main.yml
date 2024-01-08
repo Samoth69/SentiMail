@@ -68,14 +68,10 @@ jobs:
         env:
           K8S_CACERT: ${{ secrets.K8S_CACERT }}
       -
-        name: test
-        run: echo $K8S_AUTH_HOST
-        env:
-          K8S_AUTH_HOST: ${{ vars.K8S_AUTH_HOST }}
-      -
         name: Deploy
         run: ansible-playbook deploy_pb.yml
         env:
           K8S_AUTH_SSL_CA_CERT: $RUNNER_TEMP/.K8S_CACERT
           K8S_AUTH_API_KEY: ${{ secrets.K8S_AUTH_API_KEY }}
+          K8S_AUTH_HOST: ${{ vars.K8S_AUTH_HOST }}
         
