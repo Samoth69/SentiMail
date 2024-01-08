@@ -48,7 +48,7 @@ spec:
         - name: MINIO_BUCKET
           value: "sentimail-dev"
         - name: MS_CONTENT_USER
-          value: "ms_metadata"
+          value: "ms_content"
         - name: MS_CONTENT_PASSWORD
           valueFrom:
             secretKeyRef:
