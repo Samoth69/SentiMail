@@ -8,8 +8,11 @@ concurrency:
   cancel-in-progress: true
     
 jobs:
-  Build_images:
+  BuildImages:
     runs-on: ubuntu-latest
+    outputs:
+      image_id_backend: ${{ steps.img-backend.outputs.imageid }}
+      image_id_ms_metadata: ${{ steps.img-ms-metadata.outputs.imageid }}
     steps:
       - 
         name: checkout
@@ -28,6 +31,7 @@ jobs:
             username: ${{ secrets.HARBOR_USERNAME }}
             password: ${{ secrets.HARBOR_PASSWORD }}
       - 
+        id: img-backend
         name: Build and push backend
         uses: docker/build-push-action@v5
         with:
@@ -35,6 +39,7 @@ jobs:
           push: true
           tags: harbor.sentimail.samoth.eu/sentimail/backend:latest
       - 
+        id: img-ms-metadata
         name: Build and push ms-metadata
         uses: docker/build-push-action@v5
         with:
@@ -43,6 +48,7 @@ jobs:
           tags: harbor.sentimail.samoth.eu/sentimail/ms-metadata:latest
   Deploy:
     runs-on: ubuntu-latest
+    needs: BuildImages
     defaults:
       run:
         shell: bash
@@ -75,3 +81,5 @@ jobs:
           K8S_AUTH_SSL_CA_CERT: ${{ runner.temp }}/.K8S_CACERT
           K8S_AUTH_API_KEY: ${{ secrets.K8S_AUTH_API_KEY }}
           K8S_AUTH_HOST: ${{ vars.K8S_AUTH_HOST }}
+          SENTIMAIL_BACKEND_IMAGE_ID: ${{ needs.BuildImages.outputs.image_id_backend }}
+          SENTIMAIL_MS_METADATA_IMAGE_ID: ${{ needs.BuildImages.outputs.image_id_backend }}

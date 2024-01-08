@@ -14,9 +14,9 @@ spec:
     spec:
       initContainers:
         - name: init-sentimail-dev-backend
-          image: harbor.sentimail.samoth.eu/sentimail/backend:latest
-          imagePullPolicy: Always
-          #command: ['python', 'manage.py', 'migrate', '--noinput']
+          # image: harbor.sentimail.samoth.eu/sentimail/backend:latest
+          # imagePullPolicy: Always
+          image: harbor.sentimail.samoth.eu/sentimail/backend:{{ lookup('env', 'SENTIMAIL_BACKEND_IMAGE_ID') }}
           command: ['sh', 'init.sh']
           env:
             - name: SECRET_KEY
