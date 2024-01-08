@@ -70,6 +70,8 @@ jobs:
       -
         name: test
         run: echo $K8S_AUTH_HOST
+        env:
+          K8S_AUTH_HOST: ${{ vars.K8S_AUTH_HOST }}
       -
         name: Deploy
         run: ansible-playbook deploy_pb.yml
