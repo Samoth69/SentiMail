@@ -11,6 +11,7 @@ from check_links import *
 from check_spelling import *
 from check_typosquatting import *
 import requests
+from requests.auth import HTTPBasicAuth
 
 
 def main():
@@ -80,8 +81,8 @@ def send_result(links, spelling, keywords, typosquatting, uuid):
     print("spelling", spelling)
     print("keywords", keywords)
     print("typosquatting", typosquatting)
-    user_metadata = os.getenv("MS_CONTENT_USER")
-    password_metadata = os.getenv("MS_CONTENT_PASSWORD")
+    user = os.getenv("MS_CONTENT_USER")
+    password = os.getenv("MS_CONTENT_PASSWORD")
 
     # PATCH http://127.0.0.1:8000/api/analysis/uuid/
     data = {
@@ -90,13 +91,14 @@ def send_result(links, spelling, keywords, typosquatting, uuid):
             "responseContentKeywords": keywords,
             "responseContentTyposquatting": typosquatting,
         }
-    headers = {
-        #"Authorization": "Token " + os.getenv("API_KEY"),
-        "Authorization": "Basic " + base64.b64encode(bytes(user_metadata + ":" + password_metadata, "utf-8")).decode("ascii"),
-    }
     url = "http://" + os.getenv("BACKEND_HOST", "127.0.0.1:8000") + "/api/analysis/" + uuid + "/"
-    request = requests.patch(url, data = data, headers = headers)
     print("URL: ", url)
+    request = requests.patch(url, data = data, auth=HTTPBasicAuth(user, password))
+    print("Status code: ", request.status_code)
+    if request.status_code > 299:
+        print("Error: ", request.text)
+
+   
 
 if __name__ == '__main__':
     try:
