@@ -81,6 +81,46 @@ services:
     depends_on:
       - postgres-db
 
+  ms-metadata:
+    build: ./ms-metadata
+    command: python ./main.py
+    environment:
+      - BACKEND_HOST=web:8000
+      - RABBITMQ_HOST=rabbitmq
+      - RABBITMQ_PORT=${RABBITMQ_PORT}
+      - RABBITMQ_USER=${RABBITMQ_USER}
+      - RABBITMQ_PASSWORD=${RABBITMQ_PASSWORD}
+      - RABBITMQ_QUEUE=${RABBITMQ_QUEUE}
+      - RABBITMQ_VHOST=${RABBITMQ_VHOST}
+      - MINIO_ENDPOINT=minio:9000
+      - MINIO_ACCESS_KEY=${MINIO_ACCESS_KEY}
+      - MINIO_SECRET_KEY=${MINIO_SECRET_KEY}
+      - MINIO_BUCKET=${MINIO_BUCKET}
+      - MS_METADATA_USER=${MS_METADATA_USER}
+      - MS_METADATA_PASSWORD=${MS_METADATA_PASSWORD}
+      - SPAMCHECKER_API_KEY=${SPAMCHECKER_API_KEY}
+      - GREYNOISE_KEY=${GREYNOISE_KEY}
+
+  ms-content:
+    build: ./ms-content
+    command: python ./main.py
+    environment:
+      - BACKEND_HOST=web:8000
+      - RABBITMQ_HOST=rabbitmq
+      - RABBITMQ_PORT=${RABBITMQ_PORT}
+      - RABBITMQ_USER=${RABBITMQ_USER}
+      - RABBITMQ_PASSWORD=${RABBITMQ_PASSWORD}
+      - RABBITMQ_QUEUE=${RABBITMQ_QUEUE}
+      - RABBITMQ_VHOST=${RABBITMQ_VHOST}
+      - MINIO_ENDPOINT=minio:9000
+      - MINIO_ACCESS_KEY=${MINIO_ACCESS_KEY}
+      - MINIO_SECRET_KEY=${MINIO_SECRET_KEY}
+      - MINIO_BUCKET=${MINIO_BUCKET}
+      - MS_CONTENT_USER=${MS_CONTENT_USER}
+      - MS_CONTENT_PASSWORD=${MS_CONTENT_PASSWORD}
+
+
+
 volumes:
   minio_storage: {}
   postgres_storage: 
