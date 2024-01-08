@@ -73,7 +73,7 @@ spec:
         - name: ALLOWED_HOSTS
           value: "['dev.sentimail.samoth.eu', '127.0.0.1', 'sentimail-dev-backend-service']"
         - name: CSRF_TRUSTED_ORIGINS
-          value: "['https://dev.sentimail.samoth.eu', 'http://127.0.0.1', 'http://sentimail-dev-backend-service:8000']"
+          value: "['https://dev.sentimail.samoth.eu', 'http://127.0.0.1', 'http://sentimail-dev-backend-service']"
         - name: DB_NAME
           value: "sentimail-dev"
         - name: DB_HOST
