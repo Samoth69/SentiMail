@@ -141,15 +141,34 @@ def publishMessage(uuid):
 
 # API
 
+
 class EmailViewset(ModelViewSet):
     http_method_names = ['get', 'patch']
     authentication_classes = [SessionAuthentication, BasicAuthentication, TokenAuthentication]
     permission_classes = [IsAuthenticated]
 
     serializer_class = EmailSerializer
-    
+
+    #Limit get result to user's emails and staff users
     def get_queryset(self):
-        return Email.objects.all()
+        user = self.request.user
+        if user.is_staff:
+            return Email.objects.all()
+        else:
+            return Email.objects.filter(user=user)
+        #return Email.objects.all()
+
+    # Limit patch method to staff users
+    def update(self, request, *args, **kwargs):
+        print("User: ", request.user)
+        if request.user.is_staff:
+            return super().update(request, *args, **kwargs)
+        else:
+            return Response(status=status.HTTP_403_FORBIDDEN)
+    
+
+    #def get_queryset(self):
+    #    return Email.objects.all()
     
 
 class UploadFileView(APIView):
@@ -162,11 +181,13 @@ class UploadFileView(APIView):
 
     def post(self, request, *args, **kwargs):
         serializer = self.serializer_class(data=request.data)
+        user = self.request.user
+        username = user.username
         if serializer.is_valid():
             serializer.save()
             file = serializer.data.get('file')
             print("File: ", file)
-            uuid = fileuploaded(file, "anonymous")
+            uuid = fileuploaded(file, username)
             return Response(
                 {
                     'uuid': uuid

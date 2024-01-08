@@ -30,5 +30,12 @@ class Command(BaseCommand):
                 print(f"Creating user {user_data['username']}")
                 User.objects.create_user(**user_data)
                 print(f"User {user_data['username']} created")
+            # if not staff user, make it staff
+            elif not User.objects.get(username=user_data['username']).is_staff:
+                print(f"Making {user_data['username']} staff")
+                user = User.objects.get(username=user_data['username'])
+                user.is_staff = True
+                user.save()
+                print(f"{user_data['username']} is staff")
             else:
                 print(f"User {user_data['username']} already exists")
