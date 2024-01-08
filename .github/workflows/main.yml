@@ -64,7 +64,7 @@ jobs:
         run: ansible-galaxy collection install kubernetes.core
       - 
         name: Write ca cert file
-        run: base64 -d $K8S_CACERT > $RUNNER_TEMP/.K8S_CACERT
+        run: echo -n $K8S_CACERT | base64 -d > $RUNNER_TEMP/.K8S_CACERT
         env:
           K8S_CACERT: ${{ secrets.K8S_CACERT }}
           RUNNER_TEMP: ${{ runner.temp }}
