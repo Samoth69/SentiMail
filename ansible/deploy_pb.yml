@@ -1,0 +1,4 @@
+- name: deploy sentimail
+  hosts: cluster
+  tasks:
+    - sentimail
