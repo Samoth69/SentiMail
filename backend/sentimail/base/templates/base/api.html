@@ -1,0 +1,115 @@
+{% extends "base/base.html" %}
+{% load static %}
+
+{% block content %}
+  <div class="api-container">
+    <h1 class="title-api">API Documentation</h1>
+
+    <section class="api-section">
+      <h2>Authentication</h2>
+      <p>To access the API, you need to generate an API key.</p>
+
+      <ul>
+        <li>Generate a new API Key: To generate a new API Key, log in and visit the account page. Click on the "Generate API Key" button.</li>
+        <li>Use the API key in the header of your request:
+          <ul>
+            <li>Key: Authorization</li>
+            <li>Value: Token your_api_key</li>
+          </ul>
+        </li>
+      </ul>
+    </section>
+
+    <section class="api-section">
+      <h2>Submit Email</h2>
+
+      <div class="code-box">
+        <p><strong>POST /api/submit/</strong></p>
+
+        <pre>
+          <code>
+            curl --location 'http://<ip>/api/submit/' \
+            --header 'Authorization: Token &lt;API_KEY&gt;' \
+            --form 'file=@"</path/mail_file>"'
+          </code>
+        </pre>
+
+        <p><strong>Response Sample (200 OK)</strong></p>
+        <pre>
+          <code>
+            {
+              "uuid": "1574c5a7-2860-4659-a538-6210d074fb3d"
+            }
+          </code>
+        </pre>
+      </div>
+    </section>
+
+    <section class="api-section">
+      <h2>Get Email Analysis</h2>
+
+      <div class="code-box">
+        <p><strong>GET /api/analysis/&lt;uuid&gt;/</strong></p>
+
+        <pre>
+          <code>
+            curl --location 'http://&lt;ip&gt;/api/analysis/1574c5a7-2860-4659-a538-6210d074fb3d' \
+            --header 'Authorization: Token 27cdb16b2189fdc09f008fd901f54306f155697a'
+          </code>
+        </pre>
+
+        <p><strong>Response Sample (200 OK)</strong></p>
+        <pre>
+          <code>
+            {
+              "uuid": "1574c5a7-2860-4659-a538-6210d074fb3d",
+              "created_at": "2023-12-14T10:41:45.989923Z",
+              "user": "anonymous",
+              "isReady": false,
+              "responseMetadataIp": "IP is not malicious",
+              "responseMetadataDomain": "Mail is not malicious",
+              "responseMetadataSPF": "SPF record is valid"
+            }
+          </code>
+        </pre>
+      </div>
+    </section>
+
+    <section class="api-section">
+      <h2>Update Email Analysis</h2>
+
+      <div class="code-box">
+        <p><strong>PATCH /api/analysis/&lt;uuid&gt;/</strong></p>
+
+        <pre>
+          <code>
+            curl --location --request PATCH 'http://&lt;ip&gt;/api/analysis/0b3cf9d0-fcb3-4bf6-9a29-33abcaab4826/' \
+            --header 'Content-Type: application/json' \
+            --header 'Authorization: Token 27cdb16b2189fdc09f008fd901f54306f155697a' \
+            --data '{
+                "responseMetadataIp": "IP not found in database",
+                "responseMetadataDomain": "Mail is not malicious",
+                "responseMetadataSPF": "SPF record is invalid"
+            }'
+          </code>
+        </pre>
+
+        <p><strong>Response Sample (200 OK)</strong></p>
+        <pre>
+          <code>
+            {
+              "uuid": "0b3cf9d0-fcb3-4bf6-9a29-33abcaab4826",
+              "created_at": "2023-12-14T10:41:45.989923Z",
+              "user": "anonymous",
+              "isReady": false,
+              "responseMetadataIp": "IP not found in database",
+              "responseMetadataDomain": "Mail is not malicious",
+              "responseMetadataSPF": "SPF record is invalid"
+            }
+          </code>
+        </pre>
+      </div>
+    </section>
+
+  </div>
+{% endblock %}

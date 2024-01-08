@@ -4,12 +4,13 @@
 {% block content %}
     <div class="content">
         <img src="{% static 'base/logo.png' %}" alt="Sentimail Logo" class="logo">
-        <p>Welcome to Sentimail</p>
-
+        {% if user.is_authenticated %}
+        <p>Welcome to Sentimail  {{ request.user }} </p>
+        {% else %}
+        <p>Welcome to Sentimail </p>
+        {% endif %}
         <div class="upload-container">
             <div class="upload-box">
-                <img src="{% static 'base/upload-icon.png' %}" alt="Upload Icon" class="upload-icon">
-
                 {% block form %}
                     <form method="post" enctype="multipart/form-data">
             {% csrf_token %}

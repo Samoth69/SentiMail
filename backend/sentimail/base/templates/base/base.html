@@ -12,13 +12,14 @@
 
     <div class="navbar">
       <div class="left-menu">
-        <button>About</button>
-        <a href="#"><button>API</button></a>
+        <a href="{% url 'index' %}"><button class="spec-button">Home</button></a>
+        <button class="spec-button">About</button>
+        <a href="{% url 'api' %}"><button class="spec-button">API</button></a>
       </div>
       <div class="right-menu">
-        <a href="{% url 'logout' %}"><button>Logout</button></a>
-        <a href="{% url 'account' %}"><button>Account</button></a>
-          <a href="#"><button>Historic</button></a>
+        <a href="{% url 'logout' %}"><button class="spec-button">Logout</button></a>
+        <a href="{% url 'account' %}"><button class="spec-button">Account</button></a>
+          <a href="#"><button class="spec-button">Historic</button></a>
       </div>
     </div>
       <div class="right-menu">
@@ -28,16 +29,18 @@
 
       </div>
     </div>
-    <p>Welcome! {{ request.user }}.</p>
+
   {% else %}
     <div class="navbar">
       <div class="left-menu">
-        <button>About</button>
-        <button>API</button>
+        <a href="{% url 'index' %}"><button class="spec-button">Home</button></a>
+        <button class="spec-button">About</button>
+        <a href="{% url 'api' %}"><button class="spec-button">API</button></a>
+
       </div>
       <div class="right-menu">
-        <a href="{% url 'login' %}"><button>Login</button></a>
-        <a href="{% url 'signup' %}"><button>Signup</button></a>
+        <a href="{% url 'login' %}"><button class="spec-button">Login</button></a>
+        <a href="{% url 'signup' %}"><button class="spec-button">Signup</button></a>
       </div>
     </div>
 

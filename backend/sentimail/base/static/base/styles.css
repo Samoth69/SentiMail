@@ -14,9 +14,20 @@ body {
   color: white;
 }
 
-/* Ajoutez ces styles à votre fichier CSS (base/styles.css) */
+
 
 button {
+    margin: 0 10px;
+    padding: 5px 10px;
+    border: none;
+    background-color: #0074d9;
+    color: white;
+    cursor: pointer;
+    font-size: 15px;
+    transition: background-color 0.3s, color 0.3s;
+}
+
+.spec-button{
     margin: 0 10px;
     padding: 12px 20px;
     border: none;
@@ -25,8 +36,8 @@ button {
     cursor: pointer;
     font-size: 18px;
     transition: background-color 0.3s, color 0.3s;
-}
 
+ }
 button:hover {
     background-color: #0056b3;
     color: #fff;
@@ -79,8 +90,27 @@ button:active {
 }
 
 input[type="file"] {
-  display: none;
+
+    border: 2px dashed #0074d9;
+    padding: 20px;
+    margin-top: 20px;
+
 }
+
+label {
+  # hide label text
+    font-size: 0;
+    color: transparent;
+
+}
+
+.welcome {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+
 
 footer {
     color: #0074d9;
@@ -166,6 +196,8 @@ input {
     display: flex;
     flex-direction: column;
     align-items: center;
+
+
 }
 
 .register-btn {
@@ -178,39 +210,98 @@ input {
     font-size: 18px;
 }
 
-/* Ajoutez ces styles à votre fichier CSS (base/styles.css) */
+/* Reset CSS */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
 
-.apidoc-content {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
 }
 
-.api-frame {
-    border: 2px dashed #333;
-    padding: 20px;
-    margin-top: 20px;
+
+
+.api-container {
+  max-width: 1150px;
+  margin: 20px auto;
+  padding: 20px;
+  background-color: #fff;
+  border-radius: 8px;
+  box-shadow: 0 0 50px rgba(0, 0, 0, 0.1);
+
+}
+
+h1, h2 {
+  color: #0074d9;
+}
+
+.api-section {
+  margin-bottom: 20px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  padding: 15px;
+  background-color: #fff;
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+  width: 100%;
+
+}
+
+.code-box {
+  background-color: #f5f5f5;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  padding: 15px;
+  margin-top: 10px;
+  overflow: auto;
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+  width: 100%;
+}
+
+pre {
+  margin: 0;
+}
+
+code {
+  font-family: 'Courier New', monospace;
+}
+
+ul, ol {
+  margin-bottom: 10px;
+}
+
+li {
+  margin-bottom: 5px;
 }
 
 table {
-    width: 100%;
-    border-collapse: collapse;
-    margin-top: 20px;
+  width: 100%;
+  margin-top: 10px;
+  border-collapse: collapse;
 }
 
 th, td {
-    padding: 12px;
-    border: 1px solid #333;
+  border: 1px solid #ddd;
+  padding: 8px;
+  text-align: left;
 }
 
 th {
-    background-color: #0074d9;
-    color: white;
+  background-color: #f2f2f2;
 }
 
-th, td {
-    text-align: left;
+/* Responsive Styles */
+@media screen and (max-width: 800px) {
+  .api-container,
+  .api-section,
+  .code-box {
+    padding: 10px;
+  }
 }
 
-.upload{
-background-color: #0074d9;}
+.title-api {
+    margin-top: 20px;
+    margin-bottom: 20px;
+    font-size: 30px;
+    font-weight: bold;
+    text-align: center;
+
+}
