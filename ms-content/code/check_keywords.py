@@ -3,7 +3,6 @@ import json
 
 def check_keywords(mail):
     print("[check_keywords] Start")
-
     # English:
     #spam_keywords_en = ["viagra", "offer", "free", "business", "opportunity", "loan", "money", "cash", "urgent", "important", "bank", "transfer", "transaction", "investment", "financial", "guarantee", "credit", "debt", "insurance", "beneficiary", "claim", "winner", "winnings", "prize", "award", "lottery", "inheritance", "fund", "charity", "donation", "proposal", "contract", "invoice", "payment", "settlement", "bill", "fee", "cost", "charge", "tax", "duty", "penalty", "fine"]
 
