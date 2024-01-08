@@ -57,29 +57,70 @@ jobs:
       -
         name: checkout
         uses: actions/checkout@v4
+      # -
+      #   name: Set up Python
+      #   uses: actions/setup-python@v4
+      #   with:
+      #     python-version: '3.x'
+      # - 
+      #   name: Install dependencies
+      #   run: python -m pip install --upgrade pip ansible-core kubernetes PyYAML jsonpatch
+      # -
+      #   name: Install ansible deps
+      #   run: ansible-galaxy collection install kubernetes.core
+      # - 
+      #   name: Write ca cert file
+      #   run: echo -n $K8S_CACERT | base64 -d > $RUNNER_TEMP/.K8S_CACERT
+      #   env:
+      #     K8S_CACERT: ${{ secrets.K8S_CACERT }}
+      #     RUNNER_TEMP: ${{ runner.temp }}
+      # -
+      #   name: Deploy
+      #   run: ansible-playbook deploy_pb.yml
+      #   env:
+      #     K8S_AUTH_SSL_CA_CERT: ${{ runner.temp }}/.K8S_CACERT
+      #     K8S_AUTH_API_KEY: ${{ secrets.K8S_AUTH_API_KEY }}
+      #     K8S_AUTH_HOST: ${{ vars.K8S_AUTH_HOST }}
+      #     SENTIMAIL_BACKEND_IMAGE_ID: ${{ needs.BuildImages.outputs.image_id_backend }}
+      #     SENTIMAIL_MS_METADATA_IMAGE_ID: ${{ needs.BuildImages.outputs.image_id_backend }}
       -
-        name: Set up Python
-        uses: actions/setup-python@v4
-        with:
-          python-version: '3.x'
-      - 
-        name: Install dependencies
-        run: python -m pip install --upgrade pip ansible-core kubernetes PyYAML jsonpatch
+        name: install kubectl
+        run: sudo apt update -y && sudo apt install -y kubectl kustomize
       -
-        name: Install ansible deps
-        run: ansible-galaxy collection install kubernetes.core
-      - 
-        name: Write ca cert file
-        run: echo -n $K8S_CACERT | base64 -d > $RUNNER_TEMP/.K8S_CACERT
+        name: write kubectl config
+        run: |
+          echo "apiVersion: v1
+          kind: Config
+          clusters:
+          - name: default-cluster
+            cluster:
+              certificate-authority-data: ${K8S_CACERT}
+              server: ${K8S_AUTH_HOST}
+          contexts:
+          - name: default-context
+            context:
+              cluster: default-cluster
+              namespace: sentimail-dev
+              user: sa-github-deploy
+          current-context: default-context
+          users:
+          - name: sa-github-deploy
+            user:
+              token: ${K8S_AUTH_API_KEY}
+          " > $RUNNER_TEMP/sa.kubeconfig
         env:
-          K8S_CACERT: ${{ secrets.K8S_CACERT }}
           RUNNER_TEMP: ${{ runner.temp }}
-      -
-        name: Deploy
-        run: ansible-playbook -vvvvv deploy_pb.yml
-        env:
-          K8S_AUTH_SSL_CA_CERT: ${{ runner.temp }}/.K8S_CACERT
+          K8S_CACERT: ${{ secrets.K8S_CACERT }}
           K8S_AUTH_API_KEY: ${{ secrets.K8S_AUTH_API_KEY }}
           K8S_AUTH_HOST: ${{ vars.K8S_AUTH_HOST }}
-          SENTIMAIL_BACKEND_IMAGE_ID: ${{ needs.BuildImages.outputs.image_id_backend }}
-          SENTIMAIL_MS_METADATA_IMAGE_ID: ${{ needs.BuildImages.outputs.image_id_backend }}
+      -
+        name: set backend image
+        run: kustomize edit set image harbor.sentimail.samoth.eu/sentimail/backend:${{ needs.BuildImages.outputs.image_id_backend }}
+      -
+        name: set ms-metadata image
+        run: kustomize edit set image harbor.sentimail.samoth.eu/sentimail/ms-metadata:${{ needs.BuildImages.outputs.image_id_ms_metadata }}
+      -
+        name: apply config
+        run: kustomize build | kubectl apply -f -
+        env:
+          KUBECONFIG: ${{ runner.temp }}/sa.kubeconfig
