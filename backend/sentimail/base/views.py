@@ -160,7 +160,6 @@ class EmailViewset(ModelViewSet):
 
     # Limit patch method to staff users
     def update(self, request, *args, **kwargs):
-        print("User: ", request.user)
         if request.user.is_staff:
             return super().update(request, *args, **kwargs)
         else:

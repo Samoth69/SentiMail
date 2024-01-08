@@ -30,6 +30,7 @@ def check_keywords(mail):
     #print(content)
 
     content = content.lower()
+    nb_words = len(content.split())
 
     spam_score = 0
     phishing_score = 0
@@ -57,6 +58,12 @@ def check_keywords(mail):
     # Average of the two scores
     spam_score = (spam_score_content + spam_score_subject) / 2
     phishing_score = (phishing_score_content + phishing_score_subject) / 2
+
+    # check percentage of spam and phishing keywords
+    spam_percentage = spam_score_content / nb_words * 100
+    phishing_percentage = phishing_score_content / nb_words * 100
+    print("[check_keywords] Spam percentage: " + str(spam_percentage))
+    print("[check_keywords] Phishing percentage: " + str(phishing_percentage))
 
     if spam_score > 0 and spam_score > phishing_score:
         print("[check_keywords] End: Spam (score: " + str(spam_score) + ")")
