@@ -4,12 +4,15 @@ metadata:
   namespace: sentimail-dev
   name: r-github-deploy
 rules:
-- apiGroups: [""] # "" indicates the core API group
-  resources: ["pods"]
-  verbs: ["get", "list", "watch", "create", "update", "patch", "delete"]
-- apiGroups: ["apps"]
-  resources: ["deployments"]
-  verbs: ["get", "list", "watch", "create", "update", "patch", "delete"]
+  - apiGroups: [""] # "" indicates the core API group
+    resources: ["pods", "deployments", "services"]
+    verbs: ["get", "list", "watch", "create", "update", "patch", "delete"]
+  - apiGroups: ["apps"]
+    resources: ["*"]
+    verbs: ["*"]
+  - apiGroups: ["traefik.containo.us"]
+    resources: ["ingressroutes", "middlewares", "tlsoptions"]
+    verbs: ["*"]
 ---
 apiVersion: v1
 kind: ServiceAccount
@@ -35,10 +38,9 @@ metadata:
   name: rb-github-deploy
   namespace: sentimail-dev
 subjects:
-# You can specify more than one "subject"
-- kind: User
-  name: sa-github-deploy # "name" is case sensitive
-  apiGroup: rbac.authorization.k8s.io
+  # You can specify more than one "subject"
+  - kind: ServiceAccount
+    name: sa-github-deploy # "name" is case sensitive
 roleRef:
   # "roleRef" specifies the binding to a Role / ClusterRole
   kind: Role #this must be Role or ClusterRole

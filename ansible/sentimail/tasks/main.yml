@@ -2,7 +2,7 @@
   k8s:
     apply: true
     namespace: sentimail-dev
-    src: "{{ item }}"
+    src: "{{ item | to_yaml }}"
   with_items:
     - ../kube/sentimail-manual/sentimail/backend.yml
     - ../kube/sentimail-manual/sentimail/ms-metadata.yml
