@@ -3,3 +3,4 @@ kind: Kustomization
 resources:
 - backend.yml
 - ms-metadata.yml
+- ms-content.yml
