@@ -94,6 +94,8 @@ def send_result(links, spelling, keywords, typosquatting, uuid):
     url = "http://" + os.getenv("BACKEND_HOST", "127.0.0.1:8000") + "/api/analysis/" + uuid + "/"
     print("URL: ", url)
     request = requests.patch(url, data = data, auth=HTTPBasicAuth(user, password))
+    #request = requests.patch(url, json = data, auth=HTTPBasicAuth(user, password))
+    #print("Request: ", request )
     print("Status code: ", request.status_code)
     if request.status_code > 299:
         print("Error: ", request.text)
