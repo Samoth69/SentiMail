@@ -1,8 +1,0 @@
-- name: deploy app
-  k8s:
-    apply: true
-    namespace: sentimail-dev
-    src: "{{ item }}"
-  with_items:
-    - ../kube/sentimail-manual/sentimail/backend.yml
-    - ../kube/sentimail-manual/sentimail/ms-metadata.yml

@@ -1,22 +1,22 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: sentimail-dev-ms-metadata
+  name: sentimail-dev-ms-content
 spec:
   selector:
     matchLabels:
-      app: sentimail-dev-ms-metadata
+      app: sentimail-dev-ms-content
   replicas: 1
   template:
     metadata:
       labels:
-        app: sentimail-dev-ms-metadata
+        app: sentimail-dev-ms-content
     spec:
       imagePullSecrets:
       - name: regcred
       containers:
-      - name: sentimail-dev-ms-metadata
-        image: harbor.sentimail.samoth.eu/sentimail/ms-metadata:latest
+      - name: sentimail-dev-ms-content
+        image: harbor.sentimail.samoth.eu/sentimail/ms-content:latest
         command: ['python', './main.py']
         env:
         - name: BACKEND_HOST
@@ -47,23 +47,13 @@ spec:
               key: minioSecretKey
         - name: MINIO_BUCKET
           value: "sentimail-dev"
-        - name: MS_METADATA_USER
+        - name: MS_CONTENT_USER
           value: "ms_metadata"
-        - name: MS_METADATA_PASSWORD
+        - name: MS_CONTENT_PASSWORD
           valueFrom:
             secretKeyRef:
               name: sentimail-backend-secret
-              key: msMetadataPassword
-        - name: SPAMCHECKER_API_KEY
-          valueFrom:
-            secretKeyRef:
-              name: sentimail-backend-secret
-              key: spamcheckerApiKey
-        - name: GREYNOISE_KEY
-          valueFrom:
-            secretKeyRef:
-              name: sentimail-backend-secret
-              key: greynoiseKey
+              key: msContentPassword
         resources:
           requests:
             cpu: '10m'

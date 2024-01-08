@@ -1,5 +1,0 @@
-- name: deploy sentimail
-  hosts: localhost
-  roles:
-    - role: sentimail
-      delegate_to: localhost
