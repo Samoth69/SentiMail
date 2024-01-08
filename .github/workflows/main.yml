@@ -76,7 +76,7 @@ jobs:
           RUNNER_TEMP: ${{ runner.temp }}
       -
         name: Deploy
-        run: ansible-playbook deploy_pb.yml
+        run: ansible-playbook -vvvvv deploy_pb.yml
         env:
           K8S_AUTH_SSL_CA_CERT: ${{ runner.temp }}/.K8S_CACERT
           K8S_AUTH_API_KEY: ${{ secrets.K8S_AUTH_API_KEY }}
