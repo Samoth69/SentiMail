@@ -68,6 +68,9 @@ jobs:
         env:
           K8S_CACERT: ${{ secrets.K8S_CACERT }}
       -
+        name: test
+        run: echo $K8S_AUTH_HOST
+      -
         name: Deploy
         run: ansible-playbook deploy_pb.yml
         env:
