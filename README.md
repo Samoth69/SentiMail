@@ -3,10 +3,11 @@
 L'expert de la détection de mail malveillant
     
 
-## 🛠️ Install     
-```bash
-TO DO
-```
+# 🛠️ Run locally 
+- Clone the repository
+- Copy the `sample.env` file to `.env` and fill in the variables
+- Run `docker compose up -d --build`
+- Open `http://localhost:8000` in your browser
 
 
 # API Documentation
