@@ -85,7 +85,10 @@ jobs:
       #     SENTIMAIL_MS_METADATA_IMAGE_ID: ${{ needs.BuildImages.outputs.image_id_backend }}
       -
         name: install kubectl
-        run: sudo apt update -y && sudo apt install -y kubectl kustomize
+        run: sudo apt update -y && sudo apt install -y kubectl
+      -
+        name: install kustomize
+        run: sudo snap install kustomize
       -
         name: write kubectl config
         run: |
