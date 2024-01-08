@@ -95,8 +95,13 @@ def send_result(links, spelling, keywords, typosquatting, uuid):
         "Authorization": "Basic " + base64.b64encode(bytes(user_metadata + ":" + password_metadata, "utf-8")).decode("ascii"),
     }
     url = "http://" + os.getenv("BACKEND_HOST", "127.0.0.1:8000") + "/api/analysis/" + uuid + "/"
-    request = requests.patch(url, data = data, headers = headers)
     print("URL: ", url)
+    request = requests.patch(url, data = data, headers = headers)
+    print("Status code: ", request.status_code)
+    if request.status_code > 299:
+        print("Error: ", request.text)
+
+   
 
 if __name__ == '__main__':
     try:

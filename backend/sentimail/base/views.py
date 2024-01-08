@@ -163,7 +163,7 @@ class EmailViewset(ModelViewSet):
         if request.user.is_staff:
             return super().update(request, *args, **kwargs)
         else:
-            return Response(status=status.HTTP_403_FORBIDDEN)
+            return Response(status=status.HTTP_403_FORBIDDEN, data={"message": "You are not allowed to edit this email"})
     
 
     #def get_queryset(self):

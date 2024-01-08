@@ -8,3 +8,5 @@ media/
 __pycache__/
 .DS_Store
 postgres_storage/
+redflags_domains.txt
+sample.env
