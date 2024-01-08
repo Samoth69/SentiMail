@@ -52,7 +52,7 @@ jobs:
     defaults:
       run:
         shell: bash
-        working-directory: ./ansible
+        working-directory: ./kube/sentimail-manual/sentimail
     steps:
       -
         name: checkout
@@ -83,9 +83,6 @@ jobs:
       #     K8S_AUTH_HOST: ${{ vars.K8S_AUTH_HOST }}
       #     SENTIMAIL_BACKEND_IMAGE_ID: ${{ needs.BuildImages.outputs.image_id_backend }}
       #     SENTIMAIL_MS_METADATA_IMAGE_ID: ${{ needs.BuildImages.outputs.image_id_backend }}
-      -
-        name: install kubectl
-        run: sudo apt update -y && sudo apt install -y kubectl
       -
         name: install kustomize
         run: sudo snap install kustomize
@@ -118,10 +115,10 @@ jobs:
           K8S_AUTH_HOST: ${{ vars.K8S_AUTH_HOST }}
       -
         name: set backend image
-        run: kustomize edit set image harbor.sentimail.samoth.eu/sentimail/backend:${{ needs.BuildImages.outputs.image_id_backend }}
+        run: kustomize edit set image harbor.sentimail.samoth.eu/sentimail/backend@${{ needs.BuildImages.outputs.image_id_backend }}
       -
         name: set ms-metadata image
-        run: kustomize edit set image harbor.sentimail.samoth.eu/sentimail/ms-metadata:${{ needs.BuildImages.outputs.image_id_ms_metadata }}
+        run: kustomize edit set image harbor.sentimail.samoth.eu/sentimail/ms-metadata@${{ needs.BuildImages.outputs.image_id_ms_metadata }}
       -
         name: apply config
         run: kustomize build | kubectl apply -f -
