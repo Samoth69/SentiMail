@@ -14,9 +14,9 @@ spec:
     spec:
       initContainers:
         - name: init-sentimail-dev-backend
-          image: harbor.sentimail.samoth.eu/sentimail/backend:{{ lookup('env', 'SENTIMAIL_BACKEND_IMAGE_ID') }}
-          # image: harbor.sentimail.samoth.eu/sentimail/backend:latest
-          # imagePullPolicy: Always
+          # image: harbor.sentimail.samoth.eu/sentimail/backend:{{ lookup('env', 'SENTIMAIL_BACKEND_IMAGE_ID') }}
+          image: harbor.sentimail.samoth.eu/sentimail/backend:latest
+          imagePullPolicy: Always
           command: ['sh', 'init.sh']
           env:
             - name: SECRET_KEY
@@ -60,9 +60,9 @@ spec:
                   key: msAttachmentPassword
       containers:
       - name: sentimail-dev-backend
-        image: harbor.sentimail.samoth.eu/sentimail/backend:{{ lookup('env', 'SENTIMAIL_BACKEND_IMAGE_ID') }}
-        # image: harbor.sentimail.samoth.eu/sentimail/backend:latest
-        # imagePullPolicy: Always
+        # image: harbor.sentimail.samoth.eu/sentimail/backend:{{ lookup('env', 'SENTIMAIL_BACKEND_IMAGE_ID') }}
+        image: harbor.sentimail.samoth.eu/sentimail/backend:latest
+        imagePullPolicy: Always
         command: ['python', '-m', 'gunicorn', 'sentimail.asgi:application', '-k', 'uvicorn.workers.UvicornWorker', '-b', '0.0.0.0:8000']
         ports:
         - containerPort: 8000
