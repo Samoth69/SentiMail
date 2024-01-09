@@ -153,26 +153,3 @@ spec:
     app: sentimail-dev-backend
   ports:
   - port: 8000
----
-apiVersion: traefik.containo.us/v1alpha1
-kind: IngressRoute
-metadata:
-  name: sentimail-dev-backend-ingressroute
-spec:
-  entryPoints:
-    - websecure
-  routes:
-  - match: Host(`dev.sentimail.samoth.eu`)
-    kind: Rule
-    # middlewares:
-    #   - name: sentimail-backend-auth
-    services:
-    - name: sentimail-dev-backend-service
-      namespace: sentimail-dev
-      port: 8000
-  - match: Host(`dev.sentimail.samoth.eu`) & Path(`/static`)
-    kind: Rule
-    services:
-    - name: sentimail-dev-frontend-service
-      namespace: sentimail-dev
-      port: 80

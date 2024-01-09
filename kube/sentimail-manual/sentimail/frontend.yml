@@ -1,21 +1,21 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: sentimail-dev-front
+  name: sentimail-dev-frontend
 spec:
   selector:
     matchLabels:
-      app: sentimail-dev-front
+      app: sentimail-dev-frontend
   replicas: 2
   template:
     metadata:
       labels:
-        app: sentimail-dev-front
+        app: sentimail-dev-frontend
     spec:
       imagePullSecrets:
       - name: regcred
       containers:
-      - name: sentimail-dev-front
+      - name: sentimail-dev-frontend
         image: harbor.sentimail.samoth.eu/sentimail/frontend:latest
         ports:
         - containerPort: 80
