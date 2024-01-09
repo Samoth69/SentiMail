@@ -10,6 +10,7 @@ from check_keywords import *
 from check_links import *
 from check_spelling import *
 from check_typosquatting import *
+from check_character import *
 import requests
 from requests.auth import HTTPBasicAuth
 
@@ -40,10 +41,10 @@ def main():
         # récupérer uniquement la chaine de caractère entre les quotes du body
 
         file = json.loads(body)
-        links, spelling, keywords, typosquatting = analyse(file)
+        links, spelling, keywords, typosquatting, character = analyse(file)
         os.remove(file)
         
-        send_result(links, spelling, keywords, typosquatting, file)
+        send_result(links, spelling, keywords, typosquatting,character, file)
         #send_result("A", "B", "C", file)
 
     channel.basic_consume(queue=queueSend, on_message_callback=callback, auto_ack=True)
@@ -67,20 +68,22 @@ def analyse(id_file):
     spelling = check_spelling(mail)
     keywords = check_keywords(mail)
     typosquatting = check_typosquatting(mail)
-    return links, spelling, keywords, typosquatting
+    character = check_character(mail)
+    return links, spelling, keywords, typosquatting, character
 
 def parseFile(id_file):
     mail = mailparser.parse_from_file(id_file)
     return mail
 
 
-def send_result(links, spelling, keywords, typosquatting, uuid):
+def send_result(links, spelling, keywords, typosquatting,character, uuid):
     # Send result to the API:  
     print("Send result")
     print("links", links)
     print("spelling", spelling)
     print("keywords", keywords)
     print("typosquatting", typosquatting)
+    print("character", character)
     user = os.getenv("MS_CONTENT_USER")
     password = os.getenv("MS_CONTENT_PASSWORD")
 
@@ -90,6 +93,7 @@ def send_result(links, spelling, keywords, typosquatting, uuid):
             "responseContentSpelling": spelling,
             "responseContentKeywords": keywords,
             "responseContentTyposquatting": typosquatting,
+            "responseContentCharacter": character,
         }
     url = "http://" + os.getenv("BACKEND_HOST", "127.0.0.1:8000") + "/api/analysis/" + uuid + "/"
     print("URL: ", url)
@@ -100,7 +104,7 @@ def send_result(links, spelling, keywords, typosquatting, uuid):
     if request.status_code > 299:
         print("Error: ", request.text)
 
-   
+
 
 if __name__ == '__main__':
     try:
