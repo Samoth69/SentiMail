@@ -1,4 +1,3 @@
-import re
 from langdetect import detect
 import language_tool_python
 
