@@ -13,16 +13,19 @@ class Command(BaseCommand):
                 'username': settings.MS_METADATA_USER,
                 'password': settings.MS_METADATA_PASSWORD,
                 'email': settings.MS_METADATA_USER + '@sentimail.com',
+                'is_staff': True,
             },
             {
                 'username': settings.MS_CONTENT_USER,
                 'password': settings.MS_CONTENT_PASSWORD,
                 'email': settings.MS_CONTENT_USER + '@sentimail.com',
+                'is_staff': True,
             },
             {
                 'username': settings.MS_ATTACHMENT_USER,
                 'password': settings.MS_ATTACHMENT_PASSWORD,
                 'email': settings.MS_ATTACHMENT_USER + '@sentimail.com',
+                'is_staff': True,
             },
         ]
         for user_data in users_data:
