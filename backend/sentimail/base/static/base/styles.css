@@ -305,3 +305,39 @@ th {
     text-align: center;
 
 }
+.container-account {
+        text-align: center;
+        margin: 50px auto;
+        background-color: #fff;
+        padding: 20px;
+        border-radius: 8px;
+        box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+        max-width: 600px;
+
+    }
+
+    h1 {
+        color: ##0074d9;
+    }
+
+    .account-info {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        border: 2px solid #ddd;
+        padding: 15px;
+        margin: 15px 0;
+        border-radius: 10px;
+        transition: background-color 0.3s;
+    }
+
+    .account-info:hover {
+        background-color: #0074d9;
+        color: #fff;
+    }
+
+    h3 {
+        text-decoration: underline;
+        margin-bottom: 10px;
+        color: #000000;
+    }
