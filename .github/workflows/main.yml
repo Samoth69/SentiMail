@@ -12,6 +12,7 @@ jobs:
     runs-on: ubuntu-latest
     outputs:
       image_id_backend: ${{ steps.img-backend.outputs.imageid }}
+      image_id_frontend: ${{ steps.img-frontend.outputs.imageid }}
       image_id_ms_metadata: ${{ steps.img-ms-metadata.outputs.imageid }}
       image_id_ms_content: ${{ steps.img-ms-content.outputs.imageid }}
     steps:
@@ -36,9 +37,18 @@ jobs:
         name: Build and push backend
         uses: docker/build-push-action@v5
         with:
-          context: backend/sentimail
+          context: backend
           push: true
           tags: harbor.sentimail.samoth.eu/sentimail/backend:latest
+      - 
+        id: img-frontend
+        name: Build and push frontend
+        uses: docker/build-push-action@v5
+        with:
+          context: backend
+          file: Dockerfile.front
+          push: true
+          tags: harbor.sentimail.samoth.eu/sentimail/front:latest
       - 
         id: img-ms-metadata
         name: Build and push ms-metadata
@@ -99,6 +109,9 @@ jobs:
       -
         name: set backend image
         run: kustomize edit set image harbor.sentimail.samoth.eu/sentimail/backend@${{ needs.BuildImages.outputs.image_id_backend }}
+      -
+        name: set frontend image
+        run: kustomize edit set image harbor.sentimail.samoth.eu/sentimail/frontend@${{ needs.BuildImages.outputs.image_id_frontend }}
       -
         name: set ms-metadata image
         run: kustomize edit set image harbor.sentimail.samoth.eu/sentimail/ms-metadata@${{ needs.BuildImages.outputs.image_id_ms_metadata }}

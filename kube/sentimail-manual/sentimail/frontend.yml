@@ -1,0 +1,38 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: sentimail-dev-front
+spec:
+  selector:
+    matchLabels:
+      app: sentimail-dev-front
+  replicas: 2
+  template:
+    metadata:
+      labels:
+        app: sentimail-dev-front
+    spec:
+      imagePullSecrets:
+      - name: regcred
+      containers:
+      - name: sentimail-dev-front
+        image: harbor.sentimail.samoth.eu/sentimail/front:latest
+        ports:
+        - containerPort: 80
+        resources:
+          requests:
+            cpu: '5m'
+            memory: '64M'
+          limits:
+            cpu: '2'
+            memory: 1024M
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: sentimail-dev-frontend-service
+spec:
+  selector:
+    app: sentimail-dev-frontend
+  ports:
+  - port: 80

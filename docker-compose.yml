@@ -49,7 +49,7 @@ services:
 
 
   web:
-    build: ./backend/sentimail
+    build: ./backend
     command: python manage.py runserver 0.0.0.0:8000
     volumes:
       - .:/backend/sentimail

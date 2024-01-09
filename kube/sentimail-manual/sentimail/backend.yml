@@ -170,3 +170,9 @@ spec:
     - name: sentimail-dev-backend-service
       namespace: sentimail-dev
       port: 8000
+  - match: Host(`dev.sentimail.samoth.eu`) & Path(`/static`)
+    kind: Rule
+    services:
+    - name: sentimail-dev-frontend-service
+      namespace: sentimail-dev
+      port: 80

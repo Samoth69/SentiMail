@@ -1,0 +1,12 @@
+FROM --platform=amd64 python:3-alpine as builder
+ENV PYTHONDONTWRITEBYTECODE=1
+ENV PYTHONUNBUFFERED=1
+WORKDIR /sentimail
+COPY ./sentimail /sentimail/
+RUN pip install -r requirement.txt && \
+    python manage.py collectstatic --noinput
+
+FROM --platform=amd64 nginx:1.25
+RUN rm -rf /usr/share/nginx/html
+COPY ./nginx.conf /etc/nginx/nginx.conf
+COPY --from=builder /sentimail/static /usr/share/nginx/html
