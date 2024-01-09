@@ -27,6 +27,7 @@ urlpatterns = [
     path('', views.index),
     path('index/', views.index, name='index'),
     path('api/', include('base.urls')),
+    path('api_doc/', views.api_doc, name='api_doc'),
     path('uploadSuccess/', views.uploadSuccess),
     #path('login/', authentication.views.login_page, name='login'),
     path('login/', authentication.views.LoginView.as_view(), name='login'),

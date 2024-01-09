@@ -2,12 +2,18 @@
 {% load static %}
 
 {% block content %}
-<p>{{ message }}</p>
-<form method="post">
-    {{ form.as_p }}
-    {% csrf_token %}
-    <button type="submit">Login</button>
-    <p> Don't have an account ? <a href="{% url 'signup' %}">Sign up</a> </p>
-</form>
+  <div class="content login-content">
+    <img src="{% static 'base/logo.png' %}" alt="SentiMail Logo" class="logo">
+    <p>Login to SentiMail</p>
 
+    <form class="login-form" method="post">
+      {% csrf_token %}
+      {{ form.as_p }}
+      <p class="forgot-password"><a href="#">Forgot password?</a></p>
+
+      <button type="submit" class="login-btn">Login</button>
+    </form>
+
+    <p class="signup-link">Don't have an account? <a href="{% url 'signup' %}">Sign up</a></p>
+  </div>
 {% endblock %}

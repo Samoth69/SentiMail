@@ -1,31 +1,35 @@
+<!-- templates/account.html -->
+
 {% extends "base/base.html" %}
 {% load static %}
 
-{% block content %}
+{{% block content %}
+    <div class="container-account">
+        <h1>Mon compte</h1>
 
-<h1>Account</h1>
-<p>
-    <h3>Name</h3>
-    {{ user.get_full_name }}
-</p>
-<p>
-    <h3>Email</h3>
-    {{ user.email }}
-</p>
-<p>
-    <h3>Password</h3>
-</p>
+        <div class="account-info">
+            <h3>Nom</h3>
+            {{ user.get_full_name }}
+        </div>
 
-<p>
-    <h3>API Key</h3>
-    {{ api_key }}
-    <form method="post">
-        {{ token_form }}
-        {% csrf_token %}
-        <button type="submit">Generate new API key</button>
-      
-    </form>
-    
-</p>
+        <div class="account-info">
+            <h3>Email</h3>
+            {{ user.email }}
+        </div>
 
+        <div class="account-info">
+            <h3>Mot de passe</h3>
+            <!-- Ajoutez ici le champ pour le mot de passe si nécessaire -->
+        </div>
+
+        <div class="account-info">
+            <h3>Clé API</h3>
+            {{ api_key }}
+            <form method="post">
+                {{ token_form }}
+                {% csrf_token %}
+                <button type="submit">Générer une nouvelle clé API</button>
+            </form>
+        </div>
+    </div>
 {% endblock %}

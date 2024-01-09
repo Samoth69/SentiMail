@@ -78,6 +78,9 @@ services:
       - MS_CONTENT_PASSWORD=${MS_CONTENT_PASSWORD}
       - MS_ATTACHMENT_USER=${MS_ATTACHMENT_USER}
       - MS_ATTACHMENT_PASSWORD=${MS_ATTACHMENT_PASSWORD}
+      - DEBUG=1
+      - ALLOWED_HOSTS=['localhost', '127.0.0.1', 'web']
+      - CSRF_TRUSTED_ORIGINS=['http://localhost', 'http://127.0.0.1', 'http://web']
     depends_on:
       - postgres-db
 
