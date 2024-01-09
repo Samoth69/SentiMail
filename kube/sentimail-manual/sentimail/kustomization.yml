@@ -5,4 +5,4 @@ resources:
 - frontend.yml
 - ms-metadata.yml
 - ms-content.yml
-- IngressRoute.yml
+- ingressRoute.yml
