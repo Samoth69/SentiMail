@@ -26,7 +26,7 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('', views.index),
     path('index/', views.index, name='index'),
-    path('api/', include('base.urls')),
+    path('api/', views.api, name='api'),
     path('uploadSuccess/', views.uploadSuccess),
     #path('login/', authentication.views.login_page, name='login'),
     path('login/', authentication.views.LoginView.as_view(), name='login'),

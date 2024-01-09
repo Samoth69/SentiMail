@@ -64,6 +64,10 @@ def index(request):
 def uploadSuccess(request):
     return render(request, 'base/uploadSuccess.html')
 
+def api(request):
+    return render(request, 'base/api.html')
+
+
 # TODO: Test if file is already uploaded
 def fileuploaded(file, username):
     

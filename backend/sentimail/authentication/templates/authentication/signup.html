@@ -1,16 +1,20 @@
 {% extends "base/base.html" %}
 {% load static %}
 
-<h2>Sign In</h2> 
+<h2>Register to SentiMail</h2>
 
 {% block content %}
-    {% if form.errors %}
-        {{ form.errors}}
-    {% endif %}
-    <form method="post">
-        {{ form.as_p }}
-        {% csrf_token %}
-        <button type="submit">Sign In</button>
-    </form>
-    <p>  Already have an account ? <a href="{% url 'login' %}">Log in</a> </p>
-{% endblock content %}
+    <div class="content register-content">
+        <img src="{% static 'base/logo.png' %}" alt="SentiMail Logo" class="logo">
+        <form class="register-form" method="post">
+            {% if form.errors %}
+                <p>{{ form.errors }}</p>
+            {% endif %}
+            {{ form.as_p }}
+            {% csrf_token %}
+            <button type="submit" class="register-btn">Register</button>
+        </form>
+        <p class="login-link">Already have an account? <a href="{% url 'login' %}">Login</a></p>
+    </div>
+{% endblock %}
+
