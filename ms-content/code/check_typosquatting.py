@@ -7,22 +7,14 @@ def check_typosquatting(mail):
 
     update_redflags_domains()
 
-
     sender = mail.from_
     content = mail.body
-    
-    #print("[check_typosquatting] Checking typosquatting for sender: ", sender)
-    #print("[check_typosquatting] Checking typosquatting for content: ", content)
-    
     sender_email = sender[-1][-1]
-    #print("[check_typosquatting] Checking typosquatting for sender email: ", sender_email)
     sender_domain = sender_email.split("@")[1]
     print("[check_typosquatting] Checking typosquatting for sender domain: ", sender_domain)
 
     # Extract all url from content
-    #urls = re.findall(r'(https?://\S+)', content)
     urls = re.findall(r'(https?://[a-z0-9./:%@?=-]+)', content)
-    #print("[check_typosquatting] Checking typosquatting for urls: ", urls)
 
     # Extract all domain from urls
     domains = []
@@ -68,8 +60,7 @@ def update_redflags_domains():
             last_update = last_update.split(":")[1]
             last_update = last_update.strip()
             yersterday_date = (datetime.today() - timedelta(days=1)).strftime('%Y-%m-%d')
-            #print("[update_redflags_domains] Last update: ", last_update)
-            #print("[update_redflags_domains] Yesterday date: ", yersterday_date)
+
             if last_update != yersterday_date:
                 try:
                     print("[update_redflags_domains] Downloading redflags_domains.txt")
