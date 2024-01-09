@@ -46,9 +46,9 @@ jobs:
         uses: docker/build-push-action@v5
         with:
           context: backend
-          file: Dockerfile.front
+          file: ./backend/Dockerfile.front
           push: true
-          tags: harbor.sentimail.samoth.eu/sentimail/front:latest
+          tags: harbor.sentimail.samoth.eu/sentimail/frontend:latest
       - 
         id: img-ms-metadata
         name: Build and push ms-metadata
