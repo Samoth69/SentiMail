@@ -10,9 +10,10 @@ def check_character(mail):
 
     if result == True:
         print("clean")
+        return "Clean"
     else:
         print("Malicious")
-
+        return "Malicious"
 def remove_accents(text): # Fonction pour supprimer les accents
     # Utilisation de la fonction unidecode pour supprimer les accents
     text_without_accents = unidecode(text)
@@ -38,7 +39,7 @@ def est_texte_valide(texte): # Fonction pour vérifier si le texte est valide
     print(mots)
     # Vérifier chaque mot pour s'assurer qu'il est composé de caractères alphanumériques et est compris avec les caractères de ponctuation ou autre caractères spéciaux normalement utilisés dans les textes
 
-    caractere_valide = ['.', ',', ';', ':', '!', '?',"'",'(',')']
+    caractere_valide = ['.', ',', ';', ':', '!', '?',"'",'(',')','/', "\\"]
 
     # Compte chaque caractère du texte et faire un pourcentage de caractère valide.
     caractere_valide_count = 0
