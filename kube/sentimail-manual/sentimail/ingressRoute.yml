@@ -8,6 +8,16 @@ spec:
     prefixes:
       - /static
 ---
+# Sets the maximum request body to 30MB
+apiVersion: traefik.io/v1alpha1
+kind: Middleware
+metadata:
+  name: sentimail-dev-backend-maxbodysize
+  namespace: sentimail-dev
+spec:
+  buffering:
+    maxRequestBodyBytes: 30000000
+---
 apiVersion: traefik.containo.us/v1alpha1
 kind: IngressRoute
 metadata:
@@ -18,6 +28,9 @@ spec:
   routes:
   - match: Host(`dev.sentimail.samoth.eu`)
     kind: Rule
+    middlewares:
+    - name: sentimail-dev-backend-maxbodysize
+      namespace: sentimail-dev
     services:
     - name: sentimail-dev-backend-service
       namespace: sentimail-dev
