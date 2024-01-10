@@ -1,18 +1,20 @@
-import dkim
+def evaluer_texte(mail):
+    mail_headers = mail.headers
 
+    dkim_pass = ["dkim=pass"]
+    dkim_unpass = ["dkim=neutral", "dkim=none", "dkim=permerror", "dkim=temperror", "dkim=fail", "DKIM-Signature", "DKIM-Filter"]
 
-def verify_dkim(message):
-    # Verify DKIM signature
-    try:
-        result = dkim.verify(message)
-        if result == None:
-            return "DKIM signature is valid"
-        else:
-            return "DKIM signature is invalid"
-    except:
-        return "DKIM signature not found"
-
-test = (my-filename)
+    for settings in dkim_pass:
+        for header_name, header_value in mail_headers.items():
+            if settings in header_value:
+                    return "DKIM Exist and Valid"
+            
+    for settings in dkim_unpass:
+        for header_name, header_value in mail_headers.items():
+            if settings in header_value:
+                    return "DKIM Exist but Unvalid"
+				
+    return "DKIM Unexist"
 
 
 
