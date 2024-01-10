@@ -52,7 +52,8 @@ def index(request):
             print("Username: ", username)
             print("File: ", file)
             uuid = fileuploaded(file, username)
-            return redirect(uploadSuccess)
+            #return redirect(uploadSuccess)
+            return redirect(result, uuid=uuid)
         else:
             print("Serializer is not valid")
             messages.info(request, "Upload error: only .eml files are allowed")
@@ -67,6 +68,14 @@ def uploadSuccess(request):
 def api_doc(request):
     return render(request, 'base/api_doc.html')
 
+
+def result(request, uuid):
+    email = Email.objects.get(uuid=uuid)
+    ip = email.responseMetadataIp
+
+
+
+    return render(request, 'base/result.html', {'email': email})
 
 # TODO: Test if file is already uploaded
 def fileuploaded(file, username):
