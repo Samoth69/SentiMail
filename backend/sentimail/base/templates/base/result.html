@@ -1,0 +1,80 @@
+{% extends "base/base.html" %}
+{% load static %}
+
+
+{% block content %}
+
+
+<script>
+    var refreshIntervalId = setInterval(function() {
+        window.location.reload(true);
+    }, 5000);
+    setTimeout(function() {
+        clearInterval(refreshIntervalId);
+    }, 20000);
+</script>
+
+
+
+  <div class="container">
+        <table class="result-table">
+            <tr>
+                <td class="result-block global" id="score">
+                    <div class="inner-block">
+                        <h1>Result</h1>
+                        <p>Score global</p>
+                    </div>
+                </td>
+                <td class="result-block" id="uuid">
+                    <div class="inner-block">
+                        <p class ="table-title">UUID </p>
+                        <p class ="table-content">{{ email.uuid }}</p>
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td class="result-block" id="ip">
+                    <div class="inner-block">
+                        <p class ="table-title">IP</p>
+                        <p class ="table-content">{{ email.responseMetadataIp }}</p>
+                    </div>
+                </td>
+                <td class="result-block" id="domain">
+                    <div class="inner-block">
+                        <p class ="table-title">Domain</p>
+                        <p class ="table-content">{{ email.responseMetadataDomain }}</p>
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td class="result-block" id="spf">
+                    <div class="inner-block">
+                        <p class ="table-title">SPF</p>
+                        <p class ="table-content">{{ email.responseMetadataSPF }}</p>
+                    </div>
+                </td>
+                <td class="result-block" id="links">
+                    <div class="inner-block">
+                        <p class ="table-title">Links</p>
+                        <p class ="table-content">{{ mail.responseContentLinks }}</p>
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td class="result-block" id="spelling">
+                    <div class="inner-block">
+                        <p class ="table-title">Spelling</p>
+                        <p class ="table-content">{{ email.responseContentSpelling }}</p>
+                    </div>
+                </td>
+                <td class="result-block" id="keywords">
+                    <div class="inner-block">
+                        <p class ="table-title">Keywords</p>
+                        <p class ="table-content">{{ email.responseContentKeywords }}</p>
+                    </div>
+                </td>
+            </tr>
+        </table>
+    </div>
+
+{% endblock %}

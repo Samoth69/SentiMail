@@ -36,6 +36,7 @@ urlpatterns = [
     #path('signup/', authentication.views.signup_page, name='signup'),
     path('signup/', authentication.views.SignupView.as_view(), name='signup'),
     path('account/', authentication.views.AccountView.as_view(), name='account'),
+    path('result/<uuid:uuid>/', views.result, name='result'),
 ]
 
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
