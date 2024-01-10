@@ -149,7 +149,7 @@ jobs:
           registry_password: ${{ secrets.HARBOR_PASSWORD }}
           build_tag: "sentimail/front:latest"
           build_context: "backend"
-          build_dockerfile: "Dockerfile.front"
+          build_dockerfile: "backend/Dockerfile.front"
 
   build_ms_content:
     runs-on: ubuntu-latest
