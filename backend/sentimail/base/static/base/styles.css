@@ -363,6 +363,7 @@ th {
     border-spacing: 20px; /* Adjust spacing between cells */
     margin-top: 20px; /* Add margin to the top for spacing */
     width: 100%;
+
 }
 
 .result-block {
@@ -370,10 +371,13 @@ th {
     padding: 10px;
     cursor: pointer;
     background-color: #fff; /* Default background color */
+
 }
 
 .result-block.global {
     background-color: #f0f8ff; /* Global block color */
+    text-align: center;
+
 
 }
 
@@ -391,4 +395,10 @@ th {
     margin-bottom: 10px;
     text-align: center;
     color: #0074d9;
+}
+.table-content {
+    font-size: 16px;
+    margin-bottom: 10px;
+    text-align: center;
+    color: #000000;
 }

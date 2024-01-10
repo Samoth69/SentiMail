@@ -86,6 +86,7 @@ services:
 
   ms-metadata:
     build: ./ms-metadata
+    restart: unless-stopped
     command: python ./main.py
     environment:
       - BACKEND_HOST=web:8000
@@ -106,6 +107,7 @@ services:
 
   ms-content:
     build: ./ms-content
+    restart: unless-stopped
     command: python ./main.py
     environment:
       - BACKEND_HOST=web:8000
