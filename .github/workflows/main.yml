@@ -1,12 +1,12 @@
 name: The CI
 on:
   push:
-    branches: ["dev", "refactoCI"]
+    branches: [ "dev", "refactoCI" ]
 
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
   cancel-in-progress: true
-
+    
 jobs:
   build_backend:
     runs-on: ubuntu-latest
@@ -16,14 +16,14 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - id: build
-        uses: samoth69/build-push-check-action@v3
+        uses: samoth69/build-push-check-action@v4
         with:
           registry_hostname: ${{ vars.HARBOR_HOSTNAME }}
           registry_username: ${{ secrets.HARBOR_USERNAME }}
           registry_password: ${{ secrets.HARBOR_PASSWORD }}
           build_tag: "sentimail/backend:latest"
           build_context: "backend"
-
+  
   build_front:
     runs-on: ubuntu-latest
     name: Build front
@@ -32,7 +32,7 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - id: build
-        uses: samoth69/build-push-check-action@v3
+        uses: samoth69/build-push-check-action@v4
         with:
           registry_hostname: ${{ vars.HARBOR_HOSTNAME }}
           registry_username: ${{ secrets.HARBOR_USERNAME }}
@@ -49,14 +49,14 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - id: build
-        uses: samoth69/build-push-check-action@v3
+        uses: samoth69/build-push-check-action@v4
         with:
           registry_hostname: ${{ vars.HARBOR_HOSTNAME }}
           registry_username: ${{ secrets.HARBOR_USERNAME }}
           registry_password: ${{ secrets.HARBOR_PASSWORD }}
           build_tag: "sentimail/ms-content:latest"
           build_context: "ms-content"
-
+  
   build_ms_metadata:
     runs-on: ubuntu-latest
     name: Build ms metadata
@@ -65,7 +65,7 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - id: build
-        uses: samoth69/build-push-check-action@v3
+        uses: samoth69/build-push-check-action@v4
         with:
           registry_hostname: ${{ vars.HARBOR_HOSTNAME }}
           registry_username: ${{ secrets.HARBOR_USERNAME }}
@@ -75,18 +75,26 @@ jobs:
 
   Deploy:
     runs-on: ubuntu-latest
-    needs:
-      ["build_backend", "build_front", "build_ms_content", "build_ms_metadata"]
+    needs: 
+      [
+        "build_backend",
+        "build_front",
+        "build_ms_content",
+        "build_ms_metadata"
+      ]
     defaults:
       run:
         shell: bash
         working-directory: ./kube/sentimail-manual/sentimail
     steps:
-      - name: checkout
+      -
+        name: checkout
         uses: actions/checkout@v4
-      - name: install kustomize
+      -
+        name: install kustomize
         run: sudo snap install kustomize
-      - name: write kubectl config
+      -
+        name: write kubectl config
         run: |
           echo "apiVersion: v1
           kind: Config
@@ -112,15 +120,20 @@ jobs:
           K8S_CACERT: ${{ secrets.K8S_CACERT }}
           K8S_AUTH_API_KEY: ${{ secrets.K8S_AUTH_API_KEY }}
           K8S_AUTH_HOST: ${{ vars.K8S_AUTH_HOST }}
-      - name: set backend image
+      -
+        name: set backend image
         run: kustomize edit set image harbor.sentimail.samoth.eu/sentimail/backend@${{ needs.build_backend.outputs.image_id }}
-      - name: set frontend image
+      -
+        name: set frontend image
         run: kustomize edit set image harbor.sentimail.samoth.eu/sentimail/frontend@${{ needs.build_front.outputs.image_id }}
-      - name: set ms-metadata image
+      -
+        name: set ms-metadata image
         run: kustomize edit set image harbor.sentimail.samoth.eu/sentimail/ms-metadata@${{ needs.build_ms_metadata.outputs.image_id }}
-      - name: set ms-content image
+      -
+        name: set ms-content image
         run: kustomize edit set image harbor.sentimail.samoth.eu/sentimail/ms-content@${{ needs.build_ms_content.outputs.image_id }}
-      - name: apply config
+      -
+        name: apply config
         run: kustomize build | kubectl apply -f -
         env:
           KUBECONFIG: ${{ runner.temp }}/sa.kubeconfig
