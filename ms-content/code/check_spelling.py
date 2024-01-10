@@ -32,11 +32,11 @@ def check_spelling(mail):
 
     #La plupart des examens d'ecriture requierent moins d'1 faute tout les 40 mots pour obtenir les meilleures notes
     #On considere qu'un texte comporte environ 1 faute tout les 30 mots
-    #A partir de plus d'1 faute tout les 20 mots, on pourra considerer le mail comme mailicieux
-    #Soit une frequence de 1 faute tout les 240/120 caracteres
+    #A partir de plus d'1 faute tout les 10 mots, on pourra considerer le mail comme mailicieux
+    #Soit une frequence de 1 faute tout les 240/60 caracteres
 
     frequence_clean = 0.0041
-    frequence_malicious = 0.0082
+    frequence_malicious = 0.017
 
     #Detection de la langue
     language = detect(mail_text)
@@ -79,8 +79,9 @@ def check_spelling(mail):
                 offset = (faults_canonic[i].offset)
                 fault_word = search_word(mail_canonic, offset)
                 if fault_word != None:
-                    if fault_word.istitle():
+                    if fault_word[0].isupper():
                         fault_number = fault_number - 1
+
 
 
     #Supression des espaces dans le texte
