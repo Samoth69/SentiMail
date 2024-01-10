@@ -18,7 +18,9 @@ def search_word(mail_canonic, offset):
 
 
 #Fonction principale
-def check_spelling(mail_text):
+def check_spelling(mail):
+
+    mail_text = mail.body 
 
     #Definition du seuil de frequence de fautes
     #De maniere generale, la longueur moyenne d'un mot est de 5 a 6 lettres
@@ -89,3 +91,4 @@ def check_spelling(mail_text):
         return "Ok : correct syntax"
     elif frequence_fault >= frequence_malicious:
         return "Malicious : bad syntax"
+    
