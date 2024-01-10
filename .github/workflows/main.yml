@@ -1,73 +1,87 @@
 name: The CI
 on:
   push:
-    branches: [ "dev" ]
+    branches: [ "dev", "refactoCI" ]
 
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
   cancel-in-progress: true
     
 jobs:
-  BuildImages:
+  build_backend:
     runs-on: ubuntu-latest
+    name: Build backend
     outputs:
-      image_id_backend: ${{ steps.img-backend.outputs.imageid }}
-      image_id_frontend: ${{ steps.img-frontend.outputs.imageid }}
-      image_id_ms_metadata: ${{ steps.img-ms-metadata.outputs.imageid }}
-      image_id_ms_content: ${{ steps.img-ms-content.outputs.imageid }}
+      image_id: ${{ steps.build.outputs.imageid }}
     steps:
-      - 
-        name: checkout
-        uses: actions/checkout@v4
-      -
-        name: Set up QEMU
-        uses: docker/setup-qemu-action@v3
-      -
-        name: Set up Docker Buildx
-        uses: docker/setup-buildx-action@v3
-      - 
-        name: Docker login
-        uses: docker/login-action@v3
+      - uses: actions/checkout@v4
+      - id: build
+        uses: samoth69/build-push-check-action@v4
         with:
-            registry: harbor.sentimail.samoth.eu
-            username: ${{ secrets.HARBOR_USERNAME }}
-            password: ${{ secrets.HARBOR_PASSWORD }}
-      - 
-        id: img-backend
-        name: Build and push backend
-        uses: docker/build-push-action@v5
+          registry_hostname: ${{ vars.HARBOR_HOSTNAME }}
+          registry_username: ${{ secrets.HARBOR_USERNAME }}
+          registry_password: ${{ secrets.HARBOR_PASSWORD }}
+          build_tag: "sentimail/backend:latest"
+          build_context: "backend"
+  
+  build_front:
+    runs-on: ubuntu-latest
+    name: Build front
+    outputs:
+      image_id: ${{ steps.build.outputs.imageid }}
+    steps:
+      - uses: actions/checkout@v4
+      - id: build
+        uses: samoth69/build-push-check-action@v4
         with:
-          context: backend
-          push: true
-          tags: harbor.sentimail.samoth.eu/sentimail/backend:latest
-      - 
-        id: img-frontend
-        name: Build and push frontend
-        uses: docker/build-push-action@v5
+          registry_hostname: ${{ vars.HARBOR_HOSTNAME }}
+          registry_username: ${{ secrets.HARBOR_USERNAME }}
+          registry_password: ${{ secrets.HARBOR_PASSWORD }}
+          build_tag: "sentimail/front:latest"
+          build_context: "backend"
+          build_dockerfile: "backend/Dockerfile.front"
+
+  build_ms_content:
+    runs-on: ubuntu-latest
+    name: Build ms content
+    outputs:
+      image_id: ${{ steps.build.outputs.imageid }}
+    steps:
+      - uses: actions/checkout@v4
+      - id: build
+        uses: samoth69/build-push-check-action@v4
         with:
-          context: backend
-          file: ./backend/Dockerfile.front
-          push: true
-          tags: harbor.sentimail.samoth.eu/sentimail/frontend:latest
-      - 
-        id: img-ms-metadata
-        name: Build and push ms-metadata
-        uses: docker/build-push-action@v5
+          registry_hostname: ${{ vars.HARBOR_HOSTNAME }}
+          registry_username: ${{ secrets.HARBOR_USERNAME }}
+          registry_password: ${{ secrets.HARBOR_PASSWORD }}
+          build_tag: "sentimail/ms-content:latest"
+          build_context: "ms-content"
+  
+  build_ms_metadata:
+    runs-on: ubuntu-latest
+    name: Build ms metadata
+    outputs:
+      image_id: ${{ steps.build.outputs.imageid }}
+    steps:
+      - uses: actions/checkout@v4
+      - id: build
+        uses: samoth69/build-push-check-action@v4
         with:
-          context: ms-metadata
-          push: true
-          tags: harbor.sentimail.samoth.eu/sentimail/ms-metadata:latest
-      - 
-        id: img-ms-content
-        name: Build and push ms-content
-        uses: docker/build-push-action@v5
-        with:
-          context: ms-content
-          push: true
-          tags: harbor.sentimail.samoth.eu/sentimail/ms-content:latest
+          registry_hostname: ${{ vars.HARBOR_HOSTNAME }}
+          registry_username: ${{ secrets.HARBOR_USERNAME }}
+          registry_password: ${{ secrets.HARBOR_PASSWORD }}
+          build_tag: "sentimail/ms-metadata:latest"
+          build_context: "ms-metadata"
+
   Deploy:
     runs-on: ubuntu-latest
-    needs: BuildImages
+    needs: 
+      [
+        "build_backend",
+        "build_front",
+        "build_ms_content",
+        "build_ms_metadata"
+      ]
     defaults:
       run:
         shell: bash
@@ -108,16 +122,16 @@ jobs:
           K8S_AUTH_HOST: ${{ vars.K8S_AUTH_HOST }}
       -
         name: set backend image
-        run: kustomize edit set image harbor.sentimail.samoth.eu/sentimail/backend@${{ needs.BuildImages.outputs.image_id_backend }}
+        run: kustomize edit set image harbor.sentimail.samoth.eu/sentimail/backend@${{ needs.build_backend.outputs.image_id }}
       -
         name: set frontend image
-        run: kustomize edit set image harbor.sentimail.samoth.eu/sentimail/frontend@${{ needs.BuildImages.outputs.image_id_frontend }}
+        run: kustomize edit set image harbor.sentimail.samoth.eu/sentimail/frontend@${{ needs.build_front.outputs.image_id }}
       -
         name: set ms-metadata image
-        run: kustomize edit set image harbor.sentimail.samoth.eu/sentimail/ms-metadata@${{ needs.BuildImages.outputs.image_id_ms_metadata }}
+        run: kustomize edit set image harbor.sentimail.samoth.eu/sentimail/ms-metadata@${{ needs.build_ms_metadata.outputs.image_id }}
       -
         name: set ms-content image
-        run: kustomize edit set image harbor.sentimail.samoth.eu/sentimail/ms-content@${{ needs.BuildImages.outputs.image_id_ms_content }}
+        run: kustomize edit set image harbor.sentimail.samoth.eu/sentimail/ms-content@${{ needs.build_ms_content.outputs.image_id }}
       -
         name: apply config
         run: kustomize build | kubectl apply -f -

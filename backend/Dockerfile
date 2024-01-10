@@ -4,7 +4,8 @@ ENV PYTHONDONTWRITEBYTECODE=1
 ENV PYTHONUNBUFFERED=1
 WORKDIR /sentimail
 COPY ./sentimail /sentimail/
-RUN pip install -r requirement.txt && \
-chmod +x init.sh
+RUN pip install --upgrade pip && \
+    pip install -r requirement.txt && \
+    chmod +x init.sh
 #RUN python manage.py makemigrations
 #RUN python manage.py migrate
