@@ -134,5 +134,5 @@ jobs:
           registry_hostname: ${{ vars.HARBOR_HOSTNAME }}
           registry_username: ${{ secrets.HARBOR_USERNAME }}
           registry_password: ${{ secrets.HARBOR_PASSWORD }}
-          build_tag: "backend"
+          build_tag: "sentimail/backend:latest"
           build_context: "backend"
