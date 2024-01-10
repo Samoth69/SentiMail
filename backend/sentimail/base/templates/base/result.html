@@ -1,0 +1,69 @@
+{% extends "base/base.html" %}
+{% load static %}
+
+
+{% block content %}
+
+  <div class="container">
+        <table class="result-table">
+            <tr>
+                <td class="result-block global" id="score">
+                    <div class="inner-block">
+                        <h1>Result</h1>
+                        <p>Score global</p>
+                    </div>
+                </td>
+                <td class="result-block" id="uuid">
+                    <div class="inner-block">
+                        <p class ="table-title">UUID </p>
+                        <p>{{ email.uuid }}</p>
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td class="result-block" id="ip">
+                    <div class="inner-block">
+                        <p class ="table-title">IP</p>
+                        <p>{{ email.responseMetadataIp }}</p>
+                    </div>
+                </td>
+                <td class="result-block" id="domain">
+                    <div class="inner-block">
+                        <p class ="table-title">Domain</p>
+                        <p>{{ email.responseMetadataDomain }}</p>
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td class="result-block" id="spf">
+                    <div class="inner-block">
+                        <p class ="table-title">SPF</p>
+                        <p>{{ email.responseMetadataSPF }}</p>
+                    </div>
+                </td>
+                <td class="result-block" id="links">
+                    <div class="inner-block">
+                        <p class ="table-title">Links</p>
+                        <p>{{ mail.responseContentLinks }}</p>
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td class="result-block" id="spelling">
+                    <div class="inner-block">
+                        <p class ="table-title">Spelling</p>
+                        <p>{{ email.responseContentSpelling }}</p>
+                    </div>
+                </td>
+                <td class="result-block" id="keywords">
+                    <div class="inner-block">
+                        <p class ="table-title">Keywords</p>
+                        <p>{{ email.responseContentKeywords }}</p>
+                    </div>
+                </td>
+            </tr>
+        </table>
+    </div>
+
+
+{% endblock %}

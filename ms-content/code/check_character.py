@@ -4,6 +4,7 @@ from text_unidecode import unidecode
 
 def check_character(mail):
     string = mail.text_plain
+
     mail = str(string)
     print(mail)
     result = est_texte_valide(mail)
@@ -39,7 +40,7 @@ def est_texte_valide(texte): # Fonction pour vérifier si le texte est valide
     print(mots)
     # Vérifier chaque mot pour s'assurer qu'il est composé de caractères alphanumériques et est compris avec les caractères de ponctuation ou autre caractères spéciaux normalement utilisés dans les textes
 
-    caractere_valide = ['.', ',', ';', ':', '!', '?',"'",'(',')','/', "\\"]
+    caractere_valide = ['.', ',', ';', ':', '!', '?',"'",'(',')','/', "\\",'_']
 
     # Compte chaque caractère du texte et faire un pourcentage de caractère valide.
     caractere_valide_count = 0
@@ -50,7 +51,7 @@ def est_texte_valide(texte): # Fonction pour vérifier si le texte est valide
     print(len(mots))
     pourcentage = caractere_valide_count / len(mots)
     print(pourcentage)
-    if pourcentage > 0.6: # 60% de caractère valide
+    if pourcentage > 0.4: # 50% de caractère valide
         return True
     else:
         return False
