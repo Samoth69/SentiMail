@@ -37,7 +37,7 @@ jobs:
           registry_hostname: ${{ vars.HARBOR_HOSTNAME }}
           registry_username: ${{ secrets.HARBOR_USERNAME }}
           registry_password: ${{ secrets.HARBOR_PASSWORD }}
-          build_tag: "sentimail/front:latest"
+          build_tag: "sentimail/frontend:latest"
           build_context: "backend"
           build_dockerfile: "backend/Dockerfile.front"
 
