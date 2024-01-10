@@ -129,7 +129,7 @@ jobs:
     name: Build backend
     steps:
       - uses: actions/checkout@v4
-      - uses: samoth69/build-push-check-action@v1
+      - uses: samoth69/build-push-check-action@v2
         with:
           registry_hostname: ${{ vars.HARBOR_HOSTNAME }}
           registry_username: ${{ secrets.HARBOR_USERNAME }}
