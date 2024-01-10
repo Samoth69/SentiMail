@@ -124,14 +124,15 @@ jobs:
   #       env:
   #         KUBECONFIG: ${{ runner.temp }}/sa.kubeconfig
 
-  hello_world_job:
+  build_backend:
     runs-on: ubuntu-latest
-    name: A job to say hello
+    name: Build backend
     steps:
       - uses: actions/checkout@v4
-      - id: foo
-        uses: actions/build-push-check-action@v1
+      - uses: samoth69/build-push-check-action@v1
         with:
-          who-to-greet: 'Mona the Octocat'
-      - run: echo random-number ${{ steps.foo.outputs.random-number }}
-        shell: bash
+          registry_hostname: ${{ vars.HARBOR_HOSTNAME }}
+          registry_username: ${{ secrets.HARBOR_USERNAME }}
+          registry_password: ${{ secrets.HARBOR_PASSWORD }}
+          build_tag: "backend"
+          build_context: "backend"
