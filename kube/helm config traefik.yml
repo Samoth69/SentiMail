@@ -10,12 +10,19 @@ spec:
     logs:
       general:
         level: INFO
+      access:
+        enabled: true
+        bufferingSize: 100
     forwardedHeaders:
       enabled: true
       trustedIPs:
         - 10.0.0.0/8
     ports:
+      web:
+        expose: false
       websecure:
+        middlewares:
+          - kube-system-traefik-bouncer@kubernetescrd
         tls:
           enabled: true
           certResolver: letsencrypt
