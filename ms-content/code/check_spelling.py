@@ -20,8 +20,10 @@ def search_word(mail_canonic, offset):
 #Fonction principale
 def check_spelling(mail):
 
-    mail_text = mail.body 
-
+    #Extration du corps du message 
+    mail_text_plain = mail.text_plain
+    mail_text = ''.join(mail_text_plain).replace('\\n', '\n').replace('\\r', '\r').replace('\\t', '\t').strip()
+    
     #Definition du seuil de frequence de fautes
     #De maniere generale, la longueur moyenne d'un mot est de 5 a 6 lettres
     #Ce chiffre sera arrondi à 6 pour inclure les caracteres tels que la ponctuation
