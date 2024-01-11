@@ -1,6 +1,6 @@
 from langdetect import detect
 import language_tool_python
-
+import os
 
 
 #Recherche les mots correspondant a l'offset
@@ -38,20 +38,18 @@ def check_spelling(mail):
     frequence_clean = 0.0041
     frequence_malicious = 0.017
 
+
     #Detection de la langue
     language = detect(mail_text)
     #Parametrage de la verification (langage)
-    tool = language_tool_python.LanguageTool(language)
-    #Parsage du mail en mots -peut s'averer utile pour l'analyse
-    mail_canonic = ' '.join(mail_text.split())
+    # tool = language_tool_python.LanguageTool(language)
+    tool = language_tool_python.LanguageTool(language, remote_server=os.getenv('LANGUAGETOOL_HOST', "http://localhost"))  # use a remote server API, language Catalan
 
     #Verification
     faults = tool.check(mail_text)
 
     #Nombre d'erreurs
     fault_number = len(faults)
-
-    
 
     #Erreur de noms propres non reconnus
 

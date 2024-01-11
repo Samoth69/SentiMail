@@ -123,8 +123,11 @@ services:
       - MINIO_BUCKET=${MINIO_BUCKET}
       - MS_CONTENT_USER=${MS_CONTENT_USER}
       - MS_CONTENT_PASSWORD=${MS_CONTENT_PASSWORD}
-
-
+      - LANGUAGETOOL_HOST=http://languagetool:8010
+      
+  languagetool:
+    image: erikvl87/languagetool
+    container_name: languagetool
 
 volumes:
   minio_storage: {}
