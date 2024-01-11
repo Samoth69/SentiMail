@@ -170,7 +170,7 @@ def publishMessage(uuid):
 
     #channel.basic_publish(exchange='', routing_key='sentimail', body=json.dumps(uuid))
 
-    rabbit_channel.basic_publish(exchange='sentimail', routing_key='all', body=json.dumps(uuid))
+    channel.basic_publish(exchange='sentimail', routing_key='all', body=json.dumps(uuid))
 
     #rabbit_channel.basic_publish(exchange='', routing_key=ms_metadata, body=json.dumps(uuid))
     #rabbit_channel.basic_publish(exchange='', routing_key=ms_content, body=json.dumps(uuid))
