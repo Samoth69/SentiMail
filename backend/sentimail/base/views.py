@@ -37,7 +37,8 @@ def connectRabbitMQ():
         )
     )
     channel = connection.channel()
-    channel.queue_declare(queue=settings.RABBITMQ_QUEUE)
+    channel.exchange_declare(exchange="sentimail", exchange_type='direct')
+    #channel.queue_declare(queue=settings.RABBITMQ_QUEUE)
     return connection, channel
 
 def index(request):
@@ -157,8 +158,11 @@ def publishMessage(uuid):
     ms_attachment = settings.RABBITMQ_MS_ATTACHMENT
 
     #channel.basic_publish(exchange='', routing_key='sentimail', body=json.dumps(uuid))
-    rabbit_channel.basic_publish(exchange='', routing_key=ms_metadata, body=json.dumps(uuid))
-    rabbit_channel.basic_publish(exchange='', routing_key=ms_content, body=json.dumps(uuid))
+
+    rabbit_channel.basic_publish(exchange='sentimail', routing_key='all', body=json.dumps(uuid))
+
+    #rabbit_channel.basic_publish(exchange='', routing_key=ms_metadata, body=json.dumps(uuid))
+    #rabbit_channel.basic_publish(exchange='', routing_key=ms_content, body=json.dumps(uuid))
 
     
     print(" [x] Sent ", uuid, " to RabbitMQ")

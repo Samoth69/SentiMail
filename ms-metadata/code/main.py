@@ -57,7 +57,11 @@ def main():
         )
 
     channel = connection.channel()
+
+    channel.exchange_declare(exchange="sentimail", exchange_type='direct')
+
     channel.queue_declare(queue=queueSend)
+    channel.queue_bind(exchange="sentimail", queue=queueSend, routing_key="all")
 
     def callback(ch, method, properties, body):
         print(" [x] Received %r" % json.loads(body))
