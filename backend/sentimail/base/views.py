@@ -181,17 +181,17 @@ def publishMessage(uuid):
 
 
 
+
 # API
-    # No authentication required
+# Return analysis result for anonymous users
+
 class EmailViewsetResult(ModelViewSet):
     http_method_names = ['get']
 
-
     serializer_class = EmailSerializer
+
     def get_queryset(self):
-        uuid = self.request.query_params.get('uuid')
-        print("UUID: ", uuid)
-        return Email.objects.all()
+        return Email.objects.all().filter(user="anonymous")
 
 
 class EmailViewset(ModelViewSet):

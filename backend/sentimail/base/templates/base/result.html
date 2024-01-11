@@ -1,80 +1,103 @@
 {% extends "base/base.html" %}
 {% load static %}
 
-
 {% block content %}
-
-
-<script>
-    var refreshIntervalId = setInterval(function() {
-        window.location.reload(true);
-    }, 5000);
-    setTimeout(function() {
-        clearInterval(refreshIntervalId);
-    }, 20000);
-</script>
-
-
-
   <div class="container">
-        <table class="result-table">
-            <tr>
-                <td class="result-block global" id="score">
-                    <div class="inner-block">
-                        <h1>Result</h1>
-                        <p>Score global</p>
-                    </div>
-                </td>
-                <td class="result-block" id="uuid">
-                    <div class="inner-block">
-                        <p class ="table-title">UUID </p>
-                        <p class ="table-content">{{ email.uuid }}</p>
-                    </div>
-                </td>
-            </tr>
-            <tr>
-                <td class="result-block" id="ip">
-                    <div class="inner-block">
-                        <p class ="table-title">IP</p>
-                        <p class ="table-content">{{ email.responseMetadataIp }}</p>
-                    </div>
-                </td>
-                <td class="result-block" id="domain">
-                    <div class="inner-block">
-                        <p class ="table-title">Domain</p>
-                        <p class ="table-content">{{ email.responseMetadataDomain }}</p>
-                    </div>
-                </td>
-            </tr>
-            <tr>
-                <td class="result-block" id="spf">
-                    <div class="inner-block">
-                        <p class ="table-title">SPF</p>
-                        <p class ="table-content">{{ email.responseMetadataSPF }}</p>
-                    </div>
-                </td>
-                <td class="result-block" id="links">
-                    <div class="inner-block">
-                        <p class ="table-title">Links</p>
-                        <p class ="table-content">{{ mail.responseContentLinks }}</p>
-                    </div>
-                </td>
-            </tr>
-            <tr>
-                <td class="result-block" id="spelling">
-                    <div class="inner-block">
-                        <p class ="table-title">Spelling</p>
-                        <p class ="table-content">{{ email.responseContentSpelling }}</p>
-                    </div>
-                </td>
-                <td class="result-block" id="keywords">
-                    <div class="inner-block">
-                        <p class ="table-title">Keywords</p>
-                        <p class ="table-content">{{ email.responseContentKeywords }}</p>
-                    </div>
-                </td>
-            </tr>
-        </table>
-    </div>
+    <table class="result-table" id="result-table">
+        <tr>
+            <td class="result-block global" id="score">
+                <div class="inner-block">
+                    <h1>Result</h1>
+                    <p>Score global</p>
+                </div>
+            </td>
+            <td class="result-block" id="uuid">
+                <div class="inner-block">
+                    <p class ="table-title">UUID </p>
+                    <p class ="table-content">{{ email.uuid }}</p>
+                </div>
+            </td>
+        </tr>
+        <tr>
+            <td class="result-block" id="ip">
+                <div class="inner-block">
+                    <p class ="table-title">IP</p>
+                    <p class ="table-content"></p>
+                </div>
+            </td>
+            <td class="result-block" id="domain">
+                <div class="inner-block">
+                    <p class ="table-title">Domain</p>
+                    <p class ="table-content"></p>
+                </div>
+            </td>
+        </tr>
+        <tr>
+            <td class="result-block" id="spf">
+                <div class="inner-block">
+                    <p class ="table-title">SPF</p>
+                    <p class ="table-content"></p>
+                </div>
+            </td>
+            <td class="result-block" id="links">
+                <div class="inner-block">
+                    <p class ="table-title">Links</p>
+                    <p class ="table-content"></p>
+                </div>
+            </td>
+        </tr>
+        <tr>
+            <td class="result-block" id="spelling">
+                <div class="inner-block">
+                    <p class ="table-title">Spelling</p>
+                    <p class ="table-content"></p>
+                </div>
+            </td>
+            <td class="result-block" >
+                <div class="inner-block">
+                    <p class ="table-title">Keywords</p>
+                    <p id="keywords" class ="table-content"><img src="{% static 'base/spin.gif' %"></p>
+                </div>
+            </td>
+        </tr>
+    </table>
+  </div>
 
+  <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+  <script>
+        {% if user.is_authenticated %}
+            const url = "http://127.0.0.1:8000/api/analysis/" + "{{ email.uuid }}" + "/"
+        {% else %}
+            const url = "http://127.0.0.1:8000/api/result/" + "{{ email.uuid }}" + "/"
+        {% endif %}
+        function checkAPI(uuid) {
+            $.ajax({
+
+                url: url,
+                  type: 'GET',
+                  success: function (data) {
+                        console.log(data);
+                        if (data.responseMetadataDomain == "") {
+                            setTimeout(function () {
+                                checkAPI(uuid);
+                            }, 1000);
+                        }
+
+                            $('#uuid .table-content').text(data.uuid);
+                            $('#ip .table-content').text(data.responseMetadataIp);
+                            $('#domain .table-content').text(data.responseMetadataDomain);
+                            $('#spf .table-content').text(data.responseMetadataSPF);
+                            $('#links .table-content').text(data.responseContentLinks);
+                            $('#spelling .table-content').text(data.responseContentSpelling);
+                            $("#keywords").text(data.responseContentKeywords);
+
+                      }
+
+            });
+        }
+        $(document).ready(function () {
+            var uuid = '{{ email.uuid }}';
+            checkAPI(uuid);
+        });
+  </script>
 {% endblock %}
