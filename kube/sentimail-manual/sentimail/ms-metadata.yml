@@ -1,0 +1,74 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: sentimail-dev-ms-metadata
+spec:
+  selector:
+    matchLabels:
+      app: sentimail-dev-ms-metadata
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: sentimail-dev-ms-metadata
+    spec:
+      imagePullSecrets:
+      - name: regcred
+      containers:
+      - name: sentimail-dev-ms-metadata
+        image: harbor.sentimail.samoth.eu/sentimail/ms-metadata:latest
+        command: ['python', './main.py']
+        env:
+        - name: BACKEND_HOST
+          value: "sentimail-dev-backend-service:8000"
+        - name: RABBITMQ_HOST
+          value: "sentimail-rabbitmq"
+        - name: RABBITMQ_PORT
+          value: "5672"
+        - name: RABBITMQ_USER
+          value: "sentimail-dev"
+        - name: RABBITMQ_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: sentimail-backend-secret
+              key: rabbitmqPassword
+        - name: RABBITMQ_QUEUE
+          value: "sentimail"
+        - name: RABBITMQ_VHOST
+          value: "/sentimail-dev"
+        - name: MINIO_ENDPOINT
+          value: "sentimail-minio:9000"
+        - name: MINIO_ACCESS_KEY
+          value: "sentimail-dev"
+        - name: MINIO_SECRET_KEY
+          valueFrom:
+            secretKeyRef:
+              name: sentimail-backend-secret
+              key: minioSecretKey
+        - name: MINIO_BUCKET
+          value: "sentimail-dev"
+        - name: MS_METADATA_USER
+          value: "ms_metadata"
+        - name: MS_METADATA_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: sentimail-backend-secret
+              key: msMetadataPassword
+        - name: SPAMCHECKER_API_KEY
+          valueFrom:
+            secretKeyRef:
+              name: sentimail-backend-secret
+              key: spamcheckerApiKey
+        - name: GREYNOISE_KEY
+          valueFrom:
+            secretKeyRef:
+              name: sentimail-backend-secret
+              key: greynoiseKey
+        resources:
+          requests:
+            cpu: '10m'
+            memory: '64M'
+          limits:
+            cpu: '1'
+            memory: 1024M
+      

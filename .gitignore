@@ -1,0 +1,13 @@
+env/
+.env
+dev-test/
+media/
+*.log
+*.pot
+*.pyc
+__pycache__/
+.DS_Store
+postgres_storage/
+redflags_domains.txt
+sample.env
+blacklists/

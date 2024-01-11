@@ -1,0 +1,32 @@
+{% extends "base/base.html" %}
+{% load static %}
+
+{% block content %}
+    <div class="content">
+        <img src="{% static 'base/logo.png' %}" alt="Sentimail Logo" class="logo">
+        {% if user.is_authenticated %}
+        <p>Welcome to Sentimail  {{ request.user }} </p>
+        {% else %}
+        <p>Welcome to Sentimail </p>
+        {% endif %}
+        <div class="upload-container">
+            <div class="upload-box">
+                {% block form %}
+                    <form method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <button class="upload-btn" type="submit">Upload</button>
+        </form>
+
+                    {% if messages %}
+                        <ul class="messages">
+                            {% for message in messages %}
+                                <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+                            {% endfor %}
+                        </ul>
+                    {% endif %}
+                {% endblock %}
+            </div>
+        </div>
+    </div>
+{% endblock %}

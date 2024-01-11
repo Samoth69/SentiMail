@@ -1,0 +1,8 @@
+# Declaring the user list
+apiVersion: traefik.io/v1alpha1
+kind: Middleware
+metadata:
+  name: sentimail-backend-auth
+spec:
+  basicAuth:
+    secret: sentimail-backend-auth-secret

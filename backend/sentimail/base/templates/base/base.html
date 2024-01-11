@@ -1,0 +1,57 @@
+{% load static %}
+
+<html>
+<head>
+  <title>SentiMail</title>
+  <link rel="stylesheet" href="{% static 'base/styles.css' %}" />
+</head>
+<body>
+
+<header>
+  {% if user.is_authenticated %}
+
+    <div class="navbar">
+      <div class="left-menu">
+        <a href="{% url 'index' %}"><button class="spec-button">Home</button></a>
+        <button class="spec-button">About</button>
+        <a href="{% url 'api_doc' %}"><button class="spec-button">API</button></a>
+      </div>
+      <div class="right-menu">
+        <a href="{% url 'logout' %}"><button class="spec-button">Logout</button></a>
+        <a href="{% url 'account' %}"><button class="spec-button">Account</button></a>
+          <a href="#"><button class="spec-button">Historic</button></a>
+      </div>
+    </div>
+      <div class="right-menu">
+        <!-- Boutons spécifiques à un utilisateur connecté -->
+
+
+
+      </div>
+    </div>
+
+  {% else %}
+    <div class="navbar">
+      <div class="left-menu">
+        <a href="{% url 'index' %}"><button class="spec-button">Home</button></a>
+        <button class="spec-button">About</button>
+        <a href="{% url 'api_doc' %}"><button class="spec-button">API</button></a>
+
+      </div>
+      <div class="right-menu">
+        <a href="{% url 'login' %}"><button class="spec-button">Login</button></a>
+        <a href="{% url 'signup' %}"><button class="spec-button">Signup</button></a>
+      </div>
+    </div>
+
+
+  {% endif %}
+</header>
+
+<!-- Reste du contenu Django (si nécessaire) -->
+{% block content %}
+{% endblock %}
+
+
+</body>
+</html>

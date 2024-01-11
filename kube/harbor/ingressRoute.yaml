@@ -1,0 +1,33 @@
+apiVersion: traefik.containo.us/v1alpha1
+kind: IngressRoute
+metadata:
+  name: harbor
+  namespace: harbor
+spec:
+  entryPoints:
+    - websecure
+  routes:
+  - match: Host(`harbor.sentimail.samoth.eu`)
+    kind: Rule
+    services:
+    - name: my-harbor-portal
+      namespace: harbor
+      port: 80
+  - match: Host(`harbor.sentimail.samoth.eu`) && PathPrefix(`/api/`, `/service/`, `/v2/`, `/chartrepo/`, `/c/`)
+    kind: Rule
+    services:
+    - name: my-harbor-core
+      namespace: harbor
+      port: 80
+  # - match: Host(`notary.example.com`)
+  #   kind: Rule
+  #   services:
+  #   - name: harbor-harbor-notary-server
+  #     namespace: harbor
+  #     port: 4443
+  # tls:
+  #   certResolver: letencrypt
+  #   domains:
+  #   - main: 'sentimail.samoth.eu'
+  #     sans:
+  #     - '*.sentimail.samoth.eu'
