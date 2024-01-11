@@ -4,6 +4,7 @@ from . import views
 
 router = routers.SimpleRouter()
 router.register('analysis', views.EmailViewset, basename='analysis')
+router.register('result', views.EmailViewsetResult, basename='result')
 
 urlpatterns = [
     #path('analysis', views.getData),

@@ -182,6 +182,16 @@ def publishMessage(uuid):
 
 
 # API
+    # No authentication required
+class EmailViewsetResult(ModelViewSet):
+    http_method_names = ['get']
+
+
+    serializer_class = EmailSerializer
+    def get_queryset(self):
+        uuid = self.request.query_params.get('uuid')
+        print("UUID: ", uuid)
+        return Email.objects.all()
 
 
 class EmailViewset(ModelViewSet):
