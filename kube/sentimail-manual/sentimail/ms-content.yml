@@ -54,6 +54,11 @@ spec:
             secretKeyRef:
               name: sentimail-backend-secret
               key: msContentPassword
+        - name: GOOGLE_SAFE_BROWSING_API_KEY
+          valueFrom:
+            secretKeyRef:
+              name: sentimail-backend-secret
+              key: googleSafeBrowsingApiKey
         resources:
           requests:
             cpu: '10m'
