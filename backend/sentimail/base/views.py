@@ -24,7 +24,7 @@ from . serializers import EmailSerializer, UploadFileSerializer
 
 
 """ global rabbit_connection
-global rabbit_channel """
+global rabbit_channel 
 rabbit_connection, rabbit_channel = None, None
 
 def connectRabbitMQ():
@@ -40,6 +40,7 @@ def connectRabbitMQ():
     channel.exchange_declare(exchange="sentimail", exchange_type='direct')
     #channel.queue_declare(queue=settings.RABBITMQ_QUEUE)
     return connection, channel
+"""
 
 def index(request):
 
@@ -147,12 +148,22 @@ def uploadFileOnObjectStorage(name, file):
     minioclient.fput_object(settings.MINIO_BUCKET, name, file)
 
 def publishMessage(uuid):
-    global rabbit_connection
+    """ global rabbit_connection
     global rabbit_channel
     if rabbit_connection is None:
         print("Connecting to RabbitMQ")
-        rabbit_connection, rabbit_channel = connectRabbitMQ()
+        rabbit_connection, rabbit_channel = connectRabbitMQ() """
 
+    connection = pika.BlockingConnection(
+            pika.ConnectionParameters(
+                host=settings.RABBITMQ_HOST,
+                port=settings.RABBITMQ_PORT,
+                virtual_host=settings.RABBITMQ_VHOST,
+                credentials=pika.PlainCredentials(settings.RABBITMQ_USER, settings.RABBITMQ_PASSWORD)
+            )
+        )
+    channel = connection.channel()
+    channel.exchange_declare(exchange="sentimail", exchange_type='direct')
     ms_content = settings.RABBITMQ_MS_CONTENT
     ms_metadata = settings.RABBITMQ_MS_METADATA
     ms_attachment = settings.RABBITMQ_MS_ATTACHMENT
@@ -166,7 +177,7 @@ def publishMessage(uuid):
 
     
     print(" [x] Sent ", uuid, " to RabbitMQ")
-    #connection.close()
+    connection.close()
 
 
 
