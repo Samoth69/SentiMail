@@ -53,7 +53,6 @@ def update_redflags_domains():
         except:
             print("[update_redflags_domains] Error: Can't download redflags_domains.txt")
             return
-
     try:
        with open('redflags_domains.txt') as f:
             last_update = f.readline()
@@ -70,5 +69,5 @@ def update_redflags_domains():
                     return
     except:
         print("[update_redflags_domains] Error: Can't read redflags_domains.txt")
-        return
+        return True
     
