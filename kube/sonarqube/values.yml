@@ -1,0 +1,6 @@
+account:
+  adminPasswordSecretName: sonarqube-secret
+resources:
+  requests:
+    cpu: 200m
+    memory: 1Gi
