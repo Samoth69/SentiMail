@@ -9,7 +9,7 @@ concurrency:
     
 jobs:
   scan_sonarqube:
-    name: scan sonarqube
+    name: Scan sonarqube
     runs-on: ubuntu-latest
     permissions: read-all
     steps:

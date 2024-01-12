@@ -13,10 +13,13 @@ from check_typosquatting import *
 from check_character import *
 import requests
 from requests.auth import HTTPBasicAuth
+import logging
 
+logging.basicConfig(level=logging.INFO)
+logger = logging.getLogger("main")
 
 def main():
-    print("Receive")
+    logger.info("starting")
     host = os.getenv('RABBITMQ_HOST')
     port = os.getenv('RABBITMQ_PORT')
     user = os.getenv('RABBITMQ_USER')
@@ -24,6 +27,7 @@ def main():
     queueSend = os.getenv('RABBITMQ_MS_CONTENT', "ms_content")
     virtualHost = os.getenv('RABBITMQ_VHOST', "/")
 
+    logger.info("connecting to rabbitmq")
     connection = pika.BlockingConnection(
         pika.ConnectionParameters(
             host=host,
@@ -32,6 +36,7 @@ def main():
             credentials=pika.PlainCredentials(user, password)
             )
         )
+    logger.info("connected")
 
     channel = connection.channel()
 
@@ -42,7 +47,7 @@ def main():
     channel.queue_bind(exchange="sentimail", queue=queueSend, routing_key="all")
 
     def callback(ch, method, properties, body):
-        print(" [x] Received %r" % json.loads(body))
+        logger.info("received %s" % json.loads(body))
         # récupérer uniquement la chaine de caractère entre les quotes du body
 
         file = json.loads(body)
@@ -53,7 +58,7 @@ def main():
         #send_result("A", "B", "C", file)
 
     channel.basic_consume(queue=queueSend, on_message_callback=callback, auto_ack=True)
-    print(' [*] Waiting for messages. To exit press CTRL+C')
+    logger.info("waiting for messages")
     channel.start_consuming()
 
 
@@ -83,12 +88,12 @@ def parseFile(id_file):
 
 def send_result(links, spelling, keywords, typosquatting,character, uuid):
     # Send result to the API:  
-    print("Send result")
-    print("links", links)
-    print("spelling", spelling)
-    print("keywords", keywords)
-    print("typosquatting", typosquatting)
-    print("character", character)
+    logger.info("Send result")
+    logger.info("links", links)
+    logger.info("spelling", spelling)
+    logger.info("keywords", keywords)
+    logger.info("typosquatting", typosquatting)
+    logger.info("character", character)
     user = os.getenv("MS_CONTENT_USER")
     password = os.getenv("MS_CONTENT_PASSWORD")
 
@@ -101,13 +106,13 @@ def send_result(links, spelling, keywords, typosquatting,character, uuid):
             "responseContentCharacter": character,
         }
     url = "http://" + os.getenv("BACKEND_HOST", "127.0.0.1:8000") + "/api/analysis/" + uuid + "/"
-    print("URL: ", url)
+    logger.info("URL: ", url)
     request = requests.patch(url, data = data, auth=HTTPBasicAuth(user, password))
     #request = requests.patch(url, json = data, auth=HTTPBasicAuth(user, password))
     #print("Request: ", request )
-    print("Status code: ", request.status_code)
+    logger.info("Status code: ", request.status_code)
     if request.status_code > 299:
-        print("Error: ", request.text)
+        logger.error("Invalid return code", request.text)
 
 
 
