@@ -124,7 +124,11 @@ services:
       - MS_CONTENT_USER=${MS_CONTENT_USER}
       - MS_CONTENT_PASSWORD=${MS_CONTENT_PASSWORD}
       - GOOGLE_SAFE_BROWSING_API_KEY=${GOOGLE_SAFE_BROWSING_API_KEY}
-
+      - LANGUAGETOOL_HOST=http://languagetool:8010
+      
+  languagetool:
+    image: erikvl87/languagetool
+    container_name: languagetool
 
 
 volumes:
