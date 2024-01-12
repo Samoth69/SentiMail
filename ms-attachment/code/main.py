@@ -42,7 +42,7 @@ def main():
     def callback(ch, method, properties, body):
         print(" [x] Received %r" % json.loads(body))
         # récupérer uniquement la chaine de caractère entre les quotes du body
-
+        
         file = json.loads(body)
         hash, filetype = analyse(file)
         os.remove(file)
@@ -57,16 +57,20 @@ def main():
 def analyse(id_file):
     # Initiation de la connexion avec le bucket en fonction de l'ID de l'objet et téléchargement du fichier
     bucket_call(id_file)
-    mail = parseFile(id_file)
+    mail = parse_file(id_file)
+    attachments = mail.attachments
+
     
-    #(mailAnalysis, ipAnalysis, spfAnalysis) = analyse_file(id_file)
+    if attachments == []:
+        print("No attachment")
+        return "No attachment", "No attachment" 
 
     hash = check_hash(mail)
     filetype = check_filetype(mail)
 
     return hash, filetype
 
-def parseFile(id_file):
+def parse_file(id_file):
     mail = mailparser.parse_from_file(id_file)
     return mail
 
