@@ -2,10 +2,12 @@ from datetime import timedelta
 import datetime
 import re
 import os
-import socket
+import logging
 import urllib.request
 import requests
 from dotenv import load_dotenv
+
+logger = logging.getLogger("check_links")
 
 def check_links(mail):
 
@@ -15,7 +17,7 @@ def check_links(mail):
 
     # Extract all url from content
     urls = re.findall(r'(https?://[a-z0-9./:%@?=-]+)', body)
-    #print("[check_links] urls: ", urls)
+    #logger.info("[check_links] urls: ", urls)
     if googleSafeBrowsingAPI(urls):
         nbMalicious = 1
     
@@ -34,7 +36,7 @@ def check_links(mail):
         
 
     
-    print("\n\n[check_links] Result: ", nbMalicious, " malicious links found")
+    logger.info("Result: ", nbMalicious, " malicious links found")
 
     result = "Clean"
     if nbMalicious > 0:
@@ -55,7 +57,7 @@ def isMalicious(url):
 
     #ip_address = dns.resolver.query(url, 'A')
     #ip_address = socket.gethostbyname(url)
-    #print("[isMalicious] ip_address: ", ip_address)
+    #logger.info("[isMalicious] ip_address: ", ip_address)
     isInBlackList(url)
 
     pass
@@ -111,19 +113,19 @@ def googleSafeBrowsingAPI(urls):
     }
     url = "https://safebrowsing.googleapis.com/v4/threatMatches:find?key=" + API_KEY
     request = requests.post(url, json = body)
-    #print("[googleSafeBrowsingAPI] Status: ", request.status_code)
+    #logger.info("[googleSafeBrowsingAPI] Status: ", request.status_code)
     if request.status_code > 299:
-        print("[googleSafeBrowsingAPI] Error: ", request.text)
+        logger.error("[googleSafeBrowsingAPI] Error: ", request.text)
     elif request.status_code == 200:
         if request.json() != {}:
             resultthreatType = request.json()["matches"][0]["threatType"]
-            #print("[googleSafeBrowsingAPI] Result: ", resultthreatType)
+            logger.debug("[googleSafeBrowsingAPI] Result: ", resultthreatType)
             # Number of malicious links
             result = resultthreatType
             isMalicious = True
         
             
-        print("[googleSafeBrowsingAPI] Result: ", result)
+        logger.info("[googleSafeBrowsingAPI] Result: ", result)
     return isMalicious
 
 def isInBlackList(url):
@@ -159,20 +161,20 @@ def isInBlackList(url):
 
     # Search in blacklists
     for blacklist in blacklists:
-        #print("[isInBlackList] Searching in ", blacklist[0])
+        #logger.info("[isInBlackList] Searching in ", blacklist[0])
         file = blacklist[0]
         file = "blacklists/" + file
         try:
             with open(file) as f:
                 content = f.read()
                 if domain in content:
-                    print("[isInBlackList] ", domain, " found in ", file)
+                    logger.info("[isInBlackList] ", domain, " found in ", file)
                     return True
         except FileNotFoundError:
-            print("[isInBlackList] Error: Unable to open ", file)
+            logger.error("[isInBlackList] Error: Unable to open ", file)
         except Exception as e:
-            print("[isInBlackList] Error: ", e)
-    #print("[isInBlackList] ", url, " not found in blacklists")
+            logger.error("[isInBlackList] Error: ", e)
+    #logger.info("[isInBlackList] ", url, " not found in blacklists")
     return False
 
 def updateBlackList(source):
@@ -185,13 +187,13 @@ def updateBlackList(source):
     url = source[1]
     if not os.path.exists(file):
         try:
-            print("[updateBlackList] Downloading ", file)
+            logger.info("[updateBlackList] Downloading ", file)
             urllib.request.urlretrieve(url, file)
         except:
-            print("[updateBlackList] Error: Unable to download ", file)
+            logger.error("[updateBlackList] Error: Unable to download ", file)
     else:
         try:
-            #print("[updateBlackList] Checking ", file)
+            logger.debug("[updateBlackList] Checking ", file)
             with open(file) as f:
                 content = f.read()
                 
@@ -199,32 +201,32 @@ def updateBlackList(source):
                 
                 if lastUpdate_match:
                     lastUpdate = lastUpdate_match.group(1)
-                    #print("[updateBlackList] Last update: ", lastUpdate)
+                    logger.debug("[updateBlackList] Last update: ", lastUpdate)
                 else:
-                    print("[updateBlackList] Last update information not found in the file.")
+                    logger.warning("[updateBlackList] Last update information not found in the file.")
                 
                 nbExpirationDays_match = re.search(r'\b(\d+)\s+day', content)
                 if nbExpirationDays_match:
                     nbExpirationDays = nbExpirationDays_match.group(1).split(" ")[0]
                     
-                    #print("[updateBlackList] Expiration: ", nbExpirationDays, " days")
+                    logger.debug("[updateBlackList] Expiration: ", nbExpirationDays, " days")
 
                     lastUpdate = lastUpdate.split("T")[0]
                     lastUpdateDate = datetime.datetime.strptime(lastUpdate, '%Y-%m-%d')
-                    #print("[updateBlackList] Last update date: ", lastUpdateDate.strftime('%Y-%m-%d'))
+                    logger.debug("[updateBlackList] Last update date: ", lastUpdateDate.strftime('%Y-%m-%d'))
                     expirationDate = datetime.datetime.strptime(lastUpdate, '%Y-%m-%d') + timedelta(days=int(nbExpirationDays))
-                    #print("[updateBlackList] Expiration date: ", expirationDate.strftime('%Y-%m-%d'))
+                    logger.debug("[updateBlackList] Expiration date: ", expirationDate.strftime('%Y-%m-%d'))
                     if datetime.datetime.now() > expirationDate:
-                        print("[updateBlackList] File expired")
+                        logger.info("[updateBlackList] File expired")
                         try:
-                            print("[updateBlackList] Downloading ", file)
+                            logger.info("[updateBlackList] Downloading ", file)
                             urllib.request.urlretrieve(url, file)
                         except:
-                            print("[updateBlackList] Error: Unable to download ", file)
+                            logger.error("[updateBlackList] Error: Unable to download ", file)
         except FileNotFoundError:
-            print("[updateBlackList] Error: Unable to open ", file)
+            logger.error("[updateBlackList] Error: Unable to open ", file)
         except Exception as e:
-            print("[updateBlackList] Error: ", e)
+            logger.error("[updateBlackList] Error: ", e)
 
 
 

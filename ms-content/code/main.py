@@ -15,7 +15,7 @@ import requests
 from requests.auth import HTTPBasicAuth
 import logging
 
-logging.basicConfig(level=logging.INFO)
+logging.basicConfig(level=logging.INFO, format="%(asctime)s - %(name)s - %(levelname)s - %(message)s")
 logger = logging.getLogger("main")
 
 def main():

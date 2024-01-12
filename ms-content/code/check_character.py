@@ -1,19 +1,22 @@
 import re
 from text_unidecode import unidecode
+import logging
+
+logger = logging.getLogger("check_character")
 
 
 def check_character(mail):
     string = mail.text_plain
 
     mail = str(string)
-    print(mail)
+    logger.debug("text mail", mail)
     result = est_texte_valide(mail)
 
     if result == True:
-        print("clean")
+        logger.debug("mail is clean")
         return "Clean"
     else:
-        print("Malicious")
+        logger.debug("mail is Malicious")
         return "Malicious"
 def remove_accents(text): # Fonction pour supprimer les accents
     # Utilisation de la fonction unidecode pour supprimer les accents
@@ -37,7 +40,7 @@ def est_texte_valide(texte): # Fonction pour vérifier si le texte est valide
     texte = re.sub(r'[0-9]', '', texte)
     # Récupérer chaque caractère du texte
     mots = [char for char in texte]
-    print(mots)
+    logger.debug(mots)
     # Vérifier chaque mot pour s'assurer qu'il est composé de caractères alphanumériques et est compris avec les caractères de ponctuation ou autre caractères spéciaux normalement utilisés dans les textes
 
     caractere_valide = ['.', ',', ';', ':', '!', '?',"'",'(',')','/', "\\",'_']
@@ -47,10 +50,10 @@ def est_texte_valide(texte): # Fonction pour vérifier si le texte est valide
     for mot in mots:
         if mot in caractere_valide:
             caractere_valide_count += 1
-    print(caractere_valide_count)
-    print(len(mots))
+    logger.debug(caractere_valide_count)
+    logger.debug(len(mots))
     pourcentage = caractere_valide_count / len(mots)
-    print(pourcentage)
+    logger.debug(pourcentage)
     if pourcentage > 0.4: # 50% de caractère valide
         return True
     else:
