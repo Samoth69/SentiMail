@@ -3,7 +3,7 @@ import logging, os, sys
 def getLogger(name: str):
     log = logging.getLogger(name)
     log.setLevel(level=logging.DEBUG if "DEBUG" in os.environ else logging.INFO)
-    formatter = logging.Formatter(fmt="%(asctime)s %(levelname)s: %(message)s", 
+    formatter = logging.Formatter(fmt="%(asctime)s - %(name)s - %(levelname)s: %(message)s", 
                                   datefmt="%Y-%m-%d - %H:%M:%S")
     ch = logging.StreamHandler(sys.stdout)
     ch.setLevel(level=logging.DEBUG if "DEBUG" in os.environ else logging.INFO)
