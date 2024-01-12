@@ -2,7 +2,6 @@
 import base64
 import os
 import json
-#from file import *
 from bucket_call import *
 import pika, os, sys
 import mailparser
@@ -10,11 +9,13 @@ import requests
 from requests.auth import HTTPBasicAuth
 from check_filetype import *
 from check_hash import *
+import logging
 
-
+logging.basicConfig(level=logging.INFO, format="%(asctime)s - %(name)s - %(levelname)s - %(message)s")
+logger = logging.getLogger("main")
 
 def main():
-    print("Receive")
+    logger.info("Starting")
     host = os.getenv('RABBITMQ_HOST')
     port = os.getenv('RABBITMQ_PORT')
     user = os.getenv('RABBITMQ_USER')
@@ -22,6 +23,7 @@ def main():
     queueSend = os.getenv('RABBITMQ_MS_ATTACHMENT', "ms_attachment")
     virtualHost = os.getenv('RABBITMQ_VHOST', "/")
 
+    logger.info("connecting to rabbitmq")
     connection = pika.BlockingConnection(
         pika.ConnectionParameters(
             host=host,
@@ -30,6 +32,7 @@ def main():
             credentials=pika.PlainCredentials(user, password)
             )
         )
+    logger.info("connected to rabbitmq")
 
     channel = connection.channel()
 
@@ -40,17 +43,14 @@ def main():
     channel.queue_bind(exchange="sentimail", queue=queueSend, routing_key="all")
 
     def callback(ch, method, properties, body):
-        print(" [x] Received %r" % json.loads(body))
-        # récupérer uniquement la chaine de caractère entre les quotes du body
-        
+        logger.info(" [x] Received %r" % json.loads(body))
         file = json.loads(body)
         hash, filetype = analyse(file)
         os.remove(file)
         send_result(hash, filetype, file)
-        #send_result("A", "B", "C", file)
 
     channel.basic_consume(queue=queueSend, on_message_callback=callback, auto_ack=True)
-    print(' [*] Waiting for messages. To exit press CTRL+C')
+    logger.info(' [*] Waiting for messages.')
     channel.start_consuming()
 
 
@@ -59,10 +59,11 @@ def analyse(id_file):
     bucket_call(id_file)
     mail = parse_file(id_file)
     attachments = mail.attachments
+    #filetype = attachments[0]["mail_content_type"]
+    #logger.info("Filetype: %s", filetype)
 
-    
     if attachments == []:
-        print("No attachment")
+        logger.info("No attachment")
         return "No attachment", "No attachment" 
 
     hash = check_hash(mail)
@@ -74,28 +75,26 @@ def parse_file(id_file):
     mail = mailparser.parse_from_file(id_file)
     return mail
 
-
+# Send result to the API:  
 def send_result(hash, filetype, uuid):
-    # Send result to the API:  
-    print("Send result")
-    print("Result hash: ", hash)
-    print("Result filetype: ", filetype)
+    logger.info("Send result")
+    logger.info('Result hash: %s', hash)
+    logger.info("Result filetype: %s", filetype)
+
     user = os.getenv("MS_ATTACHMENT_USER")
     password = os.getenv("MS_ATTACHMENT_PASSWORD")
 
-    # PATCH http://127.0.0.1:8000/api/analysis/uuid/
     data = {
             "responseAttachmentHash": hash,
             "responseAttachmentFiletype": filetype,
         }
     url = "http://" + os.getenv("BACKEND_HOST", "127.0.0.1:8000") + "/api/analysis/" + uuid + "/"
-    print("URL: ", url)
+    logger.info("URL: %s", url)
     request = requests.patch(url, data = data, auth=HTTPBasicAuth(user, password))
-    #request = requests.patch(url, json = data, auth=HTTPBasicAuth(user, password))
-    #print("Request: ", request )
-    print("Status code: ", request.status_code)
+    
+    logger.info("Status code: %s", request.status_code)
     if request.status_code > 299:
-        print("Error: ", request.text)
+        logger.error("Error: %s", request.text)
 
 
 
@@ -103,7 +102,7 @@ if __name__ == '__main__':
     try:
         main()
     except KeyboardInterrupt:
-        print('Interrupted')
+        logger.info("Interrupted")
         try:
             sys.exit(0)
         except SystemExit:

@@ -2,6 +2,9 @@ import os
 import hashlib
 from dotenv import load_dotenv
 import requests
+import logging
+
+logger = logging.getLogger("check_hash")
 
 def check_hash(mail):
 
@@ -23,28 +26,28 @@ def check_hash(mail):
 
     # Check hash of each attachment
     for file in os.listdir("tmp"):
-        print("[check_hash] file: ", file)
+        logger.info("file: %s", file)
         with open("tmp/" + file, "rb") as f:
             file_hash = hashlib.sha256(f.read()).hexdigest()
-            print("[check_hash] file_hash: ", file_hash)
+            logger.info("file_hash: %s", file_hash)
             url = url + file_hash
             response = requests.get(url, headers=headers)
             if response.status_code == 200:
                 harmless = response.json()["data"]["attributes"]["total_votes"]["harmless"]
                 malicious = response.json()["data"]["attributes"]["total_votes"]["malicious"]
                 if harmless < malicious and malicious > 0:
-                    print("[check_hash] Vote result: Malicious")
+                    logger.info("Vote result: Malicious")
                     result = "Malicious"
                 last_analysis_results = response.json()["data"]["attributes"]["last_analysis_results"]
                 for key in last_analysis_results:
-                    #print("[check_hash] key: ", key, " - ", last_analysis_results[key])
-                    #print("[check_hash] Last analysis result: ", last_analysis_results[key]["result"])
+                    #logger.debug("key: %s - %s", key, last_analysis_results[key])
+                    #logger.debug("Last analysis result: %s", last_analysis_results[key]["result"])
                     if last_analysis_results[key]["result"] != None:
-                        #print("[check_hash] Last analysis result: Malicious")
+                        #logger.info("Last analysis result: Malicious")
                         result = "Malicious"
             else:
-                print("[check_hash] Error: ", response.status_code)
-                print("[check_hash] response: ", response)
+                logger.error("Error: %s", response.status_code)
+                logger.error("response: %s", response)
         os.remove("tmp/" + file)
-    print("[check_hash] result: ", result)
+    logger.info("result: %s", result)
     return result
