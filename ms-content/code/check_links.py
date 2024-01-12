@@ -2,12 +2,12 @@ from datetime import timedelta
 import datetime
 import re
 import os
-import logging
+import custom_logger
 import urllib.request
 import requests
 from dotenv import load_dotenv
 
-logger = logging.getLogger("check_links")
+logger = custom_logger.getLogger("check_links")
 
 def check_links(mail):
 
@@ -36,7 +36,7 @@ def check_links(mail):
         
 
     
-    logger.info("Result: ", nbMalicious, " malicious links found")
+    logger.info("Result: %d malicious links found", nbMalicious)
 
     result = "Clean"
     if nbMalicious > 0:
@@ -115,17 +115,17 @@ def googleSafeBrowsingAPI(urls):
     request = requests.post(url, json = body)
     #logger.info("[googleSafeBrowsingAPI] Status: ", request.status_code)
     if request.status_code > 299:
-        logger.error("[googleSafeBrowsingAPI] Error: ", request.text)
+        logger.error("[googleSafeBrowsingAPI] Error: %s", request.text)
     elif request.status_code == 200:
         if request.json() != {}:
             resultthreatType = request.json()["matches"][0]["threatType"]
-            logger.debug("[googleSafeBrowsingAPI] Result: ", resultthreatType)
+            logger.debug("[googleSafeBrowsingAPI] Result: %s", resultthreatType)
             # Number of malicious links
             result = resultthreatType
             isMalicious = True
         
             
-        logger.info("[googleSafeBrowsingAPI] Result: ", result)
+        logger.info("[googleSafeBrowsingAPI] Result: %s", result)
     return isMalicious
 
 def isInBlackList(url):
@@ -168,12 +168,12 @@ def isInBlackList(url):
             with open(file) as f:
                 content = f.read()
                 if domain in content:
-                    logger.info("[isInBlackList] ", domain, " found in ", file)
+                    logger.info("[isInBlackList] %s found in %s", domain, file)
                     return True
         except FileNotFoundError:
-            logger.error("[isInBlackList] Error: Unable to open ", file)
+            logger.error("[isInBlackList] Error: Unable to open %s", file)
         except Exception as e:
-            logger.error("[isInBlackList] Error: ", e)
+            logger.error("[isInBlackList] Error: %s", e)
     #logger.info("[isInBlackList] ", url, " not found in blacklists")
     return False
 
@@ -187,13 +187,13 @@ def updateBlackList(source):
     url = source[1]
     if not os.path.exists(file):
         try:
-            logger.info("[updateBlackList] Downloading ", file)
+            logger.info("[updateBlackList] Downloading %s", file)
             urllib.request.urlretrieve(url, file)
         except:
-            logger.error("[updateBlackList] Error: Unable to download ", file)
+            logger.error("[updateBlackList] Error: Unable to download %s", file)
     else:
         try:
-            logger.debug("[updateBlackList] Checking ", file)
+            logger.debug("[updateBlackList] Checking %s", file)
             with open(file) as f:
                 content = f.read()
                 
@@ -201,7 +201,7 @@ def updateBlackList(source):
                 
                 if lastUpdate_match:
                     lastUpdate = lastUpdate_match.group(1)
-                    logger.debug("[updateBlackList] Last update: ", lastUpdate)
+                    logger.debug("[updateBlackList] Last update: %s", lastUpdate)
                 else:
                     logger.warning("[updateBlackList] Last update information not found in the file.")
                 
@@ -213,20 +213,20 @@ def updateBlackList(source):
 
                     lastUpdate = lastUpdate.split("T")[0]
                     lastUpdateDate = datetime.datetime.strptime(lastUpdate, '%Y-%m-%d')
-                    logger.debug("[updateBlackList] Last update date: ", lastUpdateDate.strftime('%Y-%m-%d'))
+                    logger.debug("[updateBlackList] Last update date: %s", lastUpdateDate.strftime('%Y-%m-%d'))
                     expirationDate = datetime.datetime.strptime(lastUpdate, '%Y-%m-%d') + timedelta(days=int(nbExpirationDays))
-                    logger.debug("[updateBlackList] Expiration date: ", expirationDate.strftime('%Y-%m-%d'))
+                    logger.debug("[updateBlackList] Expiration date: %s", expirationDate.strftime('%Y-%m-%d'))
                     if datetime.datetime.now() > expirationDate:
                         logger.info("[updateBlackList] File expired")
                         try:
-                            logger.info("[updateBlackList] Downloading ", file)
+                            logger.info("[updateBlackList] Downloading %s", file)
                             urllib.request.urlretrieve(url, file)
                         except:
-                            logger.error("[updateBlackList] Error: Unable to download ", file)
+                            logger.error("[updateBlackList] Error: Unable to download %s", file)
         except FileNotFoundError:
-            logger.error("[updateBlackList] Error: Unable to open ", file)
+            logger.error("[updateBlackList] Error: Unable to open %s", file)
         except Exception as e:
-            logger.error("[updateBlackList] Error: ", e)
+            logger.error("[updateBlackList] Error: %s", e)
 
 
 

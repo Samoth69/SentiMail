@@ -1,8 +1,8 @@
 import re
 import json
-import logging
+import custom_logger
 
-logger = logging.getLogger("check_keywords")
+logger = custom_logger.getLogger("check_keywords")
 
 def check_keywords(mail):
     logger.info("Start")

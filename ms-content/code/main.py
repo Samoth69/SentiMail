@@ -13,10 +13,8 @@ from check_typosquatting import *
 from check_character import *
 import requests
 from requests.auth import HTTPBasicAuth
-import logging
-
-logging.basicConfig(level=logging.INFO, format="%(asctime)s - %(name)s - %(levelname)s - %(message)s")
-logger = logging.getLogger("main")
+import custom_logger
+logger = custom_logger.getLogger("main")
 
 def main():
     logger.info("starting")
@@ -47,7 +45,7 @@ def main():
     channel.queue_bind(exchange="sentimail", queue=queueSend, routing_key="all")
 
     def callback(ch, method, properties, body):
-        logger.info("received %s" % json.loads(body))
+        logger.info("received %s", json.loads(body))
         # récupérer uniquement la chaine de caractère entre les quotes du body
 
         file = json.loads(body)
@@ -64,8 +62,8 @@ def main():
 
 def analyse(id_file):
     # Initiation de la connexion avec le bucket en fonction de l'ID de l'objet et téléchargement du fichier
-    bucket_call(id_file)
-    mail = parseFile(id_file)
+    fi = bucket_call(id_file)
+    mail = parseFile(fi)
     """  print(mail)
     print("body", mail.body)
     print("from", mail.from_)

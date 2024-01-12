@@ -1,15 +1,15 @@
 import re
 from text_unidecode import unidecode
-import logging
+import custom_logger
 
-logger = logging.getLogger("check_character")
+logger = custom_logger.getLogger("check_character")
 
 
 def check_character(mail):
     string = mail.text_plain
 
     mail = str(string)
-    logger.debug("text mail", mail)
+    logger.debug("text mail %s", mail)
     result = est_texte_valide(mail)
 
     if result == True:
