@@ -7,7 +7,7 @@ RUN pip install --upgrade pip && \
     pip install -r requirement.txt && \
     python manage.py collectstatic --noinput
 
-FROM --platform=amd64 nginx:mainline-alpine
+FROM --platform=amd64 nginxinc/nginx-unprivileged
 RUN rm -rf /usr/share/nginx/html
 COPY ./nginx.conf /etc/nginx/nginx.conf
 COPY --from=builder /sentimail/static /usr/share/nginx/html
