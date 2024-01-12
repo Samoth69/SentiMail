@@ -1,0 +1,18 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: loki-ingress
+  namespace: loki
+
+spec:
+  rules:
+    - host: loki.sentimail.samoth.eu
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name:  loki-gateway
+                port:
+                  number: 80
