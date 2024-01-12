@@ -16,6 +16,8 @@ class Email(models.Model):
     responseContentKeywords = models.CharField(max_length=100, default="")
     responseContentTyposquatting = models.CharField(max_length=100, default="")
     responseContentCharacter = models.CharField(max_length=100, default="")
+    responseAttachmentHash = models.CharField(max_length=100, default="")
+    responseAttachmentFiletype = models.CharField(max_length=100, default="")
 
 class UploadFile(models.Model):
     upload_on = models.DateTimeField(auto_now_add=True)
