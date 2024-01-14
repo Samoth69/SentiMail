@@ -11,3 +11,4 @@ postgres_storage/
 redflags_domains.txt
 sample.env
 blacklists/
+tmp/
