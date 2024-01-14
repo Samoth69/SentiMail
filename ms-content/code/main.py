@@ -50,7 +50,7 @@ def main():
 
         file = json.loads(body)
         links, spelling, keywords, typosquatting, character = analyse(file)
-        os.remove(file)
+        #os.remove(file)
         
         send_result(links, spelling, keywords, typosquatting,character, file)
         #send_result("A", "B", "C", file)
@@ -77,6 +77,8 @@ def analyse(id_file):
     keywords = check_keywords(mail)
     typosquatting = check_typosquatting(mail)
     character = check_character(mail)
+    # remove file
+    os.remove(fi)
     return links, spelling, keywords, typosquatting, character
 
 def parseFile(id_file):
@@ -87,11 +89,11 @@ def parseFile(id_file):
 def send_result(links, spelling, keywords, typosquatting,character, uuid):
     # Send result to the API:  
     logger.info("Send result")
-    logger.info("links", links)
-    logger.info("spelling", spelling)
-    logger.info("keywords", keywords)
-    logger.info("typosquatting", typosquatting)
-    logger.info("character", character)
+    logger.info("Links: %s", links)
+    logger.info("Spelling %s", spelling)
+    logger.info("Keywords %s", keywords)
+    logger.info("Typosquatting: %s", typosquatting)
+    logger.info("Character: %s", character)
     user = os.getenv("MS_CONTENT_USER")
     password = os.getenv("MS_CONTENT_PASSWORD")
 
@@ -104,13 +106,13 @@ def send_result(links, spelling, keywords, typosquatting,character, uuid):
             "responseContentCharacter": character,
         }
     url = "http://" + os.getenv("BACKEND_HOST", "127.0.0.1:8000") + "/api/analysis/" + uuid + "/"
-    logger.info("URL: ", url)
+    logger.info("URL: %s", url)
     request = requests.patch(url, data = data, auth=HTTPBasicAuth(user, password))
     #request = requests.patch(url, json = data, auth=HTTPBasicAuth(user, password))
     #print("Request: ", request )
-    logger.info("Status code: ", request.status_code)
+    logger.info("Status code: %s", request.status_code)
     if request.status_code > 299:
-        logger.error("Invalid return code", request.text)
+        logger.error("Invalid return code%s", request.text)
 
 
 

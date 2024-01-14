@@ -5,6 +5,7 @@ import os
 import custom_logger
 import urllib.request
 import requests
+import tempfile
 from dotenv import load_dotenv
 
 logger = custom_logger.getLogger("check_links")
@@ -147,7 +148,7 @@ def isInBlackList(url):
     #https://adguardteam.github.io/HostlistsRegistry/assets/filter_42.txt
     malwareList = ["malware_list.txt", "https://adguardteam.github.io/HostlistsRegistry/assets/filter_42.txt"]
 
-    blacklists = [phishingFilter, antiMalwareList, dohVpnProxyBypass, threatIntelFeeds, phishingArmy, malwareList]
+    blacklists = [phishingFilter, antiMalwareList, dohVpnProxyBypass, threatIntelFeeds, phishingArmy, malwareList] 
 
     for blacklist in blacklists:
         updateBlackList(blacklist)
@@ -163,7 +164,7 @@ def isInBlackList(url):
     for blacklist in blacklists:
         #logger.info("[isInBlackList] Searching in ", blacklist[0])
         file = blacklist[0]
-        file = "blacklists/" + file
+        file = "/tmp/blacklists/" + file
         try:
             with open(file) as f:
                 content = f.read()
@@ -178,9 +179,21 @@ def isInBlackList(url):
     return False
 
 def updateBlackList(source):
-    folder = "blacklists/"
+    """  folder = "blacklists/"
+    if not os.path.exists(folder):
+        os.makedirs(folder) """
+    """     temp_dir = tempfile.mkdtemp()
+    folder = os.path.join(temp_dir, 'blacklists/')
+    logger.debug("[updateBlackList] folder: %s", folder)
+
     if not os.path.exists(folder):
         os.makedirs(folder)
+        logger.info("[updateBlackList] Folder created: %s", folder) """
+
+    folder = "/tmp/blacklists/"
+    if not os.path.exists(folder):
+        os.makedirs(folder)
+        logger.info("[updateBlackList] Folder created: %s", folder)
 
     file = source[0]
     file = folder + file
@@ -209,7 +222,7 @@ def updateBlackList(source):
                 if nbExpirationDays_match:
                     nbExpirationDays = nbExpirationDays_match.group(1).split(" ")[0]
                     
-                    logger.debug("[updateBlackList] Expiration: ", nbExpirationDays, " days")
+                    logger.debug("[updateBlackList] Expiration: %s", nbExpirationDays)
 
                     lastUpdate = lastUpdate.split("T")[0]
                     lastUpdateDate = datetime.datetime.strptime(lastUpdate, '%Y-%m-%d')
