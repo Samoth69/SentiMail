@@ -7,8 +7,8 @@ import pika, os, sys
 import mailparser
 import requests
 from requests.auth import HTTPBasicAuth
-from check_filetype import *
-from check_hash import *
+from check_filetype import check_filetype
+from check_hash import check_hash
 import logging
 
 logging.basicConfig(level=logging.INFO, format="%(asctime)s - %(name)s - %(levelname)s - %(message)s")
