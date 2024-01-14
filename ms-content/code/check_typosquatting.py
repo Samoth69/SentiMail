@@ -31,7 +31,7 @@ def check_typosquatting(mail):
     test_domain = domains
     test_domain.append(sender_domain)
     logger.info("[check_typosquatting] Checking typosquatting for test_domain: %s", test_domain)
-    with open('redflags_domains.txt') as f:
+    with open('/tmp/redflags_domains.txt') as f:
         for line in f:
             if line.startswith("#"):
                 continue
@@ -48,16 +48,16 @@ def check_typosquatting(mail):
 
 def update_redflags_domains():
     # Check if the file exists
-    if not os.path.isfile('redflags_domains.txt'):
+    if not os.path.isfile('/tmp/redflags_domains.txt'):
         # Download the file
         try:
             logger.info("[update_redflags_domains] Downloading redflags_domains.txt")
-            urllib.request.urlretrieve('https://dl.red.flag.domains/red.flag.domains.txt', 'redflags_domains.txt')
+            urllib.request.urlretrieve('https://dl.red.flag.domains/red.flag.domains.txt', '/tmp/redflags_domains.txt')
         except:
             logger.error("[update_redflags_domains] Error: Can't download redflags_domains.txt")
             return
     try:
-       with open('redflags_domains.txt') as f:
+       with open('/tmp/redflags_domains.txt') as f:
             last_update = f.readline()
             last_update = last_update.split(":")[1]
             last_update = last_update.strip()
@@ -66,7 +66,7 @@ def update_redflags_domains():
             if last_update != yersterday_date:
                 try:
                     logger.info("[update_redflags_domains] Downloading redflags_domains.txt")
-                    urllib.request.urlretrieve('https://dl.red.flag.domains/red.flag.domains.txt', 'redflags_domains.txt')
+                    urllib.request.urlretrieve('https://dl.red.flag.domains/red.flag.domains.txt', '/tmp/redflags_domains.txt')
                 except:
                     logger.error("[update_redflags_domains] Error: Can't download redflags_domains.txt")
                     return
