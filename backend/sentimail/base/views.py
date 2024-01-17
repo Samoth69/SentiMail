@@ -49,8 +49,19 @@ def index(request):
         parser_classes = (MultiPartParser, FormParser)
         serializer = serializer_class(data=request.FILES)
         if serializer.is_valid():
+            # Rename the file and save it
+            serializer.validated_data['file'].name = str(uuid.uuid4()) + ".eml"
             serializer.save()
             file = serializer.data.get('file')
+
+            # Rename the file
+            
+            print("File name: ", file)
+            #new_file = str(uuid.uuid4()) + ".eml"
+            #os.rename(file, new_file)
+            #print("New file name: ", new_file)
+            #file.name = str(uuid.uuid4()) + ".eml"
+
             if request.user.is_authenticated:
                 username = request.user.username
             else:
@@ -71,9 +82,9 @@ def index(request):
  
             print("Username: ", username)
             print("File: ", file)
-            uuid = fileuploaded(file, username)
+            uuid_file = fileuploaded(file, username)
             #return redirect(uploadSuccess)
-            return redirect(result, uuid=uuid)
+            return redirect(result, uuid=uuid_file)
         else:
             print("Serializer is not valid")
             messages.info(request, "Upload error: only .eml files are allowed")
