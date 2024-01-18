@@ -1,6 +1,6 @@
 # <p align="center">SentiMail</p>
   
-L'expert de la détection de mail malveillant
+The expert in malicious email detection
 
 ## 📝 Table of Contents
 
@@ -10,21 +10,20 @@ L'expert de la détection de mail malveillant
 - [Authors](#authors)
 
 # Features <a name = "features"></a>
-3 types d'analyses sont effectuées sur le mail:
-### Analyse des métadonnées
-- Analyse de l'IP de l'expéditeur
-- Analyse du domaine de l'expéditeur
-- Analyse du SPF du domaine de l'expéditeur
+SentiMail performs three types of analyses on the email:
 
-### Analyse du contenu du mail
-- Analyse des liens
-- Analyse de l'orthographe
-- Analyse des mots clés
-- Analyse de typo-squatting
-
-### Analyse des pièces jointes
-- Analyse du hash des pièces jointes
-- Analyse du type de fichier des pièces jointes
+### Metadata Analysis
+- Analysis of the sender's IP
+- Analysis of the sender's domain
+- Analysis of the sender domain's SPF
+### Email Content Analysis
+- Link analysis
+- Spelling analysis
+- Keyword analysis
+- Typo-squatting analysis
+### Attachments Analysis
+- Analysis of attachment hashes
+- Analysis of attachment file types
   
 
     
