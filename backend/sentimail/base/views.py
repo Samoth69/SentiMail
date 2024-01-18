@@ -190,6 +190,76 @@ def publishMessage(uuid):
     print(" [x] Sent ", uuid, " to RabbitMQ")
     connection.close()
 
+def score_calculator(uuid_analysis):
+    """Calculate the score of the email
+    :param uuid_analysis: uuid of the analysis
+    :return: score of the email in percentage
+    """
+    """
+    {
+    "uuid": "f25bc0d6-ce8e-4e44-b0ae-d493d54869c5",
+    "created_at": "2024-01-12T12:54:36.474224Z",
+    "user": "azerty",
+    "isReady": false,
+    "responseMetadataIp": "IP not found in database",
+    "responseMetadataDomain": "Mail is not malicious",
+    "responseMetadataSPF": "SPF record is invalid",
+    "responseContentLinks": "Malicious",
+    "responseContentSpelling": "Malicious",
+    "responseContentKeywords": "Spam",
+    "responseContentTyposquatting": "Clean",
+    "responseContentCharacter": "Malicious",
+    "responseAttachmentHash": "Malicious",
+    "responseAttachmentFiletype": "Malicious"
+    }
+    """
+    score = 0
+
+    # Get the analysis from the database
+    analysis = Email.objects.get(uuid=uuid_analysis)
+
+    metadataIP = analysis.responseMetadataIp
+    metadataDomain = analysis.responseMetadataDomain
+    metadataSPF = analysis.responseMetadataSPF
+    contentLinks = analysis.responseContentLinks
+    contentSpelling = analysis.responseContentSpelling
+    contentKeywords = analysis.responseContentKeywords
+    contentTyposquatting = analysis.responseContentTyposquatting
+    contentCharacter = analysis.responseContentCharacter
+    attachmentHash = analysis.responseAttachmentHash
+    attachmentFiletype = analysis.responseAttachmentFiletype
+
+    # Calculate the score
+    
+    if metadataIP == "Malicious":
+        score += 10
+    if metadataDomain == "Malicious":
+        score += 10
+    if metadataSPF == "Malicious":
+        score += 10
+    if contentLinks == "Malicious":
+        score += 10
+    if contentSpelling == "Malicious":
+        score += 10
+    if contentKeywords == "Malicious":
+        score += 10
+    if contentTyposquatting == "Malicious":
+        score += 10
+    if contentCharacter == "Malicious":
+        score += 10
+    if attachmentHash == "Malicious":
+        score += 10
+    if attachmentFiletype == "Malicious":
+        score += 10
+    
+    # Set the score and isReady in the database
+    analysis.score = score
+    analysis.isReady = True
+    analysis.save()
+
+    return score
+    
+
 
 
 # API
