@@ -21,6 +21,7 @@ def check_links(mail):
 
     # Extract all url from content
     urls = re.findall(r'(https?://[a-z0-9./:%@?=-]+)', body)
+    
     #logger.info("[check_links] urls: ", urls)
     if googleSafeBrowsingAPI(urls):
         nbMalicious = 1
@@ -68,6 +69,10 @@ def isMalicious(url):
 
 # Google Safe Browsing API
 def googleSafeBrowsingAPI(urls):
+    """Check if there are malicious links in the mail using Google Safe Browsing API
+    :param urls: list of urls
+    :return: True or False
+    """
     result = "Clean"
     isMalicious = False
     API_KEY = os.getenv('GOOGLE_SAFE_BROWSING_API_KEY')
@@ -133,7 +138,11 @@ def googleSafeBrowsingAPI(urls):
     return isMalicious
 
 def isInBlackList(url):
-#https://malware-filter.gitlab.io/malware-filter/phishing-filter-agh.txt
+    """Check if the url is in the blacklists
+    :param url: url
+    :return: True or False
+    """
+    #https://malware-filter.gitlab.io/malware-filter/phishing-filter-agh.txt
     phishingFilter = ["phishing_filter.txt", "https://adguardteam.github.io/HostlistsRegistry/assets/filter_30.txt"]
 
     #https://adguardteam.github.io/HostlistsRegistry/assets/filter_12.txt
@@ -155,7 +164,6 @@ def isInBlackList(url):
 
     for blacklist in blacklists:
         updateBlackList(blacklist)
-    pass
 
     # convert url to domain name
     # url : http://thebestchois.co.uk/track/o4725
