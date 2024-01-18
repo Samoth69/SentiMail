@@ -77,7 +77,8 @@ curl --location 'http://<ip>/api/submit/' \
 }
 ```
 
-## Get email analysis
+## Get email analysis for authenticated user
+
 ```http
 GET /api/analysis/<uuid>/
 ```
@@ -109,6 +110,41 @@ curl --location 'http://<ip>/api/analysis/1574c5a7-2860-4659-a538-6210d074fb3d' 
     "responseMetadataSPF": "SPF record is valid"
 }
 ```
+
+## Get email analysis for anonymous user
+```http
+GET /api/result/<uuid>/
+```
+
+### Response:
+| Code | Description                |
+| :-------- | :------------------------- |
+| `200`   | **OK**    |
+| `400`  | **Bad Request**   |
+| `401`| **Unauthorized** |
+| `404`| **Not Found** |
+| `500`| **Internal Server Error** |
+
+### Request sample:
+```bash
+curl --location 'http://<ip>/api/result/1574c5a7-2860-4659-a538-6210d074fb3d' \
+--header 'Authorization: Token 27cdb16b2189fdc09f008fd901f54306f155697a'
+```
+
+### Response sample (200 OK):
+```json
+{
+    "uuid": "1574c5a7-2860-4659-a538-6210d074fb3d",
+    "created_at": "2023-12-14T10:41:45.989923Z",
+    "user": "anonymous",
+    "isReady": false,
+    "responseMetadataIp": "IP is not malicious",
+    "responseMetadataDomain": "Mail is not malicious",
+    "responseMetadataSPF": "SPF record is valid"
+}
+```
+
+
 
 ## Update email analysis
 ```http
