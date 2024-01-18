@@ -1,0 +1,33 @@
+{% extends "base/base.html" %}
+{% load static %}
+
+{% block content %}
+{% if not analysis %}
+  <div class="analysis-block">
+    <h2 class="number-analyse">No analysis yet</h2>
+  </div>
+
+{% else %}
+  {% for mail in analysis %}
+    <div class="analysis-block">
+      <h2 class="number-analyse">Analyse n° {{ forloop.counter }}</h2>
+      <div class="analysis-details">
+        <p>Date : {{ mail.uuid }}</p>
+        <p>Result : {{ mail.result }}</p>
+        <p>Details : <a href="#">{{ mail.details }}</a></p>
+        <p>Context : {{ analysis.context }}</p>
+      </div>
+      <div>
+        <p>Sender: {{ analysis.sender }}</p>
+        <p>To: {{ analysis.to }}</p>
+        <p>Subject: {{ analysis.subject }}</p>
+      </div>
+      <hr>
+    </div>
+
+  {% endfor %}
+  {% endif %}
+
+
+
+{% endblock %}

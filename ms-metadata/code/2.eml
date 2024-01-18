@@ -1,384 +1,2208 @@
 Delivered-To: valtournier01@gmail.com
-Received: by 2002:adf:a11c:0:b0:333:40bb:fa04 with SMTP id o28csp3186597wro;
-        Sat, 9 Dec 2023 02:30:50 -0800 (PST)
-X-Google-Smtp-Source: AGHT+IE/5PPZLEkJhTsiNAGuaa/klJUceV9uxbMcvNp5MvhGiW05xvbV4v5fL85NgEP+7XIJC/WW
-X-Received: by 2002:a05:600c:4c94:b0:40c:29a7:641e with SMTP id g20-20020a05600c4c9400b0040c29a7641emr771272wmp.118.1702117849687;
-        Sat, 09 Dec 2023 02:30:49 -0800 (PST)
-ARC-Seal: i=1; a=rsa-sha256; t=1702117849; cv=none;
+Received: by 2002:adf:a154:0:b0:337:bf5f:59e3 with SMTP id r20csp430231wrr;
+        Tue, 16 Jan 2024 23:10:31 -0800 (PST)
+X-Google-Smtp-Source: AGHT+IFXUu5snol0zvxHCIIRVOxXI+Zm+q8LHvaNbBXlujZRQRVHwtRjOvybUGYySepQWFnvu55F
+X-Received: by 2002:a05:600c:358e:b0:40d:6cff:75f9 with SMTP id p14-20020a05600c358e00b0040d6cff75f9mr4839620wmq.170.1705475431629;
+        Tue, 16 Jan 2024 23:10:31 -0800 (PST)
+ARC-Seal: i=1; a=rsa-sha256; t=1705475431; cv=none;
         d=google.com; s=arc-20160816;
-        b=02mLbvldt9+fvSEpIkxHIumCi7dv5b5oLoBQaNsMZlxPVRTbMbcgZEUar4MlfFPqMz
-         LMyb9y/w+7eyfHTJq0Wm0YAs/nsZMCEM0TZPns6D72cRoN0o3KKRQ/aVqTfZDJXMQK2/
-         pcoCo7L0hjvJQjrZeT0lfCnh1vL7mHzeKayeoxAT9ORwX7nifWCgMKQ67/02OLgypa4a
-         RmT851AoT3Xutf9QZ5cATDvyWz3Jl29jXgeL5cO8w81qF07RM5863vH5Y59ydw4Zlp2I
-         zSF8Hw6RbVmeHFeVfEGcoqMfutt9t+rVWAWG0zWfuMMiNiNEX1DV2nsMq3VLihQeFuyc
-         vH8A==
+        b=dHJJMkdA3sGfiqH9JAm0HfTeXgdWyLY4niN/Bhpfkt66BiEm6+srRzyeQejKaoaIqS
+         SaK46q0hvFUanAnNfrdCCNwBugpGe67ZOIKcl3Ygq+kSB6+g9CwRO7gU1Zwhs2MG5MpO
+         Bb7eEHfFcMKdsIUGIYK/xE3BbfwN2Pn6iKjikUZh+5u3tVTjdxM0SN9xQgfzWZT7iT+E
+         Pb1wCCQajZBOzRCOzFHE2qWGghoWhzbwSV3B7oD1EDveYjLJ0Npf9AyCBm+9OtGOpmIJ
+         EhBKbFxZAIoMKEuWaqqhPds25pIqXBczAPBB9WNwd4WhpCLPqb/U+XEaHWhmVmIYvTYc
+         39IQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
-        h=feedback-id:list-unsubscribe-post:list-unsubscribe:date:subject:to
-         :from:sendername:senderemail:mime-version:message-id:dkim-signature
-         :dkim-signature;
-        bh=fB09ww5ZF32gviyxt7Jj5TrSHPD7TrRlQ2FyKDHwePU=;
-        fh=cD1POnb1MHounIOEmfDvJCHZLfJVRH/uE9DxKUxgDu8=;
-        b=cTAkeqXb8xj2PyO98goz+YxwxNmAr1k3eAL+u9WgkYOWUT1z1rD8EHBjTIoLckfwCg
-         XRE3UriXeXZ4ku9xXyf+kAFfFnBX6tv4ADnPoevcse9a/FBEzOifDJbUMXWa0RE6p9Vn
-         Q9PnzZQrar5c3ok83EQN0JIjcSRUO8RGI0mV368xe/+CtghoR9Suj/tkAqEOr/2ILqrf
-         0FT30zO+W0nKdm303DsapKgkxS4dqHhRWyNg4HrdQXL1LWks9GP8gRND3w8fSMGE5Pv1
-         Dn7O+u6nWfPnkHX54CCHIL+e3Dzn6HD7fsWbscG6FmEXD75I7U+VOWnFDB850cAQCUWo
-         6ktA==
+        h=precedence:list-unsubscribe:message-id:mime-version:reply-to:to
+         :date:subject:from:domainkey-signature:dkim-signature;
+        bh=i9yzPXMFROPKU2YIWl7UfAywEMH7RaAI42MT4CR2VHg=;
+        fh=9G4SpWnO88n4OkoRQw+BNBXaQWHPsUHhdbZ2QsMS3/w=;
+        b=uyBPVFTkWDE7zclKbaNsfi1mfWR8x3rhgE4RXNDxcjOiUzihZ9/3nu278HPFBPB4JF
+         itsYoxShHzRvdS81cf8Ys9cFaZc6PO+8du74TYiSjvByuKdt1wR6MxNcVvreWNpMs7yc
+         XqB++NYFT/x3hxiKpbGYUSLUo2mns7zKQ2xXDETUYJDrU7Pqsbdb4b3FF4RjCN3Hc9J/
+         c9cVJPb7RBQns7nTAShHPi0Wdydon+tyWmJV/aqT+cNjhb6/Zpxwexvxze1zR2Ss2fLz
+         8bOLTEbCIQXH3Dtiz/ubfLapy4DtxWtgKwnnKK74SElgEiCVw+NfnlImI6Uk1Etl9Lrd
+         RJ/w==
 ARC-Authentication-Results: i=1; mx.google.com;
-       dkim=pass header.i=@wanteeed.com header.s=mailjet header.b=HTqNA77C;
-       dkim=pass header.i=@bnc3.mailjet.com header.s=mailjet1 header.b=IGTPe70k;
-       spf=pass (google.com: domain of 883ff680.caaabokavy8aacw2rooaalhpfhqaaaaiioaaaaaaaax_0gbldehw@bnc3.wanteeed.com designates 87.253.234.36 as permitted sender) smtp.mailfrom=883ff680.CAAABOkAVY8AAcw2ROoAALHPFhQAAAAIiOAAAAAAAAX_0gBldEHW@bnc3.wanteeed.com;
-       dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=wanteeed.com
-Return-Path: <883ff680.CAAABOkAVY8AAcw2ROoAALHPFhQAAAAIiOAAAAAAAAX_0gBldEHW@bnc3.wanteeed.com>
-Received: from o36.p9.mailjet.com (o36.p9.mailjet.com. [87.253.234.36])
-        by mx.google.com with UTF8SMTPS id g17-20020adff411000000b0033343b40be5si2035046wro.974.2023.12.09.02.30.46
+       dkim=pass header.i=@news.darty.com header.s=nms header.b=kdcR56zT;
+       spf=pass (google.com: domain of bounce@news.darty.com designates 193.108.68.136 as permitted sender) smtp.mailfrom=bounce@news.darty.com;
+       dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=darty.com
+Return-Path: <bounce@news.darty.com>
+Received: from mta24-fnacdarty.fnac.com (mta24-fnacdarty.fnac.com. [193.108.68.136])
+        by mx.google.com with ESMTPS id l19-20020a05600c16d300b0040d8bc903dfsi6654114wmn.63.2024.01.16.23.10.31
         for <valtournier01@gmail.com>
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Sat, 09 Dec 2023 02:30:49 -0800 (PST)
-Received-SPF: pass (google.com: domain of 883ff680.caaabokavy8aacw2rooaalhpfhqaaaaiioaaaaaaaax_0gbldehw@bnc3.wanteeed.com designates 87.253.234.36 as permitted sender) client-ip=87.253.234.36;
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 16 Jan 2024 23:10:31 -0800 (PST)
+Received-SPF: pass (google.com: domain of bounce@news.darty.com designates 193.108.68.136 as permitted sender) client-ip=193.108.68.136;
 Authentication-Results: mx.google.com;
-       dkim=pass header.i=@wanteeed.com header.s=mailjet header.b=HTqNA77C;
-       dkim=pass header.i=@bnc3.mailjet.com header.s=mailjet1 header.b=IGTPe70k;
-       spf=pass (google.com: domain of 883ff680.caaabokavy8aacw2rooaalhpfhqaaaaiioaaaaaaaax_0gbldehw@bnc3.wanteeed.com designates 87.253.234.36 as permitted sender) smtp.mailfrom=883ff680.CAAABOkAVY8AAcw2ROoAALHPFhQAAAAIiOAAAAAAAAX_0gBldEHW@bnc3.wanteeed.com;
-       dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=wanteeed.com
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; q=dns/txt;
-  d=wanteeed.com; i=help@wanteeed.com; s=mailjet; x=1702125046;
-  h=message-id:mime-version:senderemail:sendername:from:from:to:to:subject:subject:date:date:list-unsubscribe:
-  list-unsubscribe-post:feedback-id:x-campaignid:x-csa-complaints:x-mj-mid:
-  x-report-abuse-to:content-type;
-  bh=lFEkoDyVgP8twXMhRsLLwF53VCWK3eE/YzwPdEOVOEQ=;
-  b=HTqNA77CrcW7tCbWa4aa9eBVpoiJv4f0bRKEZZd55+jvUesMPE+fARUL3
- 2IJlNuLAcy5SFFkLYxqqpUz5JgBfLihL5XBsV9nTecNYd7t9iLm+60k8U/2f
- Gld+Rp08C/VQlKmEfX4x8Y3VVQj6W4qX/hTlz9rN3OLRS+3lXJHKbM=
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; q=dns/txt;
-  d=bnc3.mailjet.com; s=mailjet1; x=1702125046;
-  h=message-id:mime-version:senderemail:sendername:from:from:to:to:subject:subject:date:date:list-unsubscribe:
-  list-unsubscribe-post:feedback-id:x-campaignid:x-csa-complaints:x-mj-mid:
-  x-report-abuse-to:content-type;
-  bh=lFEkoDyVgP8twXMhRsLLwF53VCWK3eE/YzwPdEOVOEQ=;
-  b=IGTPe70kvbcXNpSlVXk5UmceAlbcV5ZR0m2Lw+GgoH9th3yWLpCQVrhN1
- fvCsLl2UPryLrWuK/Q3Beb/p9pNJX1kuXZg9fm30fCzV4VQbKko89WsZLkh5
- w8nuYiAi3g2h+zJNieprUNbHsaR4jGUe1QPYwhubkSwZqeoGXkNfEE=
-Return-Path:
-	<883ff680.CAAABOkAVY8AAcw2ROoAALHPFhQAAAAIiOAAAAAAAAX_0gBldEHW@bnc3.wanteeed.com>
-Message-Id: <883ff680.CAAABOkAVY8AAcw2ROoAALHPFhQAAAAIiOAAAAAAAAX_0gBldEHW@mailjet.com>
+       dkim=pass header.i=@news.darty.com header.s=nms header.b=kdcR56zT;
+       spf=pass (google.com: domain of bounce@news.darty.com designates 193.108.68.136 as permitted sender) smtp.mailfrom=bounce@news.darty.com;
+       dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=darty.com
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+	s=nms;
+	d=news.darty.com;
+	h=domainkey-signature:from:subject:date:to:reply-to:mime-version:x-mailer:message-id:list-unsubscribe:precedence:x-rpcampaign:content-type;
+	bh=i9yzPXMFROPKU2YIWl7UfAywEMH7RaAI42MT4CR2VHg=;
+	b=kdcR56zTU0d6Ug1Q7GwYS1AxmOWsDhhYQEBSykvf3jMx/Gpu6AsybzMfVRHQJAa5ORUW5pT0URM4cvJ80PCxxLgm27XIcCM3+YL76SOyZM68fmHmWZCOc67c5v3zvEtwJYM9rRKfeOi0C3x8TnbLKBOd/iOSUuENYnHDe6byrXA=
+DomainKey-Signature: a=rsa-sha1; c=nofws; q=dns;
+	s=nms;
+	d=news.darty.com;
+	h=From:Subject:Date:To:Reply-To:MIME-Version:X-mailer:Message-ID:List-Unsubscribe:Precedence:X-rpcampaign:Content-Type;
+	b=huvO6Fz5eAT7xEa+V8WkjPENY1KjCbbKOMhhN5EHASVOlSl+OS29XC6MGc4nWmAYUQ4TK8Dd+wtQ50DKpPikMPBUEw6hgkhkqC0g6/R/VhOyGGA6AFECORBoK2e2xyldnU+HtS9G0qZ55X58QBzqyDhuW8QixTtUcquYWybJ2eQ=
+From: "Darty" <darty@news.darty.com>
+Subject: =?windows-1252?Q?Petit_=E9lectrom=E9nager_:_SOLDES_jusqu'=E0_-30%?=
+Date: Wed, 17 Jan 2024 08:10:29 +0100
+To: <valtournier01@gmail.com>
+Reply-To: "Darty" <conso@darty.com>
 MIME-Version: 1.0
-SenderEmail: help@wanteeed.com
-SenderName: =?UTF-8?Q?L'=C3=A9quipe_Wanteeed?=
-From: Wanteeed <help@wanteeed.com>
-To: valtournier01@gmail.com
-Subject: Wanteeed - Cashback en attente
-Date: Sat, 9 Dec 2023 10:30:46 +0000
-List-Unsubscribe:
-	<mailto:unsub-883ff680.zvri.x0v2223xjsvvn@bnc3.mailjet.com>,
-	<https://zvri.mjt.lu/unsub2?m=CAAABOkAVY8AAcw2ROoAALHPFhQAAAAIiOAAAAAAAAX_0gBldEHWvOLuLICiQBGFulWcP6qygQAFvys&b=883ff680&e=830e2634&x=kudj4Dds7s-eLWj29d01tgJWmJFG5N4TIVeVB3IRxFU>
-List-Unsubscribe-Post: List-Unsubscribe=One-Click
-Feedback-Id: 42.393170.376619:MJ
-X-CampaignID: waitingBonus-fr-FR
-X-CSA-Complaints: csa-complaints@eco.de
-X-MJ-Mid:
-	CAAABOkAVY8AAcw2ROoAALHPFhQAAAAIiOAAAAAAAAX_0gBldEHWvOLuLICiQBGFulWcP6qygQAFvys
-X-REPORT-ABUSE-TO: Message sent by Mailjet please report to
-	abuse@mailjet.com with a copy of the message
-Content-Type: multipart/alternative; boundary="=-uzvF2e0o/Q8TCNC58yE/"
+X-mailer: nlserver, Build 6.7.0
+Message-ID: <NM6214FB1720746230DFD_PRD_NeolaneMid1@news.darty.com>
+List-Unsubscribe: <mailto:bounce@news.darty.com?subject=unsubscribe%3CNM6214FB1720746230DFD_PRD_NeolaneMid1@news.darty.com%3E>
+Precedence: Bulk
+X-rpcampaign: dartyOP41960-1396067615
+Content-Type: multipart/alternative;
+	charset="windows-1252";
+	boundary="----=_NextPart_827_DB4DAD98.DB4DAD98"
 
---=-uzvF2e0o/Q8TCNC58yE/
-Content-Type: text/plain; charset=utf-8
+This is a multi-part message in MIME format.
+
+------=_NextPart_827_DB4DAD98.DB4DAD98
+Content-Type: text/plain;
+	charset="windows-1252"
+Content-Transfer-Encoding: 8bit
+
+https://t.news.darty.com/r/?id=t3cf09285,acc9b2e1,2942c6b&e=ZW1sLXB1Ymxpc2hlcj1hZG9iZSZlbWwtbmFtZT0xMjIwMzcwMDUmZGFydHljaWQ9ZW1haWxfYW5pbWNvX3BhYy1zb2xkZXNfcmVsYW5jZWJwZW0tMTcwMTI0LTEyMjAzNzAwNSZkYXJ0eXBjaz1IUnlTWlBwQ2ZFVkxSemZ6ZEVwYlhvQ3ExRDdCS1BTVlZHb0pYejJmSC1V&s=re4xxYK-USugw2uUxS-UwLKsBVRKg_sN-nX8-089G_0 ?? Pour des  quipements du quotidien plus durables, c'est le bon moment !
+
+----------------------------------------------------------------------------
+Pour visualiser ce message au format html, cliquez ici :
+ https://t.news.darty.com/r/?id=t3cf09285,acc9b2e1,2942c6c&e=ZW1sLXB1Ymxpc2hlcj1hZG9iZSZlbWwtbmFtZT0xMjIwMzcwMDUmZGFydHljaWQ9ZW1haWxfYW5pbWNvX3BhYy1zb2xkZXNfcmVsYW5jZWJwZW0tMTcwMTI0LTEyMjAzNzAwNSZkYXJ0eXBjaz1IUnlTWlBwQ2ZFVkxSemZ6ZEVwYlhvQ3ExRDdCS1BTVlZHb0pYejJmSC1VJnAxPSU0MDVOaU5sQ1p3QVlVUURLaVBTVVBDdEI3JTJCYzV6YlFHMDBJQ1NKMXMwVnliTSUzRA&s=qIXEyNwHVQCWQjhYp3V0GNpDTcZ9TP_-z8AQe_zduL4
+ou copiez le lien dans votre navigateur Web
+----------------------------------------------------------------------------
+
+ https://t.news.darty.com/r/?id=t3cf09285,acc9b2e1,2942c6d&e=ZW1sLXB1Ymxpc2hlcj1hZG9iZSZlbWwtbmFtZT0xMjIwMzcwMDUmZGFydHljaWQ9ZW1haWxfYW5pbWNvX3BhYy1zb2xkZXNfcmVsYW5jZWJwZW0tMTcwMTI0LTEyMjAzNzAwNSZkYXJ0eXBjaz1IUnlTWlBwQ2ZFVkxSemZ6ZEVwYlhvQ3ExRDdCS1BTVlZHb0pYejJmSC1V&s=57bW2ugj5_bEdJD4rjuHvHGpiXdKc3kJJZSAsZ3mNcE
+
+
+
+ https://t.news.darty.com/r/?id=t3cf09285,acc9b2e1,2942c6e&e=ZW1sLXB1Ymxpc2hlcj1hZG9iZSZlbWwtbmFtZT0xMjIwMzcwMDUmZGFydHljaWQ9ZW1haWxfYW5pbWNvX3BhYy1zb2xkZXNfcmVsYW5jZWJwZW0tMTcwMTI0LTEyMjAzNzAwNSZkYXJ0eXBjaz1IUnlTWlBwQ2ZFVkxSemZ6ZEVwYlhvQ3ExRDdCS1BTVlZHb0pYejJmSC1V&s=9kZsptHx9E9QVqUmSIhWh7aqUfuvA0Km08feey60SLE Bons plans
+
+
+ https://t.news.darty.com/r/?id=t3cf09285,acc9b2e1,2942c6f&e=ZW1sLXB1Ymxpc2hlcj1hZG9iZSZlbWwtbmFtZT0xMjIwMzcwMDUmZGFydHljaWQ9ZW1haWxfYW5pbWNvX3BhYy1zb2xkZXNfcmVsYW5jZWJwZW0tMTcwMTI0LTEyMjAzNzAwNSZkYXJ0eXBjaz1IUnlTWlBwQ2ZFVkxSemZ6ZEVwYlhvQ3ExRDdCS1BTVlZHb0pYejJmSC1V&s=iodWFUibnx2mvqF0TLHanSilWqsdWrA6msg3t17JrOo Services
+
+
+ https://t.news.darty.com/r/?id=t3cf09285,acc9b2e1,2942c70&e=ZW1sLXB1Ymxpc2hlcj1hZG9iZSZlbWwtbmFtZT0xMjIwMzcwMDUmZGFydHljaWQ9ZW1haWxfYW5pbWNvX3BhYy1zb2xkZXNfcmVsYW5jZWJwZW0tMTcwMTI0LTEyMjAzNzAwNSZkYXJ0eXBjaz1IUnlTWlBwQ2ZFVkxSemZ6ZEVwYlhvQ3ExRDdCS1BTVlZHb0pYejJmSC1V&s=NmiKBaW3teRmBJbJpY1DzAmyMX8JNuF0WEamXqhn4YI Magasins
+
+
+
+
+
+ https://t.news.darty.com/r/?id=t3cf09285,acc9b2e1,2942c71&e=ZW1sLXB1Ymxpc2hlcj1hZG9iZSZlbWwtbmFtZT0xMjIwMzcwMDUmZGFydHljaWQ9ZW1haWxfYW5pbWNvX3BhYy1zb2xkZXNfcmVsYW5jZWJwZW0tMTcwMTI0LTEyMjAzNzAwNSZkYXJ0eXBjaz1IUnlTWlBwQ2ZFVkxSemZ6ZEVwYlhvQ3ExRDdCS1BTVlZHb0pYejJmSC1V&s=rd_9-pR8hsUX2NQTFc-01XBJoO3vwrxUPEkITEsXL7s Avec vous, chaque jour ??
+
+ https://t.news.darty.com/r/?id=t3cf09285,acc9b2e1,2942c72&e=ZW1sLXB1Ymxpc2hlcj1hZG9iZSZlbWwtbmFtZT0xMjIwMzcwMDUmZGFydHljaWQ9ZW1haWxfYW5pbWNvX3BhYy1zb2xkZXNfcmVsYW5jZWJwZW0tMTcwMTI0LTEyMjAzNzAwNSZkYXJ0eXBjaz1IUnlTWlBwQ2ZFVkxSemZ6ZEVwYlhvQ3ExRDdCS1BTVlZHb0pYejJmSC1V&s=NylGPuxyJJNBRvpSil5t47Ck5PCpAca-jGjoePfEA9w Transformez votre quotidien en une exp rience fluide et agr able avec des appareils polyvalents. Coiffure  clatante, repas d licieux.. Excellez dans chaque t che !
+
+ https://t.news.darty.com/r/?id=t3cf09285,acc9b2e1,2942c73&e=ZW1sLXB1Ymxpc2hlcj1hZG9iZSZlbWwtbmFtZT0xMjIwMzcwMDUmZGFydHljaWQ9ZW1haWxfYW5pbWNvX3BhYy1zb2xkZXNfcmVsYW5jZWJwZW0tMTcwMTI0LTEyMjAzNzAwNSZkYXJ0eXBjaz1IUnlTWlBwQ2ZFVkxSemZ6ZEVwYlhvQ3ExRDdCS1BTVlZHb0pYejJmSC1V&s=sEc2OfZYs-Wn6odethIRgQ2TLy0Bmsohg3A1JJ8Ds7w
+
+
+
+
+ https://t.news.darty.com/r/?id=t3cf09285,acc9b2e1,2942c74&e=ZW1sLXB1Ymxpc2hlcj1hZG9iZSZlbWwtbmFtZT0xMjIwMzcwMDUmZGFydHljaWQ9ZW1haWxfYW5pbWNvX3BhYy1zb2xkZXNfcmVsYW5jZWJwZW0tMTcwMTI0LTEyMjAzNzAwNSZkYXJ0eXBjaz1IUnlTWlBwQ2ZFVkxSemZ6ZEVwYlhvQ3ExRDdCS1BTVlZHb0pYejJmSC1V&s=xXoxp9PYgl4bTU7fuhIwR-BcmOSb2PUe7mLgH5P6OHU
+
+
+
+ https://t.news.darty.com/r/?id=t3cf09285,acc9b2e1,2942c75&e=ZW1sLXB1Ymxpc2hlcj1hZG9iZSZlbWwtbmFtZT0xMjIwMzcwMDUmZGFydHljaWQ9ZW1haWxfYW5pbWNvX3BhYy1zb2xkZXNfcmVsYW5jZWJwZW0tMTcwMTI0LTEyMjAzNzAwNSZkYXJ0eXBjaz1IUnlTWlBwQ2ZFVkxSemZ6ZEVwYlhvQ3ExRDdCS1BTVlZHb0pYejJmSC1V&s=3d9VsV81qQn5oIUFT0wfQfD7_VGEgIl_nA8gmVmcAUo L'abonnement pour entretenir et r parer vos appareils en illimit .
+Jusqu'au 21 janvier  : jusqu'  20% offerts en carte cadeau  pour toute souscription en magasin* ??
+
+
+
+ https://t.news.darty.com/r/?id=t3cf09285,acc9b2e1,2942c76&e=ZW1sLXB1Ymxpc2hlcj1hZG9iZSZlbWwtbmFtZT0xMjIwMzcwMDUmZGFydHljaWQ9ZW1haWxfYW5pbWNvX3BhYy1zb2xkZXNfcmVsYW5jZWJwZW0tMTcwMTI0LTEyMjAzNzAwNSZkYXJ0eXBjaz1IUnlTWlBwQ2ZFVkxSemZ6ZEVwYlhvQ3ExRDdCS1BTVlZHb0pYejJmSC1V&s=JSkQUXqdYY8-6by68odbl5xEh9J_sa59rJVgHOaL3TU Votre TOP 3 pour vous satisfaire !
+
+ https://t.news.darty.com/r/?id=t3cf09285,acc9b2e1,2942c77&e=ZW1sLXB1Ymxpc2hlcj1hZG9iZSZlbWwtbmFtZT0xMjIwMzcwMDUmZGFydHljaWQ9ZW1haWxfYW5pbWNvX3BhYy1zb2xkZXNfcmVsYW5jZWJwZW0tMTcwMTI0LTEyMjAzNzAwNSZkYXJ0eXBjaz1IUnlTWlBwQ2ZFVkxSemZ6ZEVwYlhvQ3ExRDdCS1BTVlZHb0pYejJmSC1VJnAxPXd3dy5kYXJ0eS5jb20vbmF2L2NvZGljLzc2MDQwOTI&s=O5OQNBwP0nqMMX87Sjp2qQ4KoPnUO-29CqqIQ-V-3mU
+
+
+
+Aspirateur balai
+Dyson
+V8...
+
+
+ https://t.news.darty.com/r/?id=t3cf09285,acc9b2e1,2942c78&e=ZW1sLXB1Ymxpc2hlcj1hZG9iZSZlbWwtbmFtZT0xMjIwMzcwMDUmZGFydHljaWQ9ZW1haWxfYW5pbWNvX3BhYy1zb2xkZXNfcmVsYW5jZWJwZW0tMTcwMTI0LTEyMjAzNzAwNSZkYXJ0eXBjaz1IUnlTWlBwQ2ZFVkxSemZ6ZEVwYlhvQ3ExRDdCS1BTVlZHb0pYejJmSC1VJnAxPXd3dy5kYXJ0eS5jb20vbmF2L2NvZGljLzc2MDQwOTI&s=l2h8brlwastyfzV7IELXL471IAboytAIvW66xbg8TrI 399
+
+
+ https://t.news.darty.com/r/?id=t3cf09285,acc9b2e1,2942c79&e=ZW1sLXB1Ymxpc2hlcj1hZG9iZSZlbWwtbmFtZT0xMjIwMzcwMDUmZGFydHljaWQ9ZW1haWxfYW5pbWNvX3BhYy1zb2xkZXNfcmVsYW5jZWJwZW0tMTcwMTI0LTEyMjAzNzAwNSZkYXJ0eXBjaz1IUnlTWlBwQ2ZFVkxSemZ6ZEVwYlhvQ3ExRDdCS1BTVlZHb0pYejJmSC1VJnAxPXd3dy5kYXJ0eS5jb20vbmF2L2NvZGljLzc2MDQwOTI&s=JrBFaZ4BnSvvgdeHldkNP2hi00xfzY5AG5VzgxIWfVM - 25%
+
+
+
+ https://t.news.darty.com/r/?id=t3cf09285,acc9b2e1,2942c7a&e=ZW1sLXB1Ymxpc2hlcj1hZG9iZSZlbWwtbmFtZT0xMjIwMzcwMDUmZGFydHljaWQ9ZW1haWxfYW5pbWNvX3BhYy1zb2xkZXNfcmVsYW5jZWJwZW0tMTcwMTI0LTEyMjAzNzAwNSZkYXJ0eXBjaz1IUnlTWlBwQ2ZFVkxSemZ6ZEVwYlhvQ3ExRDdCS1BTVlZHb0pYejJmSC1VJnAxPXd3dy5kYXJ0eS5jb20vbmF2L2NvZGljLzc2MDQwOTI&s=5wCMfw3dSUUlZOSTuiYdnvGLm9NBzFkRnZUPAJ12GrE           299,00
+
+ https://t.news.darty.com/r/?id=t3cf09285,acc9b2e1,2942c7b&e=ZW1sLXB1Ymxpc2hlcj1hZG9iZSZlbWwtbmFtZT0xMjIwMzcwMDUmZGFydHljaWQ9ZW1haWxfYW5pbWNvX3BhYy1zb2xkZXNfcmVsYW5jZWJwZW0tMTcwMTI0LTEyMjAzNzAwNSZkYXJ0eXBjaz1IUnlTWlBwQ2ZFVkxSemZ6ZEVwYlhvQ3ExRDdCS1BTVlZHb0pYejJmSC1VJnAxPXd3dy5kYXJ0eS5jb20vbmF2L2NvZGljLzc2MDQwOTI&s=oIFpCIMZeTzr32IX7pE9dO_NP5eIrAznmH7Cf_7YgQ0 <img border="0" src="http://static.fnac-static.com/multimedia/fnacdirect/neolane/responsive/auteur2015/rating-star-4-5.png">  62 avis   ?
+
+
+
+
+
+
+
+ https://t.news.darty.com/r/?id=t3cf09285,acc9b2e1,2942c7d&e=ZW1sLXB1Ymxpc2hlcj1hZG9iZSZlbWwtbmFtZT0xMjIwMzcwMDUmZGFydHljaWQ9ZW1haWxfYW5pbWNvX3BhYy1zb2xkZXNfcmVsYW5jZWJwZW0tMTcwMTI0LTEyMjAzNzAwNSZkYXJ0eXBjaz1IUnlTWlBwQ2ZFVkxSemZ6ZEVwYlhvQ3ExRDdCS1BTVlZHb0pYejJmSC1VJnAxPXd3dy5kYXJ0eS5jb20vbmF2L2NvZGljLzQ5OTE1MTY&s=6Js3HBGYdbDUh_LB_z7aoMF2zUnEDx3d_jk5j8c2J7E
+
+
+
+Friteuse
+Philips
+FRITEUSE SANS H...
+
+
+ https://t.news.darty.com/r/?id=t3cf09285,acc9b2e1,2942c7e&e=ZW1sLXB1Ymxpc2hlcj1hZG9iZSZlbWwtbmFtZT0xMjIwMzcwMDUmZGFydHljaWQ9ZW1haWxfYW5pbWNvX3BhYy1zb2xkZXNfcmVsYW5jZWJwZW0tMTcwMTI0LTEyMjAzNzAwNSZkYXJ0eXBjaz1IUnlTWlBwQ2ZFVkxSemZ6ZEVwYlhvQ3ExRDdCS1BTVlZHb0pYejJmSC1VJnAxPXd3dy5kYXJ0eS5jb20vbmF2L2NvZGljLzQ5OTE1MTY&s=hNqL-e3UsOFi5xpznsWF1JBUF-o0ZaFcK8KPBfw_2QE 139.99
+
+
+ https://t.news.darty.com/r/?id=t3cf09285,acc9b2e1,2942c7f&e=ZW1sLXB1Ymxpc2hlcj1hZG9iZSZlbWwtbmFtZT0xMjIwMzcwMDUmZGFydHljaWQ9ZW1haWxfYW5pbWNvX3BhYy1zb2xkZXNfcmVsYW5jZWJwZW0tMTcwMTI0LTEyMjAzNzAwNSZkYXJ0eXBjaz1IUnlTWlBwQ2ZFVkxSemZ6ZEVwYlhvQ3ExRDdCS1BTVlZHb0pYejJmSC1VJnAxPXd3dy5kYXJ0eS5jb20vbmF2L2NvZGljLzQ5OTE1MTY&s=LV9HODAhDriyiURyuEhG89LudSHt54JUx4fXuJ_uZAk - 35%
+
+
+
+ https://t.news.darty.com/r/?id=t3cf09285,acc9b2e1,2942c80&e=ZW1sLXB1Ymxpc2hlcj1hZG9iZSZlbWwtbmFtZT0xMjIwMzcwMDUmZGFydHljaWQ9ZW1haWxfYW5pbWNvX3BhYy1zb2xkZXNfcmVsYW5jZWJwZW0tMTcwMTI0LTEyMjAzNzAwNSZkYXJ0eXBjaz1IUnlTWlBwQ2ZFVkxSemZ6ZEVwYlhvQ3ExRDdCS1BTVlZHb0pYejJmSC1VJnAxPXd3dy5kYXJ0eS5jb20vbmF2L2NvZGljLzQ5OTE1MTY&s=Pnsdl-N6NfswERM7juzYqPIV9e8MUrIMi88R3_4vaTc            89,99
+
+ https://t.news.darty.com/r/?id=t3cf09285,acc9b2e1,2942c81&e=ZW1sLXB1Ymxpc2hlcj1hZG9iZSZlbWwtbmFtZT0xMjIwMzcwMDUmZGFydHljaWQ9ZW1haWxfYW5pbWNvX3BhYy1zb2xkZXNfcmVsYW5jZWJwZW0tMTcwMTI0LTEyMjAzNzAwNSZkYXJ0eXBjaz1IUnlTWlBwQ2ZFVkxSemZ6ZEVwYlhvQ3ExRDdCS1BTVlZHb0pYejJmSC1VJnAxPXd3dy5kYXJ0eS5jb20vbmF2L2NvZGljLzQ5OTE1MTY&s=hw_lKm3RvfTLrNq-LaZaKlDmO9XB8CfGaGokVQn5eRg <img border="0" src="http://static.fnac-static.com/multimedia/fnacdirect/neolane/responsive/auteur2015/rating-star-4-5.png">  58 avis   ?
+
+
+
+
+
+
+
+ https://t.news.darty.com/r/?id=t3cf09285,acc9b2e1,2942c83&e=ZW1sLXB1Ymxpc2hlcj1hZG9iZSZlbWwtbmFtZT0xMjIwMzcwMDUmZGFydHljaWQ9ZW1haWxfYW5pbWNvX3BhYy1zb2xkZXNfcmVsYW5jZWJwZW0tMTcwMTI0LTEyMjAzNzAwNSZkYXJ0eXBjaz1IUnlTWlBwQ2ZFVkxSemZ6ZEVwYlhvQ3ExRDdCS1BTVlZHb0pYejJmSC1VJnAxPXd3dy5kYXJ0eS5jb20vbmF2L2NvZGljLzc2MjQ3NTE&s=z87nZ7l99rzY6jws38A17CRCvrgen05o2nvXJvqjZYk
+
+
+
+Aspirateur balai
+Dyson
+V15 Fluffy...
+
+
+ https://t.news.darty.com/r/?id=t3cf09285,acc9b2e1,2942c84&e=ZW1sLXB1Ymxpc2hlcj1hZG9iZSZlbWwtbmFtZT0xMjIwMzcwMDUmZGFydHljaWQ9ZW1haWxfYW5pbWNvX3BhYy1zb2xkZXNfcmVsYW5jZWJwZW0tMTcwMTI0LTEyMjAzNzAwNSZkYXJ0eXBjaz1IUnlTWlBwQ2ZFVkxSemZ6ZEVwYlhvQ3ExRDdCS1BTVlZHb0pYejJmSC1VJnAxPXd3dy5kYXJ0eS5jb20vbmF2L2NvZGljLzc2MjQ3NTE&s=qUCb219sUSA0nxXIBk8qczjGhC24pFlQMEFNl4KlKho 749
+
+
+ https://t.news.darty.com/r/?id=t3cf09285,acc9b2e1,2942c85&e=ZW1sLXB1Ymxpc2hlcj1hZG9iZSZlbWwtbmFtZT0xMjIwMzcwMDUmZGFydHljaWQ9ZW1haWxfYW5pbWNvX3BhYy1zb2xkZXNfcmVsYW5jZWJwZW0tMTcwMTI0LTEyMjAzNzAwNSZkYXJ0eXBjaz1IUnlTWlBwQ2ZFVkxSemZ6ZEVwYlhvQ3ExRDdCS1BTVlZHb0pYejJmSC1VJnAxPXd3dy5kYXJ0eS5jb20vbmF2L2NvZGljLzc2MjQ3NTE&s=YPJdnLeky9PaKMBp42DnaXnxxPvstjLkwnaxPGD4VBg - 20%
+
+
+
+ https://t.news.darty.com/r/?id=t3cf09285,acc9b2e1,2942c86&e=ZW1sLXB1Ymxpc2hlcj1hZG9iZSZlbWwtbmFtZT0xMjIwMzcwMDUmZGFydHljaWQ9ZW1haWxfYW5pbWNvX3BhYy1zb2xkZXNfcmVsYW5jZWJwZW0tMTcwMTI0LTEyMjAzNzAwNSZkYXJ0eXBjaz1IUnlTWlBwQ2ZFVkxSemZ6ZEVwYlhvQ3ExRDdCS1BTVlZHb0pYejJmSC1VJnAxPXd3dy5kYXJ0eS5jb20vbmF2L2NvZGljLzc2MjQ3NTE&s=B087Mr6wphHXeHGxNgeLmBUpWfbACRt9GhiZH0brUKY           599,00
+
+
+ https://t.news.darty.com/r/?id=t3cf09285,acc9b2e1,2942c88&e=ZW1sLXB1Ymxpc2hlcj1hZG9iZSZlbWwtbmFtZT0xMjIwMzcwMDUmZGFydHljaWQ9ZW1haWxfYW5pbWNvX3BhYy1zb2xkZXNfcmVsYW5jZWJwZW0tMTcwMTI0LTEyMjAzNzAwNSZkYXJ0eXBjaz1IUnlTWlBwQ2ZFVkxSemZ6ZEVwYlhvQ3ExRDdCS1BTVlZHb0pYejJmSC1VJnAxPXd3dy5kYXJ0eS5jb20vbmF2L2NvZGljLzc2MjQ3NTE&s=tOZF4SQAOghRzy4CUgU8ow4XQ23Ps2c04Kc6kWoSgYw J'en profite ?
+
+
+
+
+
+
+
+ https://t.news.darty.com/r/?id=t3cf09285,acc9b2e1,2942c89&e=ZW1sLXB1Ymxpc2hlcj1hZG9iZSZlbWwtbmFtZT0xMjIwMzcwMDUmZGFydHljaWQ9ZW1haWxfYW5pbWNvX3BhYy1zb2xkZXNfcmVsYW5jZWJwZW0tMTcwMTI0LTEyMjAzNzAwNSZkYXJ0eXBjaz1IUnlTWlBwQ2ZFVkxSemZ6ZEVwYlhvQ3ExRDdCS1BTVlZHb0pYejJmSC1V&s=OBWDybI2lY1jcFRTdAEWN2LAw0uhErE28nC_axLnCv0 Toutes nos offres pour vous satisfaire !
+
+ https://t.news.darty.com/r/?id=t3cf09285,acc9b2e1,2942c8a&e=ZW1sLXB1Ymxpc2hlcj1hZG9iZSZlbWwtbmFtZT0xMjIwMzcwMDUmZGFydHljaWQ9ZW1haWxfYW5pbWNvX3BhYy1zb2xkZXNfcmVsYW5jZWJwZW0tMTcwMTI0LTEyMjAzNzAwNSZkYXJ0eXBjaz1IUnlTWlBwQ2ZFVkxSemZ6ZEVwYlhvQ3ExRDdCS1BTVlZHb0pYejJmSC1V&s=jycHNVC_y_bH3EJ6JmNqUqTCPXpJaVMq0vVKER2H5gQ
+
+
+ https://t.news.darty.com/r/?id=t3cf09285,acc9b2e1,2942c8b&e=ZW1sLXB1Ymxpc2hlcj1hZG9iZSZlbWwtbmFtZT0xMjIwMzcwMDUmZGFydHljaWQ9ZW1haWxfYW5pbWNvX3BhYy1zb2xkZXNfcmVsYW5jZWJwZW0tMTcwMTI0LTEyMjAzNzAwNSZkYXJ0eXBjaz1IUnlTWlBwQ2ZFVkxSemZ6ZEVwYlhvQ3ExRDdCS1BTVlZHb0pYejJmSC1V&s=SgtvmStEK6qpy6jqbQKS-B1Gh_DFuu13ZdocsgGUm6A Cuisine
+Jusqu'  -30%
+
+
+
+
+
+ https://t.news.darty.com/r/?id=t3cf09285,acc9b2e1,2942c8c&e=ZW1sLXB1Ymxpc2hlcj1hZG9iZSZlbWwtbmFtZT0xMjIwMzcwMDUmZGFydHljaWQ9ZW1haWxfYW5pbWNvX3BhYy1zb2xkZXNfcmVsYW5jZWJwZW0tMTcwMTI0LTEyMjAzNzAwNSZkYXJ0eXBjaz1IUnlTWlBwQ2ZFVkxSemZ6ZEVwYlhvQ3ExRDdCS1BTVlZHb0pYejJmSC1V&s=LVnexpAy3nMvah35uOZmqwuVpYk5pQZvzC0VFmGXWKY
+
+
+ https://t.news.darty.com/r/?id=t3cf09285,acc9b2e1,2942c8d&e=ZW1sLXB1Ymxpc2hlcj1hZG9iZSZlbWwtbmFtZT0xMjIwMzcwMDUmZGFydHljaWQ9ZW1haWxfYW5pbWNvX3BhYy1zb2xkZXNfcmVsYW5jZWJwZW0tMTcwMTI0LTEyMjAzNzAwNSZkYXJ0eXBjaz1IUnlTWlBwQ2ZFVkxSemZ6ZEVwYlhvQ3ExRDdCS1BTVlZHb0pYejJmSC1V&s=vTGkN2ACx6bJrdjNC-JRtMfEOBD6Es6c9XoFaVxRlSo Entretien
+Jusqu'  -30%
+
+
+
+
+
+ https://t.news.darty.com/r/?id=t3cf09285,acc9b2e1,2942c8e&e=ZW1sLXB1Ymxpc2hlcj1hZG9iZSZlbWwtbmFtZT0xMjIwMzcwMDUmZGFydHljaWQ9ZW1haWxfYW5pbWNvX3BhYy1zb2xkZXNfcmVsYW5jZWJwZW0tMTcwMTI0LTEyMjAzNzAwNSZkYXJ0eXBjaz1IUnlTWlBwQ2ZFVkxSemZ6ZEVwYlhvQ3ExRDdCS1BTVlZHb0pYejJmSC1V&s=FVFdp3O-FFAck_gN4bXEtCK40m5BHD5wiQaSPyU-qHY
+
+
+ https://t.news.darty.com/r/?id=t3cf09285,acc9b2e1,2942c8f&e=ZW1sLXB1Ymxpc2hlcj1hZG9iZSZlbWwtbmFtZT0xMjIwMzcwMDUmZGFydHljaWQ9ZW1haWxfYW5pbWNvX3BhYy1zb2xkZXNfcmVsYW5jZWJwZW0tMTcwMTI0LTEyMjAzNzAwNSZkYXJ0eXBjaz1IUnlTWlBwQ2ZFVkxSemZ6ZEVwYlhvQ3ExRDdCS1BTVlZHb0pYejJmSC1V&s=36WezJJSUswxrp7YRSbbSRw-I2MKYtap0s7lQc3L_OM Beaut , Sant
+Jusqu'  -30%
+
+
+
+
+ https://t.news.darty.com/r/?id=t3cf09285,acc9b2e1,2942c90&e=ZW1sLXB1Ymxpc2hlcj1hZG9iZSZlbWwtbmFtZT0xMjIwMzcwMDUmZGFydHljaWQ9ZW1haWxfYW5pbWNvX3BhYy1zb2xkZXNfcmVsYW5jZWJwZW0tMTcwMTI0LTEyMjAzNzAwNSZkYXJ0eXBjaz1IUnlTWlBwQ2ZFVkxSemZ6ZEVwYlhvQ3ExRDdCS1BTVlZHb0pYejJmSC1V&s=DSOFf2T5ICaL6aNt9x5fKwoM0GdcyIDCwlmi1Qi2BNc
+
+
+
+ https://t.news.darty.com/r/?id=t3cf09285,acc9b2e1,2942c91&e=ZW1sLXB1Ymxpc2hlcj1hZG9iZSZlbWwtbmFtZT0xMjIwMzcwMDUmZGFydHljaWQ9ZW1haWxfYW5pbWNvX3BhYy1zb2xkZXNfcmVsYW5jZWJwZW0tMTcwMTI0LTEyMjAzNzAwNSZkYXJ0eXBjaz1IUnlTWlBwQ2ZFVkxSemZ6ZEVwYlhvQ3ExRDdCS1BTVlZHb0pYejJmSC1V&s=xaBT6LwcIM4NXgOl20UCZDbaiaOmphmSv94EoCtBKtM
+
+
+
+
+
+ https://t.news.darty.com/r/?id=t3cf09285,acc9b2e1,2942c92&e=ZW1sLXB1Ymxpc2hlcj1hZG9iZSZlbWwtbmFtZT0xMjIwMzcwMDUmZGFydHljaWQ9ZW1haWxfYW5pbWNvX3BhYy1zb2xkZXNfcmVsYW5jZWJwZW0tMTcwMTI0LTEyMjAzNzAwNSZkYXJ0eXBjaz1IUnlTWlBwQ2ZFVkxSemZ6ZEVwYlhvQ3ExRDdCS1BTVlZHb0pYejJmSC1V&s=TNc6DNcA3GijEV5uxJ_BhfNboLcPAVlyooHe2drsR3Y
+
+
+
+ https://t.news.darty.com/r/?id=t3cf09285,acc9b2e1,2942c93&e=ZW1sLXB1Ymxpc2hlcj1hZG9iZSZlbWwtbmFtZT0xMjIwMzcwMDUmZGFydHljaWQ9ZW1haWxfYW5pbWNvX3BhYy1zb2xkZXNfcmVsYW5jZWJwZW0tMTcwMTI0LTEyMjAzNzAwNSZkYXJ0eXBjaz1IUnlTWlBwQ2ZFVkxSemZ6ZEVwYlhvQ3ExRDdCS1BTVlZHb0pYejJmSC1V&s=Zuv1JX1BQ4w_LGoUVurp4T0kRXHVd_8rX8f3qishm78
+
+
+
+
+ https://t.news.darty.com/r/?id=t3cf09285,acc9b2e1,2942c94&e=ZW1sLXB1Ymxpc2hlcj1hZG9iZSZlbWwtbmFtZT0xMjIwMzcwMDUmZGFydHljaWQ9ZW1haWxfYW5pbWNvX3BhYy1zb2xkZXNfcmVsYW5jZWJwZW0tMTcwMTI0LTEyMjAzNzAwNSZkYXJ0eXBjaz1IUnlTWlBwQ2ZFVkxSemZ6ZEVwYlhvQ3ExRDdCS1BTVlZHb0pYejJmSC1V&s=5hnAxgnkUi7V3s_OpbIsHddG42SjnAMtRD9WoIpgq5A VOIR TOUT
+
+
+
+ https://t.news.darty.com/r/?id=t3cf09285,acc9b2e1,2942c95&e=ZW1sLXB1Ymxpc2hlcj1hZG9iZSZlbWwtbmFtZT0xMjIwMzcwMDUmZGFydHljaWQ9ZW1haWxfYW5pbWNvX3BhYy1zb2xkZXNfcmVsYW5jZWJwZW0tMTcwMTI0LTEyMjAzNzAwNSZkYXJ0eXBjaz1IUnlTWlBwQ2ZFVkxSemZ6ZEVwYlhvQ3ExRDdCS1BTVlZHb0pYejJmSC1V&s=Rom8EBji1u-Yfk5FJcJs07IySbTJlK8A7WTGwbZx2gw
+
+
+
+ https://t.news.darty.com/r/?id=t3cf09285,acc9b2e1,2942c96&e=ZW1sLXB1Ymxpc2hlcj1hZG9iZSZlbWwtbmFtZT0xMjIwMzcwMDUmZGFydHljaWQ9ZW1haWxfYW5pbWNvX3BhYy1zb2xkZXNfcmVsYW5jZWJwZW0tMTcwMTI0LTEyMjAzNzAwNSZkYXJ0eXBjaz1IUnlTWlBwQ2ZFVkxSemZ6ZEVwYlhvQ3ExRDdCS1BTVlZHb0pYejJmSC1V&s=Vm4RKLKS4Np3-WCO5Lkz-Qa7opFRyF7ErHFe5VbCnXI Livraison gratuite avec Darty Max
+
+
+ https://t.news.darty.com/r/?id=t3cf09285,acc9b2e1,2942c97&e=ZW1sLXB1Ymxpc2hlcj1hZG9iZSZlbWwtbmFtZT0xMjIwMzcwMDUmZGFydHljaWQ9ZW1haWxfYW5pbWNvX3BhYy1zb2xkZXNfcmVsYW5jZWJwZW0tMTcwMTI0LTEyMjAzNzAwNSZkYXJ0eXBjaz1IUnlTWlBwQ2ZFVkxSemZ6ZEVwYlhvQ3ExRDdCS1BTVlZHb0pYejJmSC1V&s=Ks4KaPQfztmJOGp6Fx9-aRH3wo2aIojoT4Fc-vVDy_A
+
+
+
+ https://t.news.darty.com/r/?id=t3cf09285,acc9b2e1,2942c98&e=ZW1sLXB1Ymxpc2hlcj1hZG9iZSZlbWwtbmFtZT0xMjIwMzcwMDUmZGFydHljaWQ9ZW1haWxfYW5pbWNvX3BhYy1zb2xkZXNfcmVsYW5jZWJwZW0tMTcwMTI0LTEyMjAzNzAwNSZkYXJ0eXBjaz1IUnlTWlBwQ2ZFVkxSemZ6ZEVwYlhvQ3ExRDdCS1BTVlZHb0pYejJmSC1V&s=xPjSljbr2ePfPO234FGcMYo0fap1h_4QremKKUgXXF0 Retrait 1h en magasin
+
+
+ https://t.news.darty.com/r/?id=t3cf09285,acc9b2e1,2942c99&e=ZW1sLXB1Ymxpc2hlcj1hZG9iZSZlbWwtbmFtZT0xMjIwMzcwMDUmZGFydHljaWQ9ZW1haWxfYW5pbWNvX3BhYy1zb2xkZXNfcmVsYW5jZWJwZW0tMTcwMTI0LTEyMjAzNzAwNSZkYXJ0eXBjaz1IUnlTWlBwQ2ZFVkxSemZ6ZEVwYlhvQ3ExRDdCS1BTVlZHb0pYejJmSC1V&s=7TEDuxxzOnPFSGlq76AtSa2hMAxHqH5jdC17v-9KqhQ
+
+
+
+ https://t.news.darty.com/r/?id=t3cf09285,acc9b2e1,2942c9a&e=ZW1sLXB1Ymxpc2hlcj1hZG9iZSZlbWwtbmFtZT0xMjIwMzcwMDUmZGFydHljaWQ9ZW1haWxfYW5pbWNvX3BhYy1zb2xkZXNfcmVsYW5jZWJwZW0tMTcwMTI0LTEyMjAzNzAwNSZkYXJ0eXBjaz1IUnlTWlBwQ2ZFVkxSemZ6ZEVwYlhvQ3ExRDdCS1BTVlZHb0pYejJmSC1V&s=cU5MFwjWNHWhB4L8pzTcP8KPubsGy5CNu7CthTTem94 Service Client 7j/7
+
+
+ https://t.news.darty.com/r/?id=t3cf09285,acc9b2e1,2942c9b&e=ZW1sLXB1Ymxpc2hlcj1hZG9iZSZlbWwtbmFtZT0xMjIwMzcwMDUmZGFydHljaWQ9ZW1haWxfYW5pbWNvX3BhYy1zb2xkZXNfcmVsYW5jZWJwZW0tMTcwMTI0LTEyMjAzNzAwNSZkYXJ0eXBjaz1IUnlTWlBwQ2ZFVkxSemZ6ZEVwYlhvQ3ExRDdCS1BTVlZHb0pYejJmSC1V&s=l-3aBv8cjyvLNBu9deygXsT-UpYWmA2T9eta8j2Oowk
+
+
+
+ https://t.news.darty.com/r/?id=t3cf09285,acc9b2e1,2942c9c&e=ZW1sLXB1Ymxpc2hlcj1hZG9iZSZlbWwtbmFtZT0xMjIwMzcwMDUmZGFydHljaWQ9ZW1haWxfYW5pbWNvX3BhYy1zb2xkZXNfcmVsYW5jZWJwZW0tMTcwMTI0LTEyMjAzNzAwNSZkYXJ0eXBjaz1IUnlTWlBwQ2ZFVkxSemZ6ZEVwYlhvQ3ExRDdCS1BTVlZHb0pYejJmSC1V&s=tq2tqPRBa6GHAgrCoADct0lFG-hjlTJUga-w5PIj65M SAV en magasin et   domicile
+
+
+
+SUIVEZ NOS ACTUALIT s :
+
+ https://t.news.darty.com/r/?id=t3cf09285,acc9b2e1,2942c9d&e=ZW1sLXB1Ymxpc2hlcj1hZG9iZSZlbWwtbmFtZT0xMjIwMzcwMDUmZGFydHljaWQ9ZW1haWxfYW5pbWNvX3BhYy1zb2xkZXNfcmVsYW5jZWJwZW0tMTcwMTI0LTEyMjAzNzAwNSZkYXJ0eXBjaz1IUnlTWlBwQ2ZFVkxSemZ6ZEVwYlhvQ3ExRDdCS1BTVlZHb0pYejJmSC1V&s=uDroa2J5FuqlvtoYx0QImVZ3IEEv_EKq6MvVoLXM5ss
+
+
+
+ https://t.news.darty.com/r/?id=t3cf09285,acc9b2e1,2942c9e&e=ZW1sLXB1Ymxpc2hlcj1hZG9iZSZlbWwtbmFtZT0xMjIwMzcwMDUmZGFydHljaWQ9ZW1haWxfYW5pbWNvX3BhYy1zb2xkZXNfcmVsYW5jZWJwZW0tMTcwMTI0LTEyMjAzNzAwNSZkYXJ0eXBjaz1IUnlTWlBwQ2ZFVkxSemZ6ZEVwYlhvQ3ExRDdCS1BTVlZHb0pYejJmSC1V&s=Vfr7k-XhMc8aaNz_58nIC4xFH_TiZdhr2VC_7OhpBt8
+
+
+
+ https://t.news.darty.com/r/?id=t3cf09285,acc9b2e1,2942c9f&e=ZW1sLXB1Ymxpc2hlcj1hZG9iZSZlbWwtbmFtZT0xMjIwMzcwMDUmZGFydHljaWQ9ZW1haWxfYW5pbWNvX3BhYy1zb2xkZXNfcmVsYW5jZWJwZW0tMTcwMTI0LTEyMjAzNzAwNSZkYXJ0eXBjaz1IUnlTWlBwQ2ZFVkxSemZ6ZEVwYlhvQ3ExRDdCS1BTVlZHb0pYejJmSC1V&s=jBghuhV_-wZdvNK0yw9T_Aicchtiz142H-Ftc47waK0
+
+
+
+ https://t.news.darty.com/r/?id=t3cf09285,acc9b2e1,2942ca0&e=ZW1sLXB1Ymxpc2hlcj1hZG9iZSZlbWwtbmFtZT0xMjIwMzcwMDUmZGFydHljaWQ9ZW1haWxfYW5pbWNvX3BhYy1zb2xkZXNfcmVsYW5jZWJwZW0tMTcwMTI0LTEyMjAzNzAwNSZkYXJ0eXBjaz1IUnlTWlBwQ2ZFVkxSemZ6ZEVwYlhvQ3ExRDdCS1BTVlZHb0pYejJmSC1V&s=xAKKl-GRzHuhmCbXIQG8lez9HnGz6OmCJR3P_SnKQS8
+
+
+
+ https://t.news.darty.com/r/?id=t3cf09285,acc9b2e1,2942ca1&e=ZW1sLXB1Ymxpc2hlcj1hZG9iZSZlbWwtbmFtZT0xMjIwMzcwMDUmZGFydHljaWQ9ZW1haWxfYW5pbWNvX3BhYy1zb2xkZXNfcmVsYW5jZWJwZW0tMTcwMTI0LTEyMjAzNzAwNSZkYXJ0eXBjaz1IUnlTWlBwQ2ZFVkxSemZ6ZEVwYlhvQ3ExRDdCS1BTVlZHb0pYejJmSC1V&s=3g5GSQQRvtOXn43gjnf-eQM-xDLj-97fGr0YxRsXYQI
+
+
+
+
+
+ https://t.news.darty.com/r/?id=t3cf09285,acc9b2e1,2942ca2&e=ZW1sLXB1Ymxpc2hlcj1hZG9iZSZlbWwtbmFtZT0xMjIwMzcwMDUmZGFydHljaWQ9ZW1haWxfYW5pbWNvX3BhYy1zb2xkZXNfcmVsYW5jZWJwZW0tMTcwMTI0LTEyMjAzNzAwNSZkYXJ0eXBjaz1IUnlTWlBwQ2ZFVkxSemZ6ZEVwYlhvQ3ExRDdCS1BTVlZHb0pYejJmSC1V&s=xIUEtMZfw1lqeWFS6OdKSNNgTmS_92eZpZEikwXbor0
+
+
+
+ https://t.news.darty.com/r/?id=t3cf09285,acc9b2e1,2942ca3&e=ZW1sLXB1Ymxpc2hlcj1hZG9iZSZlbWwtbmFtZT0xMjIwMzcwMDUmZGFydHljaWQ9ZW1haWxfYW5pbWNvX3BhYy1zb2xkZXNfcmVsYW5jZWJwZW0tMTcwMTI0LTEyMjAzNzAwNSZkYXJ0eXBjaz1IUnlTWlBwQ2ZFVkxSemZ6ZEVwYlhvQ3ExRDdCS1BTVlZHb0pYejJmSC1V&s=tet9qwecU5fZVH-pyjhH4gaPEcd4whzu1bjizcW-WE0
+
+
+
+ https://t.news.darty.com/r/?id=t3cf09285,acc9b2e1,2942ca4&e=ZW1sLXB1Ymxpc2hlcj1hZG9iZSZlbWwtbmFtZT0xMjIwMzcwMDUmZGFydHljaWQ9ZW1haWxfYW5pbWNvX3BhYy1zb2xkZXNfcmVsYW5jZWJwZW0tMTcwMTI0LTEyMjAzNzAwNSZkYXJ0eXBjaz1IUnlTWlBwQ2ZFVkxSemZ6ZEVwYlhvQ3ExRDdCS1BTVlZHb0pYejJmSC1V&s=Tb8TDIaEDuKwZeKd9panJVrTlkxtCfXzRjW5qiZ8r18
+
+
+
+
+*Jusqu'  50  offerts en carte-cadeau pour toute nouvelle souscription   Darty Max : 20 % offerts en carte-cadeau sur le rayon Petit Electrom nager et 10% offerts en carte cadeau sur les rayons TV-Vid o, Gros Electrom nager et Multim dia, sans minimum d'achat sur le montant total de vos achats pour les nouveaux abonn s Darty Max, carte-cadeau limit e   50 . Offre valable du mercredi 10 au dimanche 21 janvier 2024 dans tous les magasins Darty. Offre non cumulable avec la remise de 5% sur les produits Choix Durable ; Hors produits de la Marketplace, literie, abonnements, services payants et cuisine sur mesure. Hors  coparticipation, hors redevance copie priv e et valable uniquement pour une souscription simultan e   une formule Darty Max Essentiel,  volution ou Int gral. Carte cadeau s cable, utilisable uniquement dans les magasins Darty de France m tropolitaine du 5/02/24 au 21/03/24, hors darty.com. Une carte cadeau ne peut  tre  chang e, ni rembours e, m me partiellement ou
+remplac e si elle est perdue ou vol e et ne peut  tre utilis e pour l'achat d'autres cartes cadeaux.
+
+Voir conditions sur le site  darty.com  et en magasin.
+
+Les prix mentionn s dans la pr sente newsletter sont ceux pratiqu s par Darty pour la vente en ligne et sont susceptibles de varier, consultez le tarif en vigueur sur darty.com au moment de votre achat. Certains produits sont disponibles uniquement sur le site darty.com.
+
+Ne pas imprimer ce courriel afin de pr server l'environnement.
+Ajoutez darty@news.darty.com   votre carnet d'adresses pour que l'email s'affiche correctement.
+
+Conform ment   la r glementation sur la protection des donn es personnelles, vous pouvez exercer vos droits (acc s, rectification, suppression, opposition, limitation et portabilit  le cas  ch ant) depuis la page  https://t.news.darty.com/r/?id=t3cf09285,acc9b2e1,2942ca5&e=ZW1sLXB1Ymxpc2hlcj1hZG9iZSZlbWwtbmFtZT0xMjIwMzcwMDUmZGFydHljaWQ9ZW1haWxfYW5pbWNvX3BhYy1zb2xkZXNfcmVsYW5jZWJwZW0tMTcwMTI0LTEyMjAzNzAwNSZkYXJ0eXBjaz1IUnlTWlBwQ2ZFVkxSemZ6ZEVwYlhvQ3ExRDdCS1BTVlZHb0pYejJmSC1V&s=8Huci7r1UnGmnRcot0xThF13w272IVq5_g9G7OO72rU Protection des Donn es .
+
+Darty utilise dans ses emails des technologies de type " pixel " pour contextualiser et am liorer le contenu des emails que vous recevez, et recueillir des statistiques sur l'ouverture des emails et les clics r alis s sur leur contenu.
+
+ tablissements Darty et Fils - SAS au capital social de 23 470 382
+Si ge social : Zac Port d'Ivry 9 Rue des Bateaux Lavoirs 94200 Ivry-sur-Seine - RCS Cr teil 542 086 616
+
+Si vous ne souhaitez plus recevoir d'emails de la part de Darty.com, vous pouvez vous d sinscrire :
+https://t.news.darty.com/r/?id=t3cf09285,acc9b2e1,2942ca6&e=ZW1sLXB1Ymxpc2hlcj1hZG9iZSZlbWwtbmFtZT0xMjIwMzcwMDUmZGFydHljaWQ9ZW1haWxfYW5pbWNvX3BhYy1zb2xkZXNfcmVsYW5jZWJwZW0tMTcwMTI0LTEyMjAzNzAwNSZkYXJ0eXBjaz1IUnlTWlBwQ2ZFVkxSemZ6ZEVwYlhvQ3ExRDdCS1BTVlZHb0pYejJmSC1VJnAxPSU0MFBEaDFyYjZycGlPTm0zbWZGJTJGeUtBdyUzRCUzRCZwMj1BMTgxNzQ3OQ&s=N6y8RCqaXDIVusno8rxhp4PpmeAKcYOW8zUQpvXEWbo
+
+------=_NextPart_827_DB4DAD98.DB4DAD98
+Content-Type: text/html;
+	charset="windows-1252"
 Content-Transfer-Encoding: quoted-printable
 
-[https://wanteeed.com/]
----------------------------------------------------------------------------=
------
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www=
+.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns=3D"https://www.w3.org/1999/xhtml" xmlns:v=3D"urn:schemas-micros=
+oft-com:vml" xmlns:o=3D"urn:schemas-microsoft-com:office:office">
+<head>
+<!--[if gte mso 9]>
+<xml>
+<o:OfficeDocumentSettings>
+<o:AllowPNG/>
+<o:PixelsPerInch>96</o:PixelsPerInch>
+</o:OfficeDocumentSettings></xml>
+<![endif]-->
+<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3DUTF-8"/>
+<meta http-equiv=3D"X-UA-Compatible" content=3D"IE=3D9; IE=3D8; IE=3D7; IE=
+=3DEDGE"/>
+<meta name=3D"viewport" content=3D"width=3Ddevice-width,initial-scale=3D1"/=
+>
+<link href=3D"https://fonts.googleapis.com/css=3Ffamily=3DRoboto:700|Roboto=
+:normal|Open+Sans:700|Open+Sans:normal|Roboto|Permanent+Marker:normal" rel=
+=3D"stylesheet"/>
+<title>Petit &eacute;lectrom&eacute;nager : SOLDES jusqu'&agrave; -30%</tit=
+le>
+<style type=3D"text/css">#outlook a{padding:0}span.MsoHyperlink{mso-style-p=
+riority:1;color:inherit}span.MsoHyperlinkFollowed{mso-style-priority:1;
+color:inherit}body{-webkit-text-size-adjust:100%;-ms-text-size-adjust:100%;=
+padding:0;color:#000000;margin:0 auto}td{line-height:100%}
+=2EExternalClass{width:100%;display:block!important}.ExternalClass,.Externa=
+lClass *,.ExternalClass div,.ExternalClass font,.ExternalClass p,.ExternalC=
+lass span,.ExternalClass td{line-height:100%}
+img{outline:0;text-decoration:none;-ms-interpolation-mode:bicubic}a img{bor=
+der:none}u+* img+div{display:none}table td{border-collapse:collapse;
+mso-line-height-rule:exactly}table{border-collapse:collapse;mso-table-lspac=
+e:0;mso-table-rspace:0}a{color:inherit;text-decoration:none;
+mso-line-height-rule:exactly}.appleLinks,.appleLinksWhite{text-decoration:n=
+one!important}a[x-apple-data-detectors]{color:inherit!important;
+text-decoration:none!important;font-size:inherit!important;font-family:inhe=
+rit!important;font-weight:inherit!important;line-height:inherit!important}
+table[class^=3Dox] sup{font-size:.7em;vertical-align:baseline}sup{font-size=
+:.8em;vertical-align:text-top;line-height:1;height:0;
+mso-text-raise:24%}div>u+* table{zoom:100%}@font-face{font-family:Roboto_re=
+g;font-weight:400;src:url(images/1.woff) format('woff')
+}:not(#outlook).roboto_reg{font-family:Roboto_reg,Arial,Helvetica,sans-seri=
+f!important}@font-face{font-family:CalvertMT;
+font-weight:400;src:url(images/2.woff) format('woff')
+}:not(#outlook).calvertmt{font-family:CalvertMT,Arial,Helvetica,sans-serif!=
+important}@font-face{font-family:CalvertmtBold;
+font-weight:700;src:url(images/3.woff) format('woff')
+}:not(#outlook).calvertmtbold{font-family:CalvertmtBold,Arial,Helvetica,san=
+s-serif!important}@font-face{font-family:OpenSansRegular;
+font-weight:400;src:url(images/4.woff) format('woff')
+}:not(#outlook).opensansregular{font-family:OpenSansRegular,Helvetica,Arial=
+,sans-serif!important}@font-face{font-family:Roboto_bold;
+font-weight:700;src:url(images/5.woff) format('woff')
+}:not(#outlook).roboto_bold{font-family:Roboto_bold,Arial,Helvetica,sans-se=
+rif!important}@font-face{font-family:Roboto_light;
+font-weight:300;src:url(images/6.woff) format('woff')
+}:not(#outlook).roboto_light{font-family:Roboto_light,Arial,Helvetica,sans-=
+serif!important}@font-face{font-family:Roboto_thin;
+font-weight:300;src:url(images/7.woff) format('woff')
+}:not(#outlook).roboto_thin{font-family:Roboto_thin,Arial,Helvetica,sans-se=
+rif!important}:not(#outlook).roboto{font-family:Roboto,Arial,Helvetica,sans=
+-serif!important}
+:not(#outlook).roboto{font-family:Roboto,Arial,Helvetica,sans-serif!importa=
+nt}@font-face{font-family:GilroyBold;font-weight:700;
+src:url(images/8.woff) format('woff')
+}:not(#outlook).gilroybold{font-family:GilroyBold,Arial,Helvetica,sans-seri=
+f!important}@font-face{font-family:GilroyRegular;
+font-weight:400;src:url(images/9.woff) format('woff')
+}:not(#outlook).gilroyregular{font-family:GilroyRegular,Arial,Helvetica,san=
+s-serif!important}@font-face{font-family:GilroyBlack;
+font-weight:700;src:url(https://static.fnac-static.com/multimedia/Mails/201=
+9/TYPO/Gilroy-Black.woff) format('woff')
+}:not(#outlook).gilroyblack{font-family:GilroyBlack,Arial Black,Arial Bold,=
+Gadget,sans-serif!important}@font-face{font-family:Gilroyboldfnac;
+font-weight:700;src:url(https://static.fnac-static.com/multimedia/Mails/201=
+9/TYPO/Gilroy-Bold.woff) format('woff')
+}:not(#outlook).gilroyboldfnac{font-family:Gilroyboldfnac,Arial,Helvetica,s=
+ans-serif!important}:not(#outlook).opensans{font-family:'Open Sans',Arial,H=
+elvetica,sans-serif!important}
+:not(#outlook).opensans{font-family:'Open Sans',Arial,Helvetica,sans-serif!=
+important}@font-face{font-family:CCSign;font-weight:400;
+src:url(https://static.fnac-static.com/multimedia/Mails/2022/TYPO/CCSignLan=
+guage%20Regular.woff) format('woff')
+}:not(#outlook).ccsign{font-family:CCSign,Arial,Helvetica,sans-serif!import=
+ant}@font-face{font-family:Constantina;
+font-weight:400;src:url(https://static.fnac-static.com/EmailsDarty/newsdart=
+y/2022/s39_nl/constanz.woff) format('woff')
+}:not(#outlook).constantina{font-family:Constantina,Arial,Helvetica,sans-se=
+rif!important}@font-face{font-family:CalvertMt;
+font-weight:400;src:url(https://static.fnac-static.com/EmailsDarty/newsdart=
+y/2022/s52bis_nl/CalvertMTStd-Light.woff) format('woff')
+}:not(#outlook).calvertmt{font-family:CalvertMt,Arial,Helvetica,sans-serif!=
+important}:not(#outlook).roboto{font-family:Roboto,Arial,Helvetica,sans-ser=
+if!important}
+@font-face{font-family:Gildroyregular;font-weight:400;src:url(https://stati=
+c.fnac-static.com/multimedia/Mails/2019/TYPO/Gilroy-Regular.woff) format('w=
+off')
+}:not(#outlook).gildroyregular{font-family:Gildroyregular,Arial,Helvetica,s=
+ans-serif!important}:not(#outlook).permanentmarker{font-family:'Permanent M=
+arker',Arial,Helvetica,sans-serif!important}
+#texte289c477-99cc-49ba-870d-629d38f3f4dc:hover{background-color:#ed1c27!im=
+portant;color:#ffffff!important;transition:all 150ms}
+#texte289c477-99cc-49ba-870d-629d38f3f4dc:hover a{color:#ffffff!important}#=
+text4b243edd-179a-475c-99fa-0a62cabc6400:hover{background-color:#ed1c27!imp=
+ortant;
+color:#ffffff!important;transition:all 150ms}#text4b243edd-179a-475c-99fa-0=
+a62cabc6400:hover a{color:#ffffff!important}#text850299ba-2d69-4911-a706-97=
+8cca47e340:hover{background-color:#ed1c27!important;
+color:#ffffff!important;transition:all 150ms}#text850299ba-2d69-4911-a706-9=
+78cca47e340:hover a{color:#ffffff!important}#text77379df0-98c5-4bc1-a549-62=
+f6838f7dc7:hover{background-color:#ffffff!important;
+color:#ed1c27!important;transition:all 150ms}#text77379df0-98c5-4bc1-a549-6=
+2f6838f7dc7:hover a{color:#ed1c27!important}
+@media screen and (min-width:451px) and (max-width:640px),screen and (min-d=
+evice-width:451px) and (max-device-width:640px){.t_flnone{float:none!import=
+ant}
+=2Et_w100p{width:100%!important}.t_flright{float:right!important}.t_w25p{wi=
+dth:25%!important}.t_flleft{float:left!important}
+=2Et_w75p{width:75%!important}.t_pr5px{padding-right:5px!important}.t_pl5px=
+{padding-left:5px!important}.t_w90p{width:90%!important}
+=2Et_w33d33p{width:33.33%!important}.t_fz15px{font-size:15px!important}.t_p=
+t33px{padding-top:33px!important}.t_pb32px{padding-bottom:32px!important}
+=2Et_w33d34p{width:33.34%!important}.t_w20p{width:20%!important}.t_pt22px{p=
+adding-top:22px!important}.t_w80p{width:80%!important}
+=2Et_fz13px{font-size:13px!important}.t_pt25px{padding-top:25px!important}.=
+t_w48p{width:48%!important}.t_w98p{width:98%!important}
+=2Et_w115px{width:115px!important}.t_w70p{width:70%!important}.t_w58p{width=
+:58%!important}.t_pt5px{padding-top:5px!important}
+=2Et_lh20px{line-height:20px!important}.t_w42p{width:42%!important}.t_lh32p=
+x{line-height:32px!important}.t_w130px{width:130px!important}
+=2Et_w4p{width:4%!important}.t_mauto{margin:auto!important}.t_w47p{width:47=
+%!important}.t_w32p{width:32%!important}.t_pb8px{padding-bottom:8px!importa=
+nt}
+=2Et_w2p{width:2%!important}.t_w49p{width:49%!important}.t_w120px{width:120=
+px!important}.t_fz14px{font-size:14px!important}
+=2Et_pb5px{padding-bottom:5px!important}.t_w95p{width:95%!important}.t_w{wi=
+dth:undefined!important}.t_w88p{width:88%!important}
+=2Et_w60p{width:60%!important}.t_w65p{width:65%!important}.t_w35p{width:35%=
+!important}.t_w18d5p{width:18.5%!important}.t_w97p{width:97%!important}
+=2Et_w28p{width:28%!important}.t_pr30px{padding-right:30px!important}.t_pl3=
+0px{padding-left:30px!important}.t_v{display:block!important;
+font-size:inherit!important;max-height:none!important;max-width:none!import=
+ant;overflow:visible!important}.t_dnone{display:none!important}
+=2Et_roboto_reg{font-family:Roboto_reg,Arial,Helvetica,sans-serif!important=
+}.t_calvertmt{font-family:CalvertMT,Arial,Helvetica,sans-serif!important}
+=2Et_calvertmtbold{font-family:CalvertmtBold,Arial,Helvetica,sans-serif!imp=
+ortant}.t_opensansregular{font-family:OpenSansRegular,Helvetica,Arial,sans-=
+serif!important}
+=2Et_roboto_bold{font-family:Roboto_bold,Arial,Helvetica,sans-serif!importa=
+nt}.t_roboto_light{font-family:Roboto_light,Arial,Helvetica,sans-serif!impo=
+rtant}
+=2Et_roboto_thin{font-family:Roboto_thin,Arial,Helvetica,sans-serif!importa=
+nt}.t_roboto{font-family:Roboto,Arial,Helvetica,sans-serif!important}
+=2Et_roboto{font-family:Roboto,Arial,Helvetica,sans-serif!important}.t_gilr=
+oybold{font-family:GilroyBold,Arial,Helvetica,sans-serif!important}
+=2Et_gilroyregular{font-family:GilroyRegular,Arial,Helvetica,sans-serif!imp=
+ortant}.t_gilroyblack{font-family:GilroyBlack,Arial Black,Arial Bold,Gadget=
+,sans-serif!important}
+=2Et_gilroyboldfnac{font-family:Gilroyboldfnac,Arial,Helvetica,sans-serif!i=
+mportant}.t_opensans{font-family:'Open Sans',Arial,Helvetica,sans-serif!imp=
+ortant}
+=2Et_opensans{font-family:'Open Sans',Arial,Helvetica,sans-serif!important}=
+.t_ccsign{font-family:CCSign,Arial,Helvetica,sans-serif!important}
+=2Et_constantina{font-family:Constantina,Arial,Helvetica,sans-serif!importa=
+nt}.t_calvertmt{font-family:CalvertMt,Arial,Helvetica,sans-serif!important}
+=2Et_roboto{font-family:Roboto,Arial,Helvetica,sans-serif!important}.t_gild=
+royregular{font-family:Gildroyregular,Arial,Helvetica,sans-serif!important}
+=2Et_permanentmarker{font-family:'Permanent Marker',Arial,Helvetica,sans-se=
+rif!important}
+}
+@media screen and (max-width:450px),screen and (max-device-width:450px){.m_=
+flnone{float:none!important}.m_w100p{width:100%!important}
+=2Em_flright{float:right!important}.m_w25p{width:25%!important}.m_flleft{fl=
+oat:left!important}.m_pr5px{padding-right:5px!important}
+=2Em_pl5px{padding-left:5px!important}.m_w75p{width:75%!important}.m_h79px{=
+height:79px!important}.m_w33d33p{width:33.33%!important}
+=2Em_fz12px{font-size:12px!important}.m_pt33px{padding-top:33px!important}.=
+m_pb32px{padding-bottom:32px!important}.m_lh14px{line-height:14px!important=
+}
+=2Em_pb33px{padding-bottom:33px!important}.m_w33d34p{width:33.34%!important=
+}.m_fz20px{font-size:20px!important}.m_lh22px{line-height:22px!important}
+=2Em_pr15px{padding-right:15px!important}.m_pb5px{padding-bottom:5px!import=
+ant}.m_pl15px{padding-left:15px!important}.m_w120px{width:120px!important}
+=2Em_tacenter{text-align:center!important}.m_pt5px{padding-top:5px!importan=
+t}.m_w90p{width:90%!important}.m_fz18px{font-size:18px!important}
+=2Em_mauto{margin:auto!important}.m_w95p{width:95%!important}.m_w45p{width:=
+45%!important}.m_h175px{height:175px!important}.m_w100px{width:100px!import=
+ant}
+=2Em_pb10px{padding-bottom:10px!important}.m_w55p{width:55%!important}.m_fz=
+16px{font-size:16px!important}.m_w60p{width:60%!important}
+=2Em_h25px{height:25px!important}.m_w40p{width:40%!important}.m_w50p{width:=
+50%!important}.m_fz22px{font-size:22px!important}
+=2Em_pt7px{padding-top:7px!important}.m_pb15px{padding-bottom:15px!importan=
+t}.m_bdt10pxsolidf{border-top:10px solid #f!important}
+=2Em_w140px{width:140px!important}.m_bgcffde17{background-color:#ffde17!imp=
+ortant}.m_h67px{height:67px!important}.m_pt0px{padding-top:0!important}
+=2Em_pb0px{padding-bottom:0!important}.m_w48p{width:48%!important}.m_w4p{wi=
+dth:4%!important}.m_w110px{width:110px!important}
+=2Em_fz14px{font-size:14px!important}.m_pt3px{padding-top:3px!important}.m_=
+pb3px{padding-bottom:3px!important}.m_w85p{width:85%!important}
+=2Em_w70p{width:70%!important}.m_w98p{width:98%!important}.m_w20p{width:20%=
+!important}.m_w30px{width:30px!important}.m_pl10px{padding-left:10px!import=
+ant}
+=2Em_pr10px{padding-right:10px!important}.m_pt15px{padding-top:15px!importa=
+nt}.m_v{display:block!important;font-size:inherit!important;
+max-height:none!important;max-width:none!important;overflow:visible!importa=
+nt}.m_dnone{display:none!important}.m_roboto_reg{font-family:Roboto_reg,Ari=
+al,Helvetica,sans-serif!important}
+=2Em_calvertmt{font-family:CalvertMT,Arial,Helvetica,sans-serif!important}.=
+m_calvertmtbold{font-family:CalvertmtBold,Arial,Helvetica,sans-serif!import=
+ant}
+=2Em_opensansregular{font-family:OpenSansRegular,Helvetica,Arial,sans-serif=
+!important}.m_roboto_bold{font-family:Roboto_bold,Arial,Helvetica,sans-seri=
+f!important}
+=2Em_roboto_light{font-family:Roboto_light,Arial,Helvetica,sans-serif!impor=
+tant}.m_roboto_thin{font-family:Roboto_thin,Arial,Helvetica,sans-serif!impo=
+rtant}
+=2Em_roboto{font-family:Roboto,Arial,Helvetica,sans-serif!important}.m_robo=
+to{font-family:Roboto,Arial,Helvetica,sans-serif!important}
+=2Em_gilroybold{font-family:GilroyBold,Arial,Helvetica,sans-serif!important=
+}.m_gilroyregular{font-family:GilroyRegular,Arial,Helvetica,sans-serif!impo=
+rtant}
+=2Em_gilroyblack{font-family:GilroyBlack,Arial Black,Arial Bold,Gadget,sans=
+-serif!important}.m_gilroyboldfnac{font-family:Gilroyboldfnac,Arial,Helveti=
+ca,sans-serif!important}
+=2Em_opensans{font-family:'Open Sans',Arial,Helvetica,sans-serif!important}=
+.m_opensans{font-family:'Open Sans',Arial,Helvetica,sans-serif!important}
+=2Em_ccsign{font-family:CCSign,Arial,Helvetica,sans-serif!important}.m_cons=
+tantina{font-family:Constantina,Arial,Helvetica,sans-serif!important}
+=2Em_calvertmt{font-family:CalvertMt,Arial,Helvetica,sans-serif!important}.=
+m_roboto{font-family:Roboto,Arial,Helvetica,sans-serif!important}
+=2Em_gildroyregular{font-family:Gildroyregular,Arial,Helvetica,sans-serif!i=
+mportant}.m_permanentmarker{font-family:'Permanent Marker',Arial,Helvetica,=
+sans-serif!important}
+}
+@media screen and (min-width:640px),(orientation:landscape) and (min-width:=
+640px){.d_center{float:none!important;margin:auto!important}
+=2Ed_left{float:left!important}.d_right{float:right!important}
+}</style></head>
+<body style=3D"background-color:#F2F2F2">
+<table cellpadding=3D"0" cellspacing=3D"0" border=3D"0" width=3D"100%" styl=
+e=3D"width:100%;margin-top:-1px" role=3D"presentation">
+<tr class=3D"t_dnone m_dnone">
+<td height=3D"1" style=3D"height:1px;max-height:1px;font-size:1px;line-heig=
+ht:1px">
+<span style=3D"display:block;width:640px;min-width:640px">&nbsp;</span>
+</td></tr><tr><td style=3D"background-color:#F2F2F2">
+<table cellpadding=3D"0" cellspacing=3D"0" border=3D"0" width=3D"640" align=
+=3D"center" style=3D"margin:auto" class=3D"d_center t_flnone t_mauto t_w100=
+p m_flnone m_mauto m_w100p" role=3D"presentation">
+<tr><td>
+<table cellpadding=3D"0" cellspacing=3D"0" border=3D"0" width=3D"640" align=
+=3D"center" style=3D"margin:auto" class=3D"d_center t_flnone t_mauto t_w100=
+p m_flnone m_mauto m_w100p" role=3D"presentation">
+<tr><td style=3D"font-family:Arial,Helvetica,sans-serif;color:#000000;text-=
+align:center;font-size:11px;padding-top:5px;
+padding-bottom:5px;vertical-align:middle">
+<a href=3D"https://t.news.darty.com/r/=3Fid=3Dh3cf09285,acc9b2e1,2942c2f&e=
+=3DZW1sLXB1Ymxpc2hlcj1hZG9iZSZlbWwtbmFtZT0xMjIwMzcwMDUmZGFydHljaWQ9ZW1haWxf=
+YW5pbWNvX3BhYy1zb2xkZXNfcmVsYW5jZWJwZW0tMTcwMTI0LTEyMjAzNzAwNSZkYXJ0eXBjaz1=
+IUnlTWlBwQ2ZFVkxSemZ6ZEVwYlhvQ3ExRDdCS1BTVlZHb0pYejJmSC1V&s=3DH_5MnbnIW2amQ=
+nUcf8I_tcdxQ4JgEGt0xOqvZXJ9RzU" style=3D"color:#000000;display:block;text-d=
+ecoration:none;outline:0" target=3D"_blank"> &#x1F525; <span style=3D"text-=
+decoration:underline">Pour
+des &#xE9;quipements du quotidien plus durables, c'est le bon moment !</spa=
+n></a>
+</td></tr></table>
+<table cellpadding=3D"0" cellspacing=3D"0" border=3D"0" width=3D"640" align=
+=3D"center" style=3D"margin:auto" class=3D"d_center t_flnone t_mauto t_w100=
+p m_flnone m_mauto m_w100p" role=3D"presentation">
+<tr><td>
+
+<p align=3Dcenter>
+  <font style=3D"font-family: Verdana, Arial; font-size: 10px">
+Si cet email ne s'affiche pas correctement, vous pouvez le visualiser en su=
+ivant
+  <a href=3D"https://t.news.darty.com/r/=3Fid=3Dh3cf09285,acc9b2e1,2942c30&=
+e=3DZW1sLXB1Ymxpc2hlcj1hZG9iZSZlbWwtbmFtZT0xMjIwMzcwMDUmZGFydHljaWQ9ZW1haWx=
+fYW5pbWNvX3BhYy1zb2xkZXNfcmVsYW5jZWJwZW0tMTcwMTI0LTEyMjAzNzAwNSZkYXJ0eXBjaz=
+1IUnlTWlBwQ2ZFVkxSemZ6ZEVwYlhvQ3ExRDdCS1BTVlZHb0pYejJmSC1VJnAxPSU0MDVOaU5sQ=
+1p3QVlVUURLaVBTVVBDdEI3JTJCYzV6YlFHMDBJQ1NKMXMwVnliTSUzRA&s=3DL8ghPW_wZi1P1=
+rJE1tHz4cKff9zEDzDUY6OHUz43GM4" _label=3D"Page miroir" _type=3D"mirrorPage"=
+><span style=3D"font-size:9px;line-height:10px;text-decoration:underline">c=
+e&nbsp;lien</span></a>
+  </font>
+</p>
+
+</td></tr></table>
+<table cellpadding=3D"0" cellspacing=3D"0" border=3D"0" width=3D"640" align=
+=3D"center" style=3D"margin:auto;background-color:#ffffff" class=3D"d_cente=
+r t_flnone t_mauto t_bgcffffff t_w100p m_flnone
+m_mauto m_bgcffffff m_w100p"
+role=3D"presentation">
+<tr><td>
+<table cellpadding=3D"0" cellspacing=3D"0" border=3D"0" width=3D"96" align=
+=3D"left" class=3D"d_left t_w25p t_flleft m_w25p m_flleft" role=3D"presenta=
+tion">
+<tr><td>
+<table cellpadding=3D"0" cellspacing=3D"0" border=3D"0" width=3D"86" align=
+=3D"center" style=3D"margin:auto" class=3D"d_center t_flleft t_w75p m_fllef=
+t m_w100p" role=3D"presentation">
+<tr><td>
+<table cellpadding=3D"0" cellspacing=3D"0" border=3D"0" width=3D"100%" alig=
+n=3D"center" class=3D"d_center t_w100p m_w100p" role=3D"presentation">
+<tr><td style=3D"padding-top:5px;padding-bottom:5px;text-align:center" clas=
+s=3D"t_pr5px t_pl5px m_pr5px m_pl5px">
+<a href=3D"https://t.news.darty.com/r/=3Fid=3Dh3cf09285,acc9b2e1,2942c31&e=
+=3DZW1sLXB1Ymxpc2hlcj1hZG9iZSZlbWwtbmFtZT0xMjIwMzcwMDUmZGFydHljaWQ9ZW1haWxf=
+YW5pbWNvX3BhYy1zb2xkZXNfcmVsYW5jZWJwZW0tMTcwMTI0LTEyMjAzNzAwNSZkYXJ0eXBjaz1=
+IUnlTWlBwQ2ZFVkxSemZ6ZEVwYlhvQ3ExRDdCS1BTVlZHb0pYejJmSC1V&s=3DCJlNnYk5dqHyI=
+1tzyIcXZgcLc5DWu676uK2HY4EjaPc" width=3D"86" style=3D"color:#000000;outline=
+:0;border:none;margin:auto;display:block" class=3D"t_w100p m_w100p" target=
+=3D"_blank"><img src=3D"https://static.fnac-static.com/EmailsDarty/emailsau=
+todarty/nl_images_recurrente/header/logo.png" alt=3D"Logo Darty" width=3D"8=
+6" style=3D"font-family:Arial,Helvetica,sans-serif;font-size:13px;line-heig=
+ht:13px;display:block;border:none"
+class=3D"t_w100p m_w100p"/></a>
+</td></tr></table>
+</td></tr></table>
+</td></tr></table>
+<!--[if gte mso 9]> </td><td style=3D"vertical-align:top;border-collapse:co=
+llapse"><![endif]-->
+<table cellpadding=3D"0" cellspacing=3D"0" border=3D"0" width=3D"544" align=
+=3D"right" class=3D"d_right t_w75p t_flright m_w75p m_flright" role=3D"pres=
+entation">
+<tr><td>
+<table cellpadding=3D"0" cellspacing=3D"0" border=3D"0" width=3D"489" align=
+=3D"center" style=3D"margin:auto" class=3D"d_center t_flleft t_w90p m_flnon=
+e m_mauto m_w100p" role=3D"presentation">
+<tr><td class=3D"m_h79px">
+<table cellpadding=3D"0" cellspacing=3D"0" border=3D"0" width=3D"162" align=
+=3D"left" class=3D"d_left t_w33d33p t_flleft m_w33d33p m_flleft" role=3D"pr=
+esentation">
+<tr><td>
+<table cellpadding=3D"0" cellspacing=3D"0" border=3D"0" width=3D"162" align=
+=3D"center" style=3D"margin:auto" class=3D"d_center t_flnone t_mauto t_w100=
+p m_flnone m_mauto m_w100p" role=3D"presentation">
+<tr><td style=3D"font-family:Arial,Helvetica,sans-serif;color:#000000;text-=
+align:center;font-size:17px;padding-top:35px;
+padding-bottom:35px;vertical-align:middle;line-height:28px"
+class=3D"t_fz15px t_pt33px t_pb32px m_fz12px m_pt33px m_pb32px m_lh14px">
+<a href=3D"https://t.news.darty.com/r/=3Fid=3Dh3cf09285,acc9b2e1,2942c32&e=
+=3DZW1sLXB1Ymxpc2hlcj1hZG9iZSZlbWwtbmFtZT0xMjIwMzcwMDUmZGFydHljaWQ9ZW1haWxf=
+YW5pbWNvX3BhYy1zb2xkZXNfcmVsYW5jZWJwZW0tMTcwMTI0LTEyMjAzNzAwNSZkYXJ0eXBjaz1=
+IUnlTWlBwQ2ZFVkxSemZ6ZEVwYlhvQ3ExRDdCS1BTVlZHb0pYejJmSC1V&s=3D-w8jVHZHpe-aD=
+ty5em4-qNdlHHfxBwD4R-gAEnOv_zU" style=3D"color:#000000;line-height:28px;dis=
+play:block;text-decoration:none;outline:0" class=3D"m_lh14px" target=3D"_bl=
+ank"> Bons plans </a>
+</td></tr></table>
+</td></tr></table>
+<!--[if gte mso 9]> </td><td style=3D"vertical-align:top;border-collapse:co=
+llapse"><![endif]-->
+<table cellpadding=3D"0" cellspacing=3D"0" border=3D"0" width=3D"163" align=
+=3D"left" class=3D"d_left t_w33d33p t_flleft m_w33d33p m_flleft" role=3D"pr=
+esentation">
+<tr><td>
+<table cellpadding=3D"0" cellspacing=3D"0" border=3D"0" width=3D"163" align=
+=3D"center" style=3D"margin:auto" class=3D"d_center t_flnone t_mauto t_w100=
+p m_flnone m_mauto m_w100p" role=3D"presentation">
+<tr><td style=3D"font-family:Arial,Helvetica,sans-serif;color:#000000;text-=
+align:center;font-size:17px;padding-top:35px;
+padding-bottom:35px;vertical-align:middle;line-height:28px"
+class=3D"t_fz15px t_pt33px t_pb32px m_fz12px m_pt33px m_pb33px m_lh14px">
+<a href=3D"https://t.news.darty.com/r/=3Fid=3Dh3cf09285,acc9b2e1,2942c33&e=
+=3DZW1sLXB1Ymxpc2hlcj1hZG9iZSZlbWwtbmFtZT0xMjIwMzcwMDUmZGFydHljaWQ9ZW1haWxf=
+YW5pbWNvX3BhYy1zb2xkZXNfcmVsYW5jZWJwZW0tMTcwMTI0LTEyMjAzNzAwNSZkYXJ0eXBjaz1=
+IUnlTWlBwQ2ZFVkxSemZ6ZEVwYlhvQ3ExRDdCS1BTVlZHb0pYejJmSC1V&s=3DAbxy2_lshFzID=
+BvMPExxj-WasPGf9awrxoj5k-Od4IQ" style=3D"color:#000000;line-height:28px;dis=
+play:block;text-decoration:none;outline:0" class=3D"m_lh14px" target=3D"_bl=
+ank"> Services </a>
+</td></tr></table>
+</td></tr></table>
+<!--[if gte mso 9]> </td><td style=3D"vertical-align:top;border-collapse:co=
+llapse"><![endif]-->
+<table cellpadding=3D"0" cellspacing=3D"0" border=3D"0" width=3D"164" align=
+=3D"right" class=3D"d_right t_w33d34p t_flright m_w33d34p m_flright" role=
+=3D"presentation">
+<tr><td>
+<table cellpadding=3D"0" cellspacing=3D"0" border=3D"0" width=3D"164" align=
+=3D"center" style=3D"margin:auto" class=3D"d_center t_flnone t_mauto t_w100=
+p m_flnone m_mauto m_w100p" role=3D"presentation">
+<tr><td style=3D"font-family:Arial,Helvetica,sans-serif;color:#000000;text-=
+align:center;font-size:17px;padding-top:35px;
+padding-bottom:35px;vertical-align:middle;line-height:28px"
+class=3D"t_fz15px t_pt33px t_pb32px m_fz12px m_pt33px m_pb33px m_lh14px">
+<a href=3D"https://t.news.darty.com/r/=3Fid=3Dh3cf09285,acc9b2e1,2942c34&e=
+=3DZW1sLXB1Ymxpc2hlcj1hZG9iZSZlbWwtbmFtZT0xMjIwMzcwMDUmZGFydHljaWQ9ZW1haWxf=
+YW5pbWNvX3BhYy1zb2xkZXNfcmVsYW5jZWJwZW0tMTcwMTI0LTEyMjAzNzAwNSZkYXJ0eXBjaz1=
+IUnlTWlBwQ2ZFVkxSemZ6ZEVwYlhvQ3ExRDdCS1BTVlZHb0pYejJmSC1V&s=3DIV6r779M0V3rR=
+8NBP8kgLmMSIM1m2DqBasUEMtKhxzQ" style=3D"color:#000000;line-height:28px;dis=
+play:block;text-decoration:none;outline:0" class=3D"m_lh14px"> Magasins </a=
+>
+</td></tr></table>
+</td></tr></table>
+</td></tr></table>
+</td></tr></table>
+</td></tr></table>
+<table cellpadding=3D"0" cellspacing=3D"0" border=3D"0" width=3D"640" align=
+=3D"center" style=3D"margin:auto" class=3D"d_center t_flnone t_mauto t_w100=
+p m_flnone m_mauto m_w100p" role=3D"presentation">
+<tr><td style=3D"background-color:#ffffff;font-family:Arial,Helvetica,sans-=
+serif;color:#000;text-align:center;font-size:28px;
+padding-top:15px;padding-right:15px;padding-bottom:10px;padding-left:15px;v=
+ertical-align:middle;line-height:32px;
+font-weight:700"
+class=3D"m_fz20px m_lh22px">
+<a href=3D"https://t.news.darty.com/r/=3Fid=3Dh3cf09285,acc9b2e1,2942c35&e=
+=3DZW1sLXB1Ymxpc2hlcj1hZG9iZSZlbWwtbmFtZT0xMjIwMzcwMDUmZGFydHljaWQ9ZW1haWxf=
+YW5pbWNvX3BhYy1zb2xkZXNfcmVsYW5jZWJwZW0tMTcwMTI0LTEyMjAzNzAwNSZkYXJ0eXBjaz1=
+IUnlTWlBwQ2ZFVkxSemZ6ZEVwYlhvQ3ExRDdCS1BTVlZHb0pYejJmSC1V&s=3Dzw8p02bv79H1z=
+UoBvZhbuGGIUzf-KDVNhDuV4LMsQ74" style=3D"color:#000;line-height:32px;displa=
+y:block;text-decoration:none;outline:0" class=3D"m_lh22px" target=3D"_blank=
+">
+Avec vous, chaque jour &#x1F970; </a>
+</td></tr></table>
+<table cellpadding=3D"0" cellspacing=3D"0" border=3D"0" width=3D"640" align=
+=3D"center" style=3D"margin:auto" class=3D"d_center t_flnone t_mauto t_w100=
+p m_flnone m_mauto m_w100p" role=3D"presentation">
+<tr><td style=3D"background-color:#ffffff;font-family:Arial,Helvetica,sans-=
+serif;color:#000000;text-align:center;
+font-size:14px;padding-right:35px;padding-left:35px;vertical-align:middle;l=
+ine-height:18px"
+class=3D"m_pr15px m_pb5px m_pl15px">
+<a href=3D"https://t.news.darty.com/r/=3Fid=3Dh3cf09285,acc9b2e1,2942c36&e=
+=3DZW1sLXB1Ymxpc2hlcj1hZG9iZSZlbWwtbmFtZT0xMjIwMzcwMDUmZGFydHljaWQ9ZW1haWxf=
+YW5pbWNvX3BhYy1zb2xkZXNfcmVsYW5jZWJwZW0tMTcwMTI0LTEyMjAzNzAwNSZkYXJ0eXBjaz1=
+IUnlTWlBwQ2ZFVkxSemZ6ZEVwYlhvQ3ExRDdCS1BTVlZHb0pYejJmSC1V&s=3DaPNAROFWqlZ9p=
+_rETBHzUTLFs0b5ZD7EfJUShMgwOnI" style=3D"color:#000000;line-height:18px;dis=
+play:block;text-decoration:none;outline:0" target=3D"_blank"> Transformez
+votre quotidien en une exp&#xE9;rience fluide et agr&#xE9;able avec des app=
+areils polyvalents. Coiffure &#xE9;clatante, repas d&#xE9;licieux.. Excelle=
+z dans chaque t&#xE2;che&nbsp;! </a>
+</td></tr></table>
+<table cellpadding=3D"0" cellspacing=3D"0" border=3D"0" width=3D"640" align=
+=3D"center" style=3D"margin:auto" class=3D"d_center t_flnone t_mauto t_w100=
+p m_flnone m_mauto m_w100p" role=3D"presentation">
+<tr><td>
+<table cellpadding=3D"0" cellspacing=3D"0" border=3D"0" width=3D"100%" alig=
+n=3D"center" class=3D"d_center t_w100p m_w100p" role=3D"presentation">
+<tr><td style=3D"text-align:center;vertical-align:middle">
+<a href=3D"https://t.news.darty.com/r/=3Fid=3Dh3cf09285,acc9b2e1,2942c37&e=
+=3DZW1sLXB1Ymxpc2hlcj1hZG9iZSZlbWwtbmFtZT0xMjIwMzcwMDUmZGFydHljaWQ9ZW1haWxf=
+YW5pbWNvX3BhYy1zb2xkZXNfcmVsYW5jZWJwZW0tMTcwMTI0LTEyMjAzNzAwNSZkYXJ0eXBjaz1=
+IUnlTWlBwQ2ZFVkxSemZ6ZEVwYlhvQ3ExRDdCS1BTVlZHb0pYejJmSC1V&s=3DuV7tamgyKgH3O=
+BwVKVOAA_aJb4hirdWhAdDEko1zEj8" width=3D"640" style=3D"color:#000000;outlin=
+e:0;border:none;margin:auto;display:block" class=3D"t_w100p m_w100p" target=
+=3D"_blank"><img src=3D"https://static.fnac-static.com/EmailsDarty/newsdart=
+y/2024/janvier/tp_pem.png" alt=3D"Soldes et bons plans - Petit &eacute;lect=
+rom&eacute;nager jusqu&apos;&agrave; -30%" width=3D"640"
+style=3D"font-family:Arial,Helvetica,sans-serif;font-size:16px;line-height:=
+16px;display:block;border:none" class=3D"t_w100p m_w100p"/></a>
+</td></tr></table>
+</td></tr></table>
 
 
 
-BONUS EN ATTENTE
-Bonjour,
+<table cellpadding=3D"0" cellspacing=3D"0" border=3D"0" width=3D"640" align=
+=3D"center" style=3D"margin:auto;clear:both" class=3D"d_center t_w100p m_w1=
+00p" role=3D"presentation">
+<tr><td height=3D"5" style=3D"height:5px;font-size:5px;line-height:5px"> &n=
+bsp; </td></tr></table>
+<table cellpadding=3D"0" cellspacing=3D"0" border=3D"0" width=3D"640" align=
+=3D"center" style=3D"margin:auto" class=3D"d_center t_flnone t_mauto t_w100=
+p m_flnone m_mauto m_w100p" role=3D"presentation">
+<tr><td>
+<div style=3D"border-top:2px solid #ffde17;border-right:2px solid #ffde17;b=
+order-bottom:2px solid #ffde17;border-left:2px solid #ffde17;
+display:block;overflow:hidden;mso-border-alt:none #ffffff 0;background-colo=
+r:#ffffff">
+<!--[if gte mso 9]><table cellpadding=3D"0" cellspacing=3D"0" border=3D"0" =
+width=3D"636" style=3D"border-right:2px solid #ffde17;border-left:2px solid=
+ #ffde17;background-color:#ffffff;border-collapse:collapse"><tr><td
+style=3D"border-top:2px solid #ffde17;border-bottom:2px solid #ffde17;verti=
+cal-align:top;border-collapse:collapse"><![endif]-->
+<table cellpadding=3D"0" cellspacing=3D"0" border=3D"0" width=3D"127" align=
+=3D"left" class=3D"d_left t_w20p t_flleft m_w100p m_flright" role=3D"presen=
+tation">
+<tr><td>
+<table cellpadding=3D"0" cellspacing=3D"0" border=3D"0" width=3D"127" align=
+=3D"center" style=3D"margin:auto" class=3D"d_center t_flnone t_mauto t_w100=
+p m_flnone m_mauto m_w120px" role=3D"presentation">
+<tr><td>
+<table cellpadding=3D"0" cellspacing=3D"0" border=3D"0" width=3D"100%" alig=
+n=3D"center" class=3D"d_center t_w100p m_w100p" role=3D"presentation">
+<tr><td style=3D"padding-top:15px;padding-right:7px;padding-left:7px;text-a=
+lign:center" class=3D"t_pt22px m_pb5px">
+<a href=3D"https://t.news.darty.com/r/=3Fid=3Dh3cf09285,acc9b2e1,2942c38&e=
+=3DZW1sLXB1Ymxpc2hlcj1hZG9iZSZlbWwtbmFtZT0xMjIwMzcwMDUmZGFydHljaWQ9ZW1haWxf=
+YW5pbWNvX3BhYy1zb2xkZXNfcmVsYW5jZWJwZW0tMTcwMTI0LTEyMjAzNzAwNSZkYXJ0eXBjaz1=
+IUnlTWlBwQ2ZFVkxSemZ6ZEVwYlhvQ3ExRDdCS1BTVlZHb0pYejJmSC1V&s=3D34H5mIDMFTZIN=
+jUM8U5tg7_ehxMPTbucLJLNzhRydm4" width=3D"113" style=3D"outline:0;border:non=
+e;margin:auto;display:block" class=3D"t_w100p m_w100p" target=3D"_blank"><i=
+mg src=3D"https://static.fnac-static.com/EmailsDarty/newsdarty/2022/header_=
+dmax/logo_dmax.jpg" alt=3D"Logo Darty Max" width=3D"113" style=3D"font-fami=
+ly:Arial,Helvetica,sans-serif;display:block;border:none"
+class=3D"t_w100p m_w100p"/></a>
+</td></tr></table>
+</td></tr></table>
+</td></tr></table>
+<!--[if gte mso 9]> </td><td style=3D"border-top:2px solid #ffde17;border-b=
+ottom:2px solid #ffde17;vertical-align:top;border-collapse:collapse"><![end=
+if]-->
+<table cellpadding=3D"0" cellspacing=3D"0" border=3D"0" width=3D"509" align=
+=3D"right" class=3D"d_right t_w80p t_flright m_w100p m_flright" role=3D"pre=
+sentation">
+<tr><td>
+<table cellpadding=3D"0" cellspacing=3D"0" border=3D"0" width=3D"509" align=
+=3D"left" class=3D"d_left t_flleft t_w100p m_flleft m_w100p" role=3D"presen=
+tation">
+<tr><td style=3D"font-family:Arial,Helvetica,sans-serif;color:#000000;text-=
+align:left;font-size:14px;padding-top:10px;
+padding-right:10px;padding-bottom:8px;padding-left:5px;vertical-align:middl=
+e;line-height:20px"
+class=3D"t_fz13px m_tacenter m_pt5px m_pr5px">
+<a href=3D"https://t.news.darty.com/r/=3Fid=3Dh3cf09285,acc9b2e1,2942c39&e=
+=3DZW1sLXB1Ymxpc2hlcj1hZG9iZSZlbWwtbmFtZT0xMjIwMzcwMDUmZGFydHljaWQ9ZW1haWxf=
+YW5pbWNvX3BhYy1zb2xkZXNfcmVsYW5jZWJwZW0tMTcwMTI0LTEyMjAzNzAwNSZkYXJ0eXBjaz1=
+IUnlTWlBwQ2ZFVkxSemZ6ZEVwYlhvQ3ExRDdCS1BTVlZHb0pYejJmSC1V&s=3D_nW-GSGoMxbeD=
+I3DapwV9LFW_p93yu8REdT7nmpgoyg" style=3D"color:#000000;line-height:20px;dis=
+play:block;text-decoration:none;outline:0" target=3D"_blank"> L'abonnement =
+pour entretenir et r&#xE9;parer
+vos appareils en illimit&#xE9;.<br/>
+<span style=3D"text-decoration:underline">Jusqu'au 21 janvier</span> : <spa=
+n style=3D"font-weight:700;color:#ed1c27">jusqu'&#xE0; 20% offerts en carte=
+ cadeau</span> pour toute souscription
+en magasin*&nbsp;&#x1F381; </a>
+</td></tr></table>
+</td></tr></table>
+<!--[if gte mso 9]></td></tr></table><![endif]--></div>
+</td></tr></table>
 
-Suite =C3=A0 votre achat sur global-exam.com du 08/12/2023, un bonus d'un m=
-ontant de 1.3 =E2=82=AC=C2=A0est en  ATTENTEsur votre compte Wanteeed.
-<<J'acc=C3=A8de =C3=A0 Mon Compte>> [https://wanteeed.com/fr/mon-compte/pai=
-ement]
+
+
+<table cellpadding=3D"0" cellspacing=3D"0" border=3D"0" width=3D"640" align=
+=3D"center" style=3D"margin:auto" class=3D"d_center t_flnone t_mauto t_w100=
+p m_flnone m_mauto m_w90p" role=3D"presentation">
+<tr><td style=3D"font-family:Arial,Helvetica,sans-serif;color:#000000;text-=
+align:center;font-size:20px;padding-top:30px;
+padding-bottom:10px;vertical-align:middle;line-height:25px;font-weight:700"
+class=3D"t_pt25px t_pr5px t_pl5px m_fz18px m_lh22px">
+<a href=3D"https://t.news.darty.com/r/=3Fid=3Dh3cf09285,acc9b2e1,2942c3a&e=
+=3DZW1sLXB1Ymxpc2hlcj1hZG9iZSZlbWwtbmFtZT0xMjIwMzcwMDUmZGFydHljaWQ9ZW1haWxf=
+YW5pbWNvX3BhYy1zb2xkZXNfcmVsYW5jZWJwZW0tMTcwMTI0LTEyMjAzNzAwNSZkYXJ0eXBjaz1=
+IUnlTWlBwQ2ZFVkxSemZ6ZEVwYlhvQ3ExRDdCS1BTVlZHb0pYejJmSC1V&s=3DrHyOrJkODpBc0=
+493r3cnenwCsEQId8si3jtNjpD9AF4" style=3D"color:#000000;line-height:25px;dis=
+play:block;text-decoration:none;outline:0" class=3D"m_lh22px"> Votre
+TOP 3 pour vous satisfaire ! </a>
+</td></tr></table>
+<table cellpadding=3D"0" cellspacing=3D"0" border=3D"0" width=3D"640" align=
+=3D"center" style=3D"margin:auto" class=3D"d_center t_flnone t_mauto t_w100=
+p m_flnone m_mauto m_w100p" role=3D"presentation">
+<tr><td>
+<table cellpadding=3D"0" cellspacing=3D"0" border=3D"0" width=3D"208" align=
+=3D"left" class=3D"d_left t_w48p t_flleft m_w100p m_flright" role=3D"presen=
+tation">
+<tr><td>
+<table cellpadding=3D"0" cellspacing=3D"0" border=3D"0" width=3D"203" align=
+=3D"right" class=3D"d_right t_flright t_w98p m_flnone m_mauto m_w95p" role=
+=3D"presentation">
+<tr><td>
+<div style=3D"border-radius:5px;display:block;overflow:hidden;mso-border-al=
+t:none #ffffff 0;background-color:#ffffff">
+<!--[if gte mso 9]><table cellpadding=3D"0" cellspacing=3D"0" border=3D"0" =
+width=3D"203" style=3D"background-color:#ffffff;border-collapse:collapse"><=
+tr><td style=3D"vertical-align:top;border-collapse:collapse"><![endif]-->
+<table cellpadding=3D"0" cellspacing=3D"0" border=3D"0" width=3D"202" align=
+=3D"center" style=3D"margin:auto" class=3D"d_center t_flnone t_mauto t_w100=
+p m_flleft m_w45p" role=3D"presentation">
+<tr><td style=3D"height:190px" height=3D"190px" class=3D"m_h175px">
+<table cellpadding=3D"0" cellspacing=3D"0" border=3D"0" width=3D"120" align=
+=3D"center" style=3D"margin:auto" class=3D"d_center t_flnone t_mauto t_w115=
+px m_flnone m_mauto m_w100px" role=3D"presentation">
+<tr><td>
+<table cellpadding=3D"0" cellspacing=3D"0" border=3D"0" width=3D"100%" alig=
+n=3D"center" class=3D"d_center t_w100p m_w100p" role=3D"presentation">
+<tr><td style=3D"padding-top:10px;text-align:center" class=3D"m_pb10px">
+<a href=3D"https://t.news.darty.com/r/=3Fid=3Dh3cf09285,acc9b2e1,2942c3b&e=
+=3DZW1sLXB1Ymxpc2hlcj1hZG9iZSZlbWwtbmFtZT0xMjIwMzcwMDUmZGFydHljaWQ9ZW1haWxf=
+YW5pbWNvX3BhYy1zb2xkZXNfcmVsYW5jZWJwZW0tMTcwMTI0LTEyMjAzNzAwNSZkYXJ0eXBjaz1=
+IUnlTWlBwQ2ZFVkxSemZ6ZEVwYlhvQ3ExRDdCS1BTVlZHb0pYejJmSC1VJnAxPXd3dy5kYXJ0eS=
+5jb20vbmF2L2NvZGljLzc2MDQwOTI&s=3DfH62dRSY6v6_23lYd17XYhMKqxMJF_GWPhRj-pshg=
+eo" width=3D"120" style=3D"color:#000000;outline:0;border:none;margin:auto;=
+display:block" class=3D"t_w100p m_w100p" target=3D"_blank"><img src=3D"http=
+s://image.darty.com/petit_electromenager/aspirateur-balai_main/aspirateur_b=
+alai/dyson_dyson_v8_d2307257604092A_101209073.jpg" alt=3D"D&eacute;couvrir =
+le produit sur darty.com" width=3D"120" style=3D"font-family:Arial,Helvetic=
+a,sans-serif;font-size:13px;line-height:13px;display:block;border:none"
+class=3D"t_w100p m_w100p"/></a>
+</td></tr></table>
+</td></tr></table>
+</td></tr></table>
+<table cellpadding=3D"0" cellspacing=3D"0" border=3D"0" width=3D"202" align=
+=3D"center" style=3D"margin:auto" class=3D"d_center t_flnone t_mauto t_w100=
+p m_flnone m_mauto m_w55p" role=3D"presentation">
+<tr><td style=3D"font-family:Arial,Helvetica,sans-serif;color:#000000;text-=
+align:center;font-size:15px;height:75px;
+padding-top:15px;padding-bottom:10px;vertical-align:middle;line-height:18px=
+"
+class=3D"m_fz16px" height=3D"75">
+<span style=3D"color:#919191">Aspirateur balai</span><br/><span style=3D"fo=
+nt-weight:700">Dyson</span><br/>V8...
+</td></tr></table>
 
 
 
+<table cellpadding=3D"0" cellspacing=3D"0" border=3D"0" width=3D"152" align=
+=3D"center" style=3D"margin:auto" class=3D"d_center t_flnone t_mauto t_w70p=
+ m_flnone m_mauto m_w55p" role=3D"presentation">
+<tr><td>
+<table cellpadding=3D"0" cellspacing=3D"0" border=3D"0" width=3D"88" align=
+=3D"left" class=3D"d_left t_w58p t_flleft m_w60p m_flleft" role=3D"presenta=
+tion">
+<tr><td>
+<table cellpadding=3D"0" cellspacing=3D"0" border=3D"0" width=3D"88" align=
+=3D"center" style=3D"margin:auto" class=3D"d_center t_flnone t_mauto t_w100=
+p m_flnone m_mauto m_w100p" role=3D"presentation">
+<tr><td style=3D"font-family:Arial,Helvetica,sans-serif;color:#000000;text-=
+align:center;font-size:15px;height:20px;
+vertical-align:middle;line-height:17px"
+class=3D"t_pt5px t_lh20px m_h25px" height=3D"20">
+<a href=3D"https://t.news.darty.com/r/=3Fid=3Dh3cf09285,acc9b2e1,2942c3c&e=
+=3DZW1sLXB1Ymxpc2hlcj1hZG9iZSZlbWwtbmFtZT0xMjIwMzcwMDUmZGFydHljaWQ9ZW1haWxf=
+YW5pbWNvX3BhYy1zb2xkZXNfcmVsYW5jZWJwZW0tMTcwMTI0LTEyMjAzNzAwNSZkYXJ0eXBjaz1=
+IUnlTWlBwQ2ZFVkxSemZ6ZEVwYlhvQ3ExRDdCS1BTVlZHb0pYejJmSC1VJnAxPXd3dy5kYXJ0eS=
+5jb20vbmF2L2NvZGljLzc2MDQwOTI&s=3DMOphi9ok2Dmfby04SkVuUYbbSNRzjz8OhTjDhzRHt=
+L0" style=3D"color:#000000;line-height:17px;display:block;text-decoration:n=
+one;outline:0" class=3D"t_lh20px" target=3D"_blank"><span style=3D"text-dec=
+oration:line-through">399&#x20AC;</span></a>
+</td></tr></table>
+</td></tr></table>
+<!--[if gte mso 9]> </td><td style=3D"vertical-align:top;border-collapse:co=
+llapse"><![endif]-->
+<table cellpadding=3D"0" cellspacing=3D"0" border=3D"0" width=3D"64" align=
+=3D"right" class=3D"d_right t_w42p t_flright m_w40p m_flright" role=3D"pres=
+entation">
+<tr><td>
+<table cellpadding=3D"0" cellspacing=3D"0" border=3D"0" width=3D"64" align=
+=3D"center" style=3D"margin:auto" class=3D"d_center t_flnone t_mauto t_w100=
+p m_flnone m_mauto m_w100p" role=3D"presentation">
+<tr><td style=3D"font-family:Arial,Helvetica,sans-serif;color:#ed1c27;text-=
+align:center;font-size:18px;height:20px;
+vertical-align:middle;line-height:20px;font-weight:700"
+class=3D"t_pt5px m_h25px" height=3D"20">
+<a href=3D"https://t.news.darty.com/r/=3Fid=3Dh3cf09285,acc9b2e1,2942c3d&e=
+=3DZW1sLXB1Ymxpc2hlcj1hZG9iZSZlbWwtbmFtZT0xMjIwMzcwMDUmZGFydHljaWQ9ZW1haWxf=
+YW5pbWNvX3BhYy1zb2xkZXNfcmVsYW5jZWJwZW0tMTcwMTI0LTEyMjAzNzAwNSZkYXJ0eXBjaz1=
+IUnlTWlBwQ2ZFVkxSemZ6ZEVwYlhvQ3ExRDdCS1BTVlZHb0pYejJmSC1VJnAxPXd3dy5kYXJ0eS=
+5jb20vbmF2L2NvZGljLzc2MDQwOTI&s=3D-Zb8dbwK5l2MZcbhxqBO5xkxHdouoPOPcB2pXeV6-=
+U4" style=3D"color:#ed1c27;line-height:20px;display:block;text-decoration:n=
+one;outline:0" target=3D"_blank"> -25% </a>
+</td></tr></table>
+</td></tr></table>
+</td></tr></table>
 
----------------------------------------------------------------------------=
------
-Fait=C2=A0par Wanteeed - Tous droits r=C3=A9serv=C3=A9s
 
-Vous recevez cet e-mail car vous vous =C3=AAtes inscrit au service Wanteeed=
-. Conform=C3=A9ment =C3=A0 la loi =C2=AB informatique et libert=C3=A9s =C2=
-=BB [https://www.cnil.fr/fr/loi-78-17-du-6-janvier-1978-modifiee], mise =C3=
-=A0 jour par la loi du 6 ao=C3=BBt 2004,  vous pouvez exercer votre droit d=
-'acc=C3=A8s aux donn=C3=A9es vous concernant sur la partie =E2=80=9Cmon com=
-pte [https://wanteeed.com/account]=E2=80=9D, et pouvez vous d=C3=A9sinscrir=
-e =C3=A0 tout moment des newsletters en cliquant sur ce lien.=
 
---=-uzvF2e0o/Q8TCNC58yE/
-Content-Type: text/html; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
+<table cellpadding=3D"0" cellspacing=3D"0" border=3D"0" width=3D"202" align=
+=3D"center" style=3D"margin:auto" class=3D"d_center t_flnone t_mauto t_w100=
+p m_flnone m_mauto m_w55p" role=3D"presentation">
+<tr><td style=3D"font-family:Arial,Helvetica,sans-serif;color:#0c1a22;text-=
+align:center;font-size:25px;padding-top:5px;
+padding-bottom:10px;vertical-align:middle;line-height:30px;font-weight:700"
+class=3D"t_lh32px m_fz22px m_pt7px m_pb15px">
+<a href=3D"https://t.news.darty.com/r/=3Fid=3Dh3cf09285,acc9b2e1,2942c3e&e=
+=3DZW1sLXB1Ymxpc2hlcj1hZG9iZSZlbWwtbmFtZT0xMjIwMzcwMDUmZGFydHljaWQ9ZW1haWxf=
+YW5pbWNvX3BhYy1zb2xkZXNfcmVsYW5jZWJwZW0tMTcwMTI0LTEyMjAzNzAwNSZkYXJ0eXBjaz1=
+IUnlTWlBwQ2ZFVkxSemZ6ZEVwYlhvQ3ExRDdCS1BTVlZHb0pYejJmSC1VJnAxPXd3dy5kYXJ0eS=
+5jb20vbmF2L2NvZGljLzc2MDQwOTI&s=3DmGO8gZAFZMUT0Fcc2EJzO7mtmeHxf19TXvHjhmgF3=
+4Q" style=3D"color:#0c1a22;line-height:30px;display:block;text-decoration:n=
+one;outline:0" class=3D"t_lh32px" target=3D"_blank">          299,00&#x20AC=
+; </a>
+</td></tr></table>
 
-<!doctype html><html xmlns=3D"http://www.w3.org/1999/xhtml" xmlns:v=3D"urn:=
-schemas-microsoft-com:vml" xmlns:o=3D"urn:schemas-microsoft-com:office:offi=
-ce"><head><title>Wanteeed - Cashback en attente</title><!--[if !mso]><!--><=
-meta http-equiv=3D"X-UA-Compatible" content=3D"IE=3Dedge"><!--<![endif]--><=
-meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3DUTF-8"><me=
-ta name=3D"viewport" content=3D"width=3Ddevice-width,initial-scale=3D1"><st=
-yle type=3D"text/css">#outlook a { padding:0; }
-          body { margin:0;padding:0;-webkit-text-size-adjust:100%;-ms-text-=
-size-adjust:100%; }
-          table, td { border-collapse:collapse;mso-table-lspace:0pt;mso-tab=
-le-rspace:0pt; }
-          img { border:0;height:auto;line-height:100%; outline:none;text-de=
-coration:none;-ms-interpolation-mode:bicubic; }
-          p { display:block;margin:13px 0; }</style><!--[if mso]>
-        <noscript>
-        <xml>
-        <o:OfficeDocumentSettings>
-          <o:AllowPNG/>
-          <o:PixelsPerInch>96</o:PixelsPerInch>
-        </o:OfficeDocumentSettings>
-        </xml>
-        </noscript>
-        <![endif]--><!--[if lte mso 11]>
-        <style type=3D"text/css">
-          .mj-outlook-group-fix { width:100% !important; }
-        </style>
-        <![endif]--><!--[if !mso]><!--><link href=3D"https://fonts.googleap=
-is.com/css?family=3DRoboto:300,400,500,700" rel=3D"stylesheet" type=3D"text=
-/css"><style type=3D"text/css">@import url(https://fonts.googleapis.com/css=
-?family=3DRoboto:300,400,500,700);</style><!--<![endif]--><style type=3D"te=
-xt/css">@media only screen and (min-width:480px) {
-        .mj-column-per-100 { width:100% !important; max-width: 100%; }
-.mj-column-per-50 { width:50% !important; max-width: 50%; }
-      }</style><style media=3D"screen and (min-width:480px)">.moz-text-html=
- .mj-column-per-100 { width:100% !important; max-width: 100%; }
-.moz-text-html .mj-column-per-50 { width:50% !important; max-width: 50%; }<=
-/style><style type=3D"text/css">[owa] .mj-column-per-100 { width:100% !impo=
-rtant; max-width: 100%; }
-[owa] .mj-column-per-50 { width:50% !important; max-width: 50%; }</style><s=
-tyle type=3D"text/css">@media only screen and (max-width:480px) {
-      table.mj-full-width-mobile { width: 100% !important; }
-      td.mj-full-width-mobile { width: auto !important; }
-    }</style></head><body style=3D"word-spacing:normal;background-color:#FF=
-F9F8;"><div style=3D"background-color:#FFF9F8;"><!--[if mso | IE]><table al=
-ign=3D"center" border=3D"0" cellpadding=3D"0" cellspacing=3D"0" class=3D"" =
-role=3D"presentation" style=3D"width:600px;" width=3D"600" bgcolor=3D"#ffff=
-ff" ><tr><td style=3D"line-height:0px;font-size:0px;mso-line-height-rule:ex=
-actly;"><![endif]--><div style=3D"background:#ffffff;background-color:#ffff=
-ff;margin:0px auto;max-width:600px;"><table align=3D"center" border=3D"0" c=
-ellpadding=3D"0" cellspacing=3D"0" role=3D"presentation" style=3D"backgroun=
-d:#ffffff;background-color:#ffffff;width:100%;"><tbody><tr><td style=3D"dir=
-ection:ltr;font-size:0px;padding:20px 0;text-align:center;"><!--[if mso | I=
-E]><table role=3D"presentation" border=3D"0" cellpadding=3D"0" cellspacing=
-=3D"0"><tr><td class=3D"" style=3D"vertical-align:top;width:600px;" ><![end=
-if]--><div class=3D"mj-column-per-100 mj-outlook-group-fix" style=3D"font-s=
-ize:0px;text-align:left;direction:ltr;display:inline-block;vertical-align:t=
-op;width:100%;"><table border=3D"0" cellpadding=3D"0" cellspacing=3D"0" rol=
-e=3D"presentation" style=3D"vertical-align:top;" width=3D"100%"><tbody><tr>=
-<td align=3D"center" vertical-align=3D"top" style=3D"font-size:0px;padding:=
-10px 25px;word-break:break-word;"><table border=3D"0" cellpadding=3D"0" cel=
-lspacing=3D"0" role=3D"presentation" style=3D"border-collapse:collapse;bord=
-er-spacing:0px;"><tbody><tr><td style=3D"width:200px;"><a href=3D"http://zv=
-ri.mjt.lu/lnk/CAAABOkAVY8AAcw2ROoAALHPFhQAAAAIiOAAAAAAAAX_0gBldEHWvOLuLICiQ=
-BGFulWcP6qygQAFvys/1/fxJLpvwFrzpKwetyiJxgiA/aHR0cHM6Ly93YW50ZWVlZC5jb20_dXR=
-tX2NhbXBhaWduPSZ1dG1fY29udGVudD0lN0IlN0J2YXIlM0FlbnYlM0ElMjIlMjIlN0QlN0RXYW=
-50ZWVlZCUyMC0lMjBDYXNoYmFjayUyMGVuJTIwYXR0ZW50ZSU3QiU3QnZhciUzQW9yaWdpbmFsX=
-3JlY2lwaWVudCUzQSUyMiUyMiU3RCU3RCZ1dG1fbWVkaXVtPWVtYWlsJnV0bV9zb3VyY2U9TWFp=
-bGpldA" target=3D"_blank"><img alt=3D"" height=3D"auto" src=3D"http://zvri.=
-mjt.lu/tplimg/zvri/b/zjmu/2381p.png" style=3D"border:none;display:block;out=
-line:none;text-decoration:none;height:auto;width:100%;font-size:13px;" widt=
-h=3D"200"></a></td></tr></tbody></table></td></tr><tr><td align=3D"center" =
-style=3D"font-size:0px;padding:10px 25px;word-break:break-word;"><p style=
-=3D"border-top:solid 1px #efefef;font-size:1px;margin:0px auto;width:100%;"=
-></p><!--[if mso | IE]><table align=3D"center" border=3D"0" cellpadding=3D"=
-0" cellspacing=3D"0" style=3D"border-top:solid 1px #efefef;font-size:1px;ma=
-rgin:0px auto;width:550px;" role=3D"presentation" width=3D"550px" ><tr><td =
-style=3D"height:0;line-height:0;"> &nbsp;
-</td></tr></table><![endif]--></td></tr></tbody></table></div><!--[if mso |=
- IE]></td></tr></table><![endif]--></td></tr></tbody></table></div><!--[if =
-mso | IE]></td></tr></table><table align=3D"center" border=3D"0" cellpaddin=
-g=3D"0" cellspacing=3D"0" class=3D"" role=3D"presentation" style=3D"width:6=
-00px;" width=3D"600" bgcolor=3D"#ffffff" ><tr><td style=3D"line-height:0px;=
-font-size:0px;mso-line-height-rule:exactly;"><![endif]--><div style=3D"back=
-ground:#ffffff;background-color:#ffffff;margin:0px auto;max-width:600px;"><=
-table align=3D"center" border=3D"0" cellpadding=3D"0" cellspacing=3D"0" rol=
-e=3D"presentation" style=3D"background:#ffffff;background-color:#ffffff;wid=
-th:100%;"><tbody><tr><td style=3D"direction:ltr;font-size:0px;padding:20px =
-0;text-align:center;"><!--[if mso | IE]><table role=3D"presentation" border=
-=3D"0" cellpadding=3D"0" cellspacing=3D"0"><tr><td class=3D"" style=3D"vert=
-ical-align:top;width:600px;" ><![endif]--><div class=3D"mj-column-per-100 m=
-j-outlook-group-fix" style=3D"font-size:0px;text-align:left;direction:ltr;d=
-isplay:inline-block;vertical-align:top;width:100%;"><table border=3D"0" cel=
-lpadding=3D"0" cellspacing=3D"0" role=3D"presentation" style=3D"vertical-al=
-ign:top;" width=3D"100%"><tbody><tr><td align=3D"left" style=3D"font-size:0=
-px;padding:10px 25px;padding-top:0px;padding-bottom:0px;word-break:break-wo=
-rd;"><div style=3D"font-family:Arial, sans-serif;font-size:13px;letter-spac=
-ing:normal;line-height:1;text-align:left;color:#000000;"><p class=3D"text-b=
-uild-content" style=3D"text-align: center; margin: 10px 0; margin-top: 10px=
-; margin-bottom: 10px;" data-testid=3D"jkEHjAl4YH"><span style=3D"color:#0e=
-305b;font-family:Roboto;font-size:17px;line-height:24px;"><b>CASHBACK </b><=
-/span><span style=3D"color:#facb7f;font-family:Roboto;font-size:17px;line-h=
-eight:24px;"><b>EN ATTENTE</b></span></p></div></td></tr><tr><td align=3D"l=
-eft" vertical-align=3D"top" style=3D"background:#ffffff;font-size:0px;paddi=
-ng:0px 25px 0px 25px;padding-top:0px;padding-right:25px;padding-bottom:0px;=
-padding-left:25px;word-break:break-word;"><div style=3D"font-family:Arial, =
-sans-serif;font-size:13px;letter-spacing:normal;line-height:1;text-align:le=
-ft;color:#000000;"><p class=3D"text-build-content" style=3D"text-align: jus=
-tify; margin: 10px 0; margin-top: 10px;" data-testid=3D"zIaXSuRMuB"><span s=
-tyle=3D"color:#6e809a;font-family:Roboto;font-size:14px;line-height:25px;">=
-Bonjour,</span></p><p class=3D"text-build-content" style=3D"text-align: jus=
-tify; margin: 10px 0; margin-bottom: 10px;" data-testid=3D"zIaXSuRMuB"><spa=
-n style=3D"color:#6e809a;font-family:Roboto;font-size:14px;line-height:25px=
-;">Suite =C3=A0 votre achat sur global-exam.com du 08/12/2023, un cashback =
-d'un montant de </span><span style=3D"color:#0e305b;font-family:Roboto;font=
--size:16px;line-height:25px;"><b>1.3 =E2=82=AC</b></span><span style=3D"col=
-or:#6e809a;font-family:Roboto;font-size:14px;line-height:25px;"> est en </s=
-pan><span style=3D"color:#facb7f;font-family:Roboto;font-size:14px;line-hei=
-ght:25px;"><b>ATTENTE</b> </span><span style=3D"color:#6e809a;font-family:R=
-oboto;font-size:14px;line-height:25px;">sur votre compte Wanteeed.</span></=
-p></div></td></tr><tr><td align=3D"center" vertical-align=3D"top" style=3D"=
-background:#ffffff;font-size:0px;padding:15px 30px 15px 30px;padding-top:15=
-px;padding-right:30px;padding-bottom:15px;padding-left:30px;word-break:brea=
-k-word;"><table border=3D"0" cellpadding=3D"0" cellspacing=3D"0" role=3D"pr=
-esentation" style=3D"border-collapse:separate;line-height:100%;"><tbody><tr=
-><td align=3D"center" bgcolor=3D"#FF7E78" role=3D"presentation" style=3D"bo=
-rder:0px solid #ffffff;border-radius:8px;cursor:auto;mso-padding-alt:10px 2=
-5px 10px 25px;background:#FF7E78;" valign=3D"top"><a href=3D"http://zvri.mj=
-t.lu/lnk/CAAABOkAVY8AAcw2ROoAALHPFhQAAAAIiOAAAAAAAAX_0gBldEHWvOLuLICiQBGFul=
-WcP6qygQAFvys/2/_Zjj4HbkhvCoMM0AQKVEUA/aHR0cHM6Ly93YW50ZWVlZC5jb20vZnIvbW9u=
-LWNvbXB0ZS9wYWllbWVudD91dG1fY2FtcGFpZ249JnV0bV9jb250ZW50PSU3QiU3QnZhciUzQWV=
-udiUzQSUyMiUyMiU3RCU3RFdhbnRlZWVkJTIwLSUyMENhc2hiYWNrJTIwZW4lMjBhdHRlbnRlJT=
-dCJTdCdmFyJTNBb3JpZ2luYWxfcmVjaXBpZW50JTNBJTIyJTIyJTdEJTdEJnV0bV9tZWRpdW09Z=
-W1haWwmdXRtX3NvdXJjZT1NYWlsamV0" style=3D"display:inline-block;background:#=
-FF7E78;color:#ffffff;font-family:Arial, sans-serif;font-size:18px;font-weig=
-ht:normal;line-height:120%;margin:0;text-decoration:none;text-transform:non=
-e;padding:10px 25px 10px 25px;mso-padding-alt:0px;border-radius:8px;" targe=
-t=3D"_blank"><span style=3D"background-color:#FF7E78;color:#ffffff;font-fam=
-ily:Roboto;font-size:18px;">=F0=9F=91=80 Acc=C3=A9der =C3=A0 Mon Compte</sp=
-an></a></td></tr></tbody></table></td></tr><tr><td style=3D"font-size:0px;w=
-ord-break:break-word;"><div style=3D"height:40px;line-height:40px;">&#8202;=
-</div></td></tr></tbody></table></div><!--[if mso | IE]></td></tr></table><=
-![endif]--></td></tr></tbody></table></div><!--[if mso | IE]></td></tr></ta=
-ble><table align=3D"center" border=3D"0" cellpadding=3D"0" cellspacing=3D"0=
-" class=3D"" role=3D"presentation" style=3D"width:600px;" width=3D"600" bgc=
-olor=3D"#ffffff" ><tr><td style=3D"line-height:0px;font-size:0px;mso-line-h=
-eight-rule:exactly;"><![endif]--><div style=3D"background:#ffffff;backgroun=
-d-color:#ffffff;margin:0px auto;max-width:600px;"><table align=3D"center" b=
-order=3D"0" cellpadding=3D"0" cellspacing=3D"0" role=3D"presentation" style=
-=3D"background:#ffffff;background-color:#ffffff;width:100%;"><tbody><tr><td=
- style=3D"direction:ltr;font-size:0px;padding:0px 0px 0px 0px;padding-left:=
-0px;padding-right:0px;text-align:center;"><!--[if mso | IE]><table role=3D"=
-presentation" border=3D"0" cellpadding=3D"0" cellspacing=3D"0"><tr><td clas=
-s=3D"" style=3D"vertical-align:top;width:300px;" ><![endif]--><div class=3D=
-"mj-column-per-50 mj-outlook-group-fix" style=3D"font-size:0px;text-align:l=
-eft;direction:ltr;display:inline-block;vertical-align:top;width:100%;"><tab=
-le border=3D"0" cellpadding=3D"0" cellspacing=3D"0" role=3D"presentation" s=
-tyle=3D"vertical-align:top;" width=3D"100%"><tbody><tr><td align=3D"center"=
- style=3D"font-size:0px;padding:28px 25px 0px 25px;padding-top:28px;padding=
--right:25px;padding-bottom:0px;padding-left:25px;word-break:break-word;"><t=
-able border=3D"0" cellpadding=3D"0" cellspacing=3D"0" role=3D"presentation"=
- style=3D"border-collapse:collapse;border-spacing:0px;"><tbody><tr><td styl=
-e=3D"width:250px;"><img alt=3D"" height=3D"auto" src=3D"https://zvri.mjt.lu=
-/tplimg/zvri/b/lj0xq/joj9n.png" style=3D"border:none;display:block;outline:=
-none;text-decoration:none;height:auto;width:100%;font-size:13px;" width=3D"=
-250"></td></tr></tbody></table></td></tr><tr><td align=3D"center" style=3D"=
-font-size:0px;padding:21px 25px 15px 25px;padding-top:21px;padding-right:25=
-px;padding-bottom:15px;padding-left:25px;word-break:break-word;"><table bor=
-der=3D"0" cellpadding=3D"0" cellspacing=3D"0" role=3D"presentation" style=
-=3D"border-collapse:collapse;border-spacing:0px;"><tbody><tr><td style=3D"w=
-idth:250px;"><a href=3D"http://zvri.mjt.lu/lnk/CAAABOkAVY8AAcw2ROoAALHPFhQA=
-AAAIiOAAAAAAAAX_0gBldEHWvOLuLICiQBGFulWcP6qygQAFvys/3/xMZLZvk40fwhradOENz7i=
-w/aHR0cHM6Ly93YW50ZWVlZC5jb20vbC9jcm9zcy1zYWxlLW1vYmlsZT91dG1fY2FtcGFpZ249Y=
-3Jvc3NTYWxlTW9iaWxlJnV0bV9tZWRpdW09c3RvcmVMaW5rJnV0bV9zb3VyY2U9dHJhbnNhY3Rp=
-b25hbEVtYWlsJnV0bV9jYW1wYWlnbj0mdXRtX2NvbnRlbnQ9JTdCJTdCdmFyJTNBZW52JTNBJTI=
-yJTIyJTdEJTdEV2FudGVlZWQlMjAtJTIwQ2FzaGJhY2slMjBlbiUyMGF0dGVudGUlN0IlN0J2YX=
-IlM0FvcmlnaW5hbF9yZWNpcGllbnQlM0ElMjIlMjIlN0QlN0QmdXRtX21lZGl1bT1lbWFpbCZ1d=
-G1fc291cmNlPU1haWxqZXQ" target=3D"_blank"><img alt=3D"" height=3D"auto" src=
-=3D"https://zvri.mjt.lu/tplimg/zvri/b/lj0xq/joj9r.png" style=3D"border:none=
-;display:block;outline:none;text-decoration:none;height:auto;width:100%;fon=
-t-size:13px;" width=3D"250"></a></td></tr></tbody></table></td></tr></tbody=
-></table></div><!--[if mso | IE]></td><td class=3D"" style=3D"vertical-alig=
-n:top;width:300px;" ><![endif]--><div class=3D"mj-column-per-50 mj-outlook-=
-group-fix" style=3D"font-size:0px;text-align:left;direction:ltr;display:inl=
-ine-block;vertical-align:top;width:100%;"><table border=3D"0" cellpadding=
-=3D"0" cellspacing=3D"0" role=3D"presentation" style=3D"vertical-align:top;=
-" width=3D"100%"><tbody><tr><td align=3D"center" style=3D"font-size:0px;pad=
-ding:10px 25px;word-break:break-word;"><table border=3D"0" cellpadding=3D"0=
-" cellspacing=3D"0" role=3D"presentation" style=3D"border-collapse:collapse=
-;border-spacing:0px;"><tbody><tr><td style=3D"width:250px;"><img alt=3D"" h=
-eight=3D"auto" src=3D"https://zvri.mjt.lu/tplimg/zvri/b/lj0xq/joj9v.png" st=
-yle=3D"border:none;display:block;outline:none;text-decoration:none;height:a=
-uto;width:100%;font-size:13px;" width=3D"250"></td></tr></tbody></table></t=
-d></tr></tbody></table></div><!--[if mso | IE]></td></tr></table><![endif]-=
--></td></tr></tbody></table></div><!--[if mso | IE]></td></tr></table><tabl=
-e align=3D"center" border=3D"0" cellpadding=3D"0" cellspacing=3D"0" class=
-=3D"" role=3D"presentation" style=3D"width:600px;" width=3D"600" bgcolor=3D=
-"#ffffff" ><tr><td style=3D"line-height:0px;font-size:0px;mso-line-height-r=
-ule:exactly;"><![endif]--><div style=3D"background:#ffffff;background-color=
-:#ffffff;margin:0px auto;max-width:600px;"><table align=3D"center" border=
-=3D"0" cellpadding=3D"0" cellspacing=3D"0" role=3D"presentation" style=3D"b=
-ackground:#ffffff;background-color:#ffffff;width:100%;"><tbody><tr><td styl=
-e=3D"direction:ltr;font-size:0px;padding:20px 0;text-align:center;"><!--[if=
- mso | IE]><table role=3D"presentation" border=3D"0" cellpadding=3D"0" cell=
-spacing=3D"0"><tr><td class=3D"" style=3D"vertical-align:top;width:600px;" =
-><![endif]--><div class=3D"mj-column-per-100 mj-outlook-group-fix" style=3D=
-"font-size:0px;text-align:left;direction:ltr;display:inline-block;vertical-=
-align:top;width:100%;"><table border=3D"0" cellpadding=3D"0" cellspacing=3D=
-"0" role=3D"presentation" style=3D"vertical-align:top;" width=3D"100%"><tbo=
-dy><tr><td align=3D"center" style=3D"font-size:0px;padding:10px 25px;word-b=
-reak:break-word;"><p style=3D"border-top:solid 1px #efefef;font-size:1px;ma=
-rgin:0px auto;width:100%;"></p><!--[if mso | IE]><table align=3D"center" bo=
-rder=3D"0" cellpadding=3D"0" cellspacing=3D"0" style=3D"border-top:solid 1p=
-x #efefef;font-size:1px;margin:0px auto;width:550px;" role=3D"presentation"=
- width=3D"550px" ><tr><td style=3D"height:0;line-height:0;"> &nbsp;
-</td></tr></table><![endif]--></td></tr><tr><td align=3D"left" style=3D"fon=
-t-size:0px;padding:10px 25px;padding-top:0px;padding-bottom:0px;word-break:=
-break-word;"><div style=3D"font-family:Arial, sans-serif;font-size:13px;let=
-ter-spacing:normal;line-height:1;text-align:left;color:#000000;"><p style=
-=3D"text-align: center; margin: 10px 0; margin-top: 10px;"><span style=3D"t=
-ext-align:center;font-size:10px;letter-spacing:normal;text-align:left;color=
-:#0e305b;font-family:Roboto;line-height:11px;">Fait par Wanteeed - Tous dro=
-its r=C3=A9serv=C3=A9s</span></p><p style=3D"text-align: center; margin: 10=
-px 0; margin-bottom: 10px;"><span style=3D"text-align:center;font-size:9px;=
-letter-spacing:normal;text-align:left;color:#0e305b;font-family:Roboto;line=
--height:11px;">Vous recevez cet e-mail car vous vous =C3=AAtes inscrit au s=
-ervice Wanteeed. Conform=C3=A9ment =C3=A0 </span><a href=3D"http://zvri.mjt=
-.lu/lnk/CAAABOkAVY8AAcw2ROoAALHPFhQAAAAIiOAAAAAAAAX_0gBldEHWvOLuLICiQBGFulW=
-cP6qygQAFvys/4/VhKcS5xV-IcUWbRP3yKWSw/aHR0cHM6Ly93YW50ZWVlZC5jb20vaW5mby92a=
-WUtcHJpdmVlP3V0bV9jYW1wYWlnbj0mdXRtX2NvbnRlbnQ9JTdCJTdCdmFyJTNBZW52JTNBJTIy=
-JTIyJTdEJTdEV2FudGVlZWQlMjAtJTIwQ2FzaGJhY2slMjBlbiUyMGF0dGVudGUlN0IlN0J2YXI=
-lM0FvcmlnaW5hbF9yZWNpcGllbnQlM0ElMjIlMjIlN0QlN0QmdXRtX21lZGl1bT1lbWFpbCZ1dG=
-1fc291cmNlPU1haWxqZXQ" target=3D"_blank" style=3D"; text-decoration: none;"=
-><span><span style=3D"text-align:center;font-size:9px;letter-spacing:normal=
-;text-align:left;color:#ffaca8;font-family:Roboto;line-height:11px;"><u>not=
-re politique de confidentialit=C3=A9</u></span></span></a><span style=3D"te=
-xt-align:center;font-size:9px;letter-spacing:normal;text-align:left;color:#=
-0e305b;font-family:Roboto;line-height:11px;"> et la loi =C2=AB informatique=
- et libert=C3=A9s =C2=BB, mise =C3=A0 jour par la loi du 6 ao=C3=BBt 2004,<=
-/span><span style=3D"text-align:center;font-size:19px;letter-spacing:normal=
-;text-align:left;color:#0e305b;font-family:Roboto;line-height:11px;"> </spa=
-n><span style=3D"text-align:center;font-size:9px;letter-spacing:normal;text=
--align:left;color:#0e305b;font-family:Roboto;line-height:11px;">vous pouvez=
- exercer votre droit d'acc=C3=A8s aux donn=C3=A9es vous concernant sur la p=
-artie =E2=80=9C</span><a href=3D"http://zvri.mjt.lu/lnk/CAAABOkAVY8AAcw2ROo=
-AALHPFhQAAAAIiOAAAAAAAAX_0gBldEHWvOLuLICiQBGFulWcP6qygQAFvys/5/gG7oQcyLycyE=
-xb43liiPLg/aHR0cHM6Ly93YW50ZWVlZC5jb20vbW9uLWNvbXB0ZS9pbmZvcm1hdGlvbnMtcGVy=
-c29ubmVsbGVzP3V0bV9jYW1wYWlnbj0mdXRtX2NvbnRlbnQ9JTdCJTdCdmFyJTNBZW52JTNBJTI=
-yJTIyJTdEJTdEV2FudGVlZWQlMjAtJTIwQ2FzaGJhY2slMjBlbiUyMGF0dGVudGUlN0IlN0J2YX=
-IlM0FvcmlnaW5hbF9yZWNpcGllbnQlM0ElMjIlMjIlN0QlN0QmdXRtX21lZGl1bT1lbWFpbCZ1d=
-G1fc291cmNlPU1haWxqZXQ" target=3D"_blank" style=3D"; text-decoration: none;=
-"><span><span style=3D"text-align:center;font-size:9px;letter-spacing:norma=
-l;text-align:left;color:#ffaca8;font-family:Roboto;line-height:11px;"><u>mo=
-n compte</u></span></span></a><span style=3D"text-align:center;font-size:9p=
-x;letter-spacing:normal;text-align:left;color:#0e305b;font-family:Roboto;li=
-ne-height:11px;">=E2=80=9D.</span></p></div></td></tr></tbody></table></div=
-><!--[if mso | IE]></td></tr></table><![endif]--></td></tr></tbody></table>=
-</div><!--[if mso | IE]></td></tr></table><![endif]--></div>
-<br/><img src=3D"http://zvri.mjt.lu/oo/CAAABOkAVY8AAcw2ROoAALHPFhQAAAAIiOAA=
-AAAAAAX_0gBldEHWvOLuLICiQBGFulWcP6qygQAFvys/598eba6e/e.gif" height=3D"1" wi=
-dth=3D"1" alt=3D"" border=3D"0" style=3D"height:1px;width:1px;border:0;"/>
-</body></html>=
 
---=-uzvF2e0o/Q8TCNC58yE/--
+
+<table cellpadding=3D"0" cellspacing=3D"0" border=3D"0" width=3D"202" align=
+=3D"center" style=3D"margin:auto" class=3D"d_center t_flnone t_mauto t_w100=
+p m_flnone m_mauto m_w100p" role=3D"presentation">
+<tr><td style=3D"font-family:Arial,Helvetica,sans-serif;color:#000000;text-=
+align:center;font-size:16px;padding-bottom:17px;
+vertical-align:middle"
+class=3D"m_pb10px">
+<a href=3D"https://t.news.darty.com/r/=3Fid=3Dh3cf09285,acc9b2e1,2942c3f&e=
+=3DZW1sLXB1Ymxpc2hlcj1hZG9iZSZlbWwtbmFtZT0xMjIwMzcwMDUmZGFydHljaWQ9ZW1haWxf=
+YW5pbWNvX3BhYy1zb2xkZXNfcmVsYW5jZWJwZW0tMTcwMTI0LTEyMjAzNzAwNSZkYXJ0eXBjaz1=
+IUnlTWlBwQ2ZFVkxSemZ6ZEVwYlhvQ3ExRDdCS1BTVlZHb0pYejJmSC1VJnAxPXd3dy5kYXJ0eS=
+5jb20vbmF2L2NvZGljLzc2MDQwOTI&s=3DIkz2QFOwMzUO-GuUm0E6VsH8tuESNdWPRZH9xM9A_=
+HU" style=3D"color:#000000;display:block;text-decoration:none;outline:0" ta=
+rget=3D"_blank"><img border=3D"0" src=3D"http://static.fnac-static.com/mult=
+imedia/fnacdirect/neolane/responsive/auteur2015/rating-star-4-5.png">&#x200=
+2;<span style=3D"font-weight:700;font-size:14px;color:#a2a2a2;text-decorati=
+on:underline">62
+avis</span><span style=3D"font-weight:700;font-size:14px;color:#a2a2a2">&#x=
+2002;</span><span style=3D"font-weight:700;font-size:14px;color:#ed1c27">&#=
+x279C;</span></a>
+</td></tr></table>
+
+
+
+<table cellpadding=3D"0" cellspacing=3D"0" border=3D"0" width=3D"202" align=
+=3D"center" style=3D"margin:auto;clear:both" class=3D"d_center t_w100p m_w1=
+00p" role=3D"presentation">
+<tr><td height=3D"15" style=3D"height:15px;font-size:15px;line-height:15px"=
+> &nbsp; </td></tr></table>
+<!--[if gte mso 9]></td></tr></table><![endif]--></div>
+</td></tr></table>
+</td></tr></table>
+<!--[if gte mso 9]> </td><td style=3D"vertical-align:top;border-collapse:co=
+llapse"><![endif]-->
+<table cellpadding=3D"0" cellspacing=3D"0" border=3D"0" width=3D"8" align=
+=3D"left" class=3D"d_left t_w4p t_flleft m_w100p m_flright" role=3D"present=
+ation">
+<tr><td>
+<span>&nbsp;</span>
+</td></tr></table>
+<!--[if gte mso 9]> </td><td style=3D"vertical-align:top;border-collapse:co=
+llapse"><![endif]-->
+<table cellpadding=3D"0" cellspacing=3D"0" border=3D"0" width=3D"208" align=
+=3D"left" class=3D"d_left t_w48p t_flright m_w100p m_flright" role=3D"prese=
+ntation">
+<tr><td>
+<table cellpadding=3D"0" cellspacing=3D"0" border=3D"0" width=3D"203" align=
+=3D"center" style=3D"margin:auto" class=3D"d_center t_flleft t_w98p m_flnon=
+e m_mauto m_w95p" role=3D"presentation">
+<tr><td>
+<div style=3D"border-radius:5px;display:block;overflow:hidden;mso-border-al=
+t:none #ffffff 0;background-color:#ffffff">
+<!--[if gte mso 9]><table cellpadding=3D"0" cellspacing=3D"0" border=3D"0" =
+width=3D"203" style=3D"background-color:#ffffff;border-collapse:collapse"><=
+tr><td style=3D"vertical-align:top;border-collapse:collapse"><![endif]-->
+<table cellpadding=3D"0" cellspacing=3D"0" border=3D"0" width=3D"202" align=
+=3D"center" style=3D"margin:auto" class=3D"d_center t_flnone t_mauto t_w100=
+p m_flleft m_w45p" role=3D"presentation">
+<tr><td style=3D"height:190px" height=3D"190px" class=3D"m_h175px">
+<table cellpadding=3D"0" cellspacing=3D"0" border=3D"0" width=3D"120" align=
+=3D"center" style=3D"margin:auto" class=3D"d_center t_flnone t_mauto t_w115=
+px m_flnone m_mauto m_w100px" role=3D"presentation">
+<tr><td>
+<table cellpadding=3D"0" cellspacing=3D"0" border=3D"0" width=3D"100%" alig=
+n=3D"center" class=3D"d_center t_w100p m_w100p" role=3D"presentation">
+<tr><td style=3D"padding-top:10px;text-align:center" class=3D"m_pb10px">
+<a href=3D"https://t.news.darty.com/r/=3Fid=3Dh3cf09285,acc9b2e1,2942c41&e=
+=3DZW1sLXB1Ymxpc2hlcj1hZG9iZSZlbWwtbmFtZT0xMjIwMzcwMDUmZGFydHljaWQ9ZW1haWxf=
+YW5pbWNvX3BhYy1zb2xkZXNfcmVsYW5jZWJwZW0tMTcwMTI0LTEyMjAzNzAwNSZkYXJ0eXBjaz1=
+IUnlTWlBwQ2ZFVkxSemZ6ZEVwYlhvQ3ExRDdCS1BTVlZHb0pYejJmSC1VJnAxPXd3dy5kYXJ0eS=
+5jb20vbmF2L2NvZGljLzQ5OTE1MTY&s=3DvRyN12W9wI4EEgz9ewp8dlrkhlhqlyS_00v_qhjvu=
+-s" width=3D"120" style=3D"color:#000000;outline:0;border:none;margin:auto;=
+display:block" class=3D"t_w100p m_w100p" target=3D"_blank"><img src=3D"http=
+s://image.darty.com/petit_electromenager/cuisson_quotidienne/friteuse/hu_hd=
+9252_70_c2212204991516A_153619110.jpg" alt=3D"D&eacute;couvrir le produit s=
+ur darty.com" width=3D"120" style=3D"font-family:Arial,Helvetica,sans-serif=
+;font-size:13px;line-height:13px;display:block;border:none"
+class=3D"t_w100p m_w100p"/></a>
+</td></tr></table>
+</td></tr></table>
+</td></tr></table>
+<table cellpadding=3D"0" cellspacing=3D"0" border=3D"0" width=3D"202" align=
+=3D"center" style=3D"margin:auto" class=3D"d_center t_flnone t_mauto t_w100=
+p m_flnone m_mauto m_w55p" role=3D"presentation">
+<tr><td style=3D"font-family:Arial,Helvetica,sans-serif;color:#000000;text-=
+align:center;font-size:15px;height:75px;
+padding-top:15px;padding-bottom:10px;vertical-align:middle;line-height:18px=
+"
+class=3D"m_fz16px" height=3D"75">
+<span style=3D"color:#919191">Friteuse</span><br/><span style=3D"font-weigh=
+t:700">Philips</span><br/>FRITEUSE SANS H...
+</td></tr></table>
+
+
+
+<table cellpadding=3D"0" cellspacing=3D"0" border=3D"0" width=3D"152" align=
+=3D"center" style=3D"margin:auto" class=3D"d_center t_flnone t_mauto t_w70p=
+ m_flnone m_mauto m_w55p" role=3D"presentation">
+<tr><td>
+<table cellpadding=3D"0" cellspacing=3D"0" border=3D"0" width=3D"88" align=
+=3D"left" class=3D"d_left t_w58p t_flleft m_w60p m_flleft" role=3D"presenta=
+tion">
+<tr><td>
+<table cellpadding=3D"0" cellspacing=3D"0" border=3D"0" width=3D"88" align=
+=3D"center" style=3D"margin:auto" class=3D"d_center t_flnone t_mauto t_w100=
+p m_flnone m_mauto m_w100p" role=3D"presentation">
+<tr><td style=3D"font-family:Arial,Helvetica,sans-serif;color:#000000;text-=
+align:center;font-size:15px;height:20px;
+vertical-align:middle;line-height:17px"
+class=3D"t_pt5px t_lh20px m_h25px" height=3D"20">
+<a href=3D"https://t.news.darty.com/r/=3Fid=3Dh3cf09285,acc9b2e1,2942c42&e=
+=3DZW1sLXB1Ymxpc2hlcj1hZG9iZSZlbWwtbmFtZT0xMjIwMzcwMDUmZGFydHljaWQ9ZW1haWxf=
+YW5pbWNvX3BhYy1zb2xkZXNfcmVsYW5jZWJwZW0tMTcwMTI0LTEyMjAzNzAwNSZkYXJ0eXBjaz1=
+IUnlTWlBwQ2ZFVkxSemZ6ZEVwYlhvQ3ExRDdCS1BTVlZHb0pYejJmSC1VJnAxPXd3dy5kYXJ0eS=
+5jb20vbmF2L2NvZGljLzQ5OTE1MTY&s=3DRkWgpgLN_CQE10NS1mOMFsRDwVQ7ADaPsXH5peTgi=
+Gw" style=3D"color:#000000;line-height:17px;display:block;text-decoration:n=
+one;outline:0" class=3D"t_lh20px" target=3D"_blank"><span style=3D"text-dec=
+oration:line-through">139.99&#x20AC;</span></a>
+</td></tr></table>
+</td></tr></table>
+<!--[if gte mso 9]> </td><td style=3D"vertical-align:top;border-collapse:co=
+llapse"><![endif]-->
+<table cellpadding=3D"0" cellspacing=3D"0" border=3D"0" width=3D"64" align=
+=3D"right" class=3D"d_right t_w42p t_flright m_w40p m_flright" role=3D"pres=
+entation">
+<tr><td>
+<table cellpadding=3D"0" cellspacing=3D"0" border=3D"0" width=3D"64" align=
+=3D"center" style=3D"margin:auto" class=3D"d_center t_flnone t_mauto t_w100=
+p m_flnone m_mauto m_w100p" role=3D"presentation">
+<tr><td style=3D"font-family:Arial,Helvetica,sans-serif;color:#ed1c27;text-=
+align:center;font-size:18px;height:20px;
+vertical-align:middle;line-height:20px;font-weight:700"
+class=3D"t_pt5px m_h25px" height=3D"20">
+<a href=3D"https://t.news.darty.com/r/=3Fid=3Dh3cf09285,acc9b2e1,2942c43&e=
+=3DZW1sLXB1Ymxpc2hlcj1hZG9iZSZlbWwtbmFtZT0xMjIwMzcwMDUmZGFydHljaWQ9ZW1haWxf=
+YW5pbWNvX3BhYy1zb2xkZXNfcmVsYW5jZWJwZW0tMTcwMTI0LTEyMjAzNzAwNSZkYXJ0eXBjaz1=
+IUnlTWlBwQ2ZFVkxSemZ6ZEVwYlhvQ3ExRDdCS1BTVlZHb0pYejJmSC1VJnAxPXd3dy5kYXJ0eS=
+5jb20vbmF2L2NvZGljLzQ5OTE1MTY&s=3DU1Jgu5VjbCCepAoeP_J5A7AtuHTffuQSJ-XB0nyrQ=
+UA" style=3D"color:#ed1c27;line-height:20px;display:block;text-decoration:n=
+one;outline:0" target=3D"_blank"> -35% </a>
+</td></tr></table>
+</td></tr></table>
+</td></tr></table>
+
+
+
+<table cellpadding=3D"0" cellspacing=3D"0" border=3D"0" width=3D"202" align=
+=3D"center" style=3D"margin:auto" class=3D"d_center t_flnone t_mauto t_w100=
+p m_flnone m_mauto m_w55p" role=3D"presentation">
+<tr><td style=3D"font-family:Arial,Helvetica,sans-serif;color:#0c1a22;text-=
+align:center;font-size:25px;padding-top:5px;
+padding-bottom:10px;vertical-align:middle;line-height:30px;font-weight:700"
+class=3D"t_lh32px m_fz22px m_pt7px m_pb15px">
+<a href=3D"https://t.news.darty.com/r/=3Fid=3Dh3cf09285,acc9b2e1,2942c44&e=
+=3DZW1sLXB1Ymxpc2hlcj1hZG9iZSZlbWwtbmFtZT0xMjIwMzcwMDUmZGFydHljaWQ9ZW1haWxf=
+YW5pbWNvX3BhYy1zb2xkZXNfcmVsYW5jZWJwZW0tMTcwMTI0LTEyMjAzNzAwNSZkYXJ0eXBjaz1=
+IUnlTWlBwQ2ZFVkxSemZ6ZEVwYlhvQ3ExRDdCS1BTVlZHb0pYejJmSC1VJnAxPXd3dy5kYXJ0eS=
+5jb20vbmF2L2NvZGljLzQ5OTE1MTY&s=3D8ygrv45PYRCydqF8w_If-W7BAVl1k_UX0LUXe_u8o=
+Ec" style=3D"color:#0c1a22;line-height:30px;display:block;text-decoration:n=
+one;outline:0" class=3D"t_lh32px" target=3D"_blank">           89,99&#x20AC=
+; </a>
+</td></tr></table>
+
+
+
+<table cellpadding=3D"0" cellspacing=3D"0" border=3D"0" width=3D"202" align=
+=3D"center" style=3D"margin:auto" class=3D"d_center t_flnone t_mauto t_w100=
+p m_flnone m_mauto m_w100p" role=3D"presentation">
+<tr><td style=3D"font-family:Arial,Helvetica,sans-serif;color:#000000;text-=
+align:center;font-size:16px;padding-bottom:17px;
+vertical-align:middle"
+class=3D"m_pb10px">
+<a href=3D"https://t.news.darty.com/r/=3Fid=3Dh3cf09285,acc9b2e1,2942c45&e=
+=3DZW1sLXB1Ymxpc2hlcj1hZG9iZSZlbWwtbmFtZT0xMjIwMzcwMDUmZGFydHljaWQ9ZW1haWxf=
+YW5pbWNvX3BhYy1zb2xkZXNfcmVsYW5jZWJwZW0tMTcwMTI0LTEyMjAzNzAwNSZkYXJ0eXBjaz1=
+IUnlTWlBwQ2ZFVkxSemZ6ZEVwYlhvQ3ExRDdCS1BTVlZHb0pYejJmSC1VJnAxPXd3dy5kYXJ0eS=
+5jb20vbmF2L2NvZGljLzQ5OTE1MTY&s=3De3Hl0LJ5MDLUHKICAUnstU1ILKQY4mzz-hCjcPoCg=
+C0" style=3D"color:#000000;display:block;text-decoration:none;outline:0" ta=
+rget=3D"_blank"><img border=3D"0" src=3D"http://static.fnac-static.com/mult=
+imedia/fnacdirect/neolane/responsive/auteur2015/rating-star-4-5.png">&#x200=
+2;<span style=3D"font-weight:700;font-size:14px;color:#a2a2a2;text-decorati=
+on:underline">58
+avis</span><span style=3D"font-weight:700;font-size:14px;color:#a2a2a2">&#x=
+2002;</span><span style=3D"font-weight:700;font-size:14px;color:#ed1c27">&#=
+x279C;</span></a>
+</td></tr></table>
+
+
+
+<table cellpadding=3D"0" cellspacing=3D"0" border=3D"0" width=3D"202" align=
+=3D"center" style=3D"margin:auto;clear:both" class=3D"d_center t_w100p m_w1=
+00p" role=3D"presentation">
+<tr><td height=3D"15" style=3D"height:15px;font-size:15px;line-height:15px"=
+> &nbsp; </td></tr></table>
+<!--[if gte mso 9]></td></tr></table><![endif]--></div>
+</td></tr></table>
+</td></tr></table>
+<!--[if gte mso 9]> </td><td style=3D"vertical-align:top;border-collapse:co=
+llapse"><![endif]-->
+<table cellpadding=3D"0" cellspacing=3D"0" border=3D"0" width=3D"8" align=
+=3D"left" class=3D"d_left t_w100p t_flright m_w100p m_flright" role=3D"pres=
+entation">
+<tr><td>
+<span>&nbsp;</span>
+</td></tr></table>
+<!--[if gte mso 9]> </td><td style=3D"vertical-align:top;border-collapse:co=
+llapse"><![endif]-->
+<table cellpadding=3D"0" cellspacing=3D"0" border=3D"0" width=3D"208" align=
+=3D"right" class=3D"d_right t_w100p t_flright m_w100p m_flright" role=3D"pr=
+esentation">
+<tr><td>
+<table cellpadding=3D"0" cellspacing=3D"0" border=3D"0" width=3D"203" align=
+=3D"left" class=3D"d_left t_flnone t_mauto t_w47p m_flnone m_mauto m_w95p" =
+role=3D"presentation">
+<tr><td>
+<div style=3D"border-radius:5px;display:block;overflow:hidden;mso-border-al=
+t:none #ffffff 0;background-color:#ffffff">
+<!--[if gte mso 9]><table cellpadding=3D"0" cellspacing=3D"0" border=3D"0" =
+width=3D"203" style=3D"background-color:#ffffff;border-collapse:collapse"><=
+tr><td style=3D"vertical-align:top;border-collapse:collapse"><![endif]-->
+<table cellpadding=3D"0" cellspacing=3D"0" border=3D"0" width=3D"202" align=
+=3D"center" style=3D"margin:auto" class=3D"d_center t_flnone t_mauto t_w100=
+p m_flleft m_w45p" role=3D"presentation">
+<tr><td style=3D"height:190px" height=3D"190px" class=3D"m_h175px">
+<table cellpadding=3D"0" cellspacing=3D"0" border=3D"0" width=3D"120" align=
+=3D"center" style=3D"margin:auto" class=3D"d_center t_flnone t_mauto t_w115=
+px m_flnone m_mauto m_w100px" role=3D"presentation">
+<tr><td>
+<table cellpadding=3D"0" cellspacing=3D"0" border=3D"0" width=3D"100%" alig=
+n=3D"center" class=3D"d_center t_w100p m_w100p" role=3D"presentation">
+<tr><td style=3D"padding-top:10px;text-align:center" class=3D"m_pb10px">
+<a href=3D"https://t.news.darty.com/r/=3Fid=3Dh3cf09285,acc9b2e1,2942c47&e=
+=3DZW1sLXB1Ymxpc2hlcj1hZG9iZSZlbWwtbmFtZT0xMjIwMzcwMDUmZGFydHljaWQ9ZW1haWxf=
+YW5pbWNvX3BhYy1zb2xkZXNfcmVsYW5jZWJwZW0tMTcwMTI0LTEyMjAzNzAwNSZkYXJ0eXBjaz1=
+IUnlTWlBwQ2ZFVkxSemZ6ZEVwYlhvQ3ExRDdCS1BTVlZHb0pYejJmSC1VJnAxPXd3dy5kYXJ0eS=
+5jb20vbmF2L2NvZGljLzc2MjQ3NTE&s=3DTm-hboZkdMRFf09sW_rUq67zALe5_6W3dacD6z2Ow=
+ps" width=3D"120" style=3D"color:#000000;outline:0;border:none;margin:auto;=
+display:block" class=3D"t_w100p m_w100p" target=3D"_blank"><img src=3D"http=
+s://image.darty.com/petit_electromenager/aspirateur-balai_main/aspirateur_b=
+alai/dyson_476575-01_d2308307624751A_163924142.jpg" alt=3D"D&eacute;couvrir=
+ le produit sur darty.com" width=3D"120" style=3D"font-family:Arial,Helveti=
+ca,sans-serif;font-size:13px;line-height:13px;display:block;border:none"
+class=3D"t_w100p m_w100p"/></a>
+</td></tr></table>
+</td></tr></table>
+</td></tr></table>
+<table cellpadding=3D"0" cellspacing=3D"0" border=3D"0" width=3D"202" align=
+=3D"center" style=3D"margin:auto" class=3D"d_center t_flnone t_mauto t_w100=
+p m_flnone m_mauto m_w55p" role=3D"presentation">
+<tr><td style=3D"font-family:Arial,Helvetica,sans-serif;color:#000000;text-=
+align:center;font-size:15px;height:75px;
+padding-top:15px;padding-bottom:10px;vertical-align:middle;line-height:18px=
+"
+class=3D"m_fz16px" height=3D"75">
+<span style=3D"color:#919191">Aspirateur balai</span><br/><span style=3D"fo=
+nt-weight:700">Dyson</span><br/>V15 Fluffy...
+</td></tr></table>
+
+
+
+<table cellpadding=3D"0" cellspacing=3D"0" border=3D"0" width=3D"152" align=
+=3D"center" style=3D"margin:auto" class=3D"d_center t_flnone t_mauto t_w70p=
+ m_flnone m_mauto m_w55p" role=3D"presentation">
+<tr><td>
+<table cellpadding=3D"0" cellspacing=3D"0" border=3D"0" width=3D"88" align=
+=3D"left" class=3D"d_left t_w58p t_flleft m_w60p m_flleft" role=3D"presenta=
+tion">
+<tr><td>
+<table cellpadding=3D"0" cellspacing=3D"0" border=3D"0" width=3D"88" align=
+=3D"center" style=3D"margin:auto" class=3D"d_center t_flnone t_mauto t_w100=
+p m_flnone m_mauto m_w100p" role=3D"presentation">
+<tr><td style=3D"font-family:Arial,Helvetica,sans-serif;color:#000000;text-=
+align:center;font-size:15px;height:20px;
+vertical-align:middle;line-height:17px"
+class=3D"t_pt5px t_lh20px m_h25px" height=3D"20">
+<a href=3D"https://t.news.darty.com/r/=3Fid=3Dh3cf09285,acc9b2e1,2942c48&e=
+=3DZW1sLXB1Ymxpc2hlcj1hZG9iZSZlbWwtbmFtZT0xMjIwMzcwMDUmZGFydHljaWQ9ZW1haWxf=
+YW5pbWNvX3BhYy1zb2xkZXNfcmVsYW5jZWJwZW0tMTcwMTI0LTEyMjAzNzAwNSZkYXJ0eXBjaz1=
+IUnlTWlBwQ2ZFVkxSemZ6ZEVwYlhvQ3ExRDdCS1BTVlZHb0pYejJmSC1VJnAxPXd3dy5kYXJ0eS=
+5jb20vbmF2L2NvZGljLzc2MjQ3NTE&s=3Dxp6azZtLZg559-w1ZGXKN4OeFzKGEH1nv4eXorW8R=
+C0" style=3D"color:#000000;line-height:17px;display:block;text-decoration:n=
+one;outline:0" class=3D"t_lh20px" target=3D"_blank"><span style=3D"text-dec=
+oration:line-through">749&#x20AC;</span></a>
+</td></tr></table>
+</td></tr></table>
+<!--[if gte mso 9]> </td><td style=3D"vertical-align:top;border-collapse:co=
+llapse"><![endif]-->
+<table cellpadding=3D"0" cellspacing=3D"0" border=3D"0" width=3D"64" align=
+=3D"right" class=3D"d_right t_w42p t_flright m_w40p m_flright" role=3D"pres=
+entation">
+<tr><td>
+<table cellpadding=3D"0" cellspacing=3D"0" border=3D"0" width=3D"64" align=
+=3D"center" style=3D"margin:auto" class=3D"d_center t_flnone t_mauto t_w100=
+p m_flnone m_mauto m_w100p" role=3D"presentation">
+<tr><td style=3D"font-family:Arial,Helvetica,sans-serif;color:#ed1c27;text-=
+align:center;font-size:18px;height:20px;
+vertical-align:middle;line-height:20px;font-weight:700"
+class=3D"t_pt5px m_h25px" height=3D"20">
+<a href=3D"https://t.news.darty.com/r/=3Fid=3Dh3cf09285,acc9b2e1,2942c49&e=
+=3DZW1sLXB1Ymxpc2hlcj1hZG9iZSZlbWwtbmFtZT0xMjIwMzcwMDUmZGFydHljaWQ9ZW1haWxf=
+YW5pbWNvX3BhYy1zb2xkZXNfcmVsYW5jZWJwZW0tMTcwMTI0LTEyMjAzNzAwNSZkYXJ0eXBjaz1=
+IUnlTWlBwQ2ZFVkxSemZ6ZEVwYlhvQ3ExRDdCS1BTVlZHb0pYejJmSC1VJnAxPXd3dy5kYXJ0eS=
+5jb20vbmF2L2NvZGljLzc2MjQ3NTE&s=3DLlTr23Sn0_W9qaWnjWwCR5XJZv6glFs7WxIStU3IY=
+aM" style=3D"color:#ed1c27;line-height:20px;display:block;text-decoration:n=
+one;outline:0" target=3D"_blank"> -20% </a>
+</td></tr></table>
+</td></tr></table>
+</td></tr></table>
+
+
+
+<table cellpadding=3D"0" cellspacing=3D"0" border=3D"0" width=3D"202" align=
+=3D"center" style=3D"margin:auto" class=3D"d_center t_flnone t_mauto t_w100=
+p m_flnone m_mauto m_w55p" role=3D"presentation">
+<tr><td style=3D"font-family:Arial,Helvetica,sans-serif;color:#0c1a22;text-=
+align:center;font-size:25px;padding-top:5px;
+padding-bottom:10px;vertical-align:middle;line-height:30px;font-weight:700"
+class=3D"t_lh32px m_fz22px m_pt7px m_pb15px">
+<a href=3D"https://t.news.darty.com/r/=3Fid=3Dh3cf09285,acc9b2e1,2942c4a&e=
+=3DZW1sLXB1Ymxpc2hlcj1hZG9iZSZlbWwtbmFtZT0xMjIwMzcwMDUmZGFydHljaWQ9ZW1haWxf=
+YW5pbWNvX3BhYy1zb2xkZXNfcmVsYW5jZWJwZW0tMTcwMTI0LTEyMjAzNzAwNSZkYXJ0eXBjaz1=
+IUnlTWlBwQ2ZFVkxSemZ6ZEVwYlhvQ3ExRDdCS1BTVlZHb0pYejJmSC1VJnAxPXd3dy5kYXJ0eS=
+5jb20vbmF2L2NvZGljLzc2MjQ3NTE&s=3DRObP4MV-n5eifk7GTUn1AzuJZ33hHaVHY5lOLPqBx=
+b4" style=3D"color:#0c1a22;line-height:30px;display:block;text-decoration:n=
+one;outline:0" class=3D"t_lh32px" target=3D"_blank">          599,00&#x20AC=
+; </a>
+</td></tr></table>
+
+
+
+<table cellpadding=3D"0" cellspacing=3D"0" border=3D"0" width=3D"202" align=
+=3D"center" style=3D"margin:auto" class=3D"d_center t_flnone t_mauto t_w100=
+p m_flnone m_mauto m_w100p" role=3D"presentation">
+<tr><td>
+<table cellpadding=3D"0" cellspacing=3D"0" border=3D"0" width=3D"130" align=
+=3D"center" style=3D"margin:auto;border-collapse:separate" class=3D"d_cente=
+r t_flnone t_mauto t_w130px m_flnone m_mauto m_w140px"
+role=3D"presentation">
+<tr><td id=3D"text850299ba-2d69-4911-a706-978cca47e340" style=3D"border-rad=
+ius:3px;border-top:1px solid #ed1c27;border-right:1px solid #ed1c27;border-=
+bottom:1px solid #ed1c27;
+border-left:1px solid #ed1c27;font-family:Arial,Helvetica,sans-serif;color:=
+#ed1c27;text-align:center;
+font-size:14px;padding-top:8px;padding-bottom:8px;vertical-align:middle;lin=
+e-height:16px;font-weight:700">
+<a href=3D"https://t.news.darty.com/r/=3Fid=3Dh3cf09285,acc9b2e1,2942c4c&e=
+=3DZW1sLXB1Ymxpc2hlcj1hZG9iZSZlbWwtbmFtZT0xMjIwMzcwMDUmZGFydHljaWQ9ZW1haWxf=
+YW5pbWNvX3BhYy1zb2xkZXNfcmVsYW5jZWJwZW0tMTcwMTI0LTEyMjAzNzAwNSZkYXJ0eXBjaz1=
+IUnlTWlBwQ2ZFVkxSemZ6ZEVwYlhvQ3ExRDdCS1BTVlZHb0pYejJmSC1VJnAxPXd3dy5kYXJ0eS=
+5jb20vbmF2L2NvZGljLzc2MjQ3NTE&s=3DSLuoQuJY3soorJCKBOWIH8vQ0ZQ3MfLBG0YULcCmc=
+2w" style=3D"color:#ed1c27;line-height:16px;display:block;text-decoration:n=
+one;outline:0" title=3D"J'en profite" target=3D"_blank"> J'en profite &#x25=
+B8; </a>
+</td></tr></table>
+</td></tr></table>
+
+
+
+<table cellpadding=3D"0" cellspacing=3D"0" border=3D"0" width=3D"202" align=
+=3D"center" style=3D"margin:auto;clear:both" class=3D"d_center t_w100p m_w1=
+00p" role=3D"presentation">
+<tr><td height=3D"15" style=3D"height:15px;font-size:15px;line-height:15px"=
+> &nbsp; </td></tr></table>
+<!--[if gte mso 9]></td></tr></table><![endif]--></div>
+</td></tr></table>
+</td></tr></table>
+</td></tr></table>
+<table cellpadding=3D"0" cellspacing=3D"0" border=3D"0" width=3D"640" align=
+=3D"center" style=3D"margin:auto" class=3D"d_center t_flnone t_mauto t_w100=
+p m_flnone m_mauto m_w90p" role=3D"presentation">
+<tr><td style=3D"font-family:Arial,Helvetica,sans-serif;color:#000000;text-=
+align:center;font-size:20px;padding-top:30px;
+padding-bottom:10px;vertical-align:middle;line-height:25px;font-weight:700"
+class=3D"t_pt25px t_pr5px t_pl5px m_fz18px m_lh22px">
+<a href=3D"https://t.news.darty.com/r/=3Fid=3Dh3cf09285,acc9b2e1,2942c4d&e=
+=3DZW1sLXB1Ymxpc2hlcj1hZG9iZSZlbWwtbmFtZT0xMjIwMzcwMDUmZGFydHljaWQ9ZW1haWxf=
+YW5pbWNvX3BhYy1zb2xkZXNfcmVsYW5jZWJwZW0tMTcwMTI0LTEyMjAzNzAwNSZkYXJ0eXBjaz1=
+IUnlTWlBwQ2ZFVkxSemZ6ZEVwYlhvQ3ExRDdCS1BTVlZHb0pYejJmSC1V&s=3DaTxbNb0T9C7sF=
+hGAYoQ3QKr4GNJlKzQHP7KLXainAdA" style=3D"color:#000000;line-height:25px;dis=
+play:block;text-decoration:none;outline:0" class=3D"m_lh22px"> Toutes
+nos offres pour vous combler ! </a>
+</td></tr></table>
+<table cellpadding=3D"0" cellspacing=3D"0" border=3D"0" width=3D"627" align=
+=3D"center" style=3D"margin:auto" class=3D"d_center t_flnone t_mauto t_w98p=
+ m_flnone m_mauto m_w95p" role=3D"presentation">
+<tr><td>
+<table cellpadding=3D"0" cellspacing=3D"0" border=3D"0" width=3D"200" align=
+=3D"left" class=3D"d_left t_w32p t_flleft m_w100p m_flright" role=3D"presen=
+tation">
+<tr><td>
+<table cellpadding=3D"0" cellspacing=3D"0" border=3D"0" width=3D"200" align=
+=3D"center" style=3D"margin:auto" class=3D"d_center t_flnone t_mauto t_w100=
+p m_flnone m_mauto m_w100p" role=3D"presentation">
+<tr><td>
+<div style=3D"border-radius:5px;border-top:2px solid #ffde17;border-right:2=
+px solid #ffde17;border-bottom:2px solid #ffde17;
+border-left:2px solid #ffde17;display:block;overflow:hidden;mso-border-alt:=
+none #ffffff 0"
+class=3D"m_bgcffde17">
+<!--[if gte mso 9]><table cellpadding=3D"0" cellspacing=3D"0" border=3D"0" =
+width=3D"196" style=3D"border-right:2px solid #ffde17;border-left:2px solid=
+ #ffde17;border-collapse:collapse"><tr><td
+style=3D"border-top:2px solid #ffde17;border-bottom:2px solid #ffde17;verti=
+cal-align:top;border-collapse:collapse"><![endif]-->
+<table cellpadding=3D"0" cellspacing=3D"0" border=3D"0" width=3D"196" align=
+=3D"center" style=3D"margin:auto" class=3D"d_center t_flnone t_mauto t_w100=
+p m_flnone m_mauto m_w50p" role=3D"presentation">
+<tr><td>
+<table cellpadding=3D"0" cellspacing=3D"0" border=3D"0" width=3D"100%" alig=
+n=3D"center" class=3D"d_center t_w100p m_w100p" role=3D"presentation">
+<tr><td style=3D"text-align:center">
+<a href=3D"https://t.news.darty.com/r/=3Fid=3Dh3cf09285,acc9b2e1,2942c4e&e=
+=3DZW1sLXB1Ymxpc2hlcj1hZG9iZSZlbWwtbmFtZT0xMjIwMzcwMDUmZGFydHljaWQ9ZW1haWxf=
+YW5pbWNvX3BhYy1zb2xkZXNfcmVsYW5jZWJwZW0tMTcwMTI0LTEyMjAzNzAwNSZkYXJ0eXBjaz1=
+IUnlTWlBwQ2ZFVkxSemZ6ZEVwYlhvQ3ExRDdCS1BTVlZHb0pYejJmSC1V&s=3DFaBJu5M8u6Tef=
+uZxnUyBrSAPpJtCt3OXAqxNANbPt8I" width=3D"196" style=3D"outline:0;border:non=
+e;margin:auto;display:block" class=3D"t_w100p m_w100p" target=3D"_blank"><i=
+mg src=3D"https://static.fnac-static.com/EmailsDarty/newsdarty/2024/janvier=
+/15.jpg" alt=3D"" width=3D"196" style=3D"font-family:Arial,Helvetica,sans-s=
+erif;font-size:13px;line-height:13px;display:block;border:none"
+class=3D"t_w100p m_w100p"/></a>
+</td></tr></table>
+</td></tr></table>
+<table cellpadding=3D"0" cellspacing=3D"0" border=3D"0" width=3D"196" align=
+=3D"left" class=3D"d_left t_flleft t_w100p m_flnone m_mauto m_w100p" role=
+=3D"presentation">
+<tr><td style=3D"background-color:#ffffff;font-family:Helvetica,Arial,sans-=
+serif;color:#000;text-align:center;font-size:14px;
+padding-top:7px;padding-bottom:10px;vertical-align:middle;line-height:20px"
+class=3D"t_pt5px t_pb8px m_h67px m_pt0px m_pb0px opensansregular">
+<a href=3D"https://t.news.darty.com/r/=3Fid=3Dh3cf09285,acc9b2e1,2942c4f&e=
+=3DZW1sLXB1Ymxpc2hlcj1hZG9iZSZlbWwtbmFtZT0xMjIwMzcwMDUmZGFydHljaWQ9ZW1haWxf=
+YW5pbWNvX3BhYy1zb2xkZXNfcmVsYW5jZWJwZW0tMTcwMTI0LTEyMjAzNzAwNSZkYXJ0eXBjaz1=
+IUnlTWlBwQ2ZFVkxSemZ6ZEVwYlhvQ3ExRDdCS1BTVlZHb0pYejJmSC1V&s=3DrQlUlpIU3HnoP=
+tzHLSXmfWD235qPg35P8gqGcPNavZ4" style=3D"color:#000;line-height:20px;displa=
+y:block;text-decoration:none;outline:0" target=3D"_blank"><span style=3D"fo=
+nt-size:inherit">Cuisine</span><br/><span style=3D"font-weight:700;color:#e=
+d1c27;font-size:inherit">Jusqu'&#xE0; -30%</span></a>
+</td></tr></table>
+<!--[if gte mso 9]></td></tr></table><![endif]--></div>
+</td></tr></table>
+</td></tr></table>
+<!--[if gte mso 9]> </td><td style=3D"vertical-align:top;border-collapse:co=
+llapse"><![endif]-->
+<table cellpadding=3D"0" cellspacing=3D"0" border=3D"0" width=3D"12" align=
+=3D"left" class=3D"d_left t_w2p t_flleft m_w100p m_flright" role=3D"present=
+ation">
+<tr><td>
+<span>&nbsp;</span>
+</td></tr></table>
+<!--[if gte mso 9]> </td><td style=3D"vertical-align:top;border-collapse:co=
+llapse"><![endif]-->
+<table cellpadding=3D"0" cellspacing=3D"0" border=3D"0" width=3D"201" align=
+=3D"left" class=3D"d_left t_w32p t_flleft m_w48p m_flleft" role=3D"presenta=
+tion">
+<tr><td>
+<table cellpadding=3D"0" cellspacing=3D"0" border=3D"0" width=3D"200" align=
+=3D"center" style=3D"margin:auto" class=3D"d_center t_flnone t_mauto t_w100=
+p m_flnone m_mauto m_w100p" role=3D"presentation">
+<tr><td>
+<div style=3D"border-radius:5px;border-top:2px solid #ffde17;border-right:2=
+px solid #ffde17;border-bottom:2px solid #ffde17;
+border-left:2px solid #ffde17;display:block;overflow:hidden;mso-border-alt:=
+none #ffffff 0">
+<!--[if gte mso 9]><table cellpadding=3D"0" cellspacing=3D"0" border=3D"0" =
+width=3D"196" style=3D"border-right:2px solid #ffde17;border-left:2px solid=
+ #ffde17;border-collapse:collapse"><tr><td
+style=3D"border-top:2px solid #ffde17;border-bottom:2px solid #ffde17;verti=
+cal-align:top;border-collapse:collapse"><![endif]-->
+<table cellpadding=3D"0" cellspacing=3D"0" border=3D"0" width=3D"196" align=
+=3D"center" style=3D"margin:auto" class=3D"d_center t_flnone t_mauto t_w100=
+p m_flnone m_mauto m_w100p" role=3D"presentation">
+<tr><td>
+<table cellpadding=3D"0" cellspacing=3D"0" border=3D"0" width=3D"100%" alig=
+n=3D"center" class=3D"d_center t_w100p m_w100p" role=3D"presentation">
+<tr><td style=3D"text-align:center">
+<a href=3D"https://t.news.darty.com/r/=3Fid=3Dh3cf09285,acc9b2e1,2942c50&e=
+=3DZW1sLXB1Ymxpc2hlcj1hZG9iZSZlbWwtbmFtZT0xMjIwMzcwMDUmZGFydHljaWQ9ZW1haWxf=
+YW5pbWNvX3BhYy1zb2xkZXNfcmVsYW5jZWJwZW0tMTcwMTI0LTEyMjAzNzAwNSZkYXJ0eXBjaz1=
+IUnlTWlBwQ2ZFVkxSemZ6ZEVwYlhvQ3ExRDdCS1BTVlZHb0pYejJmSC1V&s=3Db26ZMxKybpprC=
+LVJV4Q1ysN0Nt5AnjmKqmcFqvXuDYE" width=3D"196" style=3D"outline:0;border:non=
+e;margin:auto;display:block" class=3D"t_w100p m_w100p" target=3D"_blank"><i=
+mg src=3D"https://static.fnac-static.com/EmailsDarty/newsdarty/2024/janvier=
+/16.jpg" alt=3D"" width=3D"196" style=3D"font-family:Arial,Helvetica,sans-s=
+erif;font-size:13px;line-height:13px;display:block;border:none"
+class=3D"t_w100p m_w100p"/></a>
+</td></tr></table>
+</td></tr></table>
+<table cellpadding=3D"0" cellspacing=3D"0" border=3D"0" width=3D"196" align=
+=3D"left" class=3D"d_left t_flleft t_w100p m_flnone m_mauto m_w100p" role=
+=3D"presentation">
+<tr><td style=3D"background-color:#ffffff;font-family:Helvetica,Arial,sans-=
+serif;color:#000;text-align:center;font-size:14px;
+padding-top:7px;padding-bottom:10px;vertical-align:middle;line-height:20px"
+class=3D"t_pt5px t_pb8px opensansregular">
+<a href=3D"https://t.news.darty.com/r/=3Fid=3Dh3cf09285,acc9b2e1,2942c51&e=
+=3DZW1sLXB1Ymxpc2hlcj1hZG9iZSZlbWwtbmFtZT0xMjIwMzcwMDUmZGFydHljaWQ9ZW1haWxf=
+YW5pbWNvX3BhYy1zb2xkZXNfcmVsYW5jZWJwZW0tMTcwMTI0LTEyMjAzNzAwNSZkYXJ0eXBjaz1=
+IUnlTWlBwQ2ZFVkxSemZ6ZEVwYlhvQ3ExRDdCS1BTVlZHb0pYejJmSC1V&s=3DfrPoW9XdZmbUc=
+7yODz83JrXkQ2pC37dmMGnOUER1dMw" style=3D"color:#000;line-height:20px;displa=
+y:block;text-decoration:none;outline:0" target=3D"_blank"><span style=3D"fo=
+nt-size:inherit">Entretien</span><br/><span style=3D"font-weight:700;font-s=
+ize:inherit;color:#ed1c27">Jusqu'&#xE0; -30%</span></a>
+</td></tr></table>
+<!--[if gte mso 9]></td></tr></table><![endif]--></div>
+</td></tr></table>
+</td></tr></table>
+<!--[if gte mso 9]> </td><td style=3D"vertical-align:top;border-collapse:co=
+llapse"><![endif]-->
+<table cellpadding=3D"0" cellspacing=3D"0" border=3D"0" width=3D"13" align=
+=3D"left" class=3D"d_left t_w2p t_flleft m_w4p m_flleft" role=3D"presentati=
+on">
+<tr><td>
+<span>&nbsp;</span>
+</td></tr></table>
+<!--[if gte mso 9]> </td><td style=3D"vertical-align:top;border-collapse:co=
+llapse"><![endif]-->
+<table cellpadding=3D"0" cellspacing=3D"0" border=3D"0" width=3D"201" align=
+=3D"right" class=3D"d_right t_w32p t_flright m_w48p m_flright" role=3D"pres=
+entation">
+<tr><td>
+<table cellpadding=3D"0" cellspacing=3D"0" border=3D"0" width=3D"200" align=
+=3D"center" style=3D"margin:auto" class=3D"d_center t_flnone t_mauto t_w100=
+p m_flnone m_mauto m_w100p" role=3D"presentation">
+<tr><td>
+<div style=3D"border-radius:5px;border-top:2px solid #ffde17;border-right:2=
+px solid #ffde17;border-bottom:2px solid #ffde17;
+border-left:2px solid #ffde17;display:block;overflow:hidden;mso-border-alt:=
+none #ffffff 0">
+<!--[if gte mso 9]><table cellpadding=3D"0" cellspacing=3D"0" border=3D"0" =
+width=3D"196" style=3D"border-right:2px solid #ffde17;border-left:2px solid=
+ #ffde17;border-collapse:collapse"><tr><td
+style=3D"border-top:2px solid #ffde17;border-bottom:2px solid #ffde17;verti=
+cal-align:top;border-collapse:collapse"><![endif]-->
+<table cellpadding=3D"0" cellspacing=3D"0" border=3D"0" width=3D"196" align=
+=3D"center" style=3D"margin:auto" class=3D"d_center t_flnone t_mauto t_w100=
+p m_flnone m_mauto m_w100p" role=3D"presentation">
+<tr><td>
+<table cellpadding=3D"0" cellspacing=3D"0" border=3D"0" width=3D"100%" alig=
+n=3D"center" class=3D"d_center t_w100p m_w100p" role=3D"presentation">
+<tr><td style=3D"text-align:center">
+<a href=3D"https://t.news.darty.com/r/=3Fid=3Dh3cf09285,acc9b2e1,2942c52&e=
+=3DZW1sLXB1Ymxpc2hlcj1hZG9iZSZlbWwtbmFtZT0xMjIwMzcwMDUmZGFydHljaWQ9ZW1haWxf=
+YW5pbWNvX3BhYy1zb2xkZXNfcmVsYW5jZWJwZW0tMTcwMTI0LTEyMjAzNzAwNSZkYXJ0eXBjaz1=
+IUnlTWlBwQ2ZFVkxSemZ6ZEVwYlhvQ3ExRDdCS1BTVlZHb0pYejJmSC1V&s=3DAd5Ov6MmPFjyq=
+TkZV9zQnORW0tvvUtvnVA9rrswIplI" width=3D"196" style=3D"outline:0;border:non=
+e;margin:auto;display:block" class=3D"t_w100p m_w100p" target=3D"_blank"><i=
+mg src=3D"https://static.fnac-static.com/EmailsDarty/newsdarty/2024/janvier=
+/17.jpg" alt=3D"" width=3D"196" style=3D"font-family:Arial,Helvetica,sans-s=
+erif;display:block;border:none" class=3D"t_w100p
+m_w100p"/></a>
+</td></tr></table>
+</td></tr></table>
+<table cellpadding=3D"0" cellspacing=3D"0" border=3D"0" width=3D"196" align=
+=3D"left" class=3D"d_left t_flleft t_w100p m_flnone m_mauto m_w100p" role=
+=3D"presentation">
+<tr><td style=3D"background-color:#ffffff;font-family:Helvetica,Arial,sans-=
+serif;color:#000;text-align:center;font-size:14px;
+padding-top:7px;padding-bottom:10px;vertical-align:middle;line-height:20px"
+class=3D"t_pt5px t_pb8px opensansregular">
+<a href=3D"https://t.news.darty.com/r/=3Fid=3Dh3cf09285,acc9b2e1,2942c53&e=
+=3DZW1sLXB1Ymxpc2hlcj1hZG9iZSZlbWwtbmFtZT0xMjIwMzcwMDUmZGFydHljaWQ9ZW1haWxf=
+YW5pbWNvX3BhYy1zb2xkZXNfcmVsYW5jZWJwZW0tMTcwMTI0LTEyMjAzNzAwNSZkYXJ0eXBjaz1=
+IUnlTWlBwQ2ZFVkxSemZ6ZEVwYlhvQ3ExRDdCS1BTVlZHb0pYejJmSC1V&s=3DxsGI5Eg4k7meF=
+vtc5OpCKWd8NxqN3_JF0QuYiIK2aFU" style=3D"color:#000;line-height:20px;displa=
+y:block;text-decoration:none;outline:0" target=3D"_blank"><span style=3D"fo=
+nt-size:inherit">Beaut&#xE9;, Sant&#xE9;</span><br/><span style=3D"font-wei=
+ght:700;color:#ed1c27;font-size:inherit">Jusqu'&#xE0; -30%</span></a>
+</td></tr></table>
+<!--[if gte mso 9]></td></tr></table><![endif]--></div>
+</td></tr></table>
+</td></tr></table>
+</td></tr></table>
+<table cellpadding=3D"0" cellspacing=3D"0" border=3D"0" width=3D"627" align=
+=3D"center" style=3D"margin:auto" class=3D"d_center t_flnone t_mauto t_w98p=
+ m_flnone m_mauto m_w95p" role=3D"presentation">
+<tr><td>
+<table cellpadding=3D"0" cellspacing=3D"0" border=3D"0" width=3D"307" align=
+=3D"left" class=3D"d_left t_w49p t_flleft m_w100p m_flright" role=3D"presen=
+tation">
+<tr><td>
+<table cellpadding=3D"0" cellspacing=3D"0" border=3D"0" width=3D"307" align=
+=3D"left" class=3D"d_left t_flleft t_w100p m_flleft m_w100p" role=3D"presen=
+tation">
+<tr><td>
+<table cellpadding=3D"0" cellspacing=3D"0" border=3D"0" width=3D"100%" alig=
+n=3D"center" class=3D"d_center t_w100p m_w100p" role=3D"presentation">
+<tr><td style=3D"padding-top:10px;text-align:center">
+<a href=3D"https://t.news.darty.com/r/=3Fid=3Dh3cf09285,acc9b2e1,2942c54&e=
+=3DZW1sLXB1Ymxpc2hlcj1hZG9iZSZlbWwtbmFtZT0xMjIwMzcwMDUmZGFydHljaWQ9ZW1haWxf=
+YW5pbWNvX3BhYy1zb2xkZXNfcmVsYW5jZWJwZW0tMTcwMTI0LTEyMjAzNzAwNSZkYXJ0eXBjaz1=
+IUnlTWlBwQ2ZFVkxSemZ6ZEVwYlhvQ3ExRDdCS1BTVlZHb0pYejJmSC1V&s=3DvMcx6PL3ppOZZ=
+sZ31mJ8K79gfSe5pYlTc8PkiXeiIUs" width=3D"307" style=3D"color:#000000;outlin=
+e:0;border:none;margin:auto;display:block" class=3D"t_w100p m_w100p" target=
+=3D"_blank"><img src=3D"https://static.fnac-static.com/EmailsDarty/newsdart=
+y/2024/janvier/SOLDES_MKP_EUFY_aspi-main_homevac_CRMpost_visuel.jpg" alt=3D=
+"Aspirateur &agrave; main EUFY" width=3D"307" style=3D"font-family:Arial,He=
+lvetica,sans-serif;font-size:13px;line-height:13px;display:block;border:non=
+e"
+class=3D"t_w100p m_w100p"/></a>
+</td></tr></table>
+</td></tr></table>
+</td></tr><tr><td>
+<table cellpadding=3D"0" cellspacing=3D"0" border=3D"0" width=3D"307" align=
+=3D"left" class=3D"d_left t_flleft t_w100p m_flleft m_w100p" role=3D"presen=
+tation">
+<tr><td>
+<table cellpadding=3D"0" cellspacing=3D"0" border=3D"0" width=3D"100%" alig=
+n=3D"center" class=3D"d_center t_w100p m_w100p" role=3D"presentation">
+<tr><td style=3D"padding-bottom:18px;text-align:center" class=3D"m_pb0px">
+<a href=3D"https://t.news.darty.com/r/=3Fid=3Dh3cf09285,acc9b2e1,2942c55&e=
+=3DZW1sLXB1Ymxpc2hlcj1hZG9iZSZlbWwtbmFtZT0xMjIwMzcwMDUmZGFydHljaWQ9ZW1haWxf=
+YW5pbWNvX3BhYy1zb2xkZXNfcmVsYW5jZWJwZW0tMTcwMTI0LTEyMjAzNzAwNSZkYXJ0eXBjaz1=
+IUnlTWlBwQ2ZFVkxSemZ6ZEVwYlhvQ3ExRDdCS1BTVlZHb0pYejJmSC1V&s=3De-h9p8EYTt_L2=
+XgqNjmnmGC843Y5BZy-1-uOVeiYCLM" width=3D"307" style=3D"color:#000000;outlin=
+e:0;border:none;margin:auto;display:block" class=3D"t_w100p m_w100p" target=
+=3D"_blank"><img src=3D"https://static.fnac-static.com/EmailsDarty/newsdart=
+y/2024/janvier/SOLDES_MKP_EUFY_aspi-main_homevac_CRMpost_texte.jpg" alt=3D"=
+139,99&euro; au lieu de 199,99&euro;" width=3D"307"
+style=3D"font-family:Arial,Helvetica,sans-serif;font-size:13px;line-height:=
+13px;display:block;border:none" class=3D"t_w100p m_w100p"/></a>
+</td></tr></table>
+</td></tr></table>
+</td></tr></table>
+<!--[if gte mso 9]> </td><td style=3D"vertical-align:top;border-collapse:co=
+llapse"><![endif]-->
+<table cellpadding=3D"0" cellspacing=3D"0" border=3D"0" width=3D"12" align=
+=3D"left" class=3D"d_left t_w2p t_flleft m_w100p m_flright" role=3D"present=
+ation">
+<tr><td>
+<span>&nbsp;</span>
+</td></tr></table>
+<!--[if gte mso 9]> </td><td style=3D"vertical-align:top;border-collapse:co=
+llapse"><![endif]-->
+<table cellpadding=3D"0" cellspacing=3D"0" border=3D"0" width=3D"308" align=
+=3D"right" class=3D"d_right t_w49p t_flright m_w100p m_flright" role=3D"pre=
+sentation">
+<tr><td>
+<table cellpadding=3D"0" cellspacing=3D"0" border=3D"0" width=3D"308" align=
+=3D"left" class=3D"d_left t_flleft t_w100p m_flleft m_w100p" role=3D"presen=
+tation">
+<tr><td>
+<table cellpadding=3D"0" cellspacing=3D"0" border=3D"0" width=3D"100%" alig=
+n=3D"center" class=3D"d_center t_w100p m_w100p" role=3D"presentation">
+<tr><td style=3D"padding-top:10px;text-align:center" class=3D"m_pt0px">
+<a href=3D"https://t.news.darty.com/r/=3Fid=3Dh3cf09285,acc9b2e1,2942c56&e=
+=3DZW1sLXB1Ymxpc2hlcj1hZG9iZSZlbWwtbmFtZT0xMjIwMzcwMDUmZGFydHljaWQ9ZW1haWxf=
+YW5pbWNvX3BhYy1zb2xkZXNfcmVsYW5jZWJwZW0tMTcwMTI0LTEyMjAzNzAwNSZkYXJ0eXBjaz1=
+IUnlTWlBwQ2ZFVkxSemZ6ZEVwYlhvQ3ExRDdCS1BTVlZHb0pYejJmSC1V&s=3D4WvkfteVgq457=
+3Ac1To0NK6_ppVLJ7m1mduDe9Ysyvc" width=3D"308" style=3D"color:#000000;outlin=
+e:0;border:none;margin:auto;display:block" class=3D"t_w100p m_w100p" target=
+=3D"_blank"><img src=3D"https://static.fnac-static.com/EmailsDarty/newsdart=
+y/2024/janvier/SOLDES_MKP_FOREO_hygiene-beaute_CRMpost_visuel.jpg" alt=3D"H=
+ygi&egrave;ne Beaut&eacute; FOREO" width=3D"308"
+style=3D"font-family:Arial,Helvetica,sans-serif;font-size:13px;line-height:=
+13px;display:block;border:none"
+class=3D"t_w100p m_w100p"/></a>
+</td></tr></table>
+</td></tr></table>
+</td></tr><tr><td>
+<table cellpadding=3D"0" cellspacing=3D"0" border=3D"0" width=3D"308" align=
+=3D"left" class=3D"d_left t_flleft t_w100p m_flleft m_w100p" role=3D"presen=
+tation">
+<tr><td>
+<table cellpadding=3D"0" cellspacing=3D"0" border=3D"0" width=3D"100%" alig=
+n=3D"center" class=3D"d_center t_w100p m_w100p" role=3D"presentation">
+<tr><td style=3D"text-align:center" class=3D"m_pb10px">
+<a href=3D"https://t.news.darty.com/r/=3Fid=3Dh3cf09285,acc9b2e1,2942c57&e=
+=3DZW1sLXB1Ymxpc2hlcj1hZG9iZSZlbWwtbmFtZT0xMjIwMzcwMDUmZGFydHljaWQ9ZW1haWxf=
+YW5pbWNvX3BhYy1zb2xkZXNfcmVsYW5jZWJwZW0tMTcwMTI0LTEyMjAzNzAwNSZkYXJ0eXBjaz1=
+IUnlTWlBwQ2ZFVkxSemZ6ZEVwYlhvQ3ExRDdCS1BTVlZHb0pYejJmSC1V&s=3DZC30Ib_Ei_w3Y=
+2zPF0mcAgo-txSzJSPnzmRCO-6__C4" width=3D"308" style=3D"color:#000000;outlin=
+e:0;border:none;margin:auto;display:block" class=3D"t_w100p m_w100p" target=
+=3D"_blank"><img src=3D"https://static.fnac-static.com/EmailsDarty/newsdart=
+y/2024/janvier/SOLDES_MKP_FOREO_hygiene-beaute_CRMpost_texte.jpg" alt=3D"Ju=
+squ&apos;&agrave; -50%" width=3D"308" style=3D"font-family:Arial,Helvetica,=
+sans-serif;font-size:13px;line-height:13px;display:block;border:none"
+class=3D"t_w100p m_w100p"/></a>
+</td></tr></table>
+</td></tr></table>
+</td></tr></table>
+</td></tr></table>
+<table cellpadding=3D"0" cellspacing=3D"0" border=3D"0" width=3D"130" align=
+=3D"center" style=3D"margin:auto;border-collapse:separate" class=3D"d_cente=
+r t_flnone t_mauto t_w120px m_flnone m_mauto m_w110px"
+role=3D"presentation">
+<tr><td id=3D"text77379df0-98c5-4bc1-a549-62f6838f7dc7" style=3D"background=
+-color:#ed1c27;border-radius:50px;border-top:2px solid #ed1c27;border-right=
+:2px solid #ed1c27;
+border-bottom:2px solid #ed1c27;border-left:2px solid #ed1c27;font-family:A=
+rial,Helvetica,sans-serif;
+color:#ffffff;text-align:center;text-transform:none;font-size:16px;padding-=
+top:10px;padding-bottom:10px;
+vertical-align:middle;line-height:18px"
+class=3D"t_fz14px t_pt5px t_pb5px m_fz14px m_pt3px m_pb3px">
+<a href=3D"https://t.news.darty.com/r/=3Fid=3Dh3cf09285,acc9b2e1,2942c58&e=
+=3DZW1sLXB1Ymxpc2hlcj1hZG9iZSZlbWwtbmFtZT0xMjIwMzcwMDUmZGFydHljaWQ9ZW1haWxf=
+YW5pbWNvX3BhYy1zb2xkZXNfcmVsYW5jZWJwZW0tMTcwMTI0LTEyMjAzNzAwNSZkYXJ0eXBjaz1=
+IUnlTWlBwQ2ZFVkxSemZ6ZEVwYlhvQ3ExRDdCS1BTVlZHb0pYejJmSC1V&s=3D3hXplWQlQtaBD=
+6XXjoVIczvmq-1r0DuL_uTIx9z3J4M" style=3D"color:#ffffff;line-height:18px;dis=
+play:block;text-decoration:none;outline:0" target=3D"_blank"> VOIR TOUT </a=
+>
+</td></tr></table>
+<table cellpadding=3D"0" cellspacing=3D"0" border=3D"0" width=3D"640" align=
+=3D"center" style=3D"margin:auto;clear:both" class=3D"d_center t_w100p m_w1=
+00p" role=3D"presentation">
+<tr><td height=3D"20" style=3D"height:20px;font-size:20px;line-height:20px"=
+> &nbsp; </td></tr></table>
+<table cellpadding=3D"0" cellspacing=3D"0" border=3D"0" width=3D"576" align=
+=3D"center" style=3D"margin:auto" class=3D"d_center t_flnone t_mauto t_w95p=
+ m_flnone m_mauto m_w90p" role=3D"presentation">
+<tr><td>
+<table cellpadding=3D"0" cellspacing=3D"0" border=3D"0" width=3D"144" align=
+=3D"left" class=3D"d_left t_w25p t_flleft m_w50p m_flleft" role=3D"presenta=
+tion">
+<tr><td>
+<table cellpadding=3D"0" cellspacing=3D"0" border=3D"0" width=3D"55" align=
+=3D"center" style=3D"margin:auto" class=3D"d_center t_flnone t_mauto m_flno=
+ne m_mauto m_w45p" role=3D"presentation">
+<tr><td>
+<table cellpadding=3D"0" cellspacing=3D"0" border=3D"0" width=3D"100%" alig=
+n=3D"center" class=3D"d_center t_w100p m_w100p" role=3D"presentation">
+<tr><td style=3D"text-align:center">
+<a href=3D"https://t.news.darty.com/r/=3Fid=3Dh3cf09285,acc9b2e1,2942c59&e=
+=3DZW1sLXB1Ymxpc2hlcj1hZG9iZSZlbWwtbmFtZT0xMjIwMzcwMDUmZGFydHljaWQ9ZW1haWxf=
+YW5pbWNvX3BhYy1zb2xkZXNfcmVsYW5jZWJwZW0tMTcwMTI0LTEyMjAzNzAwNSZkYXJ0eXBjaz1=
+IUnlTWlBwQ2ZFVkxSemZ6ZEVwYlhvQ3ExRDdCS1BTVlZHb0pYejJmSC1V&s=3DN_RsgGrFrYtc8=
+J4ROkr3LzaEhLlDVzVT07DSjblo3Z8" width=3D"55" style=3D"color:#000000;outline=
+:0;border:none;margin:auto;display:block" class=3D"t_w100p m_w100p" target=
+=3D"_blank"><img src=3D"https://static.fnac-static.com/EmailsDarty/newsdart=
+y/2023/livraison_dmax.png" alt=3D"Livraison gratuite avec Darty Max" width=
+=3D"55" style=3D"font-family:Arial,Helvetica,sans-serif;font-size:13px;line=
+-height:13px;display:block;border:none"
+class=3D"t_w100p m_w100p"/></a>
+</td></tr></table>
+</td></tr></table>
+</td></tr><tr><td>
+<table cellpadding=3D"0" cellspacing=3D"0" border=3D"0" width=3D"122" align=
+=3D"center" style=3D"margin:auto" class=3D"d_center t_flnone t_mauto t_w88p=
+ m_flnone m_mauto m_w85p" role=3D"presentation">
+<tr><td style=3D"font-family:Arial,Helvetica,sans-serif;color:#000000;text-=
+align:center;font-size:12px;padding-top:10px;
+padding-bottom:15px;vertical-align:middle;line-height:16px">
+<a href=3D"https://t.news.darty.com/r/=3Fid=3Dh3cf09285,acc9b2e1,2942c5a&e=
+=3DZW1sLXB1Ymxpc2hlcj1hZG9iZSZlbWwtbmFtZT0xMjIwMzcwMDUmZGFydHljaWQ9ZW1haWxf=
+YW5pbWNvX3BhYy1zb2xkZXNfcmVsYW5jZWJwZW0tMTcwMTI0LTEyMjAzNzAwNSZkYXJ0eXBjaz1=
+IUnlTWlBwQ2ZFVkxSemZ6ZEVwYlhvQ3ExRDdCS1BTVlZHb0pYejJmSC1V&s=3D1uNPXv_gh7Ezn=
+jsSFz1kSuQN9U01QkKZRjiR9qrKWxo" style=3D"color:#000000;line-height:16px;dis=
+play:block;text-decoration:none;outline:0" target=3D"_blank"> Livraison gra=
+tuite
+avec Darty Max </a>
+</td></tr></table>
+</td></tr></table>
+<!--[if gte mso 9]> </td><td style=3D"vertical-align:top;border-collapse:co=
+llapse"><![endif]-->
+<table cellpadding=3D"0" cellspacing=3D"0" border=3D"0" width=3D"144" align=
+=3D"left" class=3D"d_left t_w25p t_flleft m_w50p m_flright" role=3D"present=
+ation">
+<tr><td>
+<table cellpadding=3D"0" cellspacing=3D"0" border=3D"0" width=3D"55" align=
+=3D"center" style=3D"margin:auto" class=3D"d_center t_flnone t_mauto m_flno=
+ne m_mauto m_w45p" role=3D"presentation">
+<tr><td>
+<table cellpadding=3D"0" cellspacing=3D"0" border=3D"0" width=3D"100%" alig=
+n=3D"center" class=3D"d_center t_w100p m_w100p" role=3D"presentation">
+<tr><td style=3D"text-align:center">
+<a href=3D"https://t.news.darty.com/r/=3Fid=3Dh3cf09285,acc9b2e1,2942c5b&e=
+=3DZW1sLXB1Ymxpc2hlcj1hZG9iZSZlbWwtbmFtZT0xMjIwMzcwMDUmZGFydHljaWQ9ZW1haWxf=
+YW5pbWNvX3BhYy1zb2xkZXNfcmVsYW5jZWJwZW0tMTcwMTI0LTEyMjAzNzAwNSZkYXJ0eXBjaz1=
+IUnlTWlBwQ2ZFVkxSemZ6ZEVwYlhvQ3ExRDdCS1BTVlZHb0pYejJmSC1V&s=3DUfEX9p7r57T_-=
+F3kolEZs-kg6j_Wn-vDwSLlBZlTmZY" width=3D"55" style=3D"color:#000000;outline=
+:0;border:none;margin:auto;display:block" class=3D"t_w100p m_w100p" target=
+=3D"_blank"><img src=3D"https://static.fnac-static.com/EmailsDarty/newsdart=
+y/2023/janvier/s3_nl/footer1.png" alt=3D"Retrait 1h en magasin" width=3D"55=
+" style=3D"font-family:Arial,Helvetica,sans-serif;font-size:13px;line-heigh=
+t:13px;display:block;border:none"
+class=3D"t_w100p m_w100p"/></a>
+</td></tr></table>
+</td></tr></table>
+</td></tr><tr><td>
+<table cellpadding=3D"0" cellspacing=3D"0" border=3D"0" width=3D"108" align=
+=3D"center" style=3D"margin:auto" class=3D"d_center t_flnone t_mauto t_w60p=
+ m_flnone m_mauto m_w55p" role=3D"presentation">
+<tr><td style=3D"font-family:Arial,Helvetica,sans-serif;color:#000000;text-=
+align:center;font-size:12px;padding-top:10px;
+padding-bottom:15px;vertical-align:middle;line-height:16px">
+<a href=3D"https://t.news.darty.com/r/=3Fid=3Dh3cf09285,acc9b2e1,2942c5c&e=
+=3DZW1sLXB1Ymxpc2hlcj1hZG9iZSZlbWwtbmFtZT0xMjIwMzcwMDUmZGFydHljaWQ9ZW1haWxf=
+YW5pbWNvX3BhYy1zb2xkZXNfcmVsYW5jZWJwZW0tMTcwMTI0LTEyMjAzNzAwNSZkYXJ0eXBjaz1=
+IUnlTWlBwQ2ZFVkxSemZ6ZEVwYlhvQ3ExRDdCS1BTVlZHb0pYejJmSC1V&s=3DXWkK-qcYZ4eNx=
+GeVfcqkS84cpqmmWlM2WcXYkjwoRkw" style=3D"color:#000000;line-height:16px;dis=
+play:block;text-decoration:none;outline:0" target=3D"_blank"> Retrait 1h en=
+ magasin </a>
+</td></tr></table>
+</td></tr></table>
+<!--[if gte mso 9]> </td><td style=3D"vertical-align:top;border-collapse:co=
+llapse"><![endif]-->
+<table cellpadding=3D"0" cellspacing=3D"0" border=3D"0" width=3D"144" align=
+=3D"left" class=3D"d_left t_w25p t_flleft m_w50p m_flleft" role=3D"presenta=
+tion">
+<tr><td>
+<table cellpadding=3D"0" cellspacing=3D"0" border=3D"0" width=3D"55" align=
+=3D"center" style=3D"margin:auto" class=3D"d_center t_flnone t_mauto m_flno=
+ne m_mauto m_w45p" role=3D"presentation">
+<tr><td>
+<table cellpadding=3D"0" cellspacing=3D"0" border=3D"0" width=3D"100%" alig=
+n=3D"center" class=3D"d_center t_w100p m_w100p" role=3D"presentation">
+<tr><td style=3D"text-align:center">
+<a href=3D"https://t.news.darty.com/r/=3Fid=3Dh3cf09285,acc9b2e1,2942c5d&e=
+=3DZW1sLXB1Ymxpc2hlcj1hZG9iZSZlbWwtbmFtZT0xMjIwMzcwMDUmZGFydHljaWQ9ZW1haWxf=
+YW5pbWNvX3BhYy1zb2xkZXNfcmVsYW5jZWJwZW0tMTcwMTI0LTEyMjAzNzAwNSZkYXJ0eXBjaz1=
+IUnlTWlBwQ2ZFVkxSemZ6ZEVwYlhvQ3ExRDdCS1BTVlZHb0pYejJmSC1V&s=3Dnv9PYY4PydJP1=
+ZVkf3Dq_DhMIkDIHrTJghQxpT9cSSs" width=3D"55" style=3D"color:#000000;outline=
+:0;border:none;margin:auto;display:block" class=3D"t_w100p m_w100p" target=
+=3D"_blank"><img src=3D"https://static.fnac-static.com/EmailsDarty/newsdart=
+y/2023/janvier/s3_nl/footer2.png" alt=3D"Assistance t&eacute;l&eacute;phoni=
+que" width=3D"55" style=3D"font-family:Arial,Helvetica,sans-serif;font-size=
+:13px;line-height:13px;display:block;border:none"
+class=3D"t_w100p m_w100p"/></a>
+</td></tr></table>
+</td></tr></table>
+</td></tr><tr><td>
+<table cellpadding=3D"0" cellspacing=3D"0" border=3D"0" width=3D"86" align=
+=3D"center" style=3D"margin:auto" class=3D"d_center t_flnone t_mauto t_w65p=
+ m_flnone m_mauto m_w55p" role=3D"presentation">
+<tr><td style=3D"font-family:Arial,Helvetica,sans-serif;color:#000000;text-=
+align:center;font-size:12px;padding-top:10px;
+padding-bottom:15px;vertical-align:middle;line-height:16px">
+<a href=3D"https://t.news.darty.com/r/=3Fid=3Dh3cf09285,acc9b2e1,2942c5e&e=
+=3DZW1sLXB1Ymxpc2hlcj1hZG9iZSZlbWwtbmFtZT0xMjIwMzcwMDUmZGFydHljaWQ9ZW1haWxf=
+YW5pbWNvX3BhYy1zb2xkZXNfcmVsYW5jZWJwZW0tMTcwMTI0LTEyMjAzNzAwNSZkYXJ0eXBjaz1=
+IUnlTWlBwQ2ZFVkxSemZ6ZEVwYlhvQ3ExRDdCS1BTVlZHb0pYejJmSC1V&s=3DcJiNQ3SryXZJZ=
+fiWTnmF21WZztdJCAijY1c7_w36Sfg" style=3D"color:#000000;line-height:16px;dis=
+play:block;text-decoration:none;outline:0" target=3D"_blank"> Service
+Client 7j/7 </a>
+</td></tr></table>
+</td></tr></table>
+<!--[if gte mso 9]> </td><td style=3D"vertical-align:top;border-collapse:co=
+llapse"><![endif]-->
+<table cellpadding=3D"0" cellspacing=3D"0" border=3D"0" width=3D"144" align=
+=3D"right" class=3D"d_right t_w25p t_flright m_w50p m_flright" role=3D"pres=
+entation">
+<tr><td>
+<table cellpadding=3D"0" cellspacing=3D"0" border=3D"0" width=3D"55" align=
+=3D"center" style=3D"margin:auto" class=3D"d_center t_flnone t_mauto m_flno=
+ne m_mauto m_w45p" role=3D"presentation">
+<tr><td>
+<table cellpadding=3D"0" cellspacing=3D"0" border=3D"0" width=3D"100%" alig=
+n=3D"center" class=3D"d_center t_w100p m_w100p" role=3D"presentation">
+<tr><td style=3D"text-align:center">
+<a href=3D"https://t.news.darty.com/r/=3Fid=3Dh3cf09285,acc9b2e1,2942c5f&e=
+=3DZW1sLXB1Ymxpc2hlcj1hZG9iZSZlbWwtbmFtZT0xMjIwMzcwMDUmZGFydHljaWQ9ZW1haWxf=
+YW5pbWNvX3BhYy1zb2xkZXNfcmVsYW5jZWJwZW0tMTcwMTI0LTEyMjAzNzAwNSZkYXJ0eXBjaz1=
+IUnlTWlBwQ2ZFVkxSemZ6ZEVwYlhvQ3ExRDdCS1BTVlZHb0pYejJmSC1V&s=3Dvcd7FvFsdkAlM=
+cfUjvov4lKqCxCr8KTcgY-vp6UztVY" width=3D"55" style=3D"color:#000000;outline=
+:0;border:none;margin:auto;display:block" class=3D"t_w100p m_w100p" target=
+=3D"_blank"><img src=3D"https://static.fnac-static.com/EmailsDarty/newsdart=
+y/2023/janvier/s3_nl/footer3.png" alt=3D"Garantie 2 ans SAV" width=3D"55" s=
+tyle=3D"font-family:Arial,Helvetica,sans-serif;font-size:13px;line-height:1=
+3px;display:block;border:none"
+class=3D"t_w100p m_w100p"/></a>
+</td></tr></table>
+</td></tr></table>
+</td></tr><tr><td>
+<table cellpadding=3D"0" cellspacing=3D"0" border=3D"0" width=3D"122" align=
+=3D"center" style=3D"margin:auto" class=3D"d_center t_flnone t_mauto t_w88p=
+ m_flnone m_mauto m_w70p" role=3D"presentation">
+<tr><td style=3D"font-family:Arial,Helvetica,sans-serif;color:#000000;text-=
+align:center;font-size:12px;padding-top:10px;
+padding-bottom:25px;vertical-align:middle;line-height:16px">
+<a href=3D"https://t.news.darty.com/r/=3Fid=3Dh3cf09285,acc9b2e1,2942c60&e=
+=3DZW1sLXB1Ymxpc2hlcj1hZG9iZSZlbWwtbmFtZT0xMjIwMzcwMDUmZGFydHljaWQ9ZW1haWxf=
+YW5pbWNvX3BhYy1zb2xkZXNfcmVsYW5jZWJwZW0tMTcwMTI0LTEyMjAzNzAwNSZkYXJ0eXBjaz1=
+IUnlTWlBwQ2ZFVkxSemZ6ZEVwYlhvQ3ExRDdCS1BTVlZHb0pYejJmSC1V&s=3DiV7WnlkNU-0sg=
+qMt27Yfd4gLZEQ_12N6T8eplHMZfdU" style=3D"color:#000000;line-height:16px;dis=
+play:block;text-decoration:none;outline:0" target=3D"_blank"> SAV en
+magasin et &#xE0; domicile </a>
+</td></tr></table>
+</td></tr></table>
+</td></tr></table>
+<table cellpadding=3D"0" cellspacing=3D"0" border=3D"0" width=3D"544" align=
+=3D"center" style=3D"margin:auto" class=3D"d_center t_flnone t_mauto t_w90p=
+ m_flnone m_mauto m_w85p" role=3D"presentation">
+<tr><td style=3D"font-family:Arial,Helvetica,sans-serif;color:#000000;text-=
+align:left;text-transform:uppercase;
+font-size:13px;padding-top:10px;padding-bottom:10px;vertical-align:middle">
+SUIVEZ NOS ACTUALIT&#xE9;s : </td></tr></table>
+<table cellpadding=3D"0" cellspacing=3D"0" border=3D"0" width=3D"544" align=
+=3D"center" style=3D"margin:auto" class=3D"d_center t_flnone t_mauto t_w95p=
+ m_flnone m_mauto m_w95p" role=3D"presentation">
+<tr><td>
+<table cellpadding=3D"0" cellspacing=3D"0" border=3D"0" width=3D"190" align=
+=3D"left" class=3D"d_left t_w35p t_flleft m_w100p m_flright" role=3D"presen=
+tation">
+<tr><td>
+<table cellpadding=3D"0" cellspacing=3D"0" border=3D"0" width=3D"188" align=
+=3D"center" style=3D"margin:auto" class=3D"d_center t_flnone t_mauto t_w98p=
+ m_flnone m_mauto m_w98p" role=3D"presentation">
+<tr><td>
+<table cellpadding=3D"0" cellspacing=3D"0" border=3D"0" width=3D"37" align=
+=3D"left" class=3D"d_left t_w20p t_flleft m_w20p m_flleft" role=3D"presenta=
+tion">
+<tr><td>
+<table cellpadding=3D"0" cellspacing=3D"0" border=3D"0" width=3D"30" align=
+=3D"center" style=3D"margin:auto" class=3D"d_center t_flnone t_mauto m_flno=
+ne m_mauto m_w30px" role=3D"presentation">
+<tr><td>
+<table cellpadding=3D"0" cellspacing=3D"0" border=3D"0" width=3D"100%" alig=
+n=3D"center" class=3D"d_center t_w100p m_w100p" role=3D"presentation">
+<tr><td style=3D"padding-top:5px;text-align:center">
+<a href=3D"https://t.news.darty.com/r/=3Fid=3Dh3cf09285,acc9b2e1,2942c61&e=
+=3DZW1sLXB1Ymxpc2hlcj1hZG9iZSZlbWwtbmFtZT0xMjIwMzcwMDUmZGFydHljaWQ9ZW1haWxf=
+YW5pbWNvX3BhYy1zb2xkZXNfcmVsYW5jZWJwZW0tMTcwMTI0LTEyMjAzNzAwNSZkYXJ0eXBjaz1=
+IUnlTWlBwQ2ZFVkxSemZ6ZEVwYlhvQ3ExRDdCS1BTVlZHb0pYejJmSC1V&s=3DZR-mAovUFhH70=
+8w9xKFgHyaW1NDZMyBUeKeOOtZ8tt0" width=3D"30" style=3D"color:#000000;outline=
+:0;border:none;margin:auto;display:block" class=3D"t_w100p m_w100p" target=
+=3D"_blank"><img src=3D"https://static.fnac-static.com/EmailsDarty/newsdart=
+y/2023/Facebook.png" alt=3D"Facebook" width=3D"30" style=3D"font-family:Ari=
+al,Helvetica,sans-serif;font-size:13px;line-height:13px;display:block;borde=
+r:none"
+class=3D"t_w100p m_w100p"/></a>
+</td></tr></table>
+</td></tr></table>
+</td></tr></table>
+<!--[if gte mso 9]> </td><td style=3D"vertical-align:top;border-collapse:co=
+llapse"><![endif]-->
+<table cellpadding=3D"0" cellspacing=3D"0" border=3D"0" width=3D"37" align=
+=3D"left" class=3D"d_left t_w20p t_flleft m_w20p m_flleft" role=3D"presenta=
+tion">
+<tr><td>
+<table cellpadding=3D"0" cellspacing=3D"0" border=3D"0" width=3D"30" align=
+=3D"center" style=3D"margin:auto" class=3D"d_center t_flnone t_mauto m_flno=
+ne m_mauto m_w30px" role=3D"presentation">
+<tr><td>
+<table cellpadding=3D"0" cellspacing=3D"0" border=3D"0" width=3D"100%" alig=
+n=3D"center" class=3D"d_center t_w100p m_w100p" role=3D"presentation">
+<tr><td style=3D"padding-top:5px;text-align:center">
+<a href=3D"https://t.news.darty.com/r/=3Fid=3Dh3cf09285,acc9b2e1,2942c62&e=
+=3DZW1sLXB1Ymxpc2hlcj1hZG9iZSZlbWwtbmFtZT0xMjIwMzcwMDUmZGFydHljaWQ9ZW1haWxf=
+YW5pbWNvX3BhYy1zb2xkZXNfcmVsYW5jZWJwZW0tMTcwMTI0LTEyMjAzNzAwNSZkYXJ0eXBjaz1=
+IUnlTWlBwQ2ZFVkxSemZ6ZEVwYlhvQ3ExRDdCS1BTVlZHb0pYejJmSC1V&s=3DCP31CmOgdy0y7=
+ErJkUSWL-q_Utcnnvx95ru-I8ZJweQ" width=3D"30" style=3D"color:#000000;outline=
+:0;border:none;margin:auto;display:block" class=3D"t_w100p m_w100p" target=
+=3D"_blank"><img src=3D"https://static.fnac-static.com/EmailsDarty/newsdart=
+y/2023/X.png" alt=3D"Twitter" width=3D"30" style=3D"font-family:Arial,Helve=
+tica,sans-serif;font-size:13px;line-height:13px;display:block;border:none"
+class=3D"t_w100p m_w100p"/></a>
+</td></tr></table>
+</td></tr></table>
+</td></tr></table>
+<!--[if gte mso 9]> </td><td style=3D"vertical-align:top;border-collapse:co=
+llapse"><![endif]-->
+<table cellpadding=3D"0" cellspacing=3D"0" border=3D"0" width=3D"38" align=
+=3D"left" class=3D"d_left t_w20p t_flleft m_w20p m_flleft" role=3D"presenta=
+tion">
+<tr><td>
+<table cellpadding=3D"0" cellspacing=3D"0" border=3D"0" width=3D"30" align=
+=3D"center" style=3D"margin:auto" class=3D"d_center t_flnone t_mauto m_flno=
+ne m_mauto m_w30px" role=3D"presentation">
+<tr><td>
+<table cellpadding=3D"0" cellspacing=3D"0" border=3D"0" width=3D"100%" alig=
+n=3D"center" class=3D"d_center t_w100p m_w100p" role=3D"presentation">
+<tr><td style=3D"padding-top:5px;text-align:center">
+<a href=3D"https://t.news.darty.com/r/=3Fid=3Dh3cf09285,acc9b2e1,2942c63&e=
+=3DZW1sLXB1Ymxpc2hlcj1hZG9iZSZlbWwtbmFtZT0xMjIwMzcwMDUmZGFydHljaWQ9ZW1haWxf=
+YW5pbWNvX3BhYy1zb2xkZXNfcmVsYW5jZWJwZW0tMTcwMTI0LTEyMjAzNzAwNSZkYXJ0eXBjaz1=
+IUnlTWlBwQ2ZFVkxSemZ6ZEVwYlhvQ3ExRDdCS1BTVlZHb0pYejJmSC1V&s=3DIS42HSTLxdrGu=
+W2W4d3muD9Ar4nneoAXpwadTwWyeZI" width=3D"30" style=3D"color:#000000;outline=
+:0;border:none;margin:auto;display:block" class=3D"t_w100p m_w100p" target=
+=3D"_blank"><img src=3D"https://static.fnac-static.com/EmailsDarty/newsdart=
+y/2023/Instagram.png" alt=3D"Instagram" width=3D"30" style=3D"font-family:A=
+rial,Helvetica,sans-serif;font-size:13px;line-height:13px;display:block;bor=
+der:none"
+class=3D"t_w100p m_w100p"/></a>
+</td></tr></table>
+</td></tr></table>
+</td></tr></table>
+<!--[if gte mso 9]> </td><td style=3D"vertical-align:top;border-collapse:co=
+llapse"><![endif]-->
+<table cellpadding=3D"0" cellspacing=3D"0" border=3D"0" width=3D"38" align=
+=3D"left" class=3D"d_left t_w20p t_flleft m_w20p m_flleft" role=3D"presenta=
+tion">
+<tr><td>
+<table cellpadding=3D"0" cellspacing=3D"0" border=3D"0" width=3D"30" align=
+=3D"center" style=3D"margin:auto" class=3D"d_center t_flnone t_mauto m_flno=
+ne m_mauto m_w30px" role=3D"presentation">
+<tr><td>
+<table cellpadding=3D"0" cellspacing=3D"0" border=3D"0" width=3D"100%" alig=
+n=3D"center" class=3D"d_center t_w100p m_w100p" role=3D"presentation">
+<tr><td style=3D"padding-top:5px;text-align:center">
+<a href=3D"https://t.news.darty.com/r/=3Fid=3Dh3cf09285,acc9b2e1,2942c64&e=
+=3DZW1sLXB1Ymxpc2hlcj1hZG9iZSZlbWwtbmFtZT0xMjIwMzcwMDUmZGFydHljaWQ9ZW1haWxf=
+YW5pbWNvX3BhYy1zb2xkZXNfcmVsYW5jZWJwZW0tMTcwMTI0LTEyMjAzNzAwNSZkYXJ0eXBjaz1=
+IUnlTWlBwQ2ZFVkxSemZ6ZEVwYlhvQ3ExRDdCS1BTVlZHb0pYejJmSC1V&s=3DxFjcVHAvFMjwE=
+CsTxDEUIBd-qAW-kNYKqA2DDYnXVoM" width=3D"30" style=3D"color:#000000;outline=
+:0;border:none;margin:auto;display:block" class=3D"t_w100p m_w100p" target=
+=3D"_blank"><img src=3D"https://static.fnac-static.com/EmailsDarty/newsdart=
+y/2023/Youtube.png" alt=3D"You Tube" width=3D"30" style=3D"font-family:Aria=
+l,Helvetica,sans-serif;font-size:13px;line-height:13px;display:block;border=
+:none"
+class=3D"t_w100p m_w100p"/></a>
+</td></tr></table>
+</td></tr></table>
+</td></tr></table>
+<!--[if gte mso 9]> </td><td style=3D"vertical-align:top;border-collapse:co=
+llapse"><![endif]-->
+<table cellpadding=3D"0" cellspacing=3D"0" border=3D"0" width=3D"38" align=
+=3D"right" class=3D"d_right t_w20p t_flright m_w20p m_flright" role=3D"pres=
+entation">
+<tr><td>
+<table cellpadding=3D"0" cellspacing=3D"0" border=3D"0" width=3D"30" align=
+=3D"center" style=3D"margin:auto" class=3D"d_center t_flnone t_mauto m_flno=
+ne m_mauto m_w30px" role=3D"presentation">
+<tr><td>
+<table cellpadding=3D"0" cellspacing=3D"0" border=3D"0" width=3D"100%" alig=
+n=3D"center" class=3D"d_center t_w100p m_w100p" role=3D"presentation">
+<tr><td style=3D"padding-top:5px;text-align:center" class=3D"m_pb15px">
+<a href=3D"https://t.news.darty.com/r/=3Fid=3Dh3cf09285,acc9b2e1,2942c65&e=
+=3DZW1sLXB1Ymxpc2hlcj1hZG9iZSZlbWwtbmFtZT0xMjIwMzcwMDUmZGFydHljaWQ9ZW1haWxf=
+YW5pbWNvX3BhYy1zb2xkZXNfcmVsYW5jZWJwZW0tMTcwMTI0LTEyMjAzNzAwNSZkYXJ0eXBjaz1=
+IUnlTWlBwQ2ZFVkxSemZ6ZEVwYlhvQ3ExRDdCS1BTVlZHb0pYejJmSC1V&s=3Dq6feocYXSq5M1=
+TF5QTWR5kGuSlx7DMOVotXytHyl0Dw" width=3D"30" style=3D"color:#000000;outline=
+:0;border:none;margin:auto;display:block" class=3D"t_w100p m_w100p" target=
+=3D"_blank"><img src=3D"https://static.fnac-static.com/EmailsDarty/newsdart=
+y/2023/Tiktok.png" alt=3D"Tiktok" width=3D"30" style=3D"font-family:Arial,H=
+elvetica,sans-serif;font-size:13px;line-height:13px;display:block;border:no=
+ne"
+class=3D"t_w100p m_w100p"/></a>
+</td></tr></table>
+</td></tr></table>
+</td></tr></table>
+</td></tr></table>
+</td></tr></table>
+<!--[if gte mso 9]> </td><td style=3D"vertical-align:top;border-collapse:co=
+llapse"><![endif]-->
+<table cellpadding=3D"0" cellspacing=3D"0" border=3D"0" width=3D"98" align=
+=3D"left" class=3D"d_left t_w18d5p t_flleft m_w50p m_flleft" role=3D"presen=
+tation">
+<tr><td>
+<table cellpadding=3D"0" cellspacing=3D"0" border=3D"0" width=3D"93" align=
+=3D"center" style=3D"margin:auto" class=3D"d_center t_flleft t_w97p m_flnon=
+e m_mauto m_w85p" role=3D"presentation">
+<tr><td>
+<table cellpadding=3D"0" cellspacing=3D"0" border=3D"0" width=3D"100%" alig=
+n=3D"center" class=3D"d_center t_w100p m_w100p" role=3D"presentation">
+<tr><td style=3D"padding-top:5px;text-align:center" class=3D"t_pl5px m_pl10=
+px">
+<a href=3D"https://t.news.darty.com/r/=3Fid=3Dh3cf09285,acc9b2e1,2942c66&e=
+=3DZW1sLXB1Ymxpc2hlcj1hZG9iZSZlbWwtbmFtZT0xMjIwMzcwMDUmZGFydHljaWQ9ZW1haWxf=
+YW5pbWNvX3BhYy1zb2xkZXNfcmVsYW5jZWJwZW0tMTcwMTI0LTEyMjAzNzAwNSZkYXJ0eXBjaz1=
+IUnlTWlBwQ2ZFVkxSemZ6ZEVwYlhvQ3ExRDdCS1BTVlZHb0pYejJmSC1V&s=3DTr568whgQgPvD=
+grcpt7-Z4r_UcO47D7pzpH5sf4nnwk" width=3D"93" style=3D"color:#000000;outline=
+:0;border:none;margin:auto;display:block" class=3D"t_w100p m_w100p" target=
+=3D"_blank"><img src=3D"https://static.fnac-static.com/EmailsDarty/emailsau=
+todarty/nl_images_recurrente/footer/appstore.png" alt=3D"App Store" width=
+=3D"93" style=3D"font-family:Arial,Helvetica,sans-serif;font-size:13px;line=
+-height:13px;display:block;border:none"
+class=3D"t_w100p m_w100p"/></a>
+</td></tr></table>
+</td></tr></table>
+</td></tr></table>
+<!--[if gte mso 9]> </td><td style=3D"vertical-align:top;border-collapse:co=
+llapse"><![endif]-->
+<table cellpadding=3D"0" cellspacing=3D"0" border=3D"0" width=3D"98" align=
+=3D"left" class=3D"d_left t_w18d5p t_flleft m_w50p m_flright" role=3D"prese=
+ntation">
+<tr><td>
+<table cellpadding=3D"0" cellspacing=3D"0" border=3D"0" width=3D"93" align=
+=3D"right" class=3D"d_right t_flright t_w97p m_flright m_w85p" role=3D"pres=
+entation">
+<tr><td>
+<table cellpadding=3D"0" cellspacing=3D"0" border=3D"0" width=3D"100%" alig=
+n=3D"center" class=3D"d_center t_w100p m_w100p" role=3D"presentation">
+<tr><td style=3D"padding-top:5px;text-align:center" class=3D"t_pl5px m_pr10=
+px">
+<a href=3D"https://t.news.darty.com/r/=3Fid=3Dh3cf09285,acc9b2e1,2942c67&e=
+=3DZW1sLXB1Ymxpc2hlcj1hZG9iZSZlbWwtbmFtZT0xMjIwMzcwMDUmZGFydHljaWQ9ZW1haWxf=
+YW5pbWNvX3BhYy1zb2xkZXNfcmVsYW5jZWJwZW0tMTcwMTI0LTEyMjAzNzAwNSZkYXJ0eXBjaz1=
+IUnlTWlBwQ2ZFVkxSemZ6ZEVwYlhvQ3ExRDdCS1BTVlZHb0pYejJmSC1V&s=3DK4pFAOaEZ4Gqc=
+XAIKHFf7EgBo943Ns9py59HbOvte7M" width=3D"93" style=3D"color:#000000;outline=
+:0;border:none;margin:auto;display:block" class=3D"t_w100p m_w100p" target=
+=3D"_blank"><img src=3D"https://static.fnac-static.com/EmailsDarty/emailsau=
+todarty/nl_images_recurrente/footer/googleplay.png" alt=3D"Google Play" wid=
+th=3D"93" style=3D"font-family:Arial,Helvetica,sans-serif;font-size:13px;li=
+ne-height:13px;display:block;border:none"
+class=3D"t_w100p m_w100p"/></a>
+</td></tr></table>
+</td></tr></table>
+</td></tr></table>
+<!--[if gte mso 9]> </td><td style=3D"vertical-align:top;border-collapse:co=
+llapse"><![endif]-->
+<table cellpadding=3D"0" cellspacing=3D"0" border=3D"0" width=3D"158" align=
+=3D"right" class=3D"d_right t_w28p t_flright m_w100p m_flright" role=3D"pre=
+sentation">
+<tr><td>
+<table cellpadding=3D"0" cellspacing=3D"0" border=3D"0" width=3D"150" align=
+=3D"right" class=3D"d_right t_flright t_w95p m_flnone m_mauto m_w60p" role=
+=3D"presentation">
+<tr><td>
+<table cellpadding=3D"0" cellspacing=3D"0" border=3D"0" width=3D"100%" alig=
+n=3D"center" class=3D"d_center t_w100p m_w100p" role=3D"presentation">
+<tr><td style=3D"text-align:center" class=3D"t_pt5px m_pt15px">
+<a href=3D"https://t.news.darty.com/r/=3Fid=3Dh3cf09285,acc9b2e1,2942c68&e=
+=3DZW1sLXB1Ymxpc2hlcj1hZG9iZSZlbWwtbmFtZT0xMjIwMzcwMDUmZGFydHljaWQ9ZW1haWxf=
+YW5pbWNvX3BhYy1zb2xkZXNfcmVsYW5jZWJwZW0tMTcwMTI0LTEyMjAzNzAwNSZkYXJ0eXBjaz1=
+IUnlTWlBwQ2ZFVkxSemZ6ZEVwYlhvQ3ExRDdCS1BTVlZHb0pYejJmSC1V&s=3DJi--1S6zXNK0Q=
+p52M9i6afaCG_Qz1q2kQuWwl34rlKA" width=3D"150" style=3D"outline:0;border:non=
+e;margin:auto;display:block" class=3D"t_w100p m_w100p" target=3D"_blank"><i=
+mg src=3D"https://static.fnac-static.com/EmailsDarty/newsdarty/2022/s33_nl/=
+d&v_logo_NL.png" alt=3D"Darty&amp;Vous" width=3D"150" style=3D"font-family:=
+Arial,Helvetica,sans-serif;display:block;border:none"
+class=3D"t_w100p m_w100p"/></a>
+</td></tr></table>
+</td></tr></table>
+</td></tr></table>
+</td></tr></table>
+<table cellpadding=3D"0" cellspacing=3D"0" border=3D"0" width=3D"544" align=
+=3D"center" style=3D"margin:auto" class=3D"d_center t_flnone t_mauto m_flno=
+ne m_mauto m_w90p" role=3D"presentation">
+<tr><td style=3D"font-family:Arial,Helvetica,sans-serif;color:#999999;text-=
+align:left;font-size:9px;padding-top:10px;
+padding-bottom:20px;vertical-align:middle;line-height:11px"
+class=3D"t_pr30px t_pl30px">  *Jusqu&#x2019;&#xE0; 50&#x20AC; offerts en ca=
+rte-cadeau pour toute nouvelle souscription &#xE0; Darty Max : 20 % offerts=
+ en carte-cadeau
+sur le rayon Petit Electrom&#xE9;nager et 10% offerts en carte cadeau sur l=
+es rayons TV-Vid&#xE9;o, Gros Electrom&#xE9;nager et Multim&#xE9;dia, sans =
+minimum d&#x2019;achat sur le montant
+total de vos achats pour les nouveaux abonn&#xE9;s Darty Max, carte-cadeau =
+limit&#xE9;e &#xE0; 50&#x20AC;. Offre valable du mercredi 10 au dimanche 21=
+ janvier 2024 dans tous les magasins
+Darty. Offre non cumulable avec la remise de 5% sur les produits Choix Dura=
+ble ; Hors produits de la Marketplace, literie, abonnements, services payan=
+ts et cuisine sur mesure. Hors
+&#xE9;coparticipation, hors redevance copie priv&#xE9;e et valable uniqueme=
+nt pour une souscription simultan&#xE9;e &#xE0; une formule Darty Max Essen=
+tiel, &#xC9;volution ou Int&#xE9;gral.
+Carte cadeau s&#xE9;cable, utilisable uniquement dans les magasins Darty de=
+ France m&#xE9;tropolitaine du 5/02/24 au 21/03/24, hors darty.com. Une car=
+te cadeau ne peut &#xEA;tre &#xE9;chang&#xE9;e,
+ni rembours&#xE9;e, m&#xEA;me partiellement ou remplac&#xE9;e si elle est p=
+erdue ou vol&#xE9;e et ne peut &#xEA;tre utilis&#xE9;e pour l&#x2019;achat =
+d&#x2019;autres cartes cadeaux.<br/>
+<br/><span style=3D"color:#999999">Voir conditions sur le site </span><span=
+ style=3D"text-decoration:underline;color:#999999">darty.com</span><span st=
+yle=3D"color:#999999"> et en magasin.</span><br/>
+<br/>Les prix mentionn&#xE9;s dans la pr&#xE9;sente newsletter sont ceux pr=
+atiqu&#xE9;s par Darty pour la vente en ligne et sont susceptibles de varie=
+r, consultez le tarif en vigueur
+sur darty.com au moment de votre achat. Certains produits sont disponibles =
+uniquement sur le site darty.com.<br/>
+<br/><span style=3D"color:#999999">Ne pas imprimer ce courriel afin de pr&#=
+xE9;server l&#x2019;environnement.</span><br/><span style=3D"color:#999999"=
+>Ajoutez darty@news.darty.com &#xE0;
+votre carnet d&#x2019;adresses pour que l&#x2019;email s&#x2019;affiche cor=
+rectement.</span><br/>
+<br/>Conform&#xE9;ment &#xE0; la r&#xE8;glementation sur la protection des =
+donn&#xE9;es personnelles, vous pouvez exercer vos droits (acc&#xE8;s, rect=
+ification, suppression, opposition,
+limitation et portabilit&#xE9; le cas &#xE9;ch&#xE9;ant) depuis la page <a =
+href=3D"https://t.news.darty.com/r/=3Fid=3Dh3cf09285,acc9b2e1,2942c69&e=3DZ=
+W1sLXB1Ymxpc2hlcj1hZG9iZSZlbWwtbmFtZT0xMjIwMzcwMDUmZGFydHljaWQ9ZW1haWxfYW5p=
+bWNvX3BhYy1zb2xkZXNfcmVsYW5jZWJwZW0tMTcwMTI0LTEyMjAzNzAwNSZkYXJ0eXBjaz1IUnl=
+TWlBwQ2ZFVkxSemZ6ZEVwYlhvQ3ExRDdCS1BTVlZHb0pYejJmSC1V&s=3D13IbHHWc0Mxutrs99=
+AnzSkm5bPzw6X1gvXhHo7s0Z9M" style=3D"color:#999999;text-decoration:underlin=
+e">Protection des Donn&#xE9;es</a>.<br/>
+<br/>Darty utilise dans ses emails des technologies de type &#xAB; pixel &#=
+xBB; pour contextualiser et am&#xE9;liorer le contenu des emails que vous r=
+ecevez, et recueillir des statistiques
+sur l&#x2019;ouverture des emails et les clics r&#xE9;alis&#xE9;s sur leur =
+contenu.<br/>
+<br/>&#xC9;tablissements Darty et Fils - SAS au capital social de 23 470 38=
+2&#x20AC; <br/>Si&#xE8;ge social : Zac Port d'Ivry 9 Rue des Bateaux Lavoir=
+s 94200 Ivry-sur-Seine - RCS Cr&#xE9;teil
+542 086 616<br/>
+<br/><span style=3D"color:#999999">Si vous ne souhaitez plus recevoir d'ema=
+ils de la part de Darty.com, vous pouvez vous <a style=3D"text-decoration:u=
+nderline;" href=3D"https://t.news.darty.com/r/=3Fid=3Dh3cf09285,acc9b2e1,29=
+42c6a&e=3DZW1sLXB1Ymxpc2hlcj1hZG9iZSZlbWwtbmFtZT0xMjIwMzcwMDUmZGFydHljaWQ9Z=
+W1haWxfYW5pbWNvX3BhYy1zb2xkZXNfcmVsYW5jZWJwZW0tMTcwMTI0LTEyMjAzNzAwNSZkYXJ0=
+eXBjaz1IUnlTWlBwQ2ZFVkxSemZ6ZEVwYlhvQ3ExRDdCS1BTVlZHb0pYejJmSC1VJnAxPSU0MFB=
+EaDFyYjZycGlPTm0zbWZGJTJGeUtBdyUzRCUzRCZwMj1BMTgxNzQ3OQ&s=3D8ZZtw5aoA9Ywmrq=
+-KLr2ZBZeYPZ2ZZxdWIhV_GD29Hc" target=3D"_blank" _label=3D"Lien de d=E9sinsc=
+ription" _type=3D"optout">d&eacute;sinscrire</a>.</span>
+</td></tr></table>
+</td></tr></table>
+</td></tr></table><img height=3D'0' width=3D'0' alt=3D'' src=3D'https://t.n=
+ews.darty.com/r/=3Fid=3Dh3cf09285,acc9b2e1,1'/></body>
+</html>
+
+------=_NextPart_827_DB4DAD98.DB4DAD98--
+

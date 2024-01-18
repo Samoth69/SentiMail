@@ -88,6 +88,15 @@ def uploadSuccess(request):
 def api_doc(request):
     return render(request, 'base/api_doc.html')
 
+def historic(request):
+    # Get all emails from user
+    user = request.user
+
+    analysis = Email.objects.filter(user=user)
+
+    # Si pas de données, afficher un message
+
+    return render(request, 'base/historic.html', {'analysis': analysis})
 
 def result(request, uuid):
     email = Email.objects.get(uuid=uuid)
@@ -120,6 +129,7 @@ def fileuploaded(file, username):
 
     # Delete the file
     os.remove(file)
+
     print("File deleted")
 
     # Publish message on RabbitMQ
