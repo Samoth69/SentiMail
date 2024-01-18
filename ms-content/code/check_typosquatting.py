@@ -7,6 +7,10 @@ import custom_logger
 logger = custom_logger.getLogger("check_typosquatting")
 
 def check_typosquatting(mail):
+    """Check if there are typosquatting domains in the mail
+    :param mail: mail object
+    :return: "Clean" or "Malicious"
+    """
 
     update_redflags_domains()
 

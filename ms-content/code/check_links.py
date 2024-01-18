@@ -11,7 +11,10 @@ from dotenv import load_dotenv
 logger = custom_logger.getLogger("check_links")
 
 def check_links(mail):
-
+    """Check if there are malicious links in the mail
+    :param mail: mail object
+    :return: "Clean" or "Malicious"
+    """
     nbMalicious = 0
 
     body = mail.body

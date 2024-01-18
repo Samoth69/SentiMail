@@ -21,6 +21,7 @@ SentiMail performs three types of analyses on the email:
 - Spelling analysis
 - Keyword analysis
 - Typo-squatting analysis
+- Unusual characters analysis
 ### Attachments Analysis
 - Analysis of attachment hashes
 - Analysis of attachment file types
