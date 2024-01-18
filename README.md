@@ -1,16 +1,42 @@
 # <p align="center">SentiMail</p>
   
 L'expert de la détection de mail malveillant
-    
 
-# 🛠️ Run locally 
+## 📝 Table of Contents
+
+- [Features](#features)
+- [Getting Started](#getting_started)
+- [API Documentation](#api_documentation)
+- [Authors](#authors)
+
+# Features <a name = "features"></a>
+3 types d'analyses sont effectuées sur le mail:
+### Analyse des métadonnées
+- Analyse de l'IP de l'expéditeur
+- Analyse du domaine de l'expéditeur
+- Analyse du SPF du domaine de l'expéditeur
+
+### Analyse du contenu du mail
+- Analyse des liens
+- Analyse de l'orthographe
+- Analyse des mots clés
+- Analyse de typo-squatting
+
+### Analyse des pièces jointes
+- Analyse du hash des pièces jointes
+- Analyse du type de fichier des pièces jointes
+  
+
+    
+# Getting Started <a name = "getting_started"></a>
+## 🛠️ Run locally 
 - Clone the repository
 - Copy the `sample.env` file to `.env` and fill in the variables
 - Run `docker compose up -d --build`
 - Open `http://localhost:8000` in your browser
 
 
-# API Documentation
+# API Documentation <a name = "api_documentation"></a>
 
 ## Authentication
 - Generate a new API key
@@ -125,7 +151,7 @@ curl --location --request PATCH 'http://<ip>/api/analysis/0b3cf9d0-fcb3-4bf6-9a2
 
 
         
-## 🙇 Author
+## 🙇 Author <a name = "authors"></a> 
 #### Thomas Genin
 #### Nicola Piemontese
 #### Valentin Tournier
