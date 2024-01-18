@@ -30,19 +30,21 @@ SentiMail performs three types of analyses on the email:
 # Tech Stack <a name = "tech_stack"></a>
 
 ## Backend
-- [Django](https://www.djangoproject.com/)
-- [Django REST Framework](https://www.django-rest-framework.org/)
-- [Minio](https://min.io/)
-- [RabbitMQ](https://www.rabbitmq.com/)
-- [PostgreSQL](https://www.postgresql.org/)
+- <a href="https://www.djangoproject.com/" target="_blank" rel="noreferrer"> <img src="https://cdn.worldvectorlogo.com/logos/django.svg" alt="django" width="40" height="40"/> Django</a>
+- <a href="https://www.django-rest-framework.org/" target="_blank" rel="noreferrer"> <img src="https://raw.githubusercontent.com/encode/django-rest-framework/master/docs_theme/img/favicon.ico" alt="django-rest-framework" width="40" height="40"/> Django REST Framework</a>
+- <a href="https://www.rabbitmq.com" target="_blank" rel="noreferrer"> <img src="https://www.vectorlogo.zone/logos/rabbitmq/rabbitmq-icon.svg" alt="rabbitMQ" width="40" height="40"/> RabbitMQ</a>
+- <a href="https://www.postgresql.org/" target="_blank" rel="noreferrer"> <img src="https://www.postgresql.org/media/img/about/press/elephant.png" alt="postgresql" width="40" height="40"/> PostgreSQL</a>
+- <a href="https://min.io/" target="_blank" rel="noreferrer"> <img src="https://min.io/resources/img/logo.svg" alt="minio" width="40" height="40"/> Minio</a>
 
 ## Infrastructure
-- [Docker](https://www.docker.com/)
-- [Kubernetes](https://kubernetes.io/)
-- [CrowdSec](https://crowdsec.net/)
-- [Traefik](https://traefik.io/traefik/)
-- [SonarQube](https://www.sonarqube.org/)
-- [Harbor](https://goharbor.io/)
+- <a href="https://www.docker.com/" target="_blank" rel="noreferrer"> <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/docker/docker-original-wordmark.svg" alt="docker" width="40" height="40"/> Docker </a> 
+- <a href="https://kubernetes.io" target="_blank" rel="noreferrer"> <img src="https://www.vectorlogo.zone/logos/kubernetes/kubernetes-icon.svg" alt="kubernetes" width="40" height="40"/> Kubernetes</a>
+- <a href="https://traefik.io/traefik/" target="_blank" rel="noreferrer"> <img src="https://docs.traefik.io/assets/img/traefik.logo.png" alt="traefik" width="40" height="40"/> Traefik</a>
+- <a href="https://crowdsec.net/" target="_blank" rel="noreferrer"> <img src="https://github.com/crowdsecurity/crowdsec-docs/raw/main/crowdsec-docs/static/img/crowdsec_no_txt.png" alt="crowdsec" width="40" height="40"/> CrowdSec</a>
+- <a href="https://www.sonarqube.org/" target="_blank" rel="noreferrer"> <img src="https://assets-eu-01.kc-usercontent.com/c35a8dfe-3d03-0143-a0b9-1c34c7b9b595/12e3974b-220d-4cde-8f17-2ff9fa9d9c27/SonarQube_Logo.svg" alt="sonarqube" width="40" height="40"/> SonarQube</a>
+- <a href="https://goharbor.io/" target="_blank" rel="noreferrer"> <img src="https://raw.githubusercontent.com/goharbor/harbor/main/docs/img/harbor_logo.png" alt="harbor" width="40" height="40"/> Harbor</a>
+
+
 
 
 
