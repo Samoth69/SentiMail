@@ -5,6 +5,7 @@ The expert in malicious email detection
 ## 📝 Table of Contents
 
 - [Features](#features)
+- [Tech Stack](#tech_stack)
 - [Getting Started](#getting_started)
 - [API Documentation](#api_documentation)
 - [Authors](#authors)
@@ -26,8 +27,27 @@ SentiMail performs three types of analyses on the email:
 - Analysis of attachment hashes
 - Analysis of attachment file types
   
+# Tech Stack <a name = "tech_stack"></a>
 
-    
+## Backend
+- [Django](https://www.djangoproject.com/)
+- [Django REST Framework](https://www.django-rest-framework.org/)
+- [Minio](https://min.io/)
+- [RabbitMQ](https://www.rabbitmq.com/)
+- [PostgreSQL](https://www.postgresql.org/)
+
+## Infrastructure
+- [Docker](https://www.docker.com/)
+- [Kubernetes](https://kubernetes.io/)
+- [CrowdSec](https://crowdsec.net/)
+- [Traefik](https://traefik.io/traefik/)
+- [SonarQube](https://www.sonarqube.org/)
+- [Harbor](https://goharbor.io/)
+
+
+
+
+
 # Getting Started <a name = "getting_started"></a>
 ## 🛠️ Run locally 
 - Clone the repository
