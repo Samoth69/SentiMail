@@ -190,28 +190,33 @@ def publishMessage(uuid):
     print(" [x] Sent ", uuid, " to RabbitMQ")
     connection.close()
 
+def isReady(uuid_analysis):
+    """Check if the analysis is ready
+    :param uuid_analysis: uuid of the analysis
+    :return: True if the analysis is ready, False if not
+    """
+    # Get the analysis from the database
+    analysis = Email.objects.get(uuid=uuid_analysis)
+    status_metadata = False
+    status_content = False
+    status_attachment = False
+    if analysis.responseMetadataIp != "":
+        status_metadata = True
+    if analysis.responseContentLinks != "":
+        status_content = True
+    if analysis.responseAttachmentHash != "":
+        status_attachment = True
+    
+    if status_metadata and status_content and status_attachment:
+        score_calculator(uuid_analysis)
+    
+    analysis = Email.objects.get(uuid=uuid_analysis)
+    return analysis.isReady
+
 def score_calculator(uuid_analysis):
     """Calculate the score of the email
     :param uuid_analysis: uuid of the analysis
     :return: score of the email in percentage
-    """
-    """
-    {
-    "uuid": "f25bc0d6-ce8e-4e44-b0ae-d493d54869c5",
-    "created_at": "2024-01-12T12:54:36.474224Z",
-    "user": "azerty",
-    "isReady": false,
-    "responseMetadataIp": "IP not found in database",
-    "responseMetadataDomain": "Mail is not malicious",
-    "responseMetadataSPF": "SPF record is invalid",
-    "responseContentLinks": "Malicious",
-    "responseContentSpelling": "Malicious",
-    "responseContentKeywords": "Spam",
-    "responseContentTyposquatting": "Clean",
-    "responseContentCharacter": "Malicious",
-    "responseAttachmentHash": "Malicious",
-    "responseAttachmentFiletype": "Malicious"
-    }
     """
     score = 0
 
@@ -237,16 +242,20 @@ def score_calculator(uuid_analysis):
         score += 10
     if metadataSPF == "Malicious":
         score += 10
+   
     if contentLinks == "Malicious":
         score += 10
     if contentSpelling == "Malicious":
         score += 10
-    if contentKeywords == "Malicious":
+    if contentKeywords == "Phishing":
         score += 10
+    elif contentKeywords == "Spam":
+        score += 5
     if contentTyposquatting == "Malicious":
         score += 10
     if contentCharacter == "Malicious":
         score += 10
+    
     if attachmentHash == "Malicious":
         score += 10
     if attachmentFiletype == "Malicious":
@@ -257,6 +266,7 @@ def score_calculator(uuid_analysis):
     analysis.isReady = True
     analysis.save()
 
+    print("Score for ", uuid_analysis, ": ", score)
     return score
     
 
@@ -294,7 +304,9 @@ class EmailViewset(ModelViewSet):
     # Limit patch method to staff users
     def update(self, request, *args, **kwargs):
         if request.user.is_staff:
-            return super().update(request, *args, **kwargs)
+            response = super().update(request, *args, **kwargs)
+            isReady(kwargs['pk'])
+            return response
         else:
             return Response(status=status.HTTP_403_FORBIDDEN, data={"message": "You are not allowed to edit this email"})
     
@@ -316,13 +328,14 @@ class UploadFileView(APIView):
         user = self.request.user
         username = user.username
         if serializer.is_valid():
+            serializer.validated_data['file'].name = str(uuid.uuid4()) + ".eml"
             serializer.save()
             file = serializer.data.get('file')
             print("File: ", file)
-            uuid = fileuploaded(file, username)
+            uuid_file = fileuploaded(file, username)
             return Response(
                 {
-                    'uuid': uuid
+                    'uuid': uuid_file
                 },               
                 #serializer.data,
                 status=status.HTTP_201_CREATED,
