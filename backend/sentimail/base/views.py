@@ -95,6 +95,15 @@ def uploadSuccess(request):
 def api_doc(request):
     return render(request, 'base/api_doc.html')
 
+def historic(request):
+    # Get all emails from user
+    user = request.user
+
+    analysis = Email.objects.filter(user=user)
+
+    # Si pas de données, afficher un message
+
+    return render(request, 'base/historic.html', {'analysis': analysis})
 
 def result(request, uuid):
     email = Email.objects.get(uuid=uuid)
@@ -127,6 +136,7 @@ def fileuploaded(file, username):
 
     # Delete the file
     os.remove(file)
+
     print("File deleted")
 
     # Publish message on RabbitMQ
@@ -271,17 +281,17 @@ def score_calculator(uuid_analysis):
 
 
 
+
 # API
-    # No authentication required
+# Return analysis result for anonymous users
+
 class EmailViewsetResult(ModelViewSet):
     http_method_names = ['get']
 
-
     serializer_class = EmailSerializer
+
     def get_queryset(self):
-        uuid = self.request.query_params.get('uuid')
-        print("UUID: ", uuid)
-        return Email.objects.all()
+        return Email.objects.all().filter(user="anonymous")
 
 
 class EmailViewset(ModelViewSet):

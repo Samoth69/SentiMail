@@ -392,3 +392,35 @@ th {
     text-align: center;
     color: #000000;
 }
+.analysis-block {
+  max-width: 800px;
+  margin: 20px auto;
+  padding: 20px;
+  background-color: #fff;
+  border-radius: 8px;
+  box-shadow: 0 0 50px rgba(0, 0, 0, 0.1);
+
+
+
+}
+
+.analysis-details {
+  margin-bottom: 20px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  padding: 15px;
+  background-color: #fff;
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+  width: 100%;
+  border-color: #0074d9;
+  border-style: solid;
+  border-width: 2px;
+
+}
+.number-analyse {
+    font-size: 30px;
+    font-weight: bold;
+    text-align: center;
+    color: #0074d9;
+    spacing: 10px;
+    }

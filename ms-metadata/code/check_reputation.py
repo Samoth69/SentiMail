@@ -32,7 +32,7 @@ def is_malicious(response_json):
         return "IP not found in database"
 
 
-def mail(data):
+def mail_verificator(data):
     url = "https://api.apilayer.com/spamchecker?threshold=threshold"
 
     payload = data.encode("utf-8")

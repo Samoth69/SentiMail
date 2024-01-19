@@ -1,94 +1,76 @@
-
-
-import email
 from email import policy
 from email.parser import BytesParser
+
+import mailparser
 import re
-from check_spf import *
-def analyse_file(file_path):
-    with open(file_path, 'rb') as file:
-        # Utiliser BytesParser pour lire le fichier EML
-        msg = BytesParser(policy=policy.default).parse(file)
+import json
+import spf
 
-        # Récupérer l'adresse IP du sender (si disponible)
-        received_headers = msg.get_all('Received')
-        sender_ip = None
-        if received_headers:
-            for header in received_headers:
-                if 'from' in header.lower():
-                    # Extraire l'adresse IP en utilisant une expression régulière (regex)
-                    import re
-                    match = re.search(r'\[([^\]]+)\]', header) # Trouver le texte entre les caractères '[' et ']' dans le header
-                    if match == None:
-                        received_headers = msg.get_all('Authentication-Results')
 
-                        for header in received_headers:
-                            if 'spf' in header.lower():
-                                match = re.search(r'sender IP is ([\d.]+)', header)
-                                if match:
-                                    sender_ip = match.group(1)
-                                    print("Sender IP:", sender_ip)
-                                    break
 
+import re
+
+import re
+
+def extract_ip(mail):
+    print("mail headers", mail.received)
+    mail = mail.received
+
+    ip_pattern = re.compile(r'\b(?:\d{1,3}\.){3}\d{1,3}\b')
+
+    for dictionary in mail:
+        for key, value in dictionary.items():
+            if isinstance(value, str):
+                match = ip_pattern.search(value)
+                if match:
+                    return match.group()
+
+    return None  # Retourne None si aucune adresse IP n'est trouvée
+
+
+def extract_sender_server(mail):
+    message = str(mail.headers)
+    print("message", message)
+    match = re.search(r'from ([^\s]+)', message)
+    if match:
+        sender_server= match.group(1)
+
+        print("Sender server:", sender_server)
+    else:
+        print("Sender server not found")
+
+def extract_sender_mail(mail, file_path):
+    mail_from = mail.from_
+    print("mail_from", mail_from)
+    sender_email = mail_from[-1][-1]
+    # si sender_email est vide on affiche erreur
+    if sender_email == "":
+        with open(file_path, 'rb') as file:
+            # Utiliser BytesParser pour lire le fichier EML
+            msg = BytesParser(policy=policy.default).parse(file)
+            # Récupérer l'e-mail du sender (si disponible)
+            sender_email_raw = msg.get('From')
+            sender_email = None
+            if sender_email_raw:
+                # Utiliser une expression régulière pour extraire la partie entre les caractères '<' et '>'
+                match = re.search(r'<([^>]+)>', sender_email_raw)
+
+                # Dior, Dior, <laredoute@fr.redoute.com> recuperer la chaine entre <> en faisant attention à la virgule
+                if match == None:
+                    match = re.search(r'([^\s]+@[^\s]+)', sender_email_raw)
                     if match:
-                        sender_ip = match.group(1)
-                        break
-                    # Si match
-
-        # Récupérer l'e-mail du sender (si disponible)
-        sender_email_raw = msg.get('From')
-        sender_email = None
-        if sender_email_raw:
-            # Utiliser une expression régulière pour extraire la partie entre les caractères '<' et '>'
-            match = re.search(r'<([^>]+)>', sender_email_raw)
-
-            # Dior, Dior, <laredoute@fr.redoute.com> recuperer la chaine entre <> en faisant attention à la virgule
-            if match == None:
-                match = re.search(r'([^\s]+@[^\s]+)', sender_email_raw)
+                        sender_email = match.group(1)
+                        print("Sender email:", sender_email)
                 if match:
                     sender_email = match.group(1)
-                    print("Sender email:", sender_email)
-            if match:
-                sender_email = match.group(1)
 
-            print("Sender Email",sender_email)
-            print(sender_ip)
-            ipAnalysis = reputation(sender_ip)
-            mailAnalysis = mail(sender_email)
-            # ARC-Authentication-Results: i=1; mx.google.com; Récupérer unique la chaine après ; (mx.google.com)
-            mail_server = msg.get('ARC-Authentication-Results')
-            # Si ARC-Authentication-Results existe et différent de None
-            if mail_server != None:
-
-                mail_server = msg.get('ARC-Authentication-Results')
-                mail_server = mail_server.split(";")[1]
-                print("Premiere", mail_server)
-            else:
-
-                result_string = msg.get('Authentication-Results')
-                # Utilisation de l'expression régulière pour extraire la chaîne
-                match = re.search(r'smtp.mailfrom=(.*?);', result_string)
-
-                # Vérification de la correspondance
-                if match:
-                    mail_server = match.group(1)
-                    print("Mail 2", mail_server)
-                else:
-                    print("Aucune correspondance trouvée.")
-
-
-            spf_check = spf2(sender_ip, sender_email, mail_server)
-            return mailAnalysis, ipAnalysis, spf_check
+                print("Ligne 47", sender_email)
 
 
 
-
-
-
-
-
-
-
-
-
-
+# Tests
+mail = mailparser.parse_from_file("2.eml")
+ip = extract_ip(mail)
+print(ip)
+extract_sender_mail(mail, "2.eml")
+extract_sender_server(mail)

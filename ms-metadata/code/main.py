@@ -5,13 +5,20 @@ import json
 from file import *
 from bucket_call import bucket_call
 import pika, os, sys
+import mailparser
 
 def analyse(id_file):
     # Initiation de la connexion avec le bucket en fonction de l'ID de l'objet et téléchargement du fichier
     bucket_call(id_file)
-    (mailAnalysis, ipAnalysis, spfAnalysis) = analyse_file(id_file)
+    mail = mailparser.parse_from_file(id_file)
+    print("ligne : 14")
+    (mailAnalysis, ipAnalysis, spfAnalysis) = analyse_file(mail,id_file)
+
     return mailAnalysis, ipAnalysis, spfAnalysis
 
+def parseFile(id_file):
+    mail = mailparser.parse_from_file(id_file)
+    return mail
 def send_result(mailResult, ipResult, spfResult, uuid):
     # Send result to the API:  
     print("Send result")
