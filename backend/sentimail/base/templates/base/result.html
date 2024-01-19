@@ -66,9 +66,9 @@
   <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
   <script>
         {% if user.is_authenticated %}
-            const url = "http://127.0.0.1:8000/api/analysis/" + "{{ email.uuid }}" + "/"
+            const url = "http://{{ env }}/api/analysis/" + "{{ email.uuid }}" + "/"
         {% else %}
-            const url = "http://127.0.0.1:8000/api/result/" + "{{ email.uuid }}" + "/"
+            const url = "http://{{ env }}/api/result/" + "{{ email.uuid }}" + "/"
         {% endif %}
         function checkAPI(uuid) {
             $.ajax({

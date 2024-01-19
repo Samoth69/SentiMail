@@ -107,11 +107,11 @@ def historic(request):
 
 def result(request, uuid):
     email = Email.objects.get(uuid=uuid)
-    ip = email.responseMetadataIp
 
+    env = os.getenv("BACKEND_HOST", "127.0.0.1:8000")
 
-
-    return render(request, 'base/result.html', {'email': email})
+    # Passer une variable à la vue pour pouvoir l'utiliser dans le template
+    return render(request, 'base/result.html', {'email': email, 'env': env})
 
 # TODO: Test if file is already uploaded
 def fileuploaded(file, username):
