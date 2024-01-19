@@ -5,6 +5,10 @@ import custom_logger
 logger = custom_logger.getLogger("check_keywords")
 
 def check_keywords(mail):
+    """Check if there are spam or phishing keywords in the mail
+    :param mail: mail object
+    :return: "Clean", "Spam" or "Phishing"
+    """
     logger.info("Start")
     # English:
     #spam_keywords_en = ["viagra", "offer", "free", "business", "opportunity", "loan", "money", "cash", "urgent", "important", "bank", "transfer", "transaction", "investment", "financial", "guarantee", "credit", "debt", "insurance", "beneficiary", "claim", "winner", "winnings", "prize", "award", "lottery", "inheritance", "fund", "charity", "donation", "proposal", "contract", "invoice", "payment", "settlement", "bill", "fee", "cost", "charge", "tax", "duty", "penalty", "fine"]

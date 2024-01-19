@@ -6,6 +6,10 @@ logger = custom_logger.getLogger("check_character")
 
 
 def check_character(mail):
+    """Check is there are unusual characters in the mail
+    :param mail: mail object
+    :return: "Clean" or "Malicious"
+    """
     string = mail.text_plain
 
     mail = str(string)

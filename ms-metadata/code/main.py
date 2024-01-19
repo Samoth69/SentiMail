@@ -3,7 +3,7 @@ import base64
 import os
 import json
 from file import *
-from bucket_call import *
+from bucket_call import bucket_call
 import pika, os, sys
 
 def analyse(id_file):

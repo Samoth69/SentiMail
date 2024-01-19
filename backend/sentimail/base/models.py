@@ -8,6 +8,7 @@ class Email(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
     user = models.CharField(max_length=100, default="anonymous")
     isReady = models.BooleanField(default=False)
+    score = models.IntegerField(default=0)
     responseMetadataIp = models.CharField(max_length=100, default="")
     responseMetadataDomain = models.CharField(max_length=100, default="")
     responseMetadataSPF = models.CharField(max_length=100, default="")

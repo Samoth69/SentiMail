@@ -7,6 +7,10 @@ import custom_logger
 logger = custom_logger.getLogger("check_typosquatting")
 
 def check_typosquatting(mail):
+    """Check if there are typosquatting domains in the mail
+    :param mail: mail object
+    :return: "Clean" or "Malicious"
+    """
 
     update_redflags_domains()
 
@@ -48,16 +52,17 @@ def check_typosquatting(mail):
 
 def update_redflags_domains():
     # Check if the file exists
-    if not os.path.isfile('/tmp/redflags_domains.txt'):
+    redflags_domains_file = '/tmp/redflags_domains.txt'
+    if not os.path.isfile(redflags_domains_file):
         # Download the file
         try:
             logger.info("[update_redflags_domains] Downloading redflags_domains.txt")
-            urllib.request.urlretrieve('https://dl.red.flag.domains/red.flag.domains.txt', '/tmp/redflags_domains.txt')
-        except:
-            logger.error("[update_redflags_domains] Error: Can't download redflags_domains.txt")
+            urllib.request.urlretrieve('https://dl.red.flag.domains/red.flag.domains.txt', redflags_domains_file)
+        except Exception as e:
+            logger.error("[update_redflags_domains] Error: Can't download redflags_domains.txt - %s", e)
             return
     try:
-       with open('/tmp/redflags_domains.txt') as f:
+       with open(redflags_domains_file) as f:
             last_update = f.readline()
             last_update = last_update.split(":")[1]
             last_update = last_update.strip()
@@ -66,11 +71,11 @@ def update_redflags_domains():
             if last_update != yersterday_date:
                 try:
                     logger.info("[update_redflags_domains] Downloading redflags_domains.txt")
-                    urllib.request.urlretrieve('https://dl.red.flag.domains/red.flag.domains.txt', '/tmp/redflags_domains.txt')
-                except:
-                    logger.error("[update_redflags_domains] Error: Can't download redflags_domains.txt")
+                    urllib.request.urlretrieve('https://dl.red.flag.domains/red.flag.domains.txt', redflags_domains_file)
+                except Exception as e:
+                    logger.error("[update_redflags_domains] Error: Can't download redflags_domains.txt - %s", e)
                     return
-    except:
-        logger.error("[update_redflags_domains] Error: Can't read redflags_domains.txt")
+    except Exception as e:
+        logger.error("[update_redflags_domains] Error: Can't read redflags_domains.txt - %s", e)
         return True
     

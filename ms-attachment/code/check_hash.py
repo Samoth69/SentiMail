@@ -7,6 +7,10 @@ import logging
 logger = logging.getLogger("check_hash")
 
 def check_hash(mail):
+    """Check if there are malicious attachments in the mail using VirusTotal API
+    :param mail: mail object
+    :return: "Clean" or "Malicious"
+    """
 
     load_dotenv()
     VIRUS_TOTAL_API_KEY = os.getenv("VIRUS_TOTAL_API_KEY")
