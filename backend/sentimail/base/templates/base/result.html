@@ -66,9 +66,9 @@
   <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
   <script>
         {% if user.is_authenticated %}
-            const url = "http://{{ env }}/api/analysis/" + "{{ email.uuid }}" + "/"
+            const url = window.location.protocol + "//" + window.location.host + "/api/analysis/" + "{{ email.uuid }}" + "/"
         {% else %}
-            const url = "http://{{ env }}/api/result/" + "{{ email.uuid }}" + "/"
+            const url = window.location.protocol + "//" + window.location.host + "/api/result/" + "{{ email.uuid }}" + "/"
         {% endif %}
         function checkAPI(uuid) {
             $.ajax({
