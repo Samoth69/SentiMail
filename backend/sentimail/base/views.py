@@ -57,10 +57,6 @@ def index(request):
             # Rename the file
             
             print("File name: ", file)
-            #new_file = str(uuid.uuid4()) + ".eml"
-            #os.rename(file, new_file)
-            #print("New file name: ", new_file)
-            #file.name = str(uuid.uuid4()) + ".eml"
 
             if request.user.is_authenticated:
                 username = request.user.username
@@ -190,7 +186,7 @@ def publishMessage(uuid):
     print(" [x] Sent ", uuid, " to RabbitMQ")
     connection.close()
 
-def isReady(uuid_analysis):
+def is_ready(uuid_analysis):
     """Check if the analysis is ready
     :param uuid_analysis: uuid of the analysis
     :return: True if the analysis is ready, False if not
@@ -223,45 +219,45 @@ def score_calculator(uuid_analysis):
     # Get the analysis from the database
     analysis = Email.objects.get(uuid=uuid_analysis)
 
-    metadataIP = analysis.responseMetadataIp
-    metadataDomain = analysis.responseMetadataDomain
-    metadataSPF = analysis.responseMetadataSPF
-    contentLinks = analysis.responseContentLinks
-    contentSpelling = analysis.responseContentSpelling
-    contentKeywords = analysis.responseContentKeywords
-    contentTyposquatting = analysis.responseContentTyposquatting
-    contentCharacter = analysis.responseContentCharacter
-    attachmentHash = analysis.responseAttachmentHash
-    attachmentFiletype = analysis.responseAttachmentFiletype
+    metadata_ip = analysis.responseMetadataIp
+    metadata_domain = analysis.responseMetadataDomain
+    metadata_spf = analysis.responseMetadataSPF
+    content_links = analysis.responseContentLinks
+    content_spelling = analysis.responseContentSpelling
+    content_keywords = analysis.responseContentKeywords
+    content_typosquatting = analysis.responseContentTyposquatting
+    content_character = analysis.responseContentCharacter
+    attachment_hash = analysis.responseAttachmentHash
+    attachment_filetype = analysis.responseAttachmentFiletype
 
     # Calculate the score
     
-    if metadataIP == "Malicious":
+    if metadata_ip == "Malicious":
         score += 10
-    if metadataDomain == "Malicious":
+    if metadata_domain == "Malicious":
         score += 10
-    if metadataSPF == "Malicious":
+    if metadata_spf == "Malicious":
         score += 10
    
-    if contentLinks == "Malicious":
+    if content_links == "Malicious":
         score += 10
-    if contentSpelling == "Malicious":
+    if content_spelling == "Malicious":
         score += 10
-    if contentKeywords == "Phishing":
+    if content_keywords == "Phishing":
         score += 10
-    elif contentKeywords == "Spam":
+    elif content_keywords == "Spam":
         score += 5
-    if contentTyposquatting == "Malicious":
+    if content_typosquatting == "Malicious":
         score += 10
-    if contentCharacter == "Malicious":
+    if content_character == "Malicious":
         score += 10
     
-    if attachmentHash == "Malicious":
+    if attachment_hash == "Malicious":
         score += 10
-    if attachmentFiletype == "Malicious":
+    if attachment_filetype == "Malicious":
         score += 10
 
-    if attachmentHash == "No attachment":
+    if attachment_hash == "No attachment":
         score = 100 * score / 80
     
     # Set the score and isReady in the database
@@ -308,7 +304,7 @@ class EmailViewset(ModelViewSet):
     def update(self, request, *args, **kwargs):
         if request.user.is_staff:
             response = super().update(request, *args, **kwargs)
-            isReady(kwargs['pk'])
+            is_ready(kwargs['pk'])
             return response
         else:
             return Response(status=status.HTTP_403_FORBIDDEN, data={"message": "You are not allowed to edit this email"})
