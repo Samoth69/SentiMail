@@ -3,6 +3,7 @@ import re
 from check_reputation import *
 import mailparser
 
+# Fonctions pour analyser le fichier EML
 
 def analyse_file(mail, id_file):
     sender_ip = extract_ip(id_file)
@@ -11,7 +12,7 @@ def analyse_file(mail, id_file):
     print("result sender ip", sender_ip)
     print("result mail server", mail_server)
     print("result sender email", sender_email)
-    if sender_ip != None:
+    if sender_ip != None: # Gestion des erreurs
         ipAnalysis = reputation(sender_ip)
     else:
         ipAnalysis = "Erreur - Test non effectué"
