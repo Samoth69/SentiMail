@@ -2,7 +2,7 @@
 import base64
 import os
 import json
-from bucket_call import *
+from bucket_call import bucket_call
 import pika, os, sys
 import mailparser
 import requests
@@ -63,8 +63,9 @@ def analyse(id_file):
     #logger.info("Filetype: %s", filetype)
 
     if attachments == []:
-        logger.info("No attachment")
-        return "No attachment", "No attachment" 
+        msg = "No attachment"
+        logger.info(msg)
+        return msg, msg 
 
     hash = check_hash(mail)
     filetype = check_filetype(mail)
@@ -105,5 +106,6 @@ if __name__ == '__main__':
         logger.info("Interrupted")
         try:
             sys.exit(0)
-        except SystemExit:
-            os._exit(0)
+        except SystemExit as e:
+            #os._exit(0)
+            raise e

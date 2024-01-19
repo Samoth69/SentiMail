@@ -2,15 +2,14 @@
 import base64
 import os
 import json
-#from file import *
-from bucket_call import *
+from bucket_call import bucket_call
 import pika, os, sys
 import mailparser
-from check_keywords import *
-from check_links import *
-from check_spelling import *
-from check_typosquatting import *
-from check_character import *
+from check_keywords import check_keywords
+from check_links import check_links
+from check_spelling import check_spelling
+from check_typosquatting import check_typosquatting
+from check_character import check_character
 import requests
 from requests.auth import HTTPBasicAuth
 import custom_logger
@@ -123,5 +122,5 @@ if __name__ == '__main__':
         print('Interrupted')
         try:
             sys.exit(0)
-        except SystemExit:
-            os._exit(0)
+        except SystemExit as e:
+            raise e

@@ -213,8 +213,8 @@ def updateBlackList(source):
         try:
             logger.info("[updateBlackList] Downloading %s", file)
             urllib.request.urlretrieve(url, file)
-        except:
-            logger.error("[updateBlackList] Error: Unable to download %s", file)
+        except Exception as e:
+            logger.error("[updateBlackList] Error: Unable to download %s", file, " - ", e)
     else:
         try:
             logger.debug("[updateBlackList] Checking %s", file)
@@ -245,8 +245,8 @@ def updateBlackList(source):
                         try:
                             logger.info("[updateBlackList] Downloading %s", file)
                             urllib.request.urlretrieve(url, file)
-                        except:
-                            logger.error("[updateBlackList] Error: Unable to download %s", file)
+                        except Exception as e:
+                            logger.error("[updateBlackList] Error: Unable to download %s", file, " - ", e)
         except FileNotFoundError:
             logger.error("[updateBlackList] Error: Unable to open %s", file)
         except Exception as e:
