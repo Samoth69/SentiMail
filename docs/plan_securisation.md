@@ -44,3 +44,10 @@ Ce document présente le plan complet de sécurisation mis en œuvre pour garant
 - **Authentification par clé d'API :**
   - Intégration d'un système d'authentification par clé d'API pour sécuriser l'accès à l'API, renforçant ainsi la sécurité des accès.
 
+## Améliorations futures
+Nous envisageons d'intégrer plusieurs initiatives pour renforcer davantage la sécurité de notre projet :
+### Analyse de Vulnérabilités avec OpenVAS
+Intégration de l'outil OpenVAS pour des analyses régulières des vulnérabilités. OpenVAS fournira des rapports détaillés identifiant les points faibles potentiels dans notre infrastructure, permettant ainsi une action préventive pour remédier aux vulnérabilités avant qu'elles ne puissent être exploitées.
+
+### Tests d'Intrusion avec OWASP ZAP
+L'intégration de tests d'intrusion, notamment avec l'utilisation d'OWASP ZAP (Zed Attack Proxy). Ces tests permettront de simuler des attaques potentielles, et effectuer des tests d'intrusion automatisés, identifiant les éventuelles vulnérabilités au niveau de l'application.
