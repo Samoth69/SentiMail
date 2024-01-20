@@ -2,6 +2,9 @@ from check_spf import spf2
 import re
 from check_reputation import reputation, mail_verificator
 import mailparser
+import email
+from email import policy
+from email.parser import BytesParser
 
 # Fonctions pour analyser le fichier EML
 

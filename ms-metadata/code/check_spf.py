@@ -1,6 +1,3 @@
-import email
-from email import policy
-from email.parser import BytesParser
 import spf
 
 def spf2(ip, domain, mail_server):

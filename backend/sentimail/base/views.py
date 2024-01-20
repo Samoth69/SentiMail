@@ -47,7 +47,6 @@ def index(request):
 
     if request.method == 'POST':
         serializer_class = UploadFileSerializer
-        parser_classes = (MultiPartParser, FormParser)
         serializer = serializer_class(data=request.FILES)
         if serializer.is_valid():
             # Rename the file and save it
@@ -114,7 +113,7 @@ def result(request, uuid):
     # Passer une variable à la vue pour pouvoir l'utiliser dans le template
     return render(request, 'base/result.html', {'email': email, 'env': env})
 
-# TODO: Test if file is already uploaded
+
 def fileuploaded(file, username):
     
     print("File: ", file)
@@ -158,7 +157,7 @@ def fileuploaded(file, username):
     print(f"File {email_uuid} uploaded successfully" )
     return email_uuid
 
-# TODO: Secure this endpoint (SSL Error)   
+   
 def uploadFileOnObjectStorage(name, file):
     print("Upload file on object storage")
     minioclient = Minio(settings.MINIO_ENDPOINT,
@@ -193,18 +192,9 @@ def publishMessage(uuid):
         )
     channel = connection.channel()
     channel.exchange_declare(exchange="sentimail", exchange_type='direct')
-    ms_content = settings.RABBITMQ_MS_CONTENT
-    ms_metadata = settings.RABBITMQ_MS_METADATA
-    ms_attachment = settings.RABBITMQ_MS_ATTACHMENT
-
-    #channel.basic_publish(exchange='', routing_key='sentimail', body=json.dumps(uuid))
 
     channel.basic_publish(exchange='sentimail', routing_key='all', body=json.dumps(uuid))
 
-    #rabbit_channel.basic_publish(exchange='', routing_key=ms_metadata, body=json.dumps(uuid))
-    #rabbit_channel.basic_publish(exchange='', routing_key=ms_content, body=json.dumps(uuid))
-
-    
     print(" [x] Sent ", uuid, " to RabbitMQ")
     connection.close()
 
