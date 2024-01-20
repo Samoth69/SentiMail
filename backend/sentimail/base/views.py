@@ -17,6 +17,7 @@ from minio import Minio
 import uuid
 import os
 import pika
+import mailparser
 from . emailform import EmailForm
 
 from . models import Email
@@ -128,9 +129,20 @@ def fileuploaded(file, username):
     uploadFileOnObjectStorage(email_uuid, file)
     print("File uploaded on object storage")
 
+    # Extract metadata from the file
+    mail = mailparser.parse_from_file(file)
+    sender = mail.from_[0][1]
+    recipient = mail.to[0][1]
+    delivery_date = mail.date
+    subject = mail.subject
+
     # Add email to database
     email = Email(uuid=email_uuid)
     email.user = username
+    email.sender = sender
+    email.recipient = recipient
+    email.delivery_date = delivery_date
+    email.subject = subject
     email.save()
     print("Email added to database")
 
@@ -273,6 +285,14 @@ def score_calculator(uuid_analysis):
     # Set the score and isReady in the database
     analysis.score = score
     analysis.isReady = True
+
+    if score < 50:
+        analysis.verdict = "Clean"
+    elif score < 80:
+        analysis.verdict = "Suspicious"
+    else:
+        analysis.verdict = "Malicious"
+        
     analysis.save()
 
     print("Score for ", uuid_analysis, ": ", score)
