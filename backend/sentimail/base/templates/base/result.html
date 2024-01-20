@@ -77,7 +77,7 @@
                   type: 'GET',
                   success: function (data) {
                         console.log(data);
-                        if (data.responseMetadataDomain == "") {
+                        if (data.isReady == false) {
                             setTimeout(function () {
                                 checkAPI(uuid);
                             }, 1000);
@@ -90,6 +90,7 @@
                             $('#links .table-content').text(data.responseContentLinks);
                             $('#spelling .table-content').text(data.responseContentSpelling);
                             $("#keywords").text(data.responseContentKeywords);
+                            $('#score .table-content').text(data.score);
 
                       }
 
