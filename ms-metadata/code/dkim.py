@@ -9,7 +9,8 @@ def verify_dkim(message):
             return "DKIM signature is valid"
         else:
             return "DKIM signature is invalid"
-    except:
+    except Exception as e:
+        print("Exception: ", e)
         return "DKIM signature not found"
 
 test = (my-filename)

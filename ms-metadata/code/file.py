@@ -1,4 +1,4 @@
-from check_spf import *
+from check_spf import spf2
 import re
 from check_reputation import reputation, mail_verificator
 import mailparser

@@ -1,7 +1,5 @@
 import os
-
 from minio import Minio
-from file import *
 from dotenv import load_dotenv
 
 
