@@ -15,7 +15,7 @@ def check_links(mail):
     :param mail: mail object
     :return: "Clean" or "Malicious"
     """
-    nbMalicious = 0
+    nb_malicious = 0
 
     body = mail.body
 
@@ -24,32 +24,21 @@ def check_links(mail):
     
     #logger.info("[check_links] urls: ", urls)
     if googleSafeBrowsingAPI(urls):
-        nbMalicious = 1
+        nb_malicious = 1
     
     for url in urls:
         if isInBlackList(url):
-            nbMalicious += 1
-
-    #urltest = "https://www.google.com"
-    #isMalicious(urltest)
-
-    """  for url in urls:
-        # Check if url is malicious
-        nbMalicious = 0
-        if isMalicious(url):
-            nbMalicious += 1 """
-        
-
+            nb_malicious += 1
     
-    logger.info("Result: %d malicious links found", nbMalicious)
+    logger.info("Result: %d malicious links found", nb_malicious)
 
     result = "Clean"
-    if nbMalicious > 0:
+    if nb_malicious > 0:
         result = "Malicious"
 
     return result
 
-def isMalicious(url):
+def is_malicious(url):
     # TO DO
     # - IP address
     #    - Reputation
@@ -65,7 +54,6 @@ def isMalicious(url):
     #logger.info("[isMalicious] ip_address: ", ip_address)
     isInBlackList(url)
 
-    pass
 
 # Google Safe Browsing API
 def googleSafeBrowsingAPI(urls):
@@ -74,10 +62,10 @@ def googleSafeBrowsingAPI(urls):
     :return: True or False
     """
     result = "Clean"
-    isMalicious = False
+    is_malicious = False
     API_KEY = os.getenv('GOOGLE_SAFE_BROWSING_API_KEY')
 
-    threatTypes = [
+    threat_types = [
             "MALWARE",
             "SOCIAL_ENGINEERING",
             "POTENTIALLY_HARMFUL_APPLICATION",
@@ -85,7 +73,7 @@ def googleSafeBrowsingAPI(urls):
             "CSD_DOWNLOAD_WHITELIST"
         ]
 
-    platformTypes = [
+    platform_types = [
             "WINDOWS",
             "CHROME",
             "LINUX",
@@ -94,19 +82,19 @@ def googleSafeBrowsingAPI(urls):
             "ANDROID"
         ]
     
-    threatEntryTypes = [
+    threat_entry_types = [
             "URL",
             "CERT",
             "IP_RANGE"
         ]
     
-    threatEntries = []
+    threat_entries = []
     for url in urls:
-        threatEntries.append({"url": url})
+        threat_entries.append({"url": url})
     
     #Test 
-    #threatEntries.append({"url": "http://testsafebrowsing.appspot.com/apiv4/ANY_PLATFORM/MALWARE/URL/"})
-    #threatEntries.append({"url": "http://testsafebrowsing.appspot.com/apiv4/ANY_PLATFORM/SOCIAL_ENGINEERING/URL/"})
+    #threat_entries.append({"url": "http://testsafebrowsing.appspot.com/apiv4/ANY_PLATFORM/MALWARE/URL/"})
+    #threat_entries.append({"url": "http://testsafebrowsing.appspot.com/apiv4/ANY_PLATFORM/SOCIAL_ENGINEERING/URL/"})
 
     body = {
         "client": {
@@ -114,10 +102,10 @@ def googleSafeBrowsingAPI(urls):
             "clientVersion": "0.1.0"
         },
         "threatInfo": {
-            "threatTypes": threatTypes,
-            "platformTypes": platformTypes,
-            "threatEntryTypes": threatEntryTypes,
-            "threatEntries": threatEntries
+            "threatTypes": threat_types,
+            "platformTypes": platform_types,
+            "threatEntryTypes": threat_entry_types,
+            "threatEntries": threat_entries
         }
     }
     url = "https://safebrowsing.googleapis.com/v4/threatMatches:find?key=" + API_KEY
@@ -127,15 +115,15 @@ def googleSafeBrowsingAPI(urls):
         logger.error("[googleSafeBrowsingAPI] Error: %s", request.text)
     elif request.status_code == 200:
         if request.json() != {}:
-            resultthreatType = request.json()["matches"][0]["threatType"]
-            logger.debug("[googleSafeBrowsingAPI] Result: %s", resultthreatType)
+            result_threat_type = request.json()["matches"][0]["threatType"]
+            logger.debug("[googleSafeBrowsingAPI] Result: %s", result_threat_type)
             # Number of malicious links
-            result = resultthreatType
-            isMalicious = True
+            result = result_threat_type
+            is_malicious = True
         
             
         logger.info("[googleSafeBrowsingAPI] Result: %s", result)
-    return isMalicious
+    return is_malicious
 
 def isInBlackList(url):
     """Check if the url is in the blacklists
@@ -143,24 +131,24 @@ def isInBlackList(url):
     :return: True or False
     """
     #https://malware-filter.gitlab.io/malware-filter/phishing-filter-agh.txt
-    phishingFilter = ["phishing_filter.txt", "https://adguardteam.github.io/HostlistsRegistry/assets/filter_30.txt"]
+    phishing_filter = ["phishing_filter.txt", "https://adguardteam.github.io/HostlistsRegistry/assets/filter_30.txt"]
 
     #https://adguardteam.github.io/HostlistsRegistry/assets/filter_12.txt
-    antiMalwareList = ["anti_malware_list.txt", "https://adguardteam.github.io/HostlistsRegistry/assets/filter_12.txt"]
+    anti_malware_list = ["anti_malware_list.txt", "https://adguardteam.github.io/HostlistsRegistry/assets/filter_12.txt"]
 
     #https://adguardteam.github.io/HostlistsRegistry/assets/filter_52.txt
-    dohVpnProxyBypass = ["doh_vpn_proxy_bypass.txt", "https://adguardteam.github.io/HostlistsRegistry/assets/filter_52.txt"]
+    doh_vpn_proxy_bypass = ["doh_vpn_proxy_bypass.txt", "https://adguardteam.github.io/HostlistsRegistry/assets/filter_52.txt"]
 
     #https://adguardteam.github.io/HostlistsRegistry/assets/filter_44.txt
-    threatIntelFeeds = ["threat_intel_feeds.txt", "https://adguardteam.github.io/HostlistsRegistry/assets/filter_44.txt"]
+    threat_intel_feeds = ["threat_intel_feeds.txt", "https://adguardteam.github.io/HostlistsRegistry/assets/filter_44.txt"]
 
     #https://adguardteam.github.io/HostlistsRegistry/assets/filter_18.txt
-    phishingArmy = ["phishing_army.txt", "https://adguardteam.github.io/HostlistsRegistry/assets/filter_18.txt"]
+    phishing_army = ["phishing_army.txt", "https://adguardteam.github.io/HostlistsRegistry/assets/filter_18.txt"]
 
     #https://adguardteam.github.io/HostlistsRegistry/assets/filter_42.txt
-    malwareList = ["malware_list.txt", "https://adguardteam.github.io/HostlistsRegistry/assets/filter_42.txt"]
+    malware_list = ["malware_list.txt", "https://adguardteam.github.io/HostlistsRegistry/assets/filter_42.txt"]
 
-    blacklists = [phishingFilter, antiMalwareList, dohVpnProxyBypass, threatIntelFeeds, phishingArmy, malwareList] 
+    blacklists = [phishing_filter, anti_malware_list, doh_vpn_proxy_bypass, threat_intel_feeds, phishing_army, malware_list] 
 
     for blacklist in blacklists:
         updateBlackList(blacklist)
@@ -221,26 +209,26 @@ def updateBlackList(source):
             with open(file) as f:
                 content = f.read()
                 
-                lastUpdate_match = re.search(r'! Last modified: (.+)', content)
+                last_update_match = re.search(r'! Last modified: (.+)', content)
                 
-                if lastUpdate_match:
-                    lastUpdate = lastUpdate_match.group(1)
-                    logger.debug("[updateBlackList] Last update: %s", lastUpdate)
+                if last_update_match:
+                    last_update = last_update_match.group(1)
+                    logger.debug("[updateBlackList] Last update: %s", last_update)
                 else:
                     logger.warning("[updateBlackList] Last update information not found in the file.")
                 
-                nbExpirationDays_match = re.search(r'\b(\d+)\s+day', content)
-                if nbExpirationDays_match:
-                    nbExpirationDays = nbExpirationDays_match.group(1).split(" ")[0]
+                nb_expiration_days_match = re.search(r'\b(\d+)\s+day', content)
+                if nb_expiration_days_match:
+                    nbExpirationDays = nb_expiration_days_match.group(1).split(" ")[0]
                     
                     logger.debug("[updateBlackList] Expiration: %s", nbExpirationDays)
 
-                    lastUpdate = lastUpdate.split("T")[0]
-                    lastUpdateDate = datetime.datetime.strptime(lastUpdate, '%Y-%m-%d')
-                    logger.debug("[updateBlackList] Last update date: %s", lastUpdateDate.strftime('%Y-%m-%d'))
-                    expirationDate = datetime.datetime.strptime(lastUpdate, '%Y-%m-%d') + timedelta(days=int(nbExpirationDays))
-                    logger.debug("[updateBlackList] Expiration date: %s", expirationDate.strftime('%Y-%m-%d'))
-                    if datetime.datetime.now() > expirationDate:
+                    last_update = last_update.split("T")[0]
+                    last_update_date = datetime.datetime.strptime(last_update, '%Y-%m-%d')
+                    logger.debug("[updateBlackList] Last update date: %s", last_update_date.strftime('%Y-%m-%d'))
+                    expiration_date = datetime.datetime.strptime(last_update, '%Y-%m-%d') + timedelta(days=int(nbExpirationDays))
+                    logger.debug("[updateBlackList] Expiration date: %s", expiration_date.strftime('%Y-%m-%d'))
+                    if datetime.datetime.now() > expiration_date:
                         logger.info("[updateBlackList] File expired")
                         try:
                             logger.info("[updateBlackList] Downloading %s", file)

@@ -20,15 +20,15 @@ def main():
     port = os.getenv('RABBITMQ_PORT')
     user = os.getenv('RABBITMQ_USER')
     password = os.getenv('RABBITMQ_PASSWORD')
-    queueSend = os.getenv('RABBITMQ_MS_ATTACHMENT', "ms_attachment")
-    virtualHost = os.getenv('RABBITMQ_VHOST', "/")
+    queue_send = os.getenv('RABBITMQ_MS_ATTACHMENT', "ms_attachment")
+    virtual_host = os.getenv('RABBITMQ_VHOST', "/")
 
     logger.info("connecting to rabbitmq")
     connection = pika.BlockingConnection(
         pika.ConnectionParameters(
             host=host,
             port=port,
-            virtual_host=virtualHost,
+            virtual_host=virtual_host,
             credentials=pika.PlainCredentials(user, password)
             )
         )
@@ -38,9 +38,9 @@ def main():
 
     channel.exchange_declare(exchange="sentimail", exchange_type='direct')
 
-    channel.queue_declare(queue=queueSend)
+    channel.queue_declare(queue=queue_send)
 
-    channel.queue_bind(exchange="sentimail", queue=queueSend, routing_key="all")
+    channel.queue_bind(exchange="sentimail", queue=queue_send, routing_key="all")
 
     def callback(ch, method, properties, body):
         logger.info(" [x] Received %r" % json.loads(body))
@@ -49,7 +49,7 @@ def main():
         os.remove(file)
         send_result(hash, filetype, file)
 
-    channel.basic_consume(queue=queueSend, on_message_callback=callback, auto_ack=True)
+    channel.basic_consume(queue=queue_send, on_message_callback=callback, auto_ack=True)
     logger.info(' [*] Waiting for messages.')
     channel.start_consuming()
 
@@ -107,5 +107,6 @@ if __name__ == '__main__':
         try:
             sys.exit(0)
         except SystemExit as e:
+            logger.info("System exit")
             #os._exit(0)
             raise e

@@ -17,6 +17,7 @@ from minio import Minio
 import uuid
 import os
 import pika
+import mailparser
 from . emailform import EmailForm
 
 from . models import Email
@@ -46,7 +47,6 @@ def index(request):
 
     if request.method == 'POST':
         serializer_class = UploadFileSerializer
-        parser_classes = (MultiPartParser, FormParser)
         serializer = serializer_class(data=request.FILES)
         if serializer.is_valid():
             # Rename the file and save it
@@ -113,7 +113,7 @@ def result(request, uuid):
     # Passer une variable à la vue pour pouvoir l'utiliser dans le template
     return render(request, 'base/result.html', {'email': email, 'env': env})
 
-# TODO: Test if file is already uploaded
+
 def fileuploaded(file, username):
     
     print("File: ", file)
@@ -128,9 +128,20 @@ def fileuploaded(file, username):
     uploadFileOnObjectStorage(email_uuid, file)
     print("File uploaded on object storage")
 
+    # Extract metadata from the file
+    mail = mailparser.parse_from_file(file)
+    sender = mail.from_[0][1]
+    recipient = mail.to[0][1]
+    delivery_date = mail.date
+    subject = mail.subject
+
     # Add email to database
     email = Email(uuid=email_uuid)
     email.user = username
+    email.sender = sender
+    email.recipient = recipient
+    email.delivery_date = delivery_date
+    email.subject = subject
     email.save()
     print("Email added to database")
 
@@ -146,7 +157,7 @@ def fileuploaded(file, username):
     print(f"File {email_uuid} uploaded successfully" )
     return email_uuid
 
-# TODO: Secure this endpoint (SSL Error)   
+   
 def uploadFileOnObjectStorage(name, file):
     print("Upload file on object storage")
     minioclient = Minio(settings.MINIO_ENDPOINT,
@@ -181,18 +192,9 @@ def publishMessage(uuid):
         )
     channel = connection.channel()
     channel.exchange_declare(exchange="sentimail", exchange_type='direct')
-    ms_content = settings.RABBITMQ_MS_CONTENT
-    ms_metadata = settings.RABBITMQ_MS_METADATA
-    ms_attachment = settings.RABBITMQ_MS_ATTACHMENT
-
-    #channel.basic_publish(exchange='', routing_key='sentimail', body=json.dumps(uuid))
 
     channel.basic_publish(exchange='sentimail', routing_key='all', body=json.dumps(uuid))
 
-    #rabbit_channel.basic_publish(exchange='', routing_key=ms_metadata, body=json.dumps(uuid))
-    #rabbit_channel.basic_publish(exchange='', routing_key=ms_content, body=json.dumps(uuid))
-
-    
     print(" [x] Sent ", uuid, " to RabbitMQ")
     connection.close()
 
@@ -241,12 +243,15 @@ def score_calculator(uuid_analysis):
     attachment_filetype = analysis.responseAttachmentFiletype
 
     # Calculate the score
-    
+    total = 100
+
     if metadata_ip == "Malicious":
         score += 10
+    elif metadata_ip == "Unknown":
+        total -= 10
     if metadata_domain == "Malicious":
         score += 10
-    if metadata_spf == "Malicious":
+    if metadata_spf == "SPF record is invalid":
         score += 10
    
     if content_links == "Malicious":
@@ -268,14 +273,27 @@ def score_calculator(uuid_analysis):
         score += 10
 
     if attachment_hash == "No attachment":
-        score = 100 * score / 80
-    
+        total -= 10
+    if attachment_filetype == "No attachment":
+        total -= 10
+    score = 100 * score / total
     # Set the score and isReady in the database
     analysis.score = score
     analysis.isReady = True
+
+    if score < 50:
+        analysis.verdict = "Clean"
+    elif score < 80:
+        analysis.verdict = "Suspicious"
+    else:
+        analysis.verdict = "Malicious"
+        
     analysis.save()
 
+    print("Total for ", uuid_analysis, ": ", total)
     print("Score for ", uuid_analysis, ": ", score)
+    print("Verdict for ", uuid_analysis, ": ", analysis.verdict)
+
     return score
     
 

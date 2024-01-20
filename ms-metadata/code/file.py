@@ -1,7 +1,10 @@
-from check_spf import *
+from check_spf import spf2
 import re
-from check_reputation import *
+from check_reputation import reputation, mail_verificator
 import mailparser
+import email
+from email import policy
+from email.parser import BytesParser
 
 # Fonctions pour analyser le fichier EML
 
@@ -13,18 +16,18 @@ def analyse_file(mail, id_file):
     print("result mail server", mail_server)
     print("result sender email", sender_email)
     if sender_ip != None: # Gestion des erreurs
-        ipAnalysis = reputation(sender_ip)
+        ip_analysis = reputation(sender_ip)
     else:
-        ipAnalysis = "Erreur - Test non effectué"
+        ip_analysis = "Erreur - Test non effectué"
 
     if mail_server != None:
-        mailAnalysis = mail_verificator(sender_email)
+        mail_analysis = mail_verificator(sender_email)
     else:
-        mailAnalysis = "Erreur - Test non effectué"
+        mail_analysis = "Erreur - Test non effectué"
 
     spf_check = spf2(sender_ip, sender_email, mail_server)
 
-    return mailAnalysis, ipAnalysis, spf_check
+    return mail_analysis, ip_analysis, spf_check
 
 
 def extract_ip(file_path):
@@ -67,8 +70,8 @@ def extract_sender_server(file_path):
         # Utiliser BytesParser pour lire le fichier EML
         msg = BytesParser(policy=policy.default).parse(file)
         # Récupérer l'e-mail du sender (si disponible)
-        sender_email_raw = msg.get('From')
-        sender_email = None
+        #sender_email_raw = msg.get('From')
+        #sender_email = None
         # ARC-Authentication-Results: i=1; mx.google.com; Récupérer unique la chaine après ; (mx.google.com)
         mail_server = msg.get('ARC-Authentication-Results')
         # Si ARC-Authentication-Results existe et différent de None
