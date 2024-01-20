@@ -253,12 +253,15 @@ def score_calculator(uuid_analysis):
     attachment_filetype = analysis.responseAttachmentFiletype
 
     # Calculate the score
-    
+    total = 100
+
     if metadata_ip == "Malicious":
         score += 10
+    elif metadata_ip == "Unknown":
+        total -= 10
     if metadata_domain == "Malicious":
         score += 10
-    if metadata_spf == "Malicious":
+    if metadata_spf == "SPF record is invalid":
         score += 10
    
     if content_links == "Malicious":
@@ -280,8 +283,10 @@ def score_calculator(uuid_analysis):
         score += 10
 
     if attachment_hash == "No attachment":
-        score = 100 * score / 80
-    
+        total -= 10
+    if attachment_filetype == "No attachment":
+        total -= 10
+    score = 100 * score / total
     # Set the score and isReady in the database
     analysis.score = score
     analysis.isReady = True
@@ -295,7 +300,10 @@ def score_calculator(uuid_analysis):
         
     analysis.save()
 
+    print("Total for ", uuid_analysis, ": ", total)
     print("Score for ", uuid_analysis, ": ", score)
+    print("Verdict for ", uuid_analysis, ": ", analysis.verdict)
+
     return score
     
 

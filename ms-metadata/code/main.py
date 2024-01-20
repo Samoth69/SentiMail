@@ -2,16 +2,16 @@
 import base64
 import os
 import json
-from file import *
+from file import analyse_file
 from bucket_call import bucket_call
 import pika, os, sys
 import mailparser
+import requests
 
 def analyse(id_file):
     # Initiation de la connexion avec le bucket en fonction de l'ID de l'objet et téléchargement du fichier
     bucket_call(id_file)
     mail = mailparser.parse_from_file(id_file)
-    print("ligne : 14")
     (mailAnalysis, ipAnalysis, spfAnalysis) = analyse_file(mail,id_file)
 
     return mailAnalysis, ipAnalysis, spfAnalysis

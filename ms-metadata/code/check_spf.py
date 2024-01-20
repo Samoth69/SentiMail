@@ -5,6 +5,12 @@ import spf
 from check_reputation import *
 
 def spf2(ip, domain, mail_server):
+    """Check if SPF record is valid
+    :param ip: IP address
+    :param domain: domain name
+    :param mail_server: mail server
+    :return: "SPF record is valid", "SPF record is invalid" or "SPF record does not exist"
+    """
     try:
         print(ip)
         print(domain)
