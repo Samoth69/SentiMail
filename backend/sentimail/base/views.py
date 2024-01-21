@@ -271,11 +271,14 @@ def score_calculator(uuid_analysis):
         score += 10
     if attachment_filetype == "Malicious":
         score += 10
+    elif attachment_filetype == "Suspicious":
+        score += 5
 
     if attachment_hash == "No attachment":
         total -= 10
     if attachment_filetype == "No attachment":
         total -= 10
+
     score = 100 * score / total
     # Set the score and isReady in the database
     analysis.score = score

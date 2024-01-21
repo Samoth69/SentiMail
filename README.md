@@ -27,6 +27,8 @@ SentiMail performs three types of analyses on the email:
 - Analysis of attachment hashes
 - Analysis of attachment file types
   
+For more informations about the technical specifications, please refer to the [technical specifications](docs/specifications_techniques.md).
+For more informations about the security plan, please refer to the [security plan](docs/plan_securisation.md).
 # Tech Stack <a name = "tech_stack"></a>
 
 ## Backend
