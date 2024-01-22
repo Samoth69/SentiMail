@@ -115,7 +115,13 @@ services:
       - MS_CONTENT_USER=${MS_CONTENT_USER}
       - MS_CONTENT_PASSWORD=${MS_CONTENT_PASSWORD}
       - GOOGLE_SAFE_BROWSING_API_KEY=${GOOGLE_SAFE_BROWSING_API_KEY}
+      - LANGUAGETOOL_HOST=http://languagetool:8010
       - DEBUG=1234
+      
+  languagetool:
+    image: erikvl87/languagetool
+    container_name: languagetool
+      
 
   ms-attachment:
     build: ./ms-attachment
@@ -135,6 +141,7 @@ services:
       - MINIO_BUCKET=${MINIO_BUCKET}
       - MS_ATTACHMENT_USER=${MS_ATTACHMENT_USER}
       - MS_ATTACHMENT_PASSWORD=${MS_ATTACHMENT_PASSWORD}
+
 
 volumes:
   minio_storage: {}
