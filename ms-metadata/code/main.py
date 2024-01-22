@@ -14,19 +14,20 @@ def analyse(id_file):
     # Initiation de la connexion avec le bucket en fonction de l'ID de l'objet et téléchargement du fichier
     fi = bucket_call(id_file)
     mail = mailparser.parse_from_file(fi)
-    (mail_analysis, ip_analysis, spf_analysis) = analyse_file(mail,fi)
+    (mail_analysis, ip_analysis, spf_analysis, dkim_analysis) = analyse_file(mail,fi)
 
-    return mail_analysis, ip_analysis, spf_analysis
+    return mail_analysis, ip_analysis, spf_analysis, dkim_analysis
 
 def parseFile(id_file):
     mail = mailparser.parse_from_file(id_file)
     return mail
-def send_result(mail_result, ip_result, spf_result, uuid):
+def send_result(mail_result, ip_result, spf_result, dkim_result, uuid):
     # Send result to the API:  
     logger.info("Send result")
     logger.info("Mail: %s", mail_result)
     logger.info("IP: %s", ip_result)
     logger.info("SPF: %s", spf_result)
+    logger.info("DKIM: %s", dkim_result)
     user_metadata = os.getenv("MS_METADATA_USER")
     password_metadata = os.getenv("MS_METADATA_PASSWORD")
 
@@ -35,6 +36,7 @@ def send_result(mail_result, ip_result, spf_result, uuid):
             "responseMetadataIp": ip_result,
             "responseMetadataDomain": mail_result,
             "responseMetadataSPF": spf_result,
+            "responseMetadataDKIM": dkim_result,
         }
     headers = {
         #"Authorization": "Token " + os.getenv("API_KEY"),
@@ -77,7 +79,7 @@ def main():
         # récupérer uniquement la chaine de caractère entre les quotes du body
 
         file = json.loads(body)
-        mail_result, ip_result, spf_result = analyse(file)
+        mail_result, ip_result, spf_result, dkim_result = analyse(file)
         try:
             os.remove(file)
         except FileNotFoundError:
@@ -85,7 +87,8 @@ def main():
         logger.debug(mail_result)
         logger.debug(ip_result)
         logger.debug(spf_result)
-        send_result(mail_result, ip_result, spf_result, file)
+        logger.debug(dkim_result)
+        send_result(mail_result, ip_result, spf_result, dkim_result, file)
 
     channel.basic_consume(queue=queue_send, on_message_callback=callback, auto_ack=True)
     logger.info(' [*] Waiting for messages. To exit press CTRL+C')
