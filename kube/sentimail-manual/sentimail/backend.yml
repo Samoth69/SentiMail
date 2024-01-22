@@ -23,13 +23,19 @@ spec:
                   name: sentimail-backend-secret
                   key: secretKey
             - name: DB_NAME
-              value: "sentimail-dev"
+              valueFrom:
+                configMapKeyRef:
+                  name: backend-config
+                  key: database_name
             - name: DB_HOST
               value: "sentimail-postgres-postgresql"
             - name: DB_PORT
               value: "5432"
             - name: DB_USER
-              value: "sentimail-dev"
+              valueFrom:
+                configMapKeyRef:
+                  name: backend-config
+                  key: database_user
             - name: DB_PASSWORD
               valueFrom:
                 secretKeyRef:
@@ -71,17 +77,29 @@ spec:
         # - name: DEBUG
         #   value: SNCF
         - name: ALLOWED_HOSTS
-          value: "['dev.sentimail.samoth.eu', '127.0.0.1', 'sentimail-backend-service']"
+          valueFrom:
+            configMapKeyRef:
+              name: backend-config
+              key: allowed_hosts
         - name: CSRF_TRUSTED_ORIGINS
-          value: "['https://dev.sentimail.samoth.eu', 'http://127.0.0.1', 'http://sentimail-dev-backend-service']"
+          valueFrom:
+            configMapKeyRef:
+              name: backend-config
+              key: csrf_trusted_origins
         - name: DB_NAME
-          value: "sentimail-dev"
+          valueFrom:
+            configMapKeyRef:
+              name: backend-config
+              key: database_name
         - name: DB_HOST
           value: "sentimail-postgres-postgresql"
         - name: DB_PORT
           value: "5432"
         - name: DB_USER
-          value: "sentimail-dev"
+          valueFrom:
+            configMapKeyRef:
+              name: backend-config
+              key: database_user
         - name: DB_PASSWORD
           valueFrom:
             secretKeyRef:
@@ -90,20 +108,29 @@ spec:
         - name: MINIO_ENDPOINT
           value: "sentimail-minio:9000"
         - name: MINIO_ACCESS_KEY
-          value: "sentimail-dev"
+          valueFrom:
+            configMapKeyRef:
+              name: backend-config
+              key: minio_access_key
         - name: MINIO_SECRET_KEY
           valueFrom:
             secretKeyRef:
               name: sentimail-backend-secret
               key: minioSecretKey
         - name: MINIO_BUCKET
-          value: "sentimail-dev"
+          valueFrom:
+            configMapKeyRef:
+              name: backend-config
+              key: minio_bucket
         - name: RABBITMQ_HOST
           value: "sentimail-rabbitmq"
         - name: RABBITMQ_PORT
           value: "5672"
         - name: RABBITMQ_USER
-          value: "sentimail-dev"
+          valueFrom:
+            configMapKeyRef:
+              name: backend-config
+              key: rabbitmq_user
         - name: RABBITMQ_PASSWORD
           valueFrom:
             secretKeyRef:
@@ -112,7 +139,10 @@ spec:
         - name: RABBITMQ_QUEUE
           value: "sentimail"
         - name: RABBITMQ_VHOST
-          value: "/sentimail-dev"
+          valueFrom:
+            configMapKeyRef:
+              name: backend-config
+              key: rabbitmq_vhost
         - name: MS_METADATA_USER
           value: "ms_metadata"
         - name: MS_METADATA_PASSWORD

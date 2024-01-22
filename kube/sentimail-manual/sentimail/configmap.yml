@@ -1,0 +1,17 @@
+# ATTENTION
+# Ce fichier n'est pas pris en compte par la CI, ici il sert surtout de référence, si vous voulez modifier quelque
+# chose, voir le fichier workflow github
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: backend-config
+  namespace: sentimail-dev
+data:
+  database_name: sentimail-dev
+  database_user: sentiamil-user
+  allowed_hosts: "['dev.sentimail.samoth.eu', '127.0.0.1', 'sentimail-backend-service']"
+  csrf_trusted_origins: "['https://dev.sentimail.samoth.eu', 'http://127.0.0.1', 'http://sentimail-dev-backend-service']"
+  minio_access_key: sentimail-dev
+  minio_bucket: sentimail-dev
+  rabbitmq_user: sentimail-dev
+  rabbitmq_vhost: /sentimail-dev
