@@ -3,10 +3,27 @@ kind: Ingress
 metadata:
   name: ingress-minio
   namespace: sentimail-dev
-
 spec:
   rules:
-    - host: minio.sentimail.samoth.eu
+    - host: minio-dev.sentimail.samoth.eu
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name:  sentimail-minio
+                port:
+                  number: 9001
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: ingress-minio
+  namespace: sentimail-prod
+spec:
+  rules:
+    - host: minio-prod.sentimail.samoth.eu
       http:
         paths:
           - path: /

@@ -1,25 +1,25 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: sentimail-dev-ms-attachment
+  name: sentimail-ms-attachment
 spec:
   selector:
     matchLabels:
-      app: sentimail-dev-ms-attachment
+      app: sentimail-ms-attachment
   replicas: 1
   template:
     metadata:
       labels:
-        app: sentimail-dev-ms-attachment
+        app: sentimail-ms-attachment
     spec:
       imagePullSecrets:
       - name: regcred
       containers:
-      - name: sentimail-dev-ms-attachment
+      - name: sentimail-ms-attachment
         image: harbor.sentimail.samoth.eu/sentimail/ms-attachment:latest
         env:
         - name: BACKEND_HOST
-          value: "sentimail-dev-backend-service:8000"
+          value: "sentimail-backend-service:8000"
         - name: RABBITMQ_HOST
           value: "sentimail-rabbitmq"
         - name: RABBITMQ_PORT

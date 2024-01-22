@@ -1,21 +1,21 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: sentimail-dev-language-tool
+  name: sentimail-language-tool
 spec:
   selector:
     matchLabels:
-      app: sentimail-dev-language-tool
+      app: sentimail-language-tool
   replicas: 1
   template:
     metadata:
       labels:
-        app: sentimail-dev-language-tool
+        app: sentimail-language-tool
     spec:
       imagePullSecrets:
       - name: regcred
       containers:
-      - name: sentimail-dev-language-tool
+      - name: sentimail-language-tool
         image: erikvl87/languagetool
         ports:
         - containerPort: 8010
@@ -30,35 +30,35 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: sentimail-dev-language-tool-service
+  name: sentimail-language-tool-service
 spec:
   selector:
-    app: sentimail-dev-language-tool
+    app: sentimail-language-tool
   ports:
   - port: 8010
 ---
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: sentimail-dev-ms-content
+  name: sentimail-ms-content
 spec:
   selector:
     matchLabels:
-      app: sentimail-dev-ms-content
+      app: sentimail-ms-content
   replicas: 1
   template:
     metadata:
       labels:
-        app: sentimail-dev-ms-content
+        app: sentimail-ms-content
     spec:
       imagePullSecrets:
       - name: regcred
       containers:
-      - name: sentimail-dev-ms-content
+      - name: sentimail-ms-content
         image: harbor.sentimail.samoth.eu/sentimail/ms-content:latest
         env:
         - name: BACKEND_HOST
-          value: "sentimail-dev-backend-service:8000"
+          value: "sentimail-backend-service:8000"
         - name: RABBITMQ_HOST
           value: "sentimail-rabbitmq"
         - name: RABBITMQ_PORT
@@ -98,7 +98,7 @@ spec:
               name: sentimail-backend-secret
               key: googleSafeBrowsingApiKey
         - name: LANGUAGETOOL_HOST
-          value: "http://sentimail-dev-language-tool-service:8010"
+          value: "http://sentimail-language-tool-service:8010"
         resources:
           requests:
             cpu: '10m'

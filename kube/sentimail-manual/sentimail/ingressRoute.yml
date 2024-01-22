@@ -1,7 +1,7 @@
 apiVersion: traefik.io/v1alpha1
 kind: Middleware
 metadata:
-  name: sentimail-dev-frontend-stripprefix
+  name: sentimail-frontend-stripprefix
   namespace: sentimail-dev
 spec:
   stripPrefix:
@@ -12,7 +12,7 @@ spec:
 apiVersion: traefik.io/v1alpha1
 kind: Middleware
 metadata:
-  name: sentimail-dev-backend-maxbodysize
+  name: sentimail-backend-maxbodysize
   namespace: sentimail-dev
 spec:
   buffering:
@@ -21,7 +21,7 @@ spec:
 apiVersion: traefik.containo.us/v1alpha1
 kind: IngressRoute
 metadata:
-  name: sentimail-dev-ingressroute
+  name: sentimail-ingressroute
 spec:
   entryPoints:
     - websecure
@@ -29,18 +29,18 @@ spec:
   - match: Host(`dev.sentimail.samoth.eu`)
     kind: Rule
     middlewares:
-    - name: sentimail-dev-backend-maxbodysize
+    - name: sentimail-backend-maxbodysize
       namespace: sentimail-dev
     services:
-    - name: sentimail-dev-backend-service
+    - name: sentimail-backend-service
       namespace: sentimail-dev
       port: 8000
   - match: Host(`dev.sentimail.samoth.eu`) && PathPrefix(`/static/`)
     kind: Rule
     middlewares:
-    - name: sentimail-dev-frontend-stripprefix
+    - name: sentimail-frontend-stripprefix
       namespace: sentimail-dev
     services:
-    - name: sentimail-dev-frontend-service
+    - name: sentimail-frontend-service
       namespace: sentimail-dev
       port: 80

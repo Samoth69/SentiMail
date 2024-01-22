@@ -164,6 +164,30 @@ jobs:
           kustomize edit set image harbor.sentimail.samoth.eu/sentimail/ms-metadata@${{ needs.build_ms_metadata.outputs.image_id }}
           kustomize edit set image harbor.sentimail.samoth.eu/sentimail/ms-content@${{ needs.build_ms_content.outputs.image_id }}
           kustomize edit set image harbor.sentimail.samoth.eu/sentimail/ms-attachment@${{ needs.build_ms_attachment.outputs.image_id }}
+          kustomize edit set namespace sentimail-${{ github.ref_name }}
+          cat <<EOF >>kustomization.yml
+          
+          patches:
+          - target:
+              group: traefik.containo.us
+              version: v1alpha1
+              kind: IngressRoute
+              name: sentimail-ingressroute
+            patch: |-
+              - op: replace
+                path: /spec/routes/0/middlewares/0/namespace
+                value: sentimail-${{ github.ref_name }}
+              - op: replace
+                path: /spec/routes/0/services/0/namespace
+                value: sentimail-${{ github.ref_name }}
+              - op: replace
+                path: /spec/routes/1/middlewares/0/namespace
+                value: sentimail-${{ github.ref_name }}
+              - op: replace
+                path: /spec/routes/1/services/0/namespace
+                value: sentimail-${{ github.ref_name }}
+
+          EOF
       -
         name: apply config
         run: kustomize build | kubectl apply -f -
