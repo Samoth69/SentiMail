@@ -55,8 +55,8 @@ def main():
 
 def analyse(id_file):
     # Initiation de la connexion avec le bucket en fonction de l'ID de l'objet et téléchargement du fichier
-    bucket_call(id_file)
-    mail = parse_file(id_file)
+    fi = bucket_call(id_file)
+    mail = parse_file(fi)
     attachments = mail.attachments
     #filetype = attachments[0]["mail_content_type"]
     #logger.info("Filetype: %s", filetype)

@@ -12,9 +12,9 @@ logger = custom_logger.getLogger("main")
 
 def analyse(id_file):
     # Initiation de la connexion avec le bucket en fonction de l'ID de l'objet et téléchargement du fichier
-    bucket_call(id_file)
-    mail = mailparser.parse_from_file(id_file)
-    (mail_analysis, ip_analysis, spf_analysis) = analyse_file(mail,id_file)
+    fi = bucket_call(id_file)
+    mail = mailparser.parse_from_file(fi)
+    (mail_analysis, ip_analysis, spf_analysis) = analyse_file(mail,fi)
 
     return mail_analysis, ip_analysis, spf_analysis
 
