@@ -1,7 +1,7 @@
 name: The CI
 on:
   push:
-    branches: [ "dev", "refactoCI" ]
+    branches: [ "dev", "prod" ]
 
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
