@@ -131,7 +131,12 @@ def fileuploaded(file, username):
     # Extract metadata from the file
     mail = mailparser.parse_from_file(file)
     sender = mail.from_[0][1]
-    recipient = mail.to[0][1]
+    recipients = mail.to[0][1]
+    for recipient in mail.to[1:]:
+        recipients += ", " + recipient[1]
+        #print("Recipient: ", recipient[1])
+    recipient = recipients
+    #print("Recipients: ", recipient)
     delivery_date = mail.date
     subject = mail.subject
 
