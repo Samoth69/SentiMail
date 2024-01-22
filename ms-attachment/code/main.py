@@ -64,7 +64,7 @@ def analyse(id_file):
     if attachments == []:
         msg = "No attachment"
         logger.info(msg)
-        return msg, msg 
+        return fi, msg, msg 
 
     hash = check_hash(mail)
     filetype = check_filetype(mail)
