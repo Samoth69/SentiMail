@@ -26,9 +26,9 @@ def check_hash(mail):
     mail.write_attachments("/tmp")
 
     # Check hash of each attachment
-    for file in os.listdir("tmp"):
+    for file in os.listdir("/tmp"):
         logger.info("file: %s", file)
-        with open("tmp/" + file, "rb") as f:
+        with open("/tmp/" + file, "rb") as f:
             file_hash = hashlib.sha256(f.read()).hexdigest()
             logger.info("file_hash: %s", file_hash)
             url = url + file_hash
@@ -49,6 +49,6 @@ def check_hash(mail):
             else:
                 logger.error("Error: %s", response.status_code)
                 logger.error("response: %s", response)
-        os.remove("tmp/" + file)
+        os.remove("/tmp/" + file)
     logger.info("result: %s", result)
     return result
