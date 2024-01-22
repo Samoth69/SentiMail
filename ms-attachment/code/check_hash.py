@@ -17,16 +17,13 @@ def check_hash(mail):
 
     result = "Clean"
 
-    if not os.path.exists("tmp"):
-        os.makedirs("tmp")
-
     url = "https://www.virustotal.com/api/v3/files/"
     headers = {
         "accept": "application/json",
         "x-apikey": VIRUS_TOTAL_API_KEY
     }
 
-    mail.write_attachments("tmp")
+    mail.write_attachments("/tmp")
 
     # Check hash of each attachment
     for file in os.listdir("tmp"):

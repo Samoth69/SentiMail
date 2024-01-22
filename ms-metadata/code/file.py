@@ -68,34 +68,38 @@ def extract_ip(file_path):
 
 
 def extract_sender_server(file_path):
-    with open(file_path, 'rb') as file:
-        # Utiliser BytesParser pour lire le fichier EML
-        msg = BytesParser(policy=policy.default).parse(file)
-        # Récupérer l'e-mail du sender (si disponible)
-        #sender_email_raw = msg.get('From')
-        #sender_email = None
-        # ARC-Authentication-Results: i=1; mx.google.com; Récupérer unique la chaine après ; (mx.google.com)
-        mail_server = msg.get('ARC-Authentication-Results')
-        # Si ARC-Authentication-Results existe et différent de None
-        if mail_server != None:
-
+    try:
+        with open(file_path, 'rb') as file:
+            # Utiliser BytesParser pour lire le fichier EML
+            msg = BytesParser(policy=policy.default).parse(file)
+            # Récupérer l'e-mail du sender (si disponible)
+            #sender_email_raw = msg.get('From')
+            #sender_email = None
+            # ARC-Authentication-Results: i=1; mx.google.com; Récupérer unique la chaine après ; (mx.google.com)
             mail_server = msg.get('ARC-Authentication-Results')
-            mail_server = mail_server.split(";")[1]
-            logger.info("Function sender_server %s", mail_server)
-        else:
+            # Si ARC-Authentication-Results existe et différent de None
+            if mail_server != None:
 
-            result_string = msg.get('Authentication-Results')
-            # Utilisation de l'expression régulière pour extraire la chaîne
-            match = re.search(r'smtp.mailfrom=(.*?);', result_string)
-
-            # Vérification de la correspondance
-            if match:
-                mail_server = match.group(1)
-                logger.info("Mail 2 %s", mail_server)
+                mail_server = msg.get('ARC-Authentication-Results')
+                mail_server = mail_server.split(";")[1]
+                logger.info("Function sender_server %s", mail_server)
             else:
-                logger.info("Aucune correspondance trouvée.")
-                return None
-        return mail_server
+
+                result_string = msg.get('Authentication-Results')
+                # Utilisation de l'expression régulière pour extraire la chaîne
+                match = re.search(r'smtp.mailfrom=(.*?);', result_string)
+
+                # Vérification de la correspondance
+                if match:
+                    mail_server = match.group(1)
+                    logger.info("Mail 2 %s", mail_server)
+                else:
+                    logger.info("Aucune correspondance trouvée.")
+                    return None
+            return mail_server
+    except Exception as e:
+        logger.error("Erreur %s", e)
+        return "Erreur - Test non effectué"
 
 
 def extract_sender_mail(mail, file_path):
