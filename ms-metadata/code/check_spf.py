@@ -17,7 +17,7 @@ def spf2(ip, domain, mail_server):
 
 
         result = spf_check[0]
-        logger.info("result", result)
+        logger.info("result %s", result)
         if result == "pass" or result == "neutral":
             return "SPF record is valid"
         else:
