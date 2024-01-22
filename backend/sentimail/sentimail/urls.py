@@ -28,7 +28,6 @@ urlpatterns = [
     path('index/', views.index, name='index'),
     path('api/', include('base.urls')),
     path('api_doc/', views.api_doc, name='api_doc'),
-    path('uploadSuccess/', views.uploadSuccess),
     #path('login/', authentication.views.login_page, name='login'),
     path('login/', authentication.views.LoginView.as_view(), name='login'),
     #path('logout/', authentication.views.logout_user, name='logout'),
@@ -38,6 +37,7 @@ urlpatterns = [
     path('account/', authentication.views.AccountView.as_view(), name='account'),
     path('result/<uuid:uuid>/', views.result, name='result'),
     path('historic/', views.historic, name='historic'),
+    path('about/', views.about, name='about'),
 ]
 
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

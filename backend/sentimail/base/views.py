@@ -89,8 +89,8 @@ def index(request):
         form = EmailForm()
     return render(request, 'base/index.html', {'form': form})
 
-def uploadSuccess(request):
-    return render(request, 'base/uploadSuccess.html')
+def about(request):
+    return render(request, 'base/about.html')
 
 def api_doc(request):
     return render(request, 'base/api_doc.html')

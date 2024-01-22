@@ -8,13 +8,25 @@
             <td class="result-block global" id="score">
                 <div class="inner-block">
                     <h1>Result</h1>
-                    <p class ="table-content">Score global</p>
+                    <p class ="table-content">Global score</p>
                 </div>
             </td>
-            <td class="result-block" id="uuid">
+            <td class="result-block" id="Verdict">
                 <div class="inner-block">
-                    <p class ="table-title">UUID </p>
-                    <p class ="table-content">{{ email.uuid }}</p>
+                    <p class ="table-title">Verdict</p>
+                    <p class ="table-content"></p>
+                </div>
+            </td>
+            <td class="result-block" id="Typosquatting">
+                <div class="inner-block">
+                    <p class ="table-title">Typosquatting</p>
+                    <p class ="table-content"></p>
+                </div>
+            </td>
+            <td class="result-block" id="spelling">
+                <div class="inner-block">
+                    <p class ="table-title">Spelling</p>
+                    <p class ="table-content"></p>
                 </div>
             </td>
         </tr>
@@ -31,23 +43,24 @@
                     <p class ="table-content"></p>
                 </div>
             </td>
-            <td class="result-block" id="type">
-                <div class="inner-block">
-                    <p class ="table-title">File Type</p>
-                    <p class ="table-content"></p>
-                </div>
-            </td>
-        </tr>
-        <tr>
             <td class="result-block" id="spf">
                 <div class="inner-block">
                     <p class ="table-title">SPF</p>
                     <p class ="table-content"></p>
                 </div>
             </td>
-            <td class="result-block" id="links">
+            <td class="result-block" id="keywords">
                 <div class="inner-block">
-                    <p class ="table-title">Links</p>
+                    <p class ="table-title">Keywords</p>
+                    <p class ="table-content"></p>
+                </div>
+            </td>
+
+        </tr>
+        <tr>
+            <td class="result-block" id="type">
+                <div class="inner-block">
+                    <p class ="table-title">File Type</p>
                     <p class ="table-content"></p>
                 </div>
             </td>
@@ -57,17 +70,15 @@
                     <p class ="table-content"></p>
                 </div>
             </td>
-        </tr>
-        <tr>
-            <td class="result-block" id="spelling">
+            <td class="result-block" id="links">
                 <div class="inner-block">
-                    <p class ="table-title">Spelling</p>
+                    <p class ="table-title">Links</p>
                     <p class ="table-content"></p>
                 </div>
             </td>
-            <td class="result-block" id="keywords">
+            <td class="result-block" id="characters">
                 <div class="inner-block">
-                    <p class ="table-title">Keywords</p>
+                    <p class ="table-title">Characters</p>
                     <p class ="table-content"></p>
                 </div>
             </td>
@@ -101,65 +112,86 @@
                             $('#uuid .table-content').text(data.uuid);
 
                             if (data.responseContentSpelling == "") {
-                                $('#spelling .table-content').text("Résultat en attente...");
+                                $('#spelling .table-content').text("Waiting for result...");
                             }
                             else {
                                 $('#spelling .table-content').text(data.responseContentSpelling);
                             }
                             if (data.responseMetadataIp == "") {
-                                $('#ip .table-content').text("Résultat en attente...");
+                                $('#ip .table-content').text("Waiting for result...");
                             }
                             else {
                                 $('#ip .table-content').text(data.responseMetadataIp);
                             }
 
                             if (data.responseMetadataDomain == "") {
-                                $('#domain .table-content').text("Résultat en attente...");
+                                $('#domain .table-content').text("Waiting for result...");
                             }
                             else {
                                 $('#domain .table-content').text(data.responseMetadataDomain);
                             }
 
                             if (data.responseMetadataSPF == "") {
-                                $('#spf .table-content').text("Résultat en attente...");
+                                $('#spf .table-content').text("Waiting for result...");
                             }
                             else {
                                 $('#spf .table-content').text(data.responseMetadataSPF);
                             }
 
                             if (data.responseContentLinks == "") {
-                                $('#links .table-content').text("Résultat en attente...");
+                                $('#links .table-content').text("Waiting for result...");
                             }
                             else {
                               $('#links .table-content').text(data.responseContentLinks);
                             }
 
                             if (data.responseContentKeywords == "") {
-                                $('#keywords .table-content').text("Résultat en attente...");
+                                $('#keywords .table-content').text("Waiting for result...");
                             }
                             else {
                                 $('#keywords .table-content').text(data.responseContentKeywords);
                             }
 
                             if (data.score == "0") {
-                                $('#score .table-content').text("Calcul du score...");
+                                $('#score .table-content').text("Waiting for result...");
                             }
                             else {
                                 $('#score .table-content').text(data.score);
                             }
 
                             if (data.responseAttachmentHash == "") {
-                                $('#hash .table-content').text("Résultat en attente...");
+                                $('#hash .table-content').text("Waiting for result...");
                             }
                             else {
                                 $('#hash .table-content').text(data.responseAttachmentHash);
                             }
 
                             if (data.responseAttachmentFiletype == "") {
-                                $('#type .table-content').text("Résultat en attente...");
+                                $('#type .table-content').text("Waiting for result...");
                             }
                             else {
-                                $('#type .table-content').text(data.responseAttachmentType);
+                                $('#type .table-content').text(data.responseAttachmentFiletype);
+                            }
+
+                            if (data.responseContentCharacter == "") {
+                                $('#characters .table-content').text("Waiting for result...");
+                            }
+                            else {
+                                $('#characters .table-content').text(data.responseContentCharacter);
+                            }
+
+                            if (data.responseContentTyposquatting == "") {
+                                $('#Typosquatting .table-content').text("Waiting for result...");
+                            }
+                            else {
+                                $('#Typosquatting .table-content').text(data.responseContentTyposquatting);
+                            }
+
+                            if (data.verdict == "") {
+                                $('#Verdict .table-content').text("Waiting for result...");
+                            }
+                            else {
+                                $('#Verdict .table-content').text(data.verdict);
                             }
 
                       }

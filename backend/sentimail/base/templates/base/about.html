@@ -1,0 +1,42 @@
+{% extends "base/base.html" %}
+{% load static %}
+
+{% block content %}
+    <div class="analysis-block">
+      <h2 class="number-analyse"> About SentiMail</h2>
+
+      <div class="analysis-details">
+        <p>SentiMail is a solution designed to assess the legitimacy of e-mails based on a variety of criteria, enabling you to efficiently determine their status in terms of spam or malicious intent.</p>
+      </div>
+      <div class="text-about">
+          <h2 class="number-analyse"> Features</h2>
+
+        <p>SentiMail performs three types of analyses on the email:</p>
+            <h3>Metadata Analysis</h3>
+          <ul>
+          <li>Analysis of the sender's IP</li>
+          <li>Analysis of the sender's domain</li>
+          <li>Analysis of the sender domain's SPF</li>
+        </ul>
+
+          <h3>Email Content Analysis</h3>
+          <ul>
+          <li>Link analysis</li>
+          <li>Spelling analysis</li>
+          <li>Keyword analysis</li>
+              <li>Typo-squatting analysis</li>
+              <li>Unusual characters analysis</li>
+        </ul>
+
+           <h3>Attachments Analysis</h3>
+          <ul>
+          <li>Analysis of attachment hashes</li>
+          <li>Analysis of attachment file types</li>
+
+        </ul>
+
+      </div>
+      <hr>
+    </div>
+
+{% endblock %}
