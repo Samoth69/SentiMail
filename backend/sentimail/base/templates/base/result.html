@@ -11,10 +11,22 @@
                     <p class ="table-content">Score global</p>
                 </div>
             </td>
-            <td class="result-block" id="uuid">
+            <td class="result-block" id="Verdict">
                 <div class="inner-block">
-                    <p class ="table-title">UUID </p>
-                    <p class ="table-content">{{ email.uuid }}</p>
+                    <p class ="table-title">Verdict</p>
+                    <p class ="table-content"></p>
+                </div>
+            </td>
+            <td class="result-block" id="Typosquatting">
+                <div class="inner-block">
+                    <p class ="table-title">Typosquatting</p>
+                    <p class ="table-content"></p>
+                </div>
+            </td>
+            <td class="result-block" id="spelling">
+                <div class="inner-block">
+                    <p class ="table-title">Spelling</p>
+                    <p class ="table-content"></p>
                 </div>
             </td>
         </tr>
@@ -31,23 +43,24 @@
                     <p class ="table-content"></p>
                 </div>
             </td>
-            <td class="result-block" id="type">
-                <div class="inner-block">
-                    <p class ="table-title">File Type</p>
-                    <p class ="table-content"></p>
-                </div>
-            </td>
-        </tr>
-        <tr>
             <td class="result-block" id="spf">
                 <div class="inner-block">
                     <p class ="table-title">SPF</p>
                     <p class ="table-content"></p>
                 </div>
             </td>
-            <td class="result-block" id="links">
+            <td class="result-block" id="keywords">
                 <div class="inner-block">
-                    <p class ="table-title">Links</p>
+                    <p class ="table-title">Keywords</p>
+                    <p class ="table-content"></p>
+                </div>
+            </td>
+
+        </tr>
+        <tr>
+            <td class="result-block" id="type">
+                <div class="inner-block">
+                    <p class ="table-title">File Type</p>
                     <p class ="table-content"></p>
                 </div>
             </td>
@@ -57,17 +70,15 @@
                     <p class ="table-content"></p>
                 </div>
             </td>
-        </tr>
-        <tr>
-            <td class="result-block" id="spelling">
+            <td class="result-block" id="links">
                 <div class="inner-block">
-                    <p class ="table-title">Spelling</p>
+                    <p class ="table-title">Links</p>
                     <p class ="table-content"></p>
                 </div>
             </td>
-            <td class="result-block" id="keywords">
+            <td class="result-block" id="characters">
                 <div class="inner-block">
-                    <p class ="table-title">Keywords</p>
+                    <p class ="table-title">Characters</p>
                     <p class ="table-content"></p>
                 </div>
             </td>
@@ -159,7 +170,28 @@
                                 $('#type .table-content').text("Résultat en attente...");
                             }
                             else {
-                                $('#type .table-content').text(data.responseAttachmentType);
+                                $('#type .table-content').text(data.responseAttachmentFiletype);
+                            }
+
+                            if (data.responseContentCharacter == "") {
+                                $('#characters .table-content').text("Résultat en attente...");
+                            }
+                            else {
+                                $('#characters .table-content').text(data.responseContentCharacter);
+                            }
+
+                            if (data.responseContentTyposquatting == "") {
+                                $('#Typosquatting .table-content').text("Résultat en attente...");
+                            }
+                            else {
+                                $('#Typosquatting .table-content').text(data.responseContentTyposquatting);
+                            }
+
+                            if (data.verdict == "") {
+                                $('#Verdict .table-content').text("Résultat en attente...");
+                            }
+                            else {
+                                $('#Verdict .table-content').text(data.verdict);
                             }
 
                       }

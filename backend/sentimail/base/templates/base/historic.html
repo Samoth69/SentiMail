@@ -14,8 +14,12 @@
       <div class="analysis-details">
         <p>Date : {{ mail.delivery_date }}</p>
         <p>Result : {{ mail.score }}</p>
-        <p>Details : <a href="#">{{ mail.details }}</a></p>
-        <p>Context : {{ analysis.context }}</p>
+        {% if mail.isReady == True %}
+        <p>Details : <a href="/../result/{{mail.uuid}}/">Show result</a></p>
+        {% else %}
+        <p>Analysis in progress</p>
+        {% endif %}
+
       </div>
       <div>
         <p>Sender: {{ mail.sender }}</p>
@@ -27,6 +31,8 @@
 
   {% endfor %}
   {% endif %}
+
+
 
 
 
