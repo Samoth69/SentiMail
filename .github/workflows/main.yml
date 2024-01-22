@@ -204,7 +204,7 @@ jobs:
                 path: "/spec/template/spec/containers/0/env/-"
                 value:
                   name: DEBUG
-                  key: Vive la SNCF
+                  value: Vive la SNCF
 
           EOF
       -
