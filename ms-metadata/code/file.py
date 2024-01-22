@@ -1,6 +1,7 @@
 from check_spf import spf2
 import re
 from check_reputation import reputation, mail_verificator
+from check_dkim import verify_dkim
 import mailparser
 import email
 from email import policy
@@ -29,7 +30,9 @@ def analyse_file(mail, id_file):
 
     spf_check = spf2(sender_ip, sender_email, mail_server)
 
-    return mail_analysis, ip_analysis, spf_check
+    dkim_analysis = verify_dkim(mail)
+    
+    return mail_analysis, ip_analysis, spf_check, dkim_analysis
 
 
 def extract_ip(file_path):
