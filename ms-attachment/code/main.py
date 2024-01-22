@@ -43,10 +43,10 @@ def main():
 
     def callback(ch, method, properties, body):
         logger.info(" [x] Received %r" % json.loads(body))
-        file = json.loads(body)
-        hash, filetype = analyse(file)
-        os.remove(file)
-        send_result(hash, filetype, file)
+        metadata = json.loads(body)
+        fi, hash, filetype = analyse(metadata)
+        os.remove(fi)
+        send_result(hash, filetype, metadata)
 
     channel.basic_consume(queue=queue_send, on_message_callback=callback, auto_ack=True)
     logger.info(' [*] Waiting for messages.')
@@ -69,7 +69,7 @@ def analyse(id_file):
     hash = check_hash(mail)
     filetype = check_filetype(mail)
 
-    return hash, filetype
+    return fi, hash, filetype
 
 def parse_file(id_file):
     mail = mailparser.parse_from_file(id_file)

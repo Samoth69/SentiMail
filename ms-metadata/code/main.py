@@ -24,9 +24,9 @@ def parseFile(id_file):
 def send_result(mail_result, ip_result, spf_result, uuid):
     # Send result to the API:  
     logger.info("Send result")
-    logger.info("Mail: ", mail_result)
-    logger.info("IP: ", ip_result)
-    logger.info("SPF: ", spf_result)
+    logger.info("Mail: %s", mail_result)
+    logger.info("IP: %s", ip_result)
+    logger.info("SPF: %s", spf_result)
     user_metadata = os.getenv("MS_METADATA_USER")
     password_metadata = os.getenv("MS_METADATA_PASSWORD")
 
@@ -41,11 +41,11 @@ def send_result(mail_result, ip_result, spf_result, uuid):
         "Authorization": "Basic " + base64.b64encode(bytes(user_metadata + ":" + password_metadata, "utf-8")).decode("ascii"),
     }
     url = "http://" + os.getenv("BACKEND_HOST", "127.0.0.1:8000") + "/api/analysis/" + uuid + "/"
-    logger.info("URL: ", url)
+    logger.info("URL: %s", url)
     request = requests.patch(url, data = data, headers = headers)
-    logger.info("Status code: ", request.status_code)
+    logger.info("Status code: %d", request.status_code)
     if request.status_code > 299:
-        logger.error("Error: ", request.text)
+        logger.error("Error: %s", request.text)
     
 
 def main():
