@@ -11,12 +11,10 @@ def verify_dkim(mail):
     """
         
     mail_headers = mail.headers
-    print(mail_headers)
 
     dkim_pass = ["dkim=pass"]
     dkim_unpass = ["DKIM-Signature", "DKIM-Filter", "dkim=neutral", "dkim=none", "dkim=permerror", "dkim=temperror", "dkim=fail"]
     dkim = dkim_pass + dkim_unpass
-    print(dkim)
 
     for setting in dkim:
         if setting in mail_headers:
