@@ -216,6 +216,8 @@ jobs:
             rabbitmq_vhost: /sentimail-${{ github.ref_name }}
 
           EOF
+        env:
+          KUBECONFIG: ${{ runner.temp }}/sa.kubeconfig
       -
         name: enable debug mode if in dev
         if: ${{ github.ref_name == 'dev' }}
