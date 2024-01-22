@@ -11,6 +11,7 @@ jobs:
   scan_sonarqube:
     name: Scan sonarqube
     runs-on: ubuntu-latest
+    if: ${{ github.ref_name != 'prod' }}
     permissions: read-all
     steps:
       - uses: actions/checkout@v4
