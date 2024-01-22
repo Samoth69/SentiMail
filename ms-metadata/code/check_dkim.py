@@ -1,7 +1,15 @@
 import custom_logger
 logger = custom_logger.getLogger("dkim")
 
+
+
 def verify_dkim(mail):
+
+    """Check if DKIM is valid
+    :param mail: Mail
+    :return: "Malicious", "Ok" or "Clean"
+    """
+        
     mail_headers = mail.headers
     print(mail_headers)
 
@@ -13,9 +21,9 @@ def verify_dkim(mail):
     for setting in dkim:
         if setting in mail_headers:
             if setting in dkim_pass:
-                return "DKIM Valid"
+                return "Clean"
             else:
-                return "DKIM Ok"
-    return "DKIM Unexist"
+                return "Ok"
+    return "Malicious"
 
 
