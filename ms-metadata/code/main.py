@@ -78,7 +78,10 @@ def main():
 
         file = json.loads(body)
         mail_result, ip_result, spf_result = analyse(file)
-        os.remove(file)
+        try:
+            os.remove(file)
+        except FileNotFoundError:
+            logger.warning("File not found while deleting " + file)
         logger.debug(mail_result)
         logger.debug(ip_result)
         logger.debug(spf_result)

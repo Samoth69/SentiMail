@@ -14,9 +14,9 @@ def analyse_file(mail, id_file):
     sender_ip = extract_ip(id_file)
     mail_server = extract_sender_server(id_file)
     sender_email = extract_sender_mail(mail, id_file)
-    logger.info("result sender ip", sender_ip)
-    logger.info("result mail server", mail_server)
-    logger.info("result sender email", sender_email)
+    logger.info("result sender ip %s", sender_ip)
+    logger.info("result mail server %s", mail_server)
+    logger.info("result sender email %s", sender_email)
     if sender_ip != None: # Gestion des erreurs
         ip_analysis = reputation(sender_ip)
     else:
@@ -55,7 +55,7 @@ def extract_ip(file_path):
                                 match = re.search(r'sender IP is ([\d.]+)', header)
                                 if match:
                                     sender_ip = match.group(1)
-                                    logger.info("Sender IP:", sender_ip)
+                                    logger.info("Sender IP: %s", sender_ip)
                                     return sender_ip
 
                     if match:
@@ -81,7 +81,7 @@ def extract_sender_server(file_path):
 
             mail_server = msg.get('ARC-Authentication-Results')
             mail_server = mail_server.split(";")[1]
-            logger.info("Function sender_server", mail_server)
+            logger.info("Function sender_server %s", mail_server)
         else:
 
             result_string = msg.get('Authentication-Results')
@@ -91,7 +91,7 @@ def extract_sender_server(file_path):
             # Vérification de la correspondance
             if match:
                 mail_server = match.group(1)
-                logger.info("Mail 2", mail_server)
+                logger.info("Mail 2 %s", mail_server)
             else:
                 logger.info("Aucune correspondance trouvée.")
                 return None
@@ -100,9 +100,9 @@ def extract_sender_server(file_path):
 
 def extract_sender_mail(mail, file_path):
     mail_from = mail.from_
-    logger.info("mail_from", mail_from)
+    logger.info("mail_from %s", mail_from)
     sender_email = mail_from[-1][-1]
-    logger.info("function sender email", sender_email)
+    logger.info("function sender email %s", sender_email)
     # si sender_email est vide on affiche erreur
     if sender_email == "":
         with open(file_path, 'rb') as file:
@@ -121,10 +121,10 @@ def extract_sender_mail(mail, file_path):
                     if match:
                         sender_email = match.group(1)
 
-                        logger.info("Sender email:", sender_email)
+                        logger.info("Sender email: %s", sender_email)
                 if match:
                     sender_email = match.group(1)
 
-                logger.info("Ligne 47", sender_email)
+                logger.info("Ligne 47: %s", sender_email)
                 return sender_email
     return sender_email
