@@ -8,7 +8,7 @@
             <td class="result-block global" id="score">
                 <div class="inner-block">
                     <h1>Result</h1>
-                    <p>Score global</p>
+                    <p class ="table-content">Score global</p>
                 </div>
             </td>
             <td class="result-block" id="uuid">
@@ -31,6 +31,12 @@
                     <p class ="table-content"></p>
                 </div>
             </td>
+            <td class="result-block" id="type">
+                <div class="inner-block">
+                    <p class ="table-title">File Type</p>
+                    <p class ="table-content"></p>
+                </div>
+            </td>
         </tr>
         <tr>
             <td class="result-block" id="spf">
@@ -45,6 +51,12 @@
                     <p class ="table-content"></p>
                 </div>
             </td>
+            <td class="result-block" id="hash">
+                <div class="inner-block">
+                    <p class ="table-title">Hash</p>
+                    <p class ="table-content"></p>
+                </div>
+            </td>
         </tr>
         <tr>
             <td class="result-block" id="spelling">
@@ -53,10 +65,10 @@
                     <p class ="table-content"></p>
                 </div>
             </td>
-            <td class="result-block" >
+            <td class="result-block" id="keywords">
                 <div class="inner-block">
                     <p class ="table-title">Keywords</p>
-                    <p id="keywords" class ="table-content"><img src="{% static 'base/spin.gif' %"></p>
+                    <p class ="table-content"></p>
                 </div>
             </td>
         </tr>
@@ -70,7 +82,10 @@
         {% else %}
             const url = window.location.protocol + "//" + window.location.host + "/api/result/" + "{{ email.uuid }}" + "/"
         {% endif %}
+
         function checkAPI(uuid) {
+
+
             $.ajax({
 
                 url: url,
@@ -84,13 +99,68 @@
                         }
 
                             $('#uuid .table-content').text(data.uuid);
-                            $('#ip .table-content').text(data.responseMetadataIp);
-                            $('#domain .table-content').text(data.responseMetadataDomain);
-                            $('#spf .table-content').text(data.responseMetadataSPF);
-                            $('#links .table-content').text(data.responseContentLinks);
-                            $('#spelling .table-content').text(data.responseContentSpelling);
-                            $("#keywords").text(data.responseContentKeywords);
-                            $('#score .table-content').text(data.score);
+
+                            if (data.responseContentSpelling == "") {
+                                $('#spelling .table-content').text("Résultat en attente...");
+                            }
+                            else {
+                                $('#spelling .table-content').text(data.responseContentSpelling);
+                            }
+                            if (data.responseMetadataIp == "") {
+                                $('#ip .table-content').text("Résultat en attente...");
+                            }
+                            else {
+                                $('#ip .table-content').text(data.responseMetadataIp);
+                            }
+
+                            if (data.responseMetadataDomain == "") {
+                                $('#domain .table-content').text("Résultat en attente...");
+                            }
+                            else {
+                                $('#domain .table-content').text(data.responseMetadataDomain);
+                            }
+
+                            if (data.responseMetadataSPF == "") {
+                                $('#spf .table-content').text("Résultat en attente...");
+                            }
+                            else {
+                                $('#spf .table-content').text(data.responseMetadataSPF);
+                            }
+
+                            if (data.responseContentLinks == "") {
+                                $('#links .table-content').text("Résultat en attente...");
+                            }
+                            else {
+                              $('#links .table-content').text(data.responseContentLinks);
+                            }
+
+                            if (data.responseContentKeywords == "") {
+                                $('#keywords .table-content').text("Résultat en attente...");
+                            }
+                            else {
+                                $('#keywords .table-content').text(data.responseContentKeywords);
+                            }
+
+                            if (data.score == "0") {
+                                $('#score .table-content').text("Calcul du score...");
+                            }
+                            else {
+                                $('#score .table-content').text(data.score);
+                            }
+
+                            if (data.responseAttachmentHash == "") {
+                                $('#hash .table-content').text("Résultat en attente...");
+                            }
+                            else {
+                                $('#hash .table-content').text(data.responseAttachmentHash);
+                            }
+
+                            if (data.responseAttachmentFiletype == "") {
+                                $('#type .table-content').text("Résultat en attente...");
+                            }
+                            else {
+                                $('#type .table-content').text(data.responseAttachmentType);
+                            }
 
                       }
 
