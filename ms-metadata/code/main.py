@@ -7,6 +7,8 @@ from bucket_call import bucket_call
 import pika, os, sys
 import mailparser
 import requests
+import custom_logger
+logger = custom_logger.getLogger("main")
 
 def analyse(id_file):
     # Initiation de la connexion avec le bucket en fonction de l'ID de l'objet et téléchargement du fichier
@@ -21,10 +23,10 @@ def parseFile(id_file):
     return mail
 def send_result(mail_result, ip_result, spf_result, uuid):
     # Send result to the API:  
-    print("Send result")
-    print("Mail: ", mail_result)
-    print("IP: ", ip_result)
-    print("SPF: ", spf_result)
+    logger.info("Send result")
+    logger.info("Mail: ", mail_result)
+    logger.info("IP: ", ip_result)
+    logger.info("SPF: ", spf_result)
     user_metadata = os.getenv("MS_METADATA_USER")
     password_metadata = os.getenv("MS_METADATA_PASSWORD")
 
@@ -39,15 +41,15 @@ def send_result(mail_result, ip_result, spf_result, uuid):
         "Authorization": "Basic " + base64.b64encode(bytes(user_metadata + ":" + password_metadata, "utf-8")).decode("ascii"),
     }
     url = "http://" + os.getenv("BACKEND_HOST", "127.0.0.1:8000") + "/api/analysis/" + uuid + "/"
-    print("URL: ", url)
+    logger.info("URL: ", url)
     request = requests.patch(url, data = data, headers = headers)
-    print("Status code: ", request.status_code)
+    logger.info("Status code: ", request.status_code)
     if request.status_code > 299:
-        print("Error: ", request.text)
+        logger.error("Error: ", request.text)
     
 
 def main():
-    print("Receive")
+    logger.info("Receive")
     host = os.getenv('RABBITMQ_HOST')
     port = os.getenv('RABBITMQ_PORT')
     user = os.getenv('RABBITMQ_USER')
@@ -71,19 +73,19 @@ def main():
     channel.queue_bind(exchange="sentimail", queue=queue_send, routing_key="all")
 
     def callback(ch, method, properties, body):
-        print(" [x] Received %r" % json.loads(body))
+        logger.info(" [x] Received %r" % json.loads(body))
         # récupérer uniquement la chaine de caractère entre les quotes du body
 
         file = json.loads(body)
         mail_result, ip_result, spf_result = analyse(file)
         os.remove(file)
-        print(mail_result)
-        print(ip_result)
-        print(spf_result)
+        logger.debug(mail_result)
+        logger.debug(ip_result)
+        logger.debug(spf_result)
         send_result(mail_result, ip_result, spf_result, file)
 
     channel.basic_consume(queue=queue_send, on_message_callback=callback, auto_ack=True)
-    print(' [*] Waiting for messages. To exit press CTRL+C')
+    logger.info(' [*] Waiting for messages. To exit press CTRL+C')
     channel.start_consuming()
 
 
@@ -91,7 +93,7 @@ if __name__ == '__main__':
     try:
         main()
     except KeyboardInterrupt:
-        print('Interrupted')
+        logger.info('Interrupted')
         try:
             sys.exit(0)
         except SystemExit as e:

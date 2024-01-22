@@ -5,4 +5,5 @@ resources:
 - frontend.yml
 - ms-metadata.yml
 - ms-content.yml
+- ms-attachment.yml
 - ingressRoute.yml

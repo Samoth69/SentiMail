@@ -5,6 +5,8 @@ import mailparser
 import email
 from email import policy
 from email.parser import BytesParser
+import custom_logger
+logger = custom_logger.getLogger("file")
 
 # Fonctions pour analyser le fichier EML
 
@@ -12,9 +14,9 @@ def analyse_file(mail, id_file):
     sender_ip = extract_ip(id_file)
     mail_server = extract_sender_server(id_file)
     sender_email = extract_sender_mail(mail, id_file)
-    print("result sender ip", sender_ip)
-    print("result mail server", mail_server)
-    print("result sender email", sender_email)
+    logger.info("result sender ip", sender_ip)
+    logger.info("result mail server", mail_server)
+    logger.info("result sender email", sender_email)
     if sender_ip != None: # Gestion des erreurs
         ip_analysis = reputation(sender_ip)
     else:
@@ -53,7 +55,7 @@ def extract_ip(file_path):
                                 match = re.search(r'sender IP is ([\d.]+)', header)
                                 if match:
                                     sender_ip = match.group(1)
-                                    print("Sender IP:", sender_ip)
+                                    logger.info("Sender IP:", sender_ip)
                                     return sender_ip
 
                     if match:
@@ -61,7 +63,7 @@ def extract_ip(file_path):
                         return sender_ip
                     # Si aucune adresse IP n'est trouvée, afficher un message d'erreur
                     else:
-                        print("Aucune adresse IP trouvée.")
+                        logger.warning("Aucune adresse IP trouvée.")
                         return None
 
 
@@ -79,7 +81,7 @@ def extract_sender_server(file_path):
 
             mail_server = msg.get('ARC-Authentication-Results')
             mail_server = mail_server.split(";")[1]
-            print("Function sender_server", mail_server)
+            logger.info("Function sender_server", mail_server)
         else:
 
             result_string = msg.get('Authentication-Results')
@@ -89,18 +91,18 @@ def extract_sender_server(file_path):
             # Vérification de la correspondance
             if match:
                 mail_server = match.group(1)
-                print("Mail 2", mail_server)
+                logger.info("Mail 2", mail_server)
             else:
-                print("Aucune correspondance trouvée.")
+                logger.info("Aucune correspondance trouvée.")
                 return None
         return mail_server
 
 
 def extract_sender_mail(mail, file_path):
     mail_from = mail.from_
-    print("mail_from", mail_from)
+    logger.info("mail_from", mail_from)
     sender_email = mail_from[-1][-1]
-    print("function sender email", sender_email)
+    logger.info("function sender email", sender_email)
     # si sender_email est vide on affiche erreur
     if sender_email == "":
         with open(file_path, 'rb') as file:
@@ -119,10 +121,10 @@ def extract_sender_mail(mail, file_path):
                     if match:
                         sender_email = match.group(1)
 
-                        print("Sender email:", sender_email)
+                        logger.info("Sender email:", sender_email)
                 if match:
                     sender_email = match.group(1)
 
-                print("Ligne 47", sender_email)
+                logger.info("Ligne 47", sender_email)
                 return sender_email
     return sender_email
