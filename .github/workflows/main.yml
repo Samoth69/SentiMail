@@ -200,8 +200,8 @@ jobs:
               kind: Deployment
               name: sentimail-backend
             patch: |-
-              - op: replace
-                path: /spec/template/spec/containers/0/env/-
+              - op: add
+                path: "/spec/template/spec/containers/0/env/-"
                 value:
                   name: DEBUG
                   key: Vive la SNCF
