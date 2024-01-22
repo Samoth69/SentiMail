@@ -1,6 +1,6 @@
-import logging
+import custom_logger
 
-logger = logging.getLogger("check_filetype")
+logger = custom_logger.getLogger("check_filetype")
 
 def check_filetype(mail):
     """Check if there are malicious file types in the mail

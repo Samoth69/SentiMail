@@ -2,9 +2,9 @@ import os
 import hashlib
 from dotenv import load_dotenv
 import requests
-import logging
+import custom_logger
 
-logger = logging.getLogger("check_hash")
+logger = custom_logger.getLogger("check_hash")
 
 def check_hash(mail):
     """Check if there are malicious attachments in the mail using VirusTotal API

@@ -9,10 +9,9 @@ import requests
 from requests.auth import HTTPBasicAuth
 from check_filetype import check_filetype
 from check_hash import check_hash
-import logging
+import custom_logger
 
-logging.basicConfig(level=logging.INFO, format="%(asctime)s - %(name)s - %(levelname)s - %(message)s")
-logger = logging.getLogger("main")
+logger = custom_logger.getLogger("main")
 
 def main():
     logger.info("Starting")
