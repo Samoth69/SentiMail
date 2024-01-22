@@ -5,7 +5,7 @@
     <div class="content">
         <img src="{% static 'base/logo.png' %}" alt="Sentimail Logo" class="logo">
         {% if user.is_authenticated %}
-        <p>Welcome to Sentimail  {{ request.user }} </p>
+        <p>Welcome to Sentimail,  {{ request.user }} </p>
         {% else %}
         <p>Welcome to Sentimail </p>
         {% endif %}

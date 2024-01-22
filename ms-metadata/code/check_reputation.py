@@ -48,18 +48,24 @@ def mail_verificator(data):
         "apikey": os.getenv('SPAMCHECKER_API_KEY')
     }
 
-    
-    response = requests.request("POST", url, headers=headers, data=payload)
-    response_json = response.json()
 
-    # Check If domain name is malicious
-    # Check if is_spam exists in response_json
-    if 'is_spam' in response_json:
-        if response_json['is_spam'] == "True":
-            return "Malicious"
+
+    response = requests.request("POST", url, headers=headers, data=payload)
+
+    # Si code retour 200
+    if response.status_code == 200:
+        response_json = response.json()
+
+        # Check If domain name is malicious
+        # Check if is_spam exists in response_json
+        if 'is_spam' in response_json:
+            if response_json['is_spam'] == "True":
+                return "Malicious"
+            else:
+                return "Clean"
         else:
-            return "Clean"
+            return "Unknown"
     else:
-        return "Unknown"
+        return "erreur"
 
 
