@@ -8,6 +8,12 @@ class Email(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
     user = models.CharField(max_length=100, default="anonymous")
     isReady = models.BooleanField(default=False)
+    score = models.IntegerField(default=0)
+    verdict = models.CharField(max_length=100, default="")
+    sender = models.CharField(max_length=100, default="")
+    recipient = models.CharField(max_length=100, default="")
+    subject = models.CharField(max_length=100, default="")
+    delivery_date = models.CharField(max_length=100, default="") 
     responseMetadataIp = models.CharField(max_length=100, default="")
     responseMetadataDomain = models.CharField(max_length=100, default="")
     responseMetadataSPF = models.CharField(max_length=100, default="")
@@ -16,6 +22,9 @@ class Email(models.Model):
     responseContentKeywords = models.CharField(max_length=100, default="")
     responseContentTyposquatting = models.CharField(max_length=100, default="")
     responseContentCharacter = models.CharField(max_length=100, default="")
+    responseAttachmentHash = models.CharField(max_length=100, default="")
+    responseAttachmentFiletype = models.CharField(max_length=100, default="")
+
 
 class UploadFile(models.Model):
     upload_on = models.DateTimeField(auto_now_add=True)

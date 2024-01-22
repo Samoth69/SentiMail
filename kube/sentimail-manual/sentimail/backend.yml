@@ -68,8 +68,8 @@ spec:
             secretKeyRef:
               name: sentimail-backend-secret
               key: secretKey
-        - name: DEBUG
-          value: SNCF
+        # - name: DEBUG
+        #   value: SNCF
         - name: ALLOWED_HOSTS
           value: "['dev.sentimail.samoth.eu', '127.0.0.1', 'sentimail-dev-backend-service']"
         - name: CSRF_TRUSTED_ORIGINS

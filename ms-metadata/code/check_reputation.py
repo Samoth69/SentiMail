@@ -7,6 +7,10 @@ from dotenv import load_dotenv
 
 load_dotenv()
 def reputation(ip):
+    """Check if IP is malicious
+    :param ip: IP address
+    :return: "Malicious", "Clean" or "Unknown"
+    """
     url = "https://api.greynoise.io/v3/community/" + ip
 
     headers = {
@@ -25,14 +29,18 @@ def is_malicious(response_json):
 
     if 'classification' in response_json:
         if response_json['classification'] == "malicious":
-            return "IP is malicious"
+            return "Malicious"
         else:
-            return "IP is not malicious"
+            return "Clean"
     else:
-        return "IP not found in database"
+        return "Unknown"
 
 
-def mail(data):
+def mail_verificator(data):
+    """Check if mail address is malicious
+    :param data: mail address
+    :return: "Malicious", "Clean" or "Unknown"
+    """
     url = "https://api.apilayer.com/spamchecker?threshold=threshold"
 
     payload = data.encode("utf-8")
@@ -48,10 +56,10 @@ def mail(data):
     # Check if is_spam exists in response_json
     if 'is_spam' in response_json:
         if response_json['is_spam'] == "True":
-            return "Mail is malicious"
+            return "Malicious"
         else:
-            return "Mail is not malicious"
+            return "Clean"
     else:
-        return "Mail not found in database"
+        return "Unknown"
 
 
