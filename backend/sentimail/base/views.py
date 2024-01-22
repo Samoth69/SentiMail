@@ -131,7 +131,12 @@ def fileuploaded(file, username):
     # Extract metadata from the file
     mail = mailparser.parse_from_file(file)
     sender = mail.from_[0][1]
-    recipient = mail.to[0][1]
+    recipients = mail.to[0][1]
+    for recipient in mail.to[1:]:
+        recipients += ", " + recipient[1]
+        #print("Recipient: ", recipient[1])
+    recipient = recipients
+    #print("Recipients: ", recipient)
     delivery_date = mail.date
     subject = mail.subject
 
@@ -271,11 +276,14 @@ def score_calculator(uuid_analysis):
         score += 10
     if attachment_filetype == "Malicious":
         score += 10
+    elif attachment_filetype == "Suspicious":
+        score += 5
 
     if attachment_hash == "No attachment":
         total -= 10
     if attachment_filetype == "No attachment":
         total -= 10
+
     score = 100 * score / total
     # Set the score and isReady in the database
     analysis.score = score

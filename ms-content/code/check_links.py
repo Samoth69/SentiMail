@@ -219,14 +219,14 @@ def updateBlackList(source):
                 
                 nb_expiration_days_match = re.search(r'\b(\d+)\s+day', content)
                 if nb_expiration_days_match:
-                    nbExpirationDays = nb_expiration_days_match.group(1).split(" ")[0]
+                    nb_expiration_days = nb_expiration_days_match.group(1).split(" ")[0]
                     
-                    logger.debug("[updateBlackList] Expiration: %s", nbExpirationDays)
+                    logger.debug("[updateBlackList] Expiration: %s", nb_expiration_days)
 
                     last_update = last_update.split("T")[0]
                     last_update_date = datetime.datetime.strptime(last_update, '%Y-%m-%d')
                     logger.debug("[updateBlackList] Last update date: %s", last_update_date.strftime('%Y-%m-%d'))
-                    expiration_date = datetime.datetime.strptime(last_update, '%Y-%m-%d') + timedelta(days=int(nbExpirationDays))
+                    expiration_date = datetime.datetime.strptime(last_update, '%Y-%m-%d') + timedelta(days=int(nb_expiration_days))
                     logger.debug("[updateBlackList] Expiration date: %s", expiration_date.strftime('%Y-%m-%d'))
                     if datetime.datetime.now() > expiration_date:
                         logger.info("[updateBlackList] File expired")
