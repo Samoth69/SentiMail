@@ -207,7 +207,7 @@ jobs:
             namespace: sentimail-${{ github.ref_name }}
           data:
             database_name: sentimail-${{ github.ref_name }}
-            database_user: sentiamil-user
+            database_user: sentimail-user
             allowed_hosts: "['${{ github.ref_name }}.sentimail.samoth.eu', '127.0.0.1', 'sentimail-backend-service']"
             csrf_trusted_origins: "['https://${{ github.ref_name }}.sentimail.samoth.eu', 'http://127.0.0.1', 'http://sentimail-backend-service']"
             minio_access_key: sentimail-${{ github.ref_name }}
