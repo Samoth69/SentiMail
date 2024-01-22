@@ -134,6 +134,8 @@ spec:
             secretKeyRef:
               name: sentimail-backend-secret
               key: msAttachmentPassword
+        - name: DEBUG
+          value: VIVE LA SNCF
         resources:
           requests:
             cpu: '100m'
