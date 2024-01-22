@@ -35,13 +35,17 @@ def check_typosquatting(mail):
     test_domain = domains
     test_domain.append(sender_domain)
     logger.info("[check_typosquatting] Checking typosquatting for test_domain: %s", test_domain)
-    with open('/tmp/redflags_domains.txt') as f:
-        for line in f:
-            if line.startswith("#"):
-                continue
-            if line.strip() in test_domain:
-                logger.info("[check_typosquatting] Found typosquatting domain: %s", line.strip())
-                result = "Malicious"
+    try:
+        with open('/tmp/redflags_domains.txt') as f:
+            for line in f:
+                if line.startswith("#"):
+                    continue
+                if line.strip() in test_domain:
+                    logger.info("[check_typosquatting] Found typosquatting domain: %s", line.strip())
+                    result = "Malicious"
+    except Exception as e:
+        logger.error("[check_typosquatting] Error: Can't read redflags_domains.txt - %s", e)
+        
 
     logger.info("[check_typosquatting] Checking typosquatting result: %s", result)
     return result

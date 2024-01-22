@@ -45,8 +45,8 @@ def main():
         logger.info(" [x] Received %r" % json.loads(body))
         metadata = json.loads(body)
         fi, hash, filetype = analyse(metadata)
-        os.remove(fi)
         send_result(hash, filetype, metadata)
+        os.remove(fi)
 
     channel.basic_consume(queue=queue_send, on_message_callback=callback, auto_ack=True)
     logger.info(' [*] Waiting for messages.')
