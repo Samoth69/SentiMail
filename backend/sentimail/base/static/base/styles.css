@@ -2,7 +2,7 @@
 
 body {
   margin: 0;
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
   background: whitesmoke;
 }
 
@@ -14,40 +14,36 @@ body {
   color: white;
 }
 
-
-
 button {
-    margin: 0 10px;
-    padding: 5px 10px;
-    border: none;
-    background-color: #0074d9;
-    color: white;
-    cursor: pointer;
-    font-size: 15px;
-    transition: background-color 0.3s, color 0.3s;
+  margin: 0 10px;
+  padding: 5px 10px;
+  border: none;
+  background-color: #0074d9;
+  color: white;
+  cursor: pointer;
+  font-size: 15px;
+  transition: background-color 0.3s, color 0.3s;
 }
 
-.spec-button{
-    margin: 0 10px;
-    padding: 12px 20px;
-    border: none;
-    background-color: transparent;
-    color: white;
-    cursor: pointer;
-    font-size: 18px;
-    transition: background-color 0.3s, color 0.3s;
-
- }
+.spec-button {
+  margin: 0 10px;
+  padding: 12px 20px;
+  border: none;
+  background-color: transparent;
+  color: white;
+  cursor: pointer;
+  font-size: 18px;
+  transition: background-color 0.3s, color 0.3s;
+}
 button:hover {
-    background-color: #0056b3;
-    color: #fff;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+  background-color: #0056b3;
+  color: #fff;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
 }
 
 button:active {
-    transform: translateY(2px);
+  transform: translateY(2px);
 }
-
 
 /* static/base/styles.css */
 
@@ -90,135 +86,117 @@ button:active {
 }
 
 input[type="file"] {
-
-    border: 2px dashed #0074d9;
-    padding: 20px;
-    margin-top: 20px;
-
+  border: 2px dashed #0074d9;
+  padding: 20px;
+  margin-top: 20px;
 }
-
-label {
-  # hide label text
-    font-size: 0;
-    color: transparent;
-
-}
-
 .welcome {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
-
-
 
 footer {
-    color: #0074d9;
-    padding: 10px;
-    text-align: center;
-    position: fixed;
-    bottom: 0;
-    width: 100%;
+  color: #0074d9;
+  padding: 10px;
+  text-align: center;
+  position: fixed;
+  bottom: 0;
+  width: 100%;
 }
 
 .footer-content {
-    display: flex;
+  display: flex;
 
-    align-items: center;
+  align-items: center;
 }
 
 .names {
-    display: flex;
-    gap: 20px;
+  display: flex;
+  gap: 20px;
 }
 
 .names p {
-    margin: 0;
+  margin: 0;
 }
 
 .login-content {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 .login-form {
-    margin-top: 20px;
+  margin-top: 20px;
 }
 
 label {
-    display: block;
-    margin-top: 10px;
-    font-size: 16px;
+  display: block;
+  margin-top: 10px;
+  font-size: 16px;
 }
 
 input {
-    padding: 10px;
-    margin-top: 5px;
-    font-size: 16px;
+  padding: 10px;
+  margin-top: 5px;
+  font-size: 16px;
 }
 
 .forgot-password {
-    margin-top: 5px;
-    font-size: 14px;
+  margin-top: 5px;
+  font-size: 14px;
 }
 
 .login-btn {
-    margin-top: 15px;
-    padding: 12px 20px;
-    background-color: #0074d9;
-    color: white;
-    border: none;
-    cursor: pointer;
-    font-size: 18px;
+  margin-top: 15px;
+  padding: 12px 20px;
+  background-color: #0074d9;
+  color: white;
+  border: none;
+  cursor: pointer;
+  font-size: 18px;
 }
 
 .signup-link {
-    margin-top: 20px;
-    font-size: 16px;
+  margin-top: 20px;
+  font-size: 16px;
 }
 
 .signup-link a {
-    color: blue;
-    text-decoration: none;
+  color: blue;
+  text-decoration: none;
 }
 
 /* Ajoutez ces styles à votre fichier CSS (base/styles.css) */
 
 .register-content {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 .register-form {
-    margin-top: 20px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-
-
+  margin-top: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 .register-btn {
-    margin-top: 15px;
-    padding: 12px 20px;
-    background-color: #0074d9;
-    color: white;
-    border: none;
-    cursor: pointer;
-    font-size: 18px;
+  margin-top: 15px;
+  padding: 12px 20px;
+  background-color: #0074d9;
+  color: white;
+  border: none;
+  cursor: pointer;
+  font-size: 18px;
 }
 
-/* Reset CSS */
 * {
   box-sizing: border-box;
   margin: 0;
   padding: 0;
-
 }
-
-
 
 .api-container {
   max-width: 1150px;
@@ -227,10 +205,10 @@ input {
   background-color: #fff;
   border-radius: 8px;
   box-shadow: 0 0 50px rgba(0, 0, 0, 0.1);
-
 }
 
-h1, h2 {
+h1,
+h2 {
   color: #0074d9;
 }
 
@@ -242,7 +220,6 @@ h1, h2 {
   background-color: #fff;
   box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
   width: 100%;
-
 }
 
 .code-box {
@@ -261,10 +238,11 @@ pre {
 }
 
 code {
-  font-family: 'Courier New', monospace;
+  font-family: "Courier New", monospace;
 }
 
-ul, ol {
+ul,
+ol {
   margin-bottom: 10px;
 }
 
@@ -278,7 +256,8 @@ table {
   border-collapse: collapse;
 }
 
-th, td {
+th,
+td {
   border: 1px solid #ddd;
   padding: 8px;
   text-align: left;
@@ -298,46 +277,144 @@ th {
 }
 
 .title-api {
-    margin-top: 20px;
-    margin-bottom: 20px;
-    font-size: 30px;
-    font-weight: bold;
-    text-align: center;
-
+  margin-top: 20px;
+  margin-bottom: 20px;
+  font-size: 30px;
+  font-weight: bold;
+  text-align: center;
 }
 .container-account {
-        text-align: center;
-        margin: 50px auto;
-        background-color: #fff;
-        padding: 20px;
-        border-radius: 8px;
-        box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
-        max-width: 600px;
+  text-align: center;
+  margin: 50px auto;
+  background-color: #fff;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+  max-width: 600px;
+}
 
-    }
+h1 {
+  color: ##0074d9;
+}
 
-    h1 {
-        color: ##0074d9;
-    }
+.account-info {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  border: 2px solid #ddd;
+  padding: 15px;
+  margin: 15px 0;
+  border-radius: 10px;
+  transition: background-color 0.3s;
+}
 
-    .account-info {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        border: 2px solid #ddd;
-        padding: 15px;
-        margin: 15px 0;
-        border-radius: 10px;
-        transition: background-color 0.3s;
-    }
+.account-info:hover {
+  background-color: #0074d9;
+  color: #fff;
+}
 
-    .account-info:hover {
-        background-color: #0074d9;
-        color: #fff;
-    }
+h3 {
+  text-decoration: underline;
+  margin-bottom: 10px;
+  color: #000000;
+}
 
-    h3 {
-        text-decoration: underline;
-        margin-bottom: 10px;
-        color: #000000;
-    }
+
+.container {
+
+    margin: 0 auto;
+    max-width: 800px;
+    padding: 20px;
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+
+
+}
+
+.result-table {
+  border-spacing: 20px; /* Adjust spacing between cells */
+  margin-top: 20px; /* Add margin to the top for spacing */
+  width: 100%;
+}
+
+.result-block {
+  border: 1px solid #ccc;
+  padding: 10px;
+  cursor: pointer;
+  background-color: #fff; /* Default background color */
+}
+
+.result-block.global {
+  background-color: #f0f8ff; /* Global block color */
+  text-align: center;
+}
+
+.inner-block {
+  padding: 10px;
+}
+
+.result-block:hover {
+  background-color: #f0f8ff; /* On hover background color */
+}
+
+.table-title {
+  font-size: 20px;
+  font-weight: bold;
+  margin-bottom: 10px;
+  text-align: center;
+  color: #0074d9;
+}
+.table-content {
+  font-size: 16px;
+  margin-bottom: 10px;
+  text-align: center;
+  color: #000000;
+}
+.analysis-block {
+  max-width: 800px;
+  margin: 20px auto;
+  padding: 20px;
+  background-color: #fff;
+  border-radius: 8px;
+  box-shadow: 0 0 50px rgba(0, 0, 0, 0.1);
+}
+
+.analysis-details {
+  margin-bottom: 20px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  padding: 15px;
+  background-color: #fff;
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+  width: 100%;
+  border-color: #0074d9;
+  border-style: solid;
+  border-width: 2px;
+}
+.number-analyse {
+  font-size: 30px;
+  font-weight: bold;
+  text-align: center;
+  color: #0074d9;
+}
+
+.text-about{
+  text-align: center;
+
+}
+.text-about{
+  text-align: center;
+
+}
+
+.text-about li{
+  text-align: center;
+  list-style-type: none;
+
+}
+

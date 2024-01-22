@@ -8,23 +8,24 @@ class Command(BaseCommand):
     print("Creatting services users")
 
     def handle(self, *args, **options):
+        domain = '@sentimail.com'
         users_data = [
             {
                 'username': settings.MS_METADATA_USER,
                 'password': settings.MS_METADATA_PASSWORD,
-                'email': settings.MS_METADATA_USER + '@sentimail.com',
+                'email': settings.MS_METADATA_USER + domain,
                 'is_staff': True,
             },
             {
                 'username': settings.MS_CONTENT_USER,
                 'password': settings.MS_CONTENT_PASSWORD,
-                'email': settings.MS_CONTENT_USER + '@sentimail.com',
+                'email': settings.MS_CONTENT_USER + domain,
                 'is_staff': True,
             },
             {
                 'username': settings.MS_ATTACHMENT_USER,
                 'password': settings.MS_ATTACHMENT_PASSWORD,
-                'email': settings.MS_ATTACHMENT_USER + '@sentimail.com',
+                'email': settings.MS_ATTACHMENT_USER + domain,
                 'is_staff': True,
             },
         ]

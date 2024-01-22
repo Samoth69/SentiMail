@@ -1,9 +1,10 @@
 {% load static %}
-
-<html>
+<!DOCTYPE html>
+<html lang="en">
 <head>
   <title>SentiMail</title>
   <link rel="stylesheet" href="{% static 'base/styles.css' %}" />
+  <link rel="icon" href="{% static 'base/favicon.ico' %}" />
 </head>
 <body>
 
@@ -13,13 +14,13 @@
     <div class="navbar">
       <div class="left-menu">
         <a href="{% url 'index' %}"><button class="spec-button">Home</button></a>
-        <button class="spec-button">About</button>
+        <a href="{% url 'about' %}"><button class="spec-button">About</button></a>
         <a href="{% url 'api_doc' %}"><button class="spec-button">API</button></a>
       </div>
       <div class="right-menu">
         <a href="{% url 'logout' %}"><button class="spec-button">Logout</button></a>
         <a href="{% url 'account' %}"><button class="spec-button">Account</button></a>
-          <a href="#"><button class="spec-button">Historic</button></a>
+        <a href="{% url 'historic' %}"><button class="spec-button">Historic</button></a>
       </div>
     </div>
       <div class="right-menu">
@@ -48,10 +49,7 @@
   {% endif %}
 </header>
 
-<!-- Reste du contenu Django (si nécessaire) -->
 {% block content %}
 {% endblock %}
-
-
 </body>
 </html>

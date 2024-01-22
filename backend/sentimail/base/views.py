@@ -17,20 +17,47 @@ from minio import Minio
 import uuid
 import os
 import pika
+import mailparser
 from . emailform import EmailForm
 
 from . models import Email
 from . serializers import EmailSerializer, UploadFileSerializer
 
+
+""" global rabbit_connection
+global rabbit_channel 
+rabbit_connection, rabbit_channel = None, None
+
+def connectRabbitMQ():
+    connection = pika.BlockingConnection(
+        pika.ConnectionParameters(
+            host=settings.RABBITMQ_HOST,
+            port=settings.RABBITMQ_PORT,
+            virtual_host=settings.RABBITMQ_VHOST,
+            credentials=pika.PlainCredentials(settings.RABBITMQ_USER, settings.RABBITMQ_PASSWORD)
+        )
+    )
+    channel = connection.channel()
+    channel.exchange_declare(exchange="sentimail", exchange_type='direct')
+    #channel.queue_declare(queue=settings.RABBITMQ_QUEUE)
+    return connection, channel
+"""
+
 def index(request):
 
     if request.method == 'POST':
         serializer_class = UploadFileSerializer
-        parser_classes = (MultiPartParser, FormParser)
         serializer = serializer_class(data=request.FILES)
         if serializer.is_valid():
+            # Rename the file and save it
+            serializer.validated_data['file'].name = str(uuid.uuid4()) + ".eml"
             serializer.save()
             file = serializer.data.get('file')
+
+            # Rename the file
+            
+            print("File name: ", file)
+
             if request.user.is_authenticated:
                 username = request.user.username
             else:
@@ -51,8 +78,9 @@ def index(request):
  
             print("Username: ", username)
             print("File: ", file)
-            uuid = fileuploaded(file, username)
-            return redirect(uploadSuccess)
+            uuid_file = fileuploaded(file, username)
+            #return redirect(uploadSuccess)
+            return redirect(result, uuid=uuid_file)
         else:
             print("Serializer is not valid")
             messages.info(request, "Upload error: only .eml files are allowed")
@@ -61,14 +89,31 @@ def index(request):
         form = EmailForm()
     return render(request, 'base/index.html', {'form': form})
 
-def uploadSuccess(request):
-    return render(request, 'base/uploadSuccess.html')
+def about(request):
+    return render(request, 'base/about.html')
 
 def api_doc(request):
     return render(request, 'base/api_doc.html')
 
+def historic(request):
+    # Get all emails from user
+    user = request.user
 
-# TODO: Test if file is already uploaded
+    analysis = Email.objects.filter(user=user)
+
+    # Si pas de données, afficher un message
+
+    return render(request, 'base/historic.html', {'analysis': analysis})
+
+def result(request, uuid):
+    email = Email.objects.get(uuid=uuid)
+
+    env = os.getenv("BACKEND_HOST", "127.0.0.1:8000")
+
+    # Passer une variable à la vue pour pouvoir l'utiliser dans le template
+    return render(request, 'base/result.html', {'email': email, 'env': env})
+
+
 def fileuploaded(file, username):
     
     print("File: ", file)
@@ -83,14 +128,35 @@ def fileuploaded(file, username):
     uploadFileOnObjectStorage(email_uuid, file)
     print("File uploaded on object storage")
 
+    # Extract metadata from the file
+    mail = mailparser.parse_from_file(file)
+    sender = mail.from_[0][1]
+    if len(mail.to) == 0:
+        recipients = ""
+    else:
+        recipients = mail.to[0][1]
+    
+    for recipient in mail.to[1:]:
+        recipients += ", " + recipient[1]
+        print("Recipient: ", recipient[1])
+    recipient = recipients
+    delivery_date = mail.date
+    subject = mail.subject
+
+
     # Add email to database
     email = Email(uuid=email_uuid)
     email.user = username
+    email.sender = sender
+    email.recipient = recipient
+    email.delivery_date = delivery_date
+    email.subject = subject
     email.save()
     print("Email added to database")
 
     # Delete the file
     os.remove(file)
+
     print("File deleted")
 
     # Publish message on RabbitMQ
@@ -100,7 +166,7 @@ def fileuploaded(file, username):
     print(f"File {email_uuid} uploaded successfully" )
     return email_uuid
 
-# TODO: Secure this endpoint (SSL Error)   
+   
 def uploadFileOnObjectStorage(name, file):
     print("Upload file on object storage")
     minioclient = Minio(settings.MINIO_ENDPOINT,
@@ -119,31 +185,143 @@ def uploadFileOnObjectStorage(name, file):
     minioclient.fput_object(settings.MINIO_BUCKET, name, file)
 
 def publishMessage(uuid):
-    ms_content = settings.RABBITMQ_MS_CONTENT
-    ms_metadata = settings.RABBITMQ_MS_METADATA
-    ms_attachment = settings.RABBITMQ_MS_ATTACHMENT
-    connection = pika.BlockingConnection(
-        pika.ConnectionParameters(
-            host=settings.RABBITMQ_HOST,
-            port=settings.RABBITMQ_PORT,
-            virtual_host=settings.RABBITMQ_VHOST,
-            credentials=pika.PlainCredentials(settings.RABBITMQ_USER, settings.RABBITMQ_PASSWORD)
-        )
-    )
-    
-    channel = connection.channel()
-    channel.queue_declare(queue=settings.RABBITMQ_QUEUE)
-    #channel.basic_publish(exchange='', routing_key='sentimail', body=json.dumps(uuid))
-    channel.basic_publish(exchange='', routing_key=ms_metadata, body=json.dumps(uuid))
-    channel.basic_publish(exchange='', routing_key=ms_content, body=json.dumps(uuid))
+    """ global rabbit_connection
+    global rabbit_channel
+    if rabbit_connection is None:
+        print("Connecting to RabbitMQ")
+        rabbit_connection, rabbit_channel = connectRabbitMQ() """
 
-    
+    connection = pika.BlockingConnection(
+            pika.ConnectionParameters(
+                host=settings.RABBITMQ_HOST,
+                port=settings.RABBITMQ_PORT,
+                virtual_host=settings.RABBITMQ_VHOST,
+                credentials=pika.PlainCredentials(settings.RABBITMQ_USER, settings.RABBITMQ_PASSWORD)
+            )
+        )
+    channel = connection.channel()
+    channel.exchange_declare(exchange="sentimail", exchange_type='direct')
+
+    channel.basic_publish(exchange='sentimail', routing_key='all', body=json.dumps(uuid))
+
     print(" [x] Sent ", uuid, " to RabbitMQ")
     connection.close()
+
+def is_ready(uuid_analysis):
+    """Check if the analysis is ready
+    :param uuid_analysis: uuid of the analysis
+    :return: True if the analysis is ready, False if not
+    """
+    # Get the analysis from the database
+    analysis = Email.objects.get(uuid=uuid_analysis)
+    status_metadata = False
+    status_content = False
+    status_attachment = False
+    if analysis.responseMetadataIp != "":
+        status_metadata = True
+    if analysis.responseContentLinks != "":
+        status_content = True
+    if analysis.responseAttachmentHash != "":
+        status_attachment = True
+    
+    if status_metadata and status_content and status_attachment:
+        score_calculator(uuid_analysis)
+    
+    analysis = Email.objects.get(uuid=uuid_analysis)
+    return analysis.isReady
+
+def score_calculator(uuid_analysis):
+    """Calculate the score of the email
+    :param uuid_analysis: uuid of the analysis
+    :return: score of the email in percentage
+    """
+    score = 0
+
+    # Get the analysis from the database
+    analysis = Email.objects.get(uuid=uuid_analysis)
+
+    metadata_ip = analysis.responseMetadataIp
+    metadata_domain = analysis.responseMetadataDomain
+    metadata_spf = analysis.responseMetadataSPF
+    content_links = analysis.responseContentLinks
+    content_spelling = analysis.responseContentSpelling
+    content_keywords = analysis.responseContentKeywords
+    content_typosquatting = analysis.responseContentTyposquatting
+    content_character = analysis.responseContentCharacter
+    attachment_hash = analysis.responseAttachmentHash
+    attachment_filetype = analysis.responseAttachmentFiletype
+
+    # Calculate the score
+    total = 100
+
+    if metadata_ip == "Malicious":
+        score += 10
+    elif metadata_ip == "Unknown":
+        total -= 10
+    if metadata_domain == "Malicious":
+        score += 10
+    if metadata_spf == "SPF record is invalid":
+        score += 10
+   
+    if content_links == "Malicious":
+        score += 10
+    if content_spelling == "Malicious":
+        score += 10
+    if content_keywords == "Phishing":
+        score += 10
+    elif content_keywords == "Spam":
+        score += 5
+    if content_typosquatting == "Malicious":
+        score += 10
+    if content_character == "Malicious":
+        score += 10
+    
+    if attachment_hash == "Malicious":
+        score += 10
+    if attachment_filetype == "Malicious":
+        score += 10
+    elif attachment_filetype == "Suspicious":
+        score += 5
+
+    if attachment_hash == "No attachment":
+        total -= 10
+    if attachment_filetype == "No attachment":
+        total -= 10
+
+    score = 100 * score / total
+    # Set the score and isReady in the database
+    analysis.score = score
+    analysis.isReady = True
+
+    if score < 50:
+        analysis.verdict = "Clean"
+    elif score < 80:
+        analysis.verdict = "Suspicious"
+    else:
+        analysis.verdict = "Malicious"
+        
+    analysis.save()
+
+    print("Total for ", uuid_analysis, ": ", total)
+    print("Score for ", uuid_analysis, ": ", score)
+    print("Verdict for ", uuid_analysis, ": ", analysis.verdict)
+
+    return score
+    
+
 
 
 
 # API
+# Return analysis result for anonymous users
+
+class EmailViewsetResult(ModelViewSet):
+    http_method_names = ['get']
+
+    serializer_class = EmailSerializer
+
+    def get_queryset(self):
+        return Email.objects.all().filter(user="anonymous")
 
 
 class EmailViewset(ModelViewSet):
@@ -165,7 +343,9 @@ class EmailViewset(ModelViewSet):
     # Limit patch method to staff users
     def update(self, request, *args, **kwargs):
         if request.user.is_staff:
-            return super().update(request, *args, **kwargs)
+            response = super().update(request, *args, **kwargs)
+            is_ready(kwargs['pk'])
+            return response
         else:
             return Response(status=status.HTTP_403_FORBIDDEN, data={"message": "You are not allowed to edit this email"})
     
@@ -187,13 +367,14 @@ class UploadFileView(APIView):
         user = self.request.user
         username = user.username
         if serializer.is_valid():
+            serializer.validated_data['file'].name = str(uuid.uuid4()) + ".eml"
             serializer.save()
             file = serializer.data.get('file')
             print("File: ", file)
-            uuid = fileuploaded(file, username)
+            uuid_file = fileuploaded(file, username)
             return Response(
                 {
-                    'uuid': uuid
+                    'uuid': uuid_file
                 },               
                 #serializer.data,
                 status=status.HTTP_201_CREATED,

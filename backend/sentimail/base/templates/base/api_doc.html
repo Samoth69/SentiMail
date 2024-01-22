@@ -28,7 +28,7 @@
 
         <pre>
           <code>
-            curl --location 'http://<ip>/api/submit/' \
+            curl --location 'http://&lt;ip&gt;/api/submit/' \
             --header 'Authorization: Token &lt;API_KEY&gt;' \
             --form 'file=@"</path/mail_file>"'
           </code>
@@ -74,42 +74,5 @@
         </pre>
       </div>
     </section>
-
-    <section class="api-section">
-      <h2>Update Email Analysis</h2>
-
-      <div class="code-box">
-        <p><strong>PATCH /api/analysis/&lt;uuid&gt;/</strong></p>
-
-        <pre>
-          <code>
-            curl --location --request PATCH 'http://&lt;ip&gt;/api/analysis/0b3cf9d0-fcb3-4bf6-9a29-33abcaab4826/' \
-            --header 'Content-Type: application/json' \
-            --header 'Authorization: Token 27cdb16b2189fdc09f008fd901f54306f155697a' \
-            --data '{
-                "responseMetadataIp": "IP not found in database",
-                "responseMetadataDomain": "Mail is not malicious",
-                "responseMetadataSPF": "SPF record is invalid"
-            }'
-          </code>
-        </pre>
-
-        <p><strong>Response Sample (200 OK)</strong></p>
-        <pre>
-          <code>
-            {
-              "uuid": "0b3cf9d0-fcb3-4bf6-9a29-33abcaab4826",
-              "created_at": "2023-12-14T10:41:45.989923Z",
-              "user": "anonymous",
-              "isReady": false,
-              "responseMetadataIp": "IP not found in database",
-              "responseMetadataDomain": "Mail is not malicious",
-              "responseMetadataSPF": "SPF record is invalid"
-            }
-          </code>
-        </pre>
-      </div>
-    </section>
-
   </div>
 {% endblock %}

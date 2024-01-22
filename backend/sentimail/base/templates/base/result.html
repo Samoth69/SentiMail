@@ -1,0 +1,206 @@
+{% extends "base/base.html" %}
+{% load static %}
+
+{% block content %}
+  <div class="container">
+    <table class="result-table" id="result-table">
+        <tr>
+            <td class="result-block global" id="score">
+                <div class="inner-block">
+                    <h1>Result</h1>
+                    <p class ="table-content">Global score</p>
+                </div>
+            </td>
+            <td class="result-block" id="Verdict">
+                <div class="inner-block">
+                    <p class ="table-title">Verdict</p>
+                    <p class ="table-content"></p>
+                </div>
+            </td>
+            <td class="result-block" id="Typosquatting">
+                <div class="inner-block">
+                    <p class ="table-title">Typosquatting</p>
+                    <p class ="table-content"></p>
+                </div>
+            </td>
+            <td class="result-block" id="spelling">
+                <div class="inner-block">
+                    <p class ="table-title">Spelling</p>
+                    <p class ="table-content"></p>
+                </div>
+            </td>
+        </tr>
+        <tr>
+            <td class="result-block" id="ip">
+                <div class="inner-block">
+                    <p class ="table-title">IP</p>
+                    <p class ="table-content"></p>
+                </div>
+            </td>
+            <td class="result-block" id="domain">
+                <div class="inner-block">
+                    <p class ="table-title">Domain</p>
+                    <p class ="table-content"></p>
+                </div>
+            </td>
+            <td class="result-block" id="spf">
+                <div class="inner-block">
+                    <p class ="table-title">SPF</p>
+                    <p class ="table-content"></p>
+                </div>
+            </td>
+            <td class="result-block" id="keywords">
+                <div class="inner-block">
+                    <p class ="table-title">Keywords</p>
+                    <p class ="table-content"></p>
+                </div>
+            </td>
+
+        </tr>
+        <tr>
+            <td class="result-block" id="type">
+                <div class="inner-block">
+                    <p class ="table-title">File Type</p>
+                    <p class ="table-content"></p>
+                </div>
+            </td>
+            <td class="result-block" id="hash">
+                <div class="inner-block">
+                    <p class ="table-title">Hash</p>
+                    <p class ="table-content"></p>
+                </div>
+            </td>
+            <td class="result-block" id="links">
+                <div class="inner-block">
+                    <p class ="table-title">Links</p>
+                    <p class ="table-content"></p>
+                </div>
+            </td>
+            <td class="result-block" id="characters">
+                <div class="inner-block">
+                    <p class ="table-title">Characters</p>
+                    <p class ="table-content"></p>
+                </div>
+            </td>
+        </tr>
+    </table>
+  </div>
+
+  <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+  <script>
+        {% if user.is_authenticated %}
+            const url = window.location.protocol + "//" + window.location.host + "/api/analysis/" + "{{ email.uuid }}" + "/"
+        {% else %}
+            const url = window.location.protocol + "//" + window.location.host + "/api/result/" + "{{ email.uuid }}" + "/"
+        {% endif %}
+
+        function checkAPI(uuid) {
+
+
+            $.ajax({
+
+                url: url,
+                  type: 'GET',
+                  success: function (data) {
+                        console.log(data);
+                        if (data.isReady == false) {
+                            setTimeout(function () {
+                                checkAPI(uuid);
+                            }, 1000);
+                        }
+
+                            $('#uuid .table-content').text(data.uuid);
+
+                            if (data.responseContentSpelling == "") {
+                                $('#spelling .table-content').text("Waiting for result...");
+                            }
+                            else {
+                                $('#spelling .table-content').text(data.responseContentSpelling);
+                            }
+                            if (data.responseMetadataIp == "") {
+                                $('#ip .table-content').text("Waiting for result...");
+                            }
+                            else {
+                                $('#ip .table-content').text(data.responseMetadataIp);
+                            }
+
+                            if (data.responseMetadataDomain == "") {
+                                $('#domain .table-content').text("Waiting for result...");
+                            }
+                            else {
+                                $('#domain .table-content').text(data.responseMetadataDomain);
+                            }
+
+                            if (data.responseMetadataSPF == "") {
+                                $('#spf .table-content').text("Waiting for result...");
+                            }
+                            else {
+                                $('#spf .table-content').text(data.responseMetadataSPF);
+                            }
+
+                            if (data.responseContentLinks == "") {
+                                $('#links .table-content').text("Waiting for result...");
+                            }
+                            else {
+                              $('#links .table-content').text(data.responseContentLinks);
+                            }
+
+                            if (data.responseContentKeywords == "") {
+                                $('#keywords .table-content').text("Waiting for result...");
+                            }
+                            else {
+                                $('#keywords .table-content').text(data.responseContentKeywords);
+                            }
+
+                            if (data.score == "0") {
+                                $('#score .table-content').text("Waiting for result...");
+                            }
+                            else {
+                                $('#score .table-content').text(data.score);
+                            }
+
+                            if (data.responseAttachmentHash == "") {
+                                $('#hash .table-content').text("Waiting for result...");
+                            }
+                            else {
+                                $('#hash .table-content').text(data.responseAttachmentHash);
+                            }
+
+                            if (data.responseAttachmentFiletype == "") {
+                                $('#type .table-content').text("Waiting for result...");
+                            }
+                            else {
+                                $('#type .table-content').text(data.responseAttachmentFiletype);
+                            }
+
+                            if (data.responseContentCharacter == "") {
+                                $('#characters .table-content').text("Waiting for result...");
+                            }
+                            else {
+                                $('#characters .table-content').text(data.responseContentCharacter);
+                            }
+
+                            if (data.responseContentTyposquatting == "") {
+                                $('#Typosquatting .table-content').text("Waiting for result...");
+                            }
+                            else {
+                                $('#Typosquatting .table-content').text(data.responseContentTyposquatting);
+                            }
+
+                            if (data.verdict == "") {
+                                $('#Verdict .table-content').text("Waiting for result...");
+                            }
+                            else {
+                                $('#Verdict .table-content').text(data.verdict);
+                            }
+
+                      }
+
+            });
+        }
+        $(document).ready(function () {
+            var uuid = '{{ email.uuid }}';
+            checkAPI(uuid);
+        });
+  </script>
+{% endblock %}

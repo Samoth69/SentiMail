@@ -10,7 +10,7 @@ rules:
   - apiGroups: ["apps"]
     resources: ["*"]
     verbs: ["*"]
-  - apiGroups: ["traefik.containo.us"]
+  - apiGroups: ["traefik.containo.us", "traefik.io"]
     resources: ["ingressroutes", "middlewares", "tlsoptions"]
     verbs: ["*"]
 ---

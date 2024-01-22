@@ -1,19 +1,19 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: sentimail-dev-backend
+  name: sentimail-backend
 spec:
   selector:
     matchLabels:
-      app: sentimail-dev-backend
+      app: sentimail-backend
   replicas: 1
   template:
     metadata:
       labels:
-        app: sentimail-dev-backend
+        app: sentimail-backend
     spec:
       initContainers:
-        - name: init-sentimail-dev-backend
+        - name: init-sentimail-backend
           image: harbor.sentimail.samoth.eu/sentimail/backend:latest
           command: ['sh', 'init.sh']
           env:
@@ -57,7 +57,7 @@ spec:
                   name: sentimail-backend-secret
                   key: msAttachmentPassword
       containers:
-      - name: sentimail-dev-backend
+      - name: sentimail-backend
         image: harbor.sentimail.samoth.eu/sentimail/backend:latest
         command: ['python', '-m', 'gunicorn', 'sentimail.asgi:application', '-k', 'uvicorn.workers.UvicornWorker', '-b', '0.0.0.0:8000']
         ports:
@@ -68,10 +68,10 @@ spec:
             secretKeyRef:
               name: sentimail-backend-secret
               key: secretKey
-        - name: DEBUG
-          value: SNCF
+        # - name: DEBUG
+        #   value: SNCF
         - name: ALLOWED_HOSTS
-          value: "['dev.sentimail.samoth.eu', '127.0.0.1', 'sentimail-dev-backend-service']"
+          value: "['dev.sentimail.samoth.eu', '127.0.0.1', 'sentimail-backend-service']"
         - name: CSRF_TRUSTED_ORIGINS
           value: "['https://dev.sentimail.samoth.eu', 'http://127.0.0.1', 'http://sentimail-dev-backend-service']"
         - name: DB_NAME
@@ -147,26 +147,9 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: sentimail-dev-backend-service
+  name: sentimail-backend-service
 spec:
   selector:
-    app: sentimail-dev-backend
+    app: sentimail-backend
   ports:
   - port: 8000
----
-apiVersion: traefik.containo.us/v1alpha1
-kind: IngressRoute
-metadata:
-  name: sentimail-dev-backend-ingressroute
-spec:
-  entryPoints:
-    - websecure
-  routes:
-  - match: Host(`dev.sentimail.samoth.eu`)
-    kind: Rule
-    # middlewares:
-    #   - name: sentimail-backend-auth
-    services:
-    - name: sentimail-dev-backend-service
-      namespace: sentimail-dev
-      port: 8000
