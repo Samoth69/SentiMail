@@ -1,6 +1,45 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
+  name: sentimail-dev-language-tool
+spec:
+  selector:
+    matchLabels:
+      app: sentimail-dev-language-tool
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: sentimail-dev-language-tool
+    spec:
+      imagePullSecrets:
+      - name: regcred
+      containers:
+      - name: sentimail-dev-language-tool
+        image: erikvl87/languagetool
+        ports:
+        - containerPort: 8010
+        resources:
+          requests:
+            cpu: '10m'
+            memory: '64M'
+          limits:
+            cpu: '500m'
+            memory: 1024M
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: sentimail-dev-language-tool-service
+spec:
+  selector:
+    app: sentimail-dev-language-tool
+  ports:
+  - port: 8010
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
   name: sentimail-dev-ms-content
 spec:
   selector:
@@ -58,6 +97,8 @@ spec:
             secretKeyRef:
               name: sentimail-backend-secret
               key: googleSafeBrowsingApiKey
+        - name: LANGUAGETOOL_HOST
+          value: "http://sentimail-dev-language-tool-service:8010"
         resources:
           requests:
             cpu: '10m'
@@ -65,4 +106,3 @@ spec:
           limits:
             cpu: '1'
             memory: 1024M
-      
