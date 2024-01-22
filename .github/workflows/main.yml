@@ -91,6 +91,22 @@ jobs:
           registry_password: ${{ secrets.HARBOR_PASSWORD }}
           build_tag: "sentimail/ms-metadata:latest"
           build_context: "ms-metadata"
+  
+  build_ms_attachment:
+    runs-on: ubuntu-latest
+    name: Build ms attachment
+    outputs:
+      image_id: ${{ steps.build.outputs.imageid }}
+    steps:
+      - uses: actions/checkout@v4
+      - id: build
+        uses: samoth69/build-push-check-action@v4
+        with:
+          registry_hostname: ${{ vars.HARBOR_HOSTNAME }}
+          registry_username: ${{ secrets.HARBOR_USERNAME }}
+          registry_password: ${{ secrets.HARBOR_PASSWORD }}
+          build_tag: "sentimail/ms-attachment:latest"
+          build_context: "ms-attachment"
 
   Deploy:
     runs-on: ubuntu-latest
@@ -99,7 +115,8 @@ jobs:
         "build_backend",
         "build_front",
         "build_ms_content",
-        "build_ms_metadata"
+        "build_ms_metadata",
+        "build_ms_attachment"
       ]
     defaults:
       run:
@@ -140,17 +157,13 @@ jobs:
           K8S_AUTH_API_KEY: ${{ secrets.K8S_AUTH_API_KEY }}
           K8S_AUTH_HOST: ${{ vars.K8S_AUTH_HOST }}
       -
-        name: set backend image
-        run: kustomize edit set image harbor.sentimail.samoth.eu/sentimail/backend@${{ needs.build_backend.outputs.image_id }}
-      -
-        name: set frontend image
-        run: kustomize edit set image harbor.sentimail.samoth.eu/sentimail/frontend@${{ needs.build_front.outputs.image_id }}
-      -
-        name: set ms-metadata image
-        run: kustomize edit set image harbor.sentimail.samoth.eu/sentimail/ms-metadata@${{ needs.build_ms_metadata.outputs.image_id }}
-      -
-        name: set ms-content image
-        run: kustomize edit set image harbor.sentimail.samoth.eu/sentimail/ms-content@${{ needs.build_ms_content.outputs.image_id }}
+        name: set image
+        run: |
+          kustomize edit set image harbor.sentimail.samoth.eu/sentimail/backend@${{ needs.build_backend.outputs.image_id }}
+          kustomize edit set image harbor.sentimail.samoth.eu/sentimail/frontend@${{ needs.build_front.outputs.image_id }}
+          kustomize edit set image harbor.sentimail.samoth.eu/sentimail/ms-metadata@${{ needs.build_ms_metadata.outputs.image_id }}
+          kustomize edit set image harbor.sentimail.samoth.eu/sentimail/ms-content@${{ needs.build_ms_content.outputs.image_id }}
+          kustomize edit set image harbor.sentimail.samoth.eu/sentimail/ms-attachment@${{ needs.build_ms_attachment.outputs.image_id }}
       -
         name: apply config
         run: kustomize build | kubectl apply -f -

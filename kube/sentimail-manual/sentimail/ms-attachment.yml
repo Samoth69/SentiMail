@@ -17,7 +17,6 @@ spec:
       containers:
       - name: sentimail-dev-ms-attachment
         image: harbor.sentimail.samoth.eu/sentimail/ms-attachment:latest
-        command: ['python', './main.py']
         env:
         - name: BACKEND_HOST
           value: "sentimail-dev-backend-service:8000"

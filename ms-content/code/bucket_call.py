@@ -30,7 +30,3 @@ def bucket_call(id_file):
                     fi)
 
     return fi
-
-
-
-
