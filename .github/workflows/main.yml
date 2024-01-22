@@ -189,6 +189,25 @@ jobs:
 
           EOF
       -
+        name: enable debug mode if in dev
+        if: ${{ github.ref_name == 'dev' }}
+        run: |
+          cat <<EOF >>kustomization.yml
+
+          - target:
+              group: apps
+              version: v1
+              kind: Deployment
+              name: sentimail-backend
+            patch: |-
+              - op: replace
+                path: /spec/template/spec/containers/0/env/-
+                value:
+                  name: DEBUG
+                  key: Vive la SNCF
+
+          EOF
+      -
         name: apply config
         run: kustomize build | kubectl apply -f -
         env:
