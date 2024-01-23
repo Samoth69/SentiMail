@@ -9,6 +9,7 @@ import tempfile
 from dotenv import load_dotenv
 
 logger = custom_logger.getLogger("check_links")
+last_update_blacklists = ""
 
 def check_links(mail):
     """Check if there are malicious links in the mail
@@ -150,8 +151,22 @@ def isInBlackList(url):
 
     blacklists = [phishing_filter, anti_malware_list, doh_vpn_proxy_bypass, threat_intel_feeds, phishing_army, malware_list] 
 
-    for blacklist in blacklists:
-        updateBlackList(blacklist)
+    # Update blacklists
+    global last_update_blacklists
+    if last_update_blacklists == "":
+        logger.info("[isInBlackList] Downloading blacklists")
+        for blacklist in blacklists:
+            updateBlackList(blacklist)
+        last_update_blacklists = datetime.datetime.now()
+    elif datetime.datetime.now() > last_update_blacklists + timedelta(days=1):
+        logger.info("[isInBlackList] Updating blacklists")
+        for blacklist in blacklists:
+            updateBlackList(blacklist)
+        last_update_blacklists = datetime.datetime.now()
+        
+
+
+    
 
     # convert url to domain name
     # url : http://thebestchois.co.uk/track/o4725
