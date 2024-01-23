@@ -212,7 +212,7 @@ jobs:
             csrf_trusted_origins: "['https://${{ github.ref_name }}.sentimail.samoth.eu', 'http://127.0.0.1', 'http://sentimail-backend-service']"
             minio_access_key: sentimail-${{ github.ref_name }}
             minio_bucket: sentimail-${{ github.ref_name }}
-            rabbitmq_user: admin
+            rabbitmq_user: sentimail-${{ github.ref_name }}
             rabbitmq_queue: sentimail-${{ github.ref_name }}
             rabbitmq_vhost: /sentimail-${{ github.ref_name }}
 
