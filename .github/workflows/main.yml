@@ -177,10 +177,10 @@ jobs:
             patch: |-
               - op: replace
                 path: /spec/routes/0/match
-                value: Host('${{ github.ref_name }}.sentimail.samoth.eu')
+                value: Host(\`${{ github.ref_name }}.sentimail.samoth.eu\`)
               - op: replace
                 path: /spec/routes/1/match
-                value: Host('${{ github.ref_name }}.sentimail.samoth.eu') && PathPrefix('/static/')
+                value: Host(\`${{ github.ref_name }}.sentimail.samoth.eu\`) && PathPrefix(\`/static/\`)
               - op: replace
                 path: /spec/routes/0/middlewares/0/namespace
                 value: sentimail-${{ github.ref_name }}
