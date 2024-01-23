@@ -178,7 +178,7 @@ def isInBlackList(url):
     for blacklist in blacklists:
         #logger.info("[isInBlackList] Searching in ", blacklist[0])
         file = blacklist[0]
-        file = "/tmp/blacklists/" + file
+        file = "/ms-content/blacklists/" + file
         try:
             with open(file) as f:
                 content = f.read()

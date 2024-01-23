@@ -51,6 +51,10 @@ spec:
       labels:
         app: sentimail-ms-content
     spec:
+      volumes:
+      - name: ms-content-data
+        hostPath:
+          path: /ms-content
       imagePullSecrets:
       - name: regcred
       containers:
