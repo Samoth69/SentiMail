@@ -9,6 +9,7 @@ def getLogger(name: str):
     if not has_been_loaded:
         reset_logging()
         reload(logging)
+        has_been_loaded = True
 
     log = logging.getLogger(name)
     log.setLevel(level=logging.DEBUG if "DEBUG" in os.environ else logging.INFO)
