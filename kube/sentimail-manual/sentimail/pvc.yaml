@@ -6,7 +6,17 @@ metadata:
 spec:
   accessModes:
     - ReadWriteOnce
-  volumeName: ms-content-data
+  volumeName: ms-content-pv
   resources:
     requests:
       storage: 128Mi
+---
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: ms-content-pv
+spec:
+  capacity:
+    storage: 128Mi
+  accessModes:
+    - ReadWriteOnce 
