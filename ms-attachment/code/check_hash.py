@@ -17,21 +17,24 @@ def check_hash(mail):
 
     result = "Clean"
 
-    url = "https://www.virustotal.com/api/v3/files/"
+    
     headers = {
         "accept": "application/json",
         "x-apikey": VIRUS_TOTAL_API_KEY
     }
 
-    mail.write_attachments("/tmp")
+    mail.write_attachments("/tmp/files")
 
     # Check hash of each attachment
-    for file in os.listdir("/tmp"):
+    for file in os.listdir("/tmp/files"):
         logger.info("file: %s", file)
-        with open("/tmp/" + file, "rb") as f:
+        url = "https://www.virustotal.com/api/v3/files/"
+        with open("/tmp/files/" + file, "rb") as f:
             file_hash = hashlib.sha256(f.read()).hexdigest()
+            logger.info("file: %s", file)
             logger.info("file_hash: %s", file_hash)
             url = url + file_hash
+            logger.info("url: %s", url)
             response = requests.get(url, headers=headers)
             if response.status_code == 200:
                 harmless = response.json()["data"]["attributes"]["total_votes"]["harmless"]
@@ -48,7 +51,7 @@ def check_hash(mail):
                         result = "Malicious"
             else:
                 logger.error("Error: %s", response.status_code)
-                logger.error("response: %s", response)
-        os.remove("/tmp/" + file)
+                logger.error("response: %s", response.text)
+        os.remove("/tmp/files/" + file)
     logger.info("result: %s", result)
     return result
