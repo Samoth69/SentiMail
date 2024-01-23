@@ -57,6 +57,10 @@ spec:
           path: /ms-content
       imagePullSecrets:
       - name: regcred
+      initContainers:
+      - name: volume-permissions
+        image: busybox:latest
+        command: ["sh", "-c", "chmod 700 /ms-content; chown -R 65532:65532 /ms-content"]
       containers:
       - name: sentimail-ms-content
         image: harbor.sentimail.samoth.eu/sentimail/ms-content:latest
