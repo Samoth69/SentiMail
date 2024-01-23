@@ -25,27 +25,42 @@ spec:
         - name: RABBITMQ_PORT
           value: "5672"
         - name: RABBITMQ_USER
-          value: "sentimail-dev"
+          valueFrom:
+            configMapKeyRef:
+              name: backend-config
+              key: rabbitmq_user
         - name: RABBITMQ_PASSWORD
           valueFrom:
             secretKeyRef:
               name: sentimail-backend-secret
               key: rabbitmqPassword
         - name: RABBITMQ_QUEUE
-          value: "sentimail"
+          valueFrom:
+            configMapKeyRef:
+              name: backend-config
+              key: rabbitmq_queue
         - name: RABBITMQ_VHOST
-          value: "/sentimail-dev"
+          valueFrom:
+            configMapKeyRef:
+              name: backend-config
+              key: rabbitmq_vhost
         - name: MINIO_ENDPOINT
           value: "sentimail-minio:9000"
         - name: MINIO_ACCESS_KEY
-          value: "sentimail-dev"
+          valueFrom:
+            configMapKeyRef:
+              name: backend-config
+              key: minio_access_key
         - name: MINIO_SECRET_KEY
           valueFrom:
             secretKeyRef:
               name: sentimail-backend-secret
               key: minioSecretKey
         - name: MINIO_BUCKET
-          value: "sentimail-dev"
+          valueFrom:
+            configMapKeyRef:
+              name: backend-config
+              key: minio_bucket
         - name: MS_METADATA_USER
           value: "ms_metadata"
         - name: MS_METADATA_PASSWORD
