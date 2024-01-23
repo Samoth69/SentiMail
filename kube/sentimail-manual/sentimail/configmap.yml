@@ -14,4 +14,5 @@ data:
   minio_access_key: sentimail-dev
   minio_bucket: sentimail-dev
   rabbitmq_user: sentimail-dev
+  rabbitmq_queue: sentimail-${{ github.ref_name }}
   rabbitmq_vhost: /sentimail-dev
