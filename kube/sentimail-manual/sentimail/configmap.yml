@@ -8,10 +8,11 @@ metadata:
   namespace: sentimail-dev
 data:
   database_name: sentimail-dev
-  database_user: sentimail-user
+  database_user: sentimail-dev
   allowed_hosts: "['dev.sentimail.samoth.eu', '127.0.0.1', 'sentimail-backend-service']"
   csrf_trusted_origins: "['https://dev.sentimail.samoth.eu', 'http://127.0.0.1', 'http://sentimail-dev-backend-service']"
   minio_access_key: sentimail-dev
   minio_bucket: sentimail-dev
   rabbitmq_user: sentimail-dev
+  rabbitmq_queue: sentimail-${{ github.ref_name }}
   rabbitmq_vhost: /sentimail-dev
