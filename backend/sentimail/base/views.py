@@ -243,6 +243,7 @@ def score_calculator(uuid_analysis):
     metadata_ip = analysis.responseMetadataIp
     metadata_domain = analysis.responseMetadataDomain
     metadata_spf = analysis.responseMetadataSPF
+    metadata_dkim = analysis.responseMetadataDKIM
     content_links = analysis.responseContentLinks
     content_spelling = analysis.responseContentSpelling
     content_keywords = analysis.responseContentKeywords
@@ -252,7 +253,7 @@ def score_calculator(uuid_analysis):
     attachment_filetype = analysis.responseAttachmentFiletype
 
     # Calculate the score
-    total = 100
+    total = 110
 
     if metadata_ip == "Malicious":
         score += 10
@@ -262,6 +263,10 @@ def score_calculator(uuid_analysis):
         score += 10
     if metadata_spf == "SPF record is invalid":
         score += 10
+    if metadata_dkim == "Malicious":
+        score += 10
+    elif metadata_dkim == "OK":
+        score += 5
    
     if content_links == "Malicious":
         score += 10
