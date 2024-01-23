@@ -216,6 +216,7 @@ def updateBlackList(source):
         try:
             logger.info("[updateBlackList] Downloading %s", file)
             urllib.request.urlretrieve(url, file)
+            logger.info("[updateBlackList] done")
         except Exception as e:
             logger.error("[updateBlackList] Error: Unable to download %s", file, " - ", e)
     else:
