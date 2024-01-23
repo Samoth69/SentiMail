@@ -204,7 +204,7 @@ def updateBlackList(source):
         os.makedirs(folder)
         logger.info("[updateBlackList] Folder created: %s", folder) """
 
-    folder = "/tmp/blacklists/"
+    folder = "/ms-content/blacklists/"
     if not os.path.exists(folder):
         os.makedirs(folder)
         logger.info("[updateBlackList] Folder created: %s", folder)
