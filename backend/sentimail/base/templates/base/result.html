@@ -345,6 +345,20 @@
                                         $('#Verdict .table-content').css("color", "white");
                                     }
 
+                                    else if (data.verdict == "Suspicious") {
+
+                                        $('#Verdict .table-content').css("font-weight", "bold");
+                                        $('#Verdict .table-content').css("background-color", "#FFC000");
+                                        $('#Verdict .table-content').css("color", "white");
+                                    }
+                                    else if (data.verdict == "Malicious") {
+
+                                        $('#Verdict .table-content').css("font-weight", "bold");
+                                        $('#Verdict .table-content').css("background-color", "#FF0000");
+                                        $('#Verdict .table-content').css("color", "white");
+                                    }
+
+
                             }
 
                       }
