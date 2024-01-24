@@ -20,7 +20,7 @@ def bucket_call(id_file):
         secure=False,
     )
 
-    fi = tempfile.mkstemp(prefix="ms-content-")
+    fi = tempfile.mkstemp(prefix="ms-attachment-")
     logger.debug(fi)
     fi = fi[1]
     logger.debug("temporary file name %s", fi)

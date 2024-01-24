@@ -51,8 +51,19 @@ spec:
       labels:
         app: sentimail-ms-content
     spec:
+      volumes:
+      - name: ms-content-data
+        persistentVolumeClaim:
+          claimName: ms-content-data-pvc
       imagePullSecrets:
       - name: regcred
+      initContainers:
+      - name: volume-permissions
+        image: busybox:latest
+        command: ["sh", "-c", "chmod 700 /ms-content; chown -R 65532:65532 /ms-content"]
+        volumeMounts:
+        - mountPath: /ms-content
+          name: ms-content-data
       containers:
       - name: sentimail-ms-content
         image: harbor.sentimail.samoth.eu/sentimail/ms-content:latest
@@ -121,3 +132,6 @@ spec:
           limits:
             cpu: '1'
             memory: 1024M
+        volumeMounts:
+        - mountPath: /ms-content
+          name: ms-content-data

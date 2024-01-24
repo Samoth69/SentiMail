@@ -9,6 +9,7 @@ import tempfile
 from dotenv import load_dotenv
 
 logger = custom_logger.getLogger("check_links")
+last_update_blacklists = ""
 
 def check_links(mail):
     """Check if there are malicious links in the mail
@@ -150,8 +151,22 @@ def isInBlackList(url):
 
     blacklists = [phishing_filter, anti_malware_list, doh_vpn_proxy_bypass, threat_intel_feeds, phishing_army, malware_list] 
 
-    for blacklist in blacklists:
-        updateBlackList(blacklist)
+    # Update blacklists
+    global last_update_blacklists
+    if last_update_blacklists == "":
+        logger.info("[isInBlackList] Downloading blacklists")
+        for blacklist in blacklists:
+            updateBlackList(blacklist)
+        last_update_blacklists = datetime.datetime.now()
+    elif datetime.datetime.now() > last_update_blacklists + timedelta(days=1):
+        logger.info("[isInBlackList] Updating blacklists")
+        for blacklist in blacklists:
+            updateBlackList(blacklist)
+        last_update_blacklists = datetime.datetime.now()
+        
+
+
+    
 
     # convert url to domain name
     # url : http://thebestchois.co.uk/track/o4725
@@ -163,7 +178,7 @@ def isInBlackList(url):
     for blacklist in blacklists:
         #logger.info("[isInBlackList] Searching in ", blacklist[0])
         file = blacklist[0]
-        file = "/tmp/blacklists/" + file
+        file = "/ms-content/blacklists/" + file
         try:
             with open(file) as f:
                 content = f.read()
@@ -189,7 +204,7 @@ def updateBlackList(source):
         os.makedirs(folder)
         logger.info("[updateBlackList] Folder created: %s", folder) """
 
-    folder = "/tmp/blacklists/"
+    folder = "/ms-content/blacklists/"
     if not os.path.exists(folder):
         os.makedirs(folder)
         logger.info("[updateBlackList] Folder created: %s", folder)
@@ -200,7 +215,9 @@ def updateBlackList(source):
     if not os.path.exists(file):
         try:
             logger.info("[updateBlackList] Downloading %s", file)
-            urllib.request.urlretrieve(url, file)
+            # urllib.request.urlretrieve(url, file)
+            download_file(url, file)
+            logger.info("[updateBlackList] done")
         except Exception as e:
             logger.error("[updateBlackList] Error: Unable to download %s", file, " - ", e)
     else:
@@ -240,5 +257,19 @@ def updateBlackList(source):
         except Exception as e:
             logger.error("[updateBlackList] Error: %s", e)
 
-
-
+# https://stackoverflow.com/a/16696317
+def download_file(url, path = None):
+    if path is None:
+        local_filename = url.split('/')[-1]
+    else:
+        local_filename = path
+    # NOTE the stream=True parameter below
+    with requests.get(url, stream=True) as r:
+        r.raise_for_status()
+        with open(local_filename, 'wb') as f:
+            for chunk in r.iter_content(chunk_size=8192): 
+                # If you have chunk encoded response uncomment if
+                # and set chunk_size parameter to None.
+                #if chunk: 
+                f.write(chunk)
+    return local_filename

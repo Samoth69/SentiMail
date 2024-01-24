@@ -2,89 +2,248 @@
 {% load static %}
 
 {% block content %}
-  <div class="container">
-    <table class="result-table" id="result-table">
-        <tr>
+ <div class="container">
+    <table>
+       <tr>
             <td class="result-block global" id="score">
                 <div class="inner-block">
                     <h1>Result</h1>
                     <p class ="table-content">Global score</p>
                 </div>
             </td>
-            <td class="result-block" id="Verdict">
+            <td class="result-block global" id="Verdict">
                 <div class="inner-block">
-                    <p class ="table-title">Verdict</p>
-                    <p class ="table-content"></p>
-                </div>
-            </td>
-            <td class="result-block" id="Typosquatting">
-                <div class="inner-block">
-                    <p class ="table-title">Typosquatting</p>
-                    <p class ="table-content"></p>
-                </div>
-            </td>
-            <td class="result-block" id="spelling">
-                <div class="inner-block">
-                    <p class ="table-title">Spelling</p>
-                    <p class ="table-content"></p>
-                </div>
-            </td>
-        </tr>
-        <tr>
-            <td class="result-block" id="ip">
-                <div class="inner-block">
-                    <p class ="table-title">IP</p>
-                    <p class ="table-content"></p>
-                </div>
-            </td>
-            <td class="result-block" id="domain">
-                <div class="inner-block">
-                    <p class ="table-title">Domain</p>
-                    <p class ="table-content"></p>
-                </div>
-            </td>
-            <td class="result-block" id="spf">
-                <div class="inner-block">
-                    <p class ="table-title">SPF</p>
-                    <p class ="table-content"></p>
-                </div>
-            </td>
-            <td class="result-block" id="keywords">
-                <div class="inner-block">
-                    <p class ="table-title">Keywords</p>
-                    <p class ="table-content"></p>
-                </div>
-            </td>
-
-        </tr>
-        <tr>
-            <td class="result-block" id="type">
-                <div class="inner-block">
-                    <p class ="table-title">File Type</p>
-                    <p class ="table-content"></p>
-                </div>
-            </td>
-            <td class="result-block" id="hash">
-                <div class="inner-block">
-                    <p class ="table-title">Hash</p>
-                    <p class ="table-content"></p>
-                </div>
-            </td>
-            <td class="result-block" id="links">
-                <div class="inner-block">
-                    <p class ="table-title">Links</p>
-                    <p class ="table-content"></p>
-                </div>
-            </td>
-            <td class="result-block" id="characters">
-                <div class="inner-block">
-                    <p class ="table-title">Characters</p>
+                    <h1>Verdict</h1>
                     <p class ="table-content"></p>
                 </div>
             </td>
         </tr>
     </table>
-  </div>
+
+     <h1>Details</h1>
+     <div>
+         <hr>
+     </div>
+     <div>
+            <h2 class="title-ms">Metadata</h2>
+    <table class="result-table" id="result-table">
+        <tr>
+            <td class="result-block">
+                <div class="inner-block">
+                    <p class ="table-title">IP</p>
+                </div>
+            </td>
+            <td class="result-block" id="ip">
+                <div class="inner-block">
+                    <p class ="table-content"></p>
+                </div>
+            </td>
+            <td class="result-block" >
+                <div class="inner-block">
+                    <p class ="table-desc" class="title-desc">Description: </p>
+                    <p class ="table-desc">Check whether the sending IP is malicious</p>
+                </div>
+            </td>
+        </tr>
+        <tr>
+            <td class="result-block">
+                <div class="inner-block">
+                    <p class ="table-title">Domain</p>
+                </div>
+             </td>
+            <td class="result-block" id="domain">
+                <div class="inner-block">
+                    <p class ="table-content"></p>
+                </div>
+            </td>
+            <td class="result-block" >
+                <div class="inner-block">
+                    <p class ="table-desc" class="title-desc">Description: </p>
+                    <p class ="table-desc">Checks whether the emitting domain is malicious</p>
+                </div>
+            </td>
+
+
+            </td>
+        </tr>
+        <tr>
+            <td class="result-block">
+                <div class="inner-block">
+                    <p class ="table-title">SPF</p>
+                </div>
+            </td>
+
+            <td class="result-block" id="spf">
+                <div class="inner-block">
+                    <p class ="table-content"></p>
+                </div>
+            </td>
+            <td class="result-block" >
+                <div class="inner-block">
+                    <p class ="table-desc" class="title-desc">Description: </p>
+                    <p class ="table-desc">Check SPF registration</p>
+                </div>
+            </td>
+        </tr>
+        <tr>
+            <td class="result-block">
+                <div class="inner-block">
+                    <p class ="table-title">DKIM</p>
+                </div>
+            </td>
+            <td class="result-block" id="dkim">
+                <div class="inner-block">
+                    <p class ="table-content"></p>
+                </div>
+            </td>
+            <td class="result-block" >
+                <div class="inner-block">
+                    <p class ="table-desc" class="title-desc">Description: </p>
+                    <p class ="table-desc">Check</p>
+                </div>
+            </td>
+        </tr>
+
+    </table>
+         </div>
+
+     <div>
+            <h2 class="title-ms">Content</h2>
+            <table class="result-table" id="result-table-content">
+            <tr>
+            <td class="result-block">
+                <div class="inner-block">
+                    <p class ="table-title">Keywords</p>
+                </div>
+            </td>
+                <td class="result-block" id="keywords">
+                <div class="inner-block">
+                    <p class ="table-content"></p>
+                </div>
+            </td>
+            <td class="result-block" >
+                <div class="inner-block">
+                    <p class ="table-desc" class="title-desc">Description: </p>
+                    <p class ="table-desc">Checks for potentially unwanted keywords in the mail body</p>
+                </div>
+            </td>
+</tr>
+                <tr>
+            <td class="result-block">
+                <div class="inner-block">
+                    <p class ="table-title">Typosquatting</p>
+                </div>
+            </td>
+                <td class="result-block" id="Typosquatting">
+                <div class="inner-block">
+                    <p class ="table-content"></p>
+                </div>
+            </td>
+            <td class="result-block" >
+                <div class="inner-block">
+                    <p class ="table-desc" class="title-desc">Description: </p>
+                    <p class ="table-desc">Checks for character changing / masking (Typosquatting)</p>
+                </div>
+            </td>
+</tr>
+<tr>
+         <td class="result-block">
+                <div class="inner-block">
+                    <p class ="table-title">Links</p>
+                </div>
+            </td>
+                <td class="result-block" id="links">
+                <div class="inner-block">
+                    <p class ="table-content"></p>
+                </div>
+            </td>
+            <td class="result-block" >
+                <div class="inner-block">
+                    <p class ="table-desc" class="title-desc">Description: </p>
+                    <p class ="table-desc">Checks for the presence of URLs in the body of the mail and indicates whether it is malicious</p>
+                </div>
+            </td>
+</tr>
+            <tr>
+         <td class="result-block">
+                <div class="inner-block">
+                    <p class ="table-title">Characters</p>
+                </div>
+            </td>
+                <td class="result-block" id="characters">
+                <div class="inner-block">
+                    <p class ="table-content"></p>
+                </div>
+            </td>
+            <td class="result-block" >
+                <div class="inner-block">
+                    <p class ="table-desc" class="title-desc">Description: </p>
+                    <p class ="table-desc">Checks for the presence of special characters in the mail body</p>
+                </div>
+            </td>
+</tr>
+            <tr>
+            <td class="result-block">
+                <div class="inner-block">
+                    <p class ="table-title">Spelling</p>
+                </div>
+            </td>
+                <td class="result-block" id="spelling">
+                <div class="inner-block">
+                    <p class ="table-content"></p>
+                </div>
+            </td>
+            <td class="result-block" >
+                <div class="inner-block">
+                    <p class ="table-desc" class="title-desc">Description: </p>
+                    <p class ="table-desc">Checks for spelling mistakes in the mail body</p>
+                </div>
+            </td>
+        </tr>
+    </table>
+         </div>
+     <div>
+         <h2 class="title-ms">Content</h2>
+         <table class="result-table">
+         <tr>
+            <td class="result-block">
+                <div class="inner-block">
+                    <p class ="table-title">File Type</p>
+                </div>
+            </td>
+             <td class="result-block" id="type">
+                <div class="inner-block">
+                    <p class ="table-content"></p>
+                </div>
+            </td>
+            <td class="result-block" >
+                <div class="inner-block">
+                    <p class ="table-desc" class="title-desc">Description: </p>
+                    <p class ="table-desc">Check attachment file type and exclude unwanted extensions</p>
+                </div>
+            </td>
+             </tr>
+                <tr>
+            <td class="result-block">
+                <div class="inner-block">
+                    <p class ="table-title">Hash</p>
+                </div>
+            </td>
+                    <td class="result-block" id="hash">
+                <div class="inner-block">
+                    <p class ="table-content"></p>
+                </div>
+            </td>
+            <td class="result-block" >
+                <div class="inner-block">
+                    <p class ="table-desc" class="title-desc">Description: </p>
+                    <p class ="table-desc">Checks whether the attachment hash is legitimate</p>
+                </div>
+            </td>
+        </tr>
+    </table>
+         </div>
+ </div>
 
   <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
   <script>
@@ -156,7 +315,9 @@
                                 $('#score .table-content').text("Waiting for result...");
                             }
                             else {
-                                $('#score .table-content').text(data.score);
+
+                                $('#score .table-content').text(data.score + "/100");
+
                             }
 
                             if (data.responseAttachmentHash == "") {
@@ -187,11 +348,40 @@
                                 $('#Typosquatting .table-content').text(data.responseContentTyposquatting);
                             }
 
+                            if (data.responseMetadataDKIM == "") {
+                                $('#dkim .table-content').text("Waiting for result...");
+                            }
+                            else {
+                                $('#dkim .table-content').text(data.responseMetadataDKIM);
+                            }
+
                             if (data.verdict == "") {
                                 $('#Verdict .table-content').text("Waiting for result...");
                             }
                             else {
                                 $('#Verdict .table-content').text(data.verdict);
+
+                                    if (data.verdict == "Clean") {
+
+                                        $('#Verdict .table-content').css("font-weight", "bold");
+                                        $('#Verdict .table-content').css("background-color", "#00FF00");
+                                        $('#Verdict .table-content').css("color", "white");
+                                    }
+
+                                    else if (data.verdict == "Suspicious") {
+
+                                        $('#Verdict .table-content').css("font-weight", "bold");
+                                        $('#Verdict .table-content').css("background-color", "#FFC000");
+                                        $('#Verdict .table-content').css("color", "white");
+                                    }
+                                    else if (data.verdict == "Malicious") {
+
+                                        $('#Verdict .table-content').css("font-weight", "bold");
+                                        $('#Verdict .table-content').css("background-color", "#FF0000");
+                                        $('#Verdict .table-content').css("color", "white");
+                                    }
+
+
                             }
 
                       }

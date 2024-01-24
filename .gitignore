@@ -12,3 +12,4 @@ redflags_domains.txt
 blacklists/
 tmp/
 ms-venv
+venv

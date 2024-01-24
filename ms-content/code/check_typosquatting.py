@@ -13,13 +13,21 @@ def check_typosquatting(mail):
     """
 
     update_redflags_domains()
+    sender_domain = ""
+
 
     sender = mail.from_
     content = mail.body
-    sender_email = sender[-1][-1]
-    sender_domain = sender_email.split("@")[1]
-    logger.info("[check_typosquatting] Checking typosquatting for sender domain: %s", sender_domain)
 
+    try:
+        
+        logger.info("[check_typosquatting] Checking typosquatting for sender: %s", sender)
+        sender_email = sender[-1][-1]
+        sender_domain = sender_email.split("@")[1]
+        logger.info("[check_typosquatting] Checking typosquatting for sender domain: %s", sender_domain)
+    except Exception as e:
+        logger.error("[check_typosquatting] Error: Can't get sender domain - %s", e)
+        
     # Extract all url from content
     urls = re.findall(r'(https?://[a-z0-9./:%@?=-]+)', content)
 
