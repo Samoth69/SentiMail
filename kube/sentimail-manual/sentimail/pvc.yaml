@@ -10,3 +10,16 @@ spec:
   resources:
     requests:
       storage: 128Mi
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: ms-content-data-pvc
+  namespace: sentimail-prod
+spec:
+  accessModes:
+    - ReadWriteOnce
+  storageClassName: local-path
+  resources:
+    requests:
+      storage: 128Mi
