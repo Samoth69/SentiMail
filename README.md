@@ -2,6 +2,10 @@
   
 The expert in malicious email detection
 
+**=> Voir le dossier docs pour avoir la documentation du projet.**
+
+build-push-check-action : https://forge.cpe.granux.fr/sentimail/build-push-check-action
+
 ## 📝 Table of Contents
 
 - [Features](#features)
