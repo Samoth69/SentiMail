@@ -256,15 +256,15 @@ def score_calculator(uuid_analysis):
     total = 110
 
     if metadata_ip == "Malicious":
-        score += 10
+        score += 20
     elif metadata_ip == "Unknown":
         total -= 10
     if metadata_domain == "Malicious":
-        score += 10
+        score += 20
     if metadata_spf == "SPF record is invalid":
         score += 10
     if metadata_dkim == "Malicious":
-        score += 10
+        score += 20
     elif metadata_dkim == "OK":
         score += 5
    
@@ -282,7 +282,7 @@ def score_calculator(uuid_analysis):
         score += 10
     
     if attachment_hash == "Malicious":
-        score += 10
+        score += 30
     if attachment_filetype == "Malicious":
         score += 10
     elif attachment_filetype == "Suspicious":
@@ -300,7 +300,7 @@ def score_calculator(uuid_analysis):
 
     if score < 50:
         analysis.verdict = "Clean"
-    elif score < 80:
+    elif score < 75:
         analysis.verdict = "Suspicious"
     else:
         analysis.verdict = "Malicious"
