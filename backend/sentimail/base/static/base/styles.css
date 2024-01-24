@@ -435,3 +435,23 @@ h3 {
 
 }
 
+
+.tutorial-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+
+}
+.tutorial-image{
+  width: 50%;
+  height: 50%;
+  border : 3px solid #ddd;
+  border-radius: 8px;
+  border-color: #0074d9;
+}
+
+/* Style pour le bouton de résumé */
+summary {
+    cursor: help;
+    font-weight: bold;
+}
