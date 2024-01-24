@@ -1,5 +1,5 @@
 from langdetect import detect
-import language_tool_python
+from language_tool_python import server
 import os
 
 
@@ -42,7 +42,7 @@ def check_spelling(mail):
     #Detection de la langue
     language = detect(mail_text)
     #Parametrage de la verification (langage)
-    tool = language_tool_python.LanguageTool(language, remote_server=os.getenv('LANGUAGETOOL_HOST', "http://localhost"))
+    tool = server.LanguageTool(language, remote_server=os.getenv('LANGUAGETOOL_HOST', "http://localhost"))
 
     #Verification
     faults = tool.check(mail_text)
