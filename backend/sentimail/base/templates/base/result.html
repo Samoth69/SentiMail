@@ -311,7 +311,7 @@
                                 $('#keywords .table-content').text(data.responseContentKeywords);
                             }
 
-                            if (data.score == "0") {
+                            if (data.isReady == false) {
                                 $('#score .table-content').text("Waiting for result...");
                             }
                             else {
