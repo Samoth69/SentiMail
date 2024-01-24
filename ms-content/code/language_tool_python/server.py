@@ -12,7 +12,6 @@ import threading
 import urllib.parse
 
 from .config_file import LanguageToolConfig
-from .download_lt import download_lt
 from .language_tag import LanguageTag
 from .match import Match
 from .utils import (
@@ -242,63 +241,6 @@ class LanguageTool:
                     self._port += 1
                 else:
                     raise
-
-    def _start_local_server(self):
-        # Before starting local server, download language tool if needed.
-        download_lt()
-        err = None
-        try:
-            if DEBUG_MODE:
-                if self._port:
-                    print('language_tool_python initializing with port:', self._port)
-                if self.config:
-                    print('language_tool_python initializing with temporary config file:', self.config.path)
-            server_cmd = get_server_cmd(self._port, self.config)
-        except PathError as e:
-            # Can't find path to LanguageTool.
-            err = e
-        else:
-            # Need to PIPE all handles: http://bugs.python.org/issue3905
-            self._server = subprocess.Popen(
-                server_cmd,
-                stdin=subprocess.PIPE,
-                stdout=subprocess.PIPE,
-                stderr=subprocess.PIPE,
-                universal_newlines=True,
-                startupinfo=startupinfo
-            )
-            global RUNNING_SERVER_PROCESSES
-            RUNNING_SERVER_PROCESSES.append(self._server)
-
-            match = None
-            while True:
-                line = self._server.stdout.readline()
-                if not line:
-                    break
-                match = self._PORT_RE.search(line)
-                if match:
-                    port = int(match.group(1))
-                    if port != self._port:
-                        raise LanguageToolError('requested port {}, but got {}'.format(
-                            self._port, port))
-                    break
-            if not match:
-                err_msg = self._terminate_server()
-                match = self._PORT_RE.search(err_msg)
-                if not match:
-                    raise LanguageToolError(err_msg)
-                port = int(match.group(1))
-                if port != self._port:
-                    raise LanguageToolError(err_msg)
-
-        if self._server:
-            self._consumer_thread = threading.Thread(
-                target=lambda: _consume(self._server.stdout))
-            self._consumer_thread.daemon = True
-            self._consumer_thread.start()
-        else:
-            # Couldn't start the server, so maybe there is already one running.
-            raise ServerError('Server running; don\'t start a server here.')
 
     def _server_is_alive(self):
         return self._server and self._server.poll() is None

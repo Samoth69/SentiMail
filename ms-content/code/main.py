@@ -77,7 +77,12 @@ def analyse(id_file):
     typosquatting = check_typosquatting(mail)
     character = check_character(mail)
     # remove file
-    os.remove(fi)
+    try:
+        os.remove(fi)
+    except FileNotFoundError:
+        logger.warning("File not found while deleting " + fi)
+    except PermissionError:
+        logger.warning("permission error while deleting " + fi)
     return links, spelling, keywords, typosquatting, character
 
 def parseFile(id_file):
