@@ -2,8 +2,6 @@
 {% load static %}
 
 {% block content %}
-
-
  <div class="container">
     <table>
        <tr>
@@ -84,6 +82,24 @@
                 <div class="inner-block">
                     <p class ="table-desc" class="title-desc">Description: </p>
                     <p class ="table-desc">Check SPF registration</p>
+                </div>
+            </td>
+        </tr>
+        <tr>
+            <td class="result-block">
+                <div class="inner-block">
+                    <p class ="table-title">DKIM</p>
+                </div>
+            </td>
+            <td class="result-block" id="dkim">
+                <div class="inner-block">
+                    <p class ="table-content"></p>
+                </div>
+            </td>
+            <td class="result-block" >
+                <div class="inner-block">
+                    <p class ="table-desc" class="title-desc">Description: </p>
+                    <p class ="table-desc">Check</p>
                 </div>
             </td>
         </tr>
@@ -330,6 +346,13 @@
                             }
                             else {
                                 $('#Typosquatting .table-content').text(data.responseContentTyposquatting);
+                            }
+
+                            if (data.responseMetadataDKIM == "") {
+                                $('#dkim .table-content').text("Waiting for result...");
+                            }
+                            else {
+                                $('#dkim .table-content').text(data.responseMetadataDKIM);
                             }
 
                             if (data.verdict == "") {
