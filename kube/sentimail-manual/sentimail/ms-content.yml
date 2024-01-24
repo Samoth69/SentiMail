@@ -54,7 +54,7 @@ spec:
       volumes:
       - name: ms-content-data
         persistentVolumeClaim:
-          claimName: ms-content-data
+          claimName: ms-content-data-pvc
       imagePullSecrets:
       - name: regcred
       initContainers:
